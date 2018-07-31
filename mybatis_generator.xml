@@ -22,7 +22,7 @@
         </javaTypeResolver>
 
         <!-- 指定javaBean的生成位置 -->
-        <javaModelGenerator targetPackage="com.mypro.pojo" targetProject=".\src\main\java">
+        <javaModelGenerator targetPackage="com.tech.pojo" targetProject=".\src\main\java">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
@@ -33,7 +33,7 @@
         </sqlMapGenerator>
 
         <!-- 指定dao接口生成的位置 也就是mapper接口生成的位置 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.mypro.dao"  targetProject=".\src\main\java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.tech.dao"  targetProject=".\src\main\java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 

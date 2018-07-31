@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tech.dao.DownloadFileMapper">
+  <resultMap id="BaseResultMap" type="com.tech.pojo.DownloadFile">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name_match" jdbcType="VARCHAR" property="nameMatch" />
+    <result column="title_work" jdbcType="VARCHAR" property="titleWork" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="instructor" jdbcType="VARCHAR" property="instructor" />
+    <result column="attachment" jdbcType="VARCHAR" property="attachment" />
+    <result column="clicks" jdbcType="INTEGER" property="clicks" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name_match, title_work, author, instructor, attachment, clicks, create_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_download_file
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbl_download_file
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tech.pojo.DownloadFile">
+    insert into tbl_download_file (id, name_match, title_work, 
+      author, instructor, attachment, 
+      clicks, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{nameMatch,jdbcType=VARCHAR}, #{titleWork,jdbcType=VARCHAR}, 
+      #{author,jdbcType=VARCHAR}, #{instructor,jdbcType=VARCHAR}, #{attachment,jdbcType=VARCHAR}, 
+      #{clicks,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tech.pojo.DownloadFile">
+    insert into tbl_download_file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="nameMatch != null">
+        name_match,
+      </if>
+      <if test="titleWork != null">
+        title_work,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="instructor != null">
+        instructor,
+      </if>
+      <if test="attachment != null">
+        attachment,
+      </if>
+      <if test="clicks != null">
+        clicks,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="nameMatch != null">
+        #{nameMatch,jdbcType=VARCHAR},
+      </if>
+      <if test="titleWork != null">
+        #{titleWork,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="instructor != null">
+        #{instructor,jdbcType=VARCHAR},
+      </if>
+      <if test="attachment != null">
+        #{attachment,jdbcType=VARCHAR},
+      </if>
+      <if test="clicks != null">
+        #{clicks,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tech.pojo.DownloadFile">
+    update tbl_download_file
+    <set>
+      <if test="nameMatch != null">
+        name_match = #{nameMatch,jdbcType=VARCHAR},
+      </if>
+      <if test="titleWork != null">
+        title_work = #{titleWork,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="instructor != null">
+        instructor = #{instructor,jdbcType=VARCHAR},
+      </if>
+      <if test="attachment != null">
+        attachment = #{attachment,jdbcType=VARCHAR},
+      </if>
+      <if test="clicks != null">
+        clicks = #{clicks,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tech.pojo.DownloadFile">
+    update tbl_download_file
+    set name_match = #{nameMatch,jdbcType=VARCHAR},
+      title_work = #{titleWork,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      instructor = #{instructor,jdbcType=VARCHAR},
+      attachment = #{attachment,jdbcType=VARCHAR},
+      clicks = #{clicks,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

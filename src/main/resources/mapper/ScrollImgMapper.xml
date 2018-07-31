@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tech.dao.ScrollImgMapper">
+  <resultMap id="BaseResultMap" type="com.tech.pojo.ScrollImg">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="url_img" jdbcType="VARCHAR" property="urlImg" />
+    <result column="name_img" jdbcType="VARCHAR" property="nameImg" />
+    <result column="is_show" jdbcType="INTEGER" property="isShow" />
+    <result column="link" jdbcType="VARCHAR" property="link" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, url_img, name_img, is_show, link
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_scrollimg
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbl_scrollimg
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tech.pojo.ScrollImg">
+    insert into tbl_scrollimg (id, url_img, name_img, 
+      is_show, link)
+    values (#{id,jdbcType=INTEGER}, #{urlImg,jdbcType=VARCHAR}, #{nameImg,jdbcType=VARCHAR}, 
+      #{isShow,jdbcType=INTEGER}, #{link,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tech.pojo.ScrollImg">
+    insert into tbl_scrollimg
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="urlImg != null">
+        url_img,
+      </if>
+      <if test="nameImg != null">
+        name_img,
+      </if>
+      <if test="isShow != null">
+        is_show,
+      </if>
+      <if test="link != null">
+        link,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="urlImg != null">
+        #{urlImg,jdbcType=VARCHAR},
+      </if>
+      <if test="nameImg != null">
+        #{nameImg,jdbcType=VARCHAR},
+      </if>
+      <if test="isShow != null">
+        #{isShow,jdbcType=INTEGER},
+      </if>
+      <if test="link != null">
+        #{link,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tech.pojo.ScrollImg">
+    update tbl_scrollimg
+    <set>
+      <if test="urlImg != null">
+        url_img = #{urlImg,jdbcType=VARCHAR},
+      </if>
+      <if test="nameImg != null">
+        name_img = #{nameImg,jdbcType=VARCHAR},
+      </if>
+      <if test="isShow != null">
+        is_show = #{isShow,jdbcType=INTEGER},
+      </if>
+      <if test="link != null">
+        link = #{link,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tech.pojo.ScrollImg">
+    update tbl_scrollimg
+    set url_img = #{urlImg,jdbcType=VARCHAR},
+      name_img = #{nameImg,jdbcType=VARCHAR},
+      is_show = #{isShow,jdbcType=INTEGER},
+      link = #{link,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

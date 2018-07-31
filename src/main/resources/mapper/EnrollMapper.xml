@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tech.dao.EnrollMapper">
+  <resultMap id="BaseResultMap" type="com.tech.pojo.Enroll">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="match_id" jdbcType="INTEGER" property="matchId" />
+    <result column="group_id" jdbcType="INTEGER" property="groupId" />
+    <result column="title_enroll" jdbcType="VARCHAR" property="titleEnroll" />
+    <result column="instructor" jdbcType="VARCHAR" property="instructor" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, match_id, group_id, title_enroll, instructor
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_enroll
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbl_enroll
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tech.pojo.Enroll">
+    insert into tbl_enroll (id, match_id, group_id, 
+      title_enroll, instructor)
+    values (#{id,jdbcType=INTEGER}, #{matchId,jdbcType=INTEGER}, #{groupId,jdbcType=INTEGER}, 
+      #{titleEnroll,jdbcType=VARCHAR}, #{instructor,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tech.pojo.Enroll">
+    insert into tbl_enroll
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="matchId != null">
+        match_id,
+      </if>
+      <if test="groupId != null">
+        group_id,
+      </if>
+      <if test="titleEnroll != null">
+        title_enroll,
+      </if>
+      <if test="instructor != null">
+        instructor,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="matchId != null">
+        #{matchId,jdbcType=INTEGER},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="titleEnroll != null">
+        #{titleEnroll,jdbcType=VARCHAR},
+      </if>
+      <if test="instructor != null">
+        #{instructor,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tech.pojo.Enroll">
+    update tbl_enroll
+    <set>
+      <if test="matchId != null">
+        match_id = #{matchId,jdbcType=INTEGER},
+      </if>
+      <if test="groupId != null">
+        group_id = #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="titleEnroll != null">
+        title_enroll = #{titleEnroll,jdbcType=VARCHAR},
+      </if>
+      <if test="instructor != null">
+        instructor = #{instructor,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tech.pojo.Enroll">
+    update tbl_enroll
+    set match_id = #{matchId,jdbcType=INTEGER},
+      group_id = #{groupId,jdbcType=INTEGER},
+      title_enroll = #{titleEnroll,jdbcType=VARCHAR},
+      instructor = #{instructor,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

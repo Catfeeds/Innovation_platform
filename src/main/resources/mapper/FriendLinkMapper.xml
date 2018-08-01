@@ -90,4 +90,7 @@
       sort_link = #{sortLink,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectAllFriendLinks" resultMap="BaseResultMap">
+    select * from tbl_flink
+  </select>
 </mapper>

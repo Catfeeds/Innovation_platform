@@ -2,6 +2,8 @@ package com.tech.dao;
 
 import com.tech.pojo.DownloadFile;
 
+import java.util.List;
+
 public interface DownloadFileMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,8 @@ public interface DownloadFileMapper {
     int updateByPrimaryKeySelective(DownloadFile record);
 
     int updateByPrimaryKey(DownloadFile record);
+
+    List<DownloadFile> selectAll();
+
+    List<DownloadFile> selectPart(Integer count);
 }

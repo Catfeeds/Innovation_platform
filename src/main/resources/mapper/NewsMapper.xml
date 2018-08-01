@@ -36,7 +36,7 @@
       clicks, author, create_time, 
       update_time, content)
     values (#{id,jdbcType=INTEGER}, #{typeNews,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
-      #{clicks,jdbcType=INTEGER}, #{author,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      0, #{author,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
       #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tech.pojo.News">
@@ -142,4 +142,17 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectKindNewsByType" resultMap="BaseResultMap" parameterType="map">
+    select
+    *
+    from tbl_news
+    where type_news = #{typeNews} order by create_time LIMIT #{showCount}
+  </select>
+
+  <select id="selectAllKindNewsByType" resultMap="BaseResultMap" parameterType="int">
+    select
+    *
+    from tbl_news
+    where type_news = #{typeNews} order by create_time
+  </select>
 </mapper>

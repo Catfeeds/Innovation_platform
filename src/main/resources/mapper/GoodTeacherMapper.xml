@@ -44,7 +44,7 @@
       )
     values (#{id,jdbcType=INTEGER}, #{nameTeacher,jdbcType=VARCHAR}, #{occupationCall,jdbcType=VARCHAR}, 
       #{imageUrl,jdbcType=VARCHAR}, #{researchDirection,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{clicks,jdbcType=INTEGER}, #{creator,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, 0, #{creator,jdbcType=VARCHAR},
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{introduce,jdbcType=LONGVARCHAR}
       )
   </insert>
@@ -195,4 +195,7 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectAllGoodTeachers" resultMap="BaseResultMap">
+    SELECT * from tbl_goodteacher order by id DESC
+  </select>
 </mapper>

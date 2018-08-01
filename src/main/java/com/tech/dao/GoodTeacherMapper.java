@@ -2,6 +2,8 @@ package com.tech.dao;
 
 import com.tech.pojo.GoodTeacher;
 
+import java.util.List;
+
 public interface GoodTeacherMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -16,4 +18,6 @@ public interface GoodTeacherMapper {
     int updateByPrimaryKeyWithBLOBs(GoodTeacher record);
 
     int updateByPrimaryKey(GoodTeacher record);
+
+    List<GoodTeacher> selectAllGoodTeachers();
 }

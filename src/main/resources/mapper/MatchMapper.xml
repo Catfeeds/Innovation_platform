@@ -10,6 +10,7 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="clicks" jdbcType="INTEGER" property="clicks" />
+    <result column="priority" jdbcType="INTEGER" property="priority" />
     <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
   </resultMap>
@@ -18,7 +19,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     id, level_match, name_match, img_url, link_url, create_time, update_time, clicks, 
-    start_time, end_time
+    priority, start_time, end_time
   </sql>
   <sql id="Blob_Column_List">
     introduce
@@ -38,12 +39,14 @@
   <insert id="insert" parameterType="com.tech.pojo.Match">
     insert into tbl_match (id, level_match, name_match, 
       img_url, link_url, create_time, 
-      update_time, clicks, start_time, 
-      end_time, introduce)
+      update_time, clicks, priority, 
+      start_time, end_time, introduce
+      )
     values (#{id,jdbcType=INTEGER}, #{levelMatch,jdbcType=INTEGER}, #{nameMatch,jdbcType=VARCHAR}, 
       #{imgUrl,jdbcType=VARCHAR}, #{linkUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{clicks,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
-      #{endTime,jdbcType=TIMESTAMP}, #{introduce,jdbcType=LONGVARCHAR})
+      #{updateTime,jdbcType=TIMESTAMP}, 0, #{priority,jdbcType=INTEGER},
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{introduce,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.tech.pojo.Match">
     insert into tbl_match
@@ -71,6 +74,9 @@
       </if>
       <if test="clicks != null">
         clicks,
+      </if>
+      <if test="priority != null">
+        priority,
       </if>
       <if test="startTime != null">
         start_time,
@@ -107,6 +113,9 @@
       <if test="clicks != null">
         #{clicks,jdbcType=INTEGER},
       </if>
+      <if test="priority != null">
+        #{priority,jdbcType=INTEGER},
+      </if>
       <if test="startTime != null">
         #{startTime,jdbcType=TIMESTAMP},
       </if>
@@ -142,6 +151,9 @@
       <if test="clicks != null">
         clicks = #{clicks,jdbcType=INTEGER},
       </if>
+      <if test="priority != null">
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
       <if test="startTime != null">
         start_time = #{startTime,jdbcType=TIMESTAMP},
       </if>
@@ -163,6 +175,7 @@
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       clicks = #{clicks,jdbcType=INTEGER},
+      priority = #{priority,jdbcType=INTEGER},
       start_time = #{startTime,jdbcType=TIMESTAMP},
       end_time = #{endTime,jdbcType=TIMESTAMP},
       introduce = #{introduce,jdbcType=LONGVARCHAR}
@@ -177,8 +190,15 @@
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       clicks = #{clicks,jdbcType=INTEGER},
+      priority = #{priority,jdbcType=INTEGER},
       start_time = #{startTime,jdbcType=TIMESTAMP},
       end_time = #{endTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectAllMatches" resultMap="BaseResultMap">
+    select * from tbl_match
+  </select>
+  <select id="selectCountMatches" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select * from tbl_match ORDER BY priority DESC LIMIT #{counts}
+  </select>
 </mapper>

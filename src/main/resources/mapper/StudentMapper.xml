@@ -138,4 +138,8 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where sno = #{sno,jdbcType=VARCHAR}
   </update>
+  <select id="selectLogin" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select * from tbl_student
+    where sno = #{sno}
+  </select>
 </mapper>

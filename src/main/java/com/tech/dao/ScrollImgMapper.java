@@ -2,6 +2,8 @@ package com.tech.dao;
 
 import com.tech.pojo.ScrollImg;
 
+import java.util.List;
+
 public interface ScrollImgMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface ScrollImgMapper {
     int updateByPrimaryKeySelective(ScrollImg record);
 
     int updateByPrimaryKey(ScrollImg record);
+
+    List<ScrollImg> selectShowScrollImg();
 }

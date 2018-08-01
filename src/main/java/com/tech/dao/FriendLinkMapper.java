@@ -2,6 +2,8 @@ package com.tech.dao;
 
 import com.tech.pojo.FriendLink;
 
+import java.util.List;
+
 public interface FriendLinkMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface FriendLinkMapper {
     int updateByPrimaryKeySelective(FriendLink record);
 
     int updateByPrimaryKey(FriendLink record);
+
+    List<FriendLink> selectAllFriendLinks();
 }

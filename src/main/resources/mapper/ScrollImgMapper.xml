@@ -25,7 +25,7 @@
     insert into tbl_scrollimg (id, url_img, name_img, 
       is_show, link)
     values (#{id,jdbcType=INTEGER}, #{urlImg,jdbcType=VARCHAR}, #{nameImg,jdbcType=VARCHAR}, 
-      #{isShow,jdbcType=INTEGER}, #{link,jdbcType=VARCHAR})
+      1, #{link,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tech.pojo.ScrollImg">
     insert into tbl_scrollimg
@@ -90,4 +90,8 @@
       link = #{link,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectShowScrollImg" resultMap="BaseResultMap">
+    select *
+    from tbl_scrollimg where is_show = 1
+  </select>
 </mapper>

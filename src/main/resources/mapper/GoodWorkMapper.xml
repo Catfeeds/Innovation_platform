@@ -38,7 +38,7 @@
       create_time, update_time, introduce
       )
     values (#{id,jdbcType=INTEGER}, #{matchName,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR}, 
-      #{coverUrl,jdbcType=VARCHAR}, #{finishTime,jdbcType=TIMESTAMP}, #{clicks,jdbcType=INTEGER}, 
+      #{coverUrl,jdbcType=VARCHAR}, #{finishTime,jdbcType=TIMESTAMP}, 0,
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{introduce,jdbcType=LONGVARCHAR}
       )
   </insert>
@@ -156,4 +156,7 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectAllGoodWorks" resultMap="BaseResultMap">
+    select * from tbl_goodwork
+  </select>
 </mapper>

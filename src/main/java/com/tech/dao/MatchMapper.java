@@ -2,6 +2,8 @@ package com.tech.dao;
 
 import com.tech.pojo.Match;
 
+import java.util.List;
+
 public interface MatchMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -16,4 +18,8 @@ public interface MatchMapper {
     int updateByPrimaryKeyWithBLOBs(Match record);
 
     int updateByPrimaryKey(Match record);
+
+    List<Match> selectAllMatches();
+
+    List<Match> selectCountMatches(Integer count);
 }

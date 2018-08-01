@@ -19,6 +19,8 @@ public class Match {
 
     private Integer clicks;
 
+    private Integer priority;
+
     private Date startTime;
 
     private Date endTime;
@@ -87,6 +89,14 @@ public class Match {
 
     public void setClicks(Integer clicks) {
         this.clicks = clicks;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
     }
 
     public Date getStartTime() {

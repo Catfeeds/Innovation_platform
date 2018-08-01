@@ -24,7 +24,7 @@
   <insert id="insert" parameterType="com.tech.pojo.Admin">
     insert into tbl_admin (id, type_admin, username, 
       password, type_aliases)
-    values (#{id,jdbcType=INTEGER}, #{typeAdmin,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, 1, #{username,jdbcType=VARCHAR},
       #{password,jdbcType=VARCHAR}, #{typeAliases,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tech.pojo.Admin">
@@ -90,4 +90,11 @@
       type_aliases = #{typeAliases,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectLogin" resultMap="BaseResultMap" parameterType="map">
+    select
+    *
+    from tbl_admin
+    where
+    password = #{password} and username = #{username}
+  </select>
 </mapper>

@@ -2,6 +2,8 @@ package com.tech.dao;
 
 import com.tech.pojo.GoodWork;
 
+import java.util.List;
+
 public interface GoodWorkMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -16,4 +18,6 @@ public interface GoodWorkMapper {
     int updateByPrimaryKeyWithBLOBs(GoodWork record);
 
     int updateByPrimaryKey(GoodWork record);
+
+    List<GoodWork> selectAllGoodWorks();
 }

@@ -46,4 +46,9 @@ public class MatchService {
         }
         return ServerResponse.createByErrorMessage("delete_fail");
     }
+
+    public Match getMatch(Integer matchId) {
+        Match match = matchMapper.selectByPrimaryKey(matchId);
+        return match;
+    }
 }

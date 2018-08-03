@@ -1,7 +1,9 @@
 package com.tech.service;
 
+import com.tech.dao.DownloadFileMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
@@ -10,6 +12,8 @@ import java.util.UUID;
 
 @Service
 public class FileService {
+    @Autowired
+    DownloadFileMapper downloadFileMapper;
 
     private Logger logger = LoggerFactory.getLogger(FileService.class);
     /**
@@ -37,5 +41,10 @@ public class FileService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public String getFileNameById(Integer id) {
+        String attachment = downloadFileMapper.getFileNameById(id);
+        return attachment;
     }
 }

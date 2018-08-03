@@ -1,6 +1,7 @@
 package com.tech.controller.studentModular;
 
 import com.tech.common.Const;
+import com.tech.common.ResponseCode;
 import com.tech.common.ServerResponse;
 import com.tech.pojo.Student;
 import com.tech.service.StudentService;
@@ -36,11 +37,35 @@ public class StudentController {
 
     @RequestMapping("/get_info")
     @ResponseBody
-    public ServerResponse<Student> getUser(HttpSession session){
+    public ServerResponse<Student> getUserInfo(HttpSession session){
         Student student = (Student) session.getAttribute(Const.CURRENT_USER);
         if (student!=null){
             return ServerResponse.createBySuccess(student);
         }
-        return ServerResponse.createByErrorMessage("未登录,获取失败");
+        return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"请登录后重新尝试");
+    }
+    @RequestMapping("/get_info2")
+    @ResponseBody
+    public ServerResponse<Student> getUserInfoBySno(HttpSession session,String sno){
+        Student student = (Student) session.getAttribute(Const.CURRENT_USER);
+        if (student==null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"请登录后重新尝试");
+        }
+        student = studentService.getInfoBySno(sno);
+        return ServerResponse.createBySuccess(student);
+    }
+
+    @RequestMapping("/change_pwd")
+    @ResponseBody
+    public ServerResponse<String> changePwd(String oldPwd,String newPwd,HttpSession session){
+        Student student = (Student) session.getAttribute(Const.CURRENT_USER);
+        if (student==null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"请登录后重新尝试");
+        }
+        ServerResponse<String> serverResponse = studentService.checkOldPwd(student.getSno(),oldPwd);
+        if (serverResponse.isSuccess()) {
+            serverResponse = studentService.changePassword(student.getSno(), newPwd);
+        }
+        return serverResponse;
     }
 }

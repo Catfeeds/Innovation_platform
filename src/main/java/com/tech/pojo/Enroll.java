@@ -1,5 +1,7 @@
 package com.tech.pojo;
 
+import java.util.Date;
+
 public class Enroll {
     private Integer id;
 
@@ -10,6 +12,12 @@ public class Enroll {
     private String titleEnroll;
 
     private String instructor;
+
+    private String attachment;
+
+    private Date createTime;
+
+    private Date updateTime;
 
     public Integer getId() {
         return id;
@@ -49,5 +57,29 @@ public class Enroll {
 
     public void setInstructor(String instructor) {
         this.instructor = instructor == null ? null : instructor.trim();
+    }
+
+    public String getAttachment() {
+        return attachment;
+    }
+
+    public void setAttachment(String attachment) {
+        this.attachment = attachment == null ? null : attachment.trim();
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

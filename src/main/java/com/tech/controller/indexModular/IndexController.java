@@ -5,6 +5,7 @@ import com.tech.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -25,12 +26,14 @@ public class IndexController {
     GoodTeacherService goodTeacherService;
     @Autowired
     GoodWorkService goodWorkService;
+    @Autowired
+    FileService fileService;
 
     @RequestMapping("/index")
     public String showIndex(Model model){
         List<News> notices =  newsService.getKindNews(1,7);//通知公告
         List<News> policies =  newsService.getKindNews(2,7);//政策新闻
-        List<News> questions =  newsService.getKindNews(4,7);//常见问题
+        List<News> questions =  newsService.getKindNews(3,7);//常见问题
         List<DownloadFile> downloadFiles = downloadFileService.getPartByCount(7);//文件下载
         List<Match> matches = matchService.getCountMatches(3);//赛事项目
         List<ScrollImg> scrollImages = scrollImgService.getShowScrollImg();//滚动图
@@ -46,4 +49,41 @@ public class IndexController {
         model.addAttribute("downloadFiles",downloadFiles);
         return "index";
     }
+
+    @RequestMapping("/news_list/{id}")
+    public String newsList(@PathVariable("id") Integer typeNews, Model model){
+        List<News> news = newsService.getAllKindNews(typeNews);
+        model.addAttribute("news",news);
+        return "/Index/news_list";
+    }
+
+    @RequestMapping("/news/{id}")
+    public String newsDetail(@PathVariable("id")Integer newsID,Model model){
+        News news = newsService.getNews(newsID);
+        model.addAttribute("news",news);
+        return "/Index/news_detail";
+    }
+
+    @RequestMapping("/compete_list")
+    public String competeList(Model model){
+        List<Match> matches = matchService.getAllMatches();
+        model.addAttribute("match",matches);
+        return "/Index/compete_list";
+    }
+
+    @RequestMapping("/compete/{id}")
+    public String competeDetail(@PathVariable("id")Integer matchId,Model model){
+        Match match = matchService.getMatch(matchId);
+        model.addAttribute("match",match);
+        return "/Index/compete_detail";
+    }
+
+    @RequestMapping("/downloads")
+    public String downloadList(Model model){
+        List<DownloadFile> downloadFiles = downloadFileService.getAll();
+        model.addAttribute("download",downloadFiles);
+        return "/Index/download";
+    }
+
+
 }

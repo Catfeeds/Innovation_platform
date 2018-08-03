@@ -138,8 +138,17 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where sno = #{sno,jdbcType=VARCHAR}
   </update>
-  <select id="selectLogin" resultMap="BaseResultMap" parameterType="java.lang.String">
+    <update id="updatePasswordBySno" parameterType="map" >
+      update tbl_student set password = #{newPwd} where sno = #{sno}
+    </update>
+    <select id="selectLogin" resultMap="BaseResultMap" parameterType="java.lang.String">
     select * from tbl_student
     where sno = #{sno}
   </select>
+  <select id="selectBySnoAndPwd" resultType="java.lang.Integer" parameterType="map">
+    SELECT count(1) from tbl_student where sno = #{sno} and password = #{oldPwd}
+  </select>
+    <select id="selectPartBySno" resultMap="BaseResultMap">
+      select name_student,classno,phone from tbl_student where sno = #{sno}
+    </select>
 </mapper>

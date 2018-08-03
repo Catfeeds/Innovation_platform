@@ -15,11 +15,11 @@ public class DownloadFileController {
     @Autowired
     DownloadFileService downloadFileService;
 
-    @RequestMapping("/downloads")
-    @ResponseBody
-    public ServerResponse<String> listDownloadFile(){
-        List<DownloadFile> downloadFiles = downloadFileService.getAll();
-        return ServerResponse.createBySuccess();
-    }
+//    @RequestMapping("/downloads")
+//    @ResponseBody
+//    public ServerResponse<String> listDownloadFile(){
+//        List<DownloadFile> downloadFiles = downloadFileService.getAll();
+//        return ServerResponse.createBySuccess();
+//    }
 
 }

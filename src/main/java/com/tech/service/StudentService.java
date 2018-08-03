@@ -23,4 +23,26 @@ public class StudentService {
         student.setPassword(StringUtils.EMPTY);
         return ServerResponse.createBySuccess("登录成功",student);
     }
+
+    public ServerResponse<String> changePassword(String sno,String newPwd) {
+         int count = studentMapper.updatePasswordBySno(sno,newPwd);
+         if (count>0){
+             return ServerResponse.createBySuccessMessage("修改成功");
+         }
+         return ServerResponse.createByErrorMessage("修改失败");
+    }
+
+    public ServerResponse<String> checkOldPwd(String sno, String oldPwd) {
+        int count =  studentMapper.selectBySnoAndPwd(sno,oldPwd);
+        if (count>0){
+            return ServerResponse.createBySuccessMessage("旧密码校验成功");
+        }
+        return ServerResponse.createByErrorMessage("旧密码校验失败");
+    }
+
+    public Student getInfoBySno(String sno) {
+        //TODO
+        Student student = studentMapper.selectPartBySno(sno);
+        return student;
+    }
 }

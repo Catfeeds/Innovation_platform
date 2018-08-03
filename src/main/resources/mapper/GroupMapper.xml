@@ -18,11 +18,11 @@
     delete from tbl_group
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tech.pojo.Group">
+  <insert id="insert" parameterType="com.tech.pojo.Group" useGeneratedKeys="true" keyProperty="id">
     insert into tbl_group (id, name_group)
     values (#{id,jdbcType=INTEGER}, #{nameGroup,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.tech.pojo.Group">
+  <insert id="insertSelective" parameterType="com.tech.pojo.Group" >
     insert into tbl_group
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

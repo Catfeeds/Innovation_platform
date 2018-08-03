@@ -12,5 +12,6 @@
 </head>
 <body>
     <h1>login success</h1>
+<a href="/download_file/1.html">下载测试</a>
 </body>
 </html>

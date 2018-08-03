@@ -5,6 +5,10 @@ public class Group {
 
     private String nameGroup;
 
+    public Group(String groupName) {
+        this.nameGroup = groupName;
+    }
+
     public Integer getId() {
         return id;
     }

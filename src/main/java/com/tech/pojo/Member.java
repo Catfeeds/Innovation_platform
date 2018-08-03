@@ -9,6 +9,12 @@ public class Member {
 
     private Integer typeMember;
 
+    public Member(String sno, Integer groupId, Integer typeMember) {
+        this.sno = sno;
+        this.groupId = groupId;
+        this.typeMember = typeMember;
+    }
+
     public Integer getId() {
         return id;
     }

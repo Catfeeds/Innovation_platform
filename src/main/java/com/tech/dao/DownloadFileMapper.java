@@ -20,4 +20,6 @@ public interface DownloadFileMapper {
     List<DownloadFile> selectAll();
 
     List<DownloadFile> selectPart(Integer count);
+
+    String getFileNameById(Integer id);
 }

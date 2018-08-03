@@ -147,4 +147,7 @@
       SELECT *
     from tbl_download_file LIMIT #{count}
     </select>
+    <select id="getFileNameById" resultType="java.lang.String" parameterType="int">
+      SELECT attachment from tbl_download_file where id = #{id}
+    </select>
 </mapper>

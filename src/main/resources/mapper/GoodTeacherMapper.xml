@@ -196,6 +196,6 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectAllGoodTeachers" resultMap="BaseResultMap">
-    SELECT * from tbl_goodteacher order by id DESC
+    SELECT * from tbl_good_teacher order by id DESC
   </select>
 </mapper>

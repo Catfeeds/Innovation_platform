@@ -16,4 +16,6 @@ public interface MemberMapper {
     int updateByPrimaryKey(Member record);
 
     int selectCountBySno(String sno);
+
+    int selectMatchPCount(Integer matchID);
 }

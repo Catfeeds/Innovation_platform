@@ -93,4 +93,7 @@
   <select id="selectAllFriendLinks" resultMap="BaseResultMap">
     select * from tbl_flink
   </select>
+    <select id="getAllCount" resultType="java.lang.Integer">
+      SELECT count(*) from tbl_flink
+    </select>
 </mapper>

@@ -41,4 +41,9 @@ public class GoodWorkService {
         }
         return ServerResponse.createByErrorMessage("delete_fail");
     }
+
+    public GoodWork getById(Integer id) {
+        GoodWork goodWork = goodWorkMapper.selectByPrimaryKey(id);
+        return goodWork;
+    }
 }

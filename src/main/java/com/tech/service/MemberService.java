@@ -26,8 +26,5 @@ public class MemberService {
         return ServerResponse.createByError();
     }
 
-    public int getCountBySno(String sno) {
-        int count = memberMapper.selectCountBySno(sno);
-        return count;
-    }
+
 }

@@ -19,12 +19,13 @@ public class AdminController {
     AdminService adminService;
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public String adminLogin(String username, String password, HttpSession session){
+    @ResponseBody
+    public ServerResponse<Admin> adminLogin(String username, String password, HttpSession session){
         ServerResponse<Admin> serverResponse =  adminService.login(username,password);
         if (serverResponse.isSuccess()){
             session.setAttribute(Const.CURRENT_USER,serverResponse.getData());
         }
-        return "/Admin/index";
+        return serverResponse;
     }
 
     @RequestMapping(value = "/logout",method = RequestMethod.GET)
@@ -35,7 +36,10 @@ public class AdminController {
     }
 
     @RequestMapping("/index")
-    public String showIndex(){
-        return "";
+    public String showIndex(HttpSession session){
+        if (session.getAttribute(Const.CURRENT_USER)==null){
+            return "forward:/login.html";
+        }
+        return "Admin/index";
     }
 }

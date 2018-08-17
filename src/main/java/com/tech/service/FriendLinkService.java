@@ -42,4 +42,7 @@ public class FriendLinkService {
         return ServerResponse.createByErrorMessage("delete_fail");
     }
 
+    public int getAllCount() {
+        return friendLinkMapper.getAllCount();
+    }
 }

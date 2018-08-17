@@ -1,6 +1,7 @@
 package com.tech.dao;
 
 import com.tech.pojo.News;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface NewsMapper {
 
     int updateByPrimaryKey(News record);
 
-    List<News> selectKindNewsByType(Integer typeNews, Integer showCount);
+    List<News> selectKindNewsByType(@Param("typeNews") Integer typeNews, @Param("showCount") Integer showCount);
 
     List<News> selectAllKindNewsByType(Integer typeNews);
 }

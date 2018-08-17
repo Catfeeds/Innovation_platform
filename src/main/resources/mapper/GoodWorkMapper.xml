@@ -157,6 +157,6 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectAllGoodWorks" resultMap="BaseResultMap">
-    select * from tbl_goodwork
+    select * from tbl_good_work
   </select>
 </mapper>

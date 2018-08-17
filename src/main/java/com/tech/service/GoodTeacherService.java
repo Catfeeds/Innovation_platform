@@ -41,4 +41,8 @@ public class GoodTeacherService {
         }
         return ServerResponse.createByErrorMessage("delete_fail");
     }
+
+    public GoodTeacher getById(Integer id) {
+        return goodTeacherMapper.selectByPrimaryKey(id);
+    }
 }

@@ -1,6 +1,12 @@
+<!DOCTYPE html>
 <html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>科技创新项目管理平台</title>
+</head>
 <body>
-<h2>Hello World!</h2>
-<jsp:forward page="WEB-INF/views/Student/preson.jsp"></jsp:forward>
+    <h1>Hello world!</h1>
 </body>
 </html>
+

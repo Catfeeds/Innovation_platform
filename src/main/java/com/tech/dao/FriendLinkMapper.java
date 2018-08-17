@@ -18,4 +18,6 @@ public interface FriendLinkMapper {
     int updateByPrimaryKey(FriendLink record);
 
     List<FriendLink> selectAllFriendLinks();
+
+    int getAllCount();
 }

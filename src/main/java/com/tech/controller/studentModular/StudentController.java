@@ -13,10 +13,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/student")
+@RequestMapping("/stu")
 public class StudentController {
     @Autowired
     StudentService studentService;
+
+
+    @RequestMapping("/index")
+    public String index(HttpSession session){
+        if (session.getAttribute(Const.CURRENT_USER)==null){
+            return "forward:/login.html";
+        }
+        return "Student/index";
+    }
 
     @RequestMapping("/login")
     @ResponseBody
@@ -35,6 +44,11 @@ public class StudentController {
         return ServerResponse.createBySuccess("登出成功");
     }
 
+    /**
+     * 通过session获取当前用户信息
+     * @param session
+     * @return
+     */
     @RequestMapping("/get_info")
     @ResponseBody
     public ServerResponse<Student> getUserInfo(HttpSession session){
@@ -44,6 +58,13 @@ public class StudentController {
         }
         return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"请登录后重新尝试");
     }
+
+    /**
+     * 通过学号获取学生部分信息 用于报名时
+     * @param session
+     * @param sno
+     * @return
+     */
     @RequestMapping("/get_info2")
     @ResponseBody
     public ServerResponse<Student> getUserInfoBySno(HttpSession session,String sno){

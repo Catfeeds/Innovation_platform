@@ -83,4 +83,7 @@
   <select id="selectCountBySno" resultType="java.lang.Integer" parameterType="string">
       select count(1) from tbl_member where sno = #{sno}
   </select>
+  <select id="selectMatchPCount" resultType="java.lang.Integer" parameterType="int">
+      SELECT COUNT(1) FROM vw_enroll WHERE matchID = #{matchID}
+  </select>
 </mapper>

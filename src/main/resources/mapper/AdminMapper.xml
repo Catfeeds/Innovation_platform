@@ -92,7 +92,7 @@
   </update>
   <select id="selectLogin" resultMap="BaseResultMap" parameterType="map">
     select
-    *
+    id,username,type_aliases
     from tbl_admin
     where
     password = #{password} and username = #{username}

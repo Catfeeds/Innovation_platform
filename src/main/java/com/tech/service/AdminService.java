@@ -17,6 +17,6 @@ public class AdminService {
             return ServerResponse.createByErrorMessage("用户名或密码错误");
         }
         admin.setPassword(null);
-        return ServerResponse.createBySuccess("登录成功",admin);
+        return ServerResponse.createBySuccess("login success",admin);
     }
 }

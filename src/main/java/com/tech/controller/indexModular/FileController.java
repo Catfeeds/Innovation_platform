@@ -42,7 +42,7 @@ public class FileController {
         Object object = session.getAttribute(Const.CURRENT_USER);
         //判断用户是否登录
         if (object==null){
-            return "forward:/WEB-INF/views/Admin/login.jsp";
+            return "redirect:/login.html";
         }else{
             String filename = fileService.getFileNameById(id);
             return "forward:/download.html?fileName="+filename;
@@ -89,7 +89,6 @@ public class FileController {
             return entity;
         }catch (Exception e){
             logger.info("文件不存在{}",fileName);
-            e.printStackTrace();
         }
         return null;
     }

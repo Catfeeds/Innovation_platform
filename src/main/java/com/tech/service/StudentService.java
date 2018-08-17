@@ -15,10 +15,10 @@ public class StudentService {
     public ServerResponse<Student> login(String sno, String password){
         Student student = studentMapper.selectLogin(sno);
         if (student==null){
-            return ServerResponse.createByErrorMessage("用户名不存在");
+            return ServerResponse.createByErrorMessage("用户名不存在!");
         }
         if (!student.getPassword().equals(password)){
-            return ServerResponse.createByErrorMessage("密码错误");
+            return ServerResponse.createByErrorMessage("密码错误!");
         }
         student.setPassword(StringUtils.EMPTY);
         return ServerResponse.createBySuccess("登录成功",student);

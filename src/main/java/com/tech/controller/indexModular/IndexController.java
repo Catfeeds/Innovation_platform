@@ -47,43 +47,91 @@ public class IndexController {
         model.addAttribute("goodTeachers",goodTeachers);
         model.addAttribute("goodWorks",goodWorks);
         model.addAttribute("downloadFiles",downloadFiles);
-        return "index";
+        return "Index/index";
     }
 
-    @RequestMapping("/news_list/{id}")
-    public String newsList(@PathVariable("id") Integer typeNews, Model model){
+    /**
+     * 根据新闻类型获取新闻
+     * @param typeNews
+     * @param model
+     * @return
+     */
+    @RequestMapping("/news_list/{type_id}")
+    public String newsList(@PathVariable("type_id") Integer typeNews, Model model){
         List<News> news = newsService.getAllKindNews(typeNews);
         model.addAttribute("news",news);
-        return "/Index/news_list";
+        return "Index/news_list";
     }
 
+    /**
+     * 获取新闻详细信息
+     * @param newsID
+     * @param model
+     * @return
+     */
     @RequestMapping("/news/{id}")
     public String newsDetail(@PathVariable("id")Integer newsID,Model model){
         News news = newsService.getNews(newsID);
         model.addAttribute("news",news);
-        return "/Index/news_detail";
+        return "Index/news";
     }
 
-    @RequestMapping("/compete_list")
+    @RequestMapping("/compete_display")
     public String competeList(Model model){
         List<Match> matches = matchService.getAllMatches();
         model.addAttribute("match",matches);
-        return "/Index/compete_list";
+        return "Index/compete_display";
     }
 
     @RequestMapping("/compete/{id}")
     public String competeDetail(@PathVariable("id")Integer matchId,Model model){
         Match match = matchService.getMatch(matchId);
         model.addAttribute("match",match);
-        return "/Index/compete_detail";
+        return "Index/compete";
     }
 
     @RequestMapping("/downloads")
     public String downloadList(Model model){
         List<DownloadFile> downloadFiles = downloadFileService.getAll();
         model.addAttribute("download",downloadFiles);
-        return "/Index/download";
+        return "Index/download";
     }
 
+    @RequestMapping("/achievements")
+    public String goodWorkList(Model model){
+        List<GoodWork> goodWorks = goodWorkService.getAllGoodWorks();
+        model.addAttribute("goodWorks",goodWorks);
+        return "Index/achievement_display";
+    }
+
+    @RequestMapping("/achievement/{id}")
+    public String goodWorkDetail(@PathVariable("id") Integer id,Model model){
+        GoodWork goodWork = goodWorkService.getById(id);
+        model.addAttribute("goodWork",goodWork);
+        return "Index/achievement";
+    }
+
+    @RequestMapping("/teacher")
+    public String goodTeacherList(Model model){
+        List<GoodTeacher> goodTeachers = goodTeacherService.getAllGoodTeachers();
+        model.addAttribute("goodTeachers",goodTeachers);
+        return "Index/teacher_display";
+    }
+
+    @RequestMapping("/teacher/{id}")
+    public String goodTeacherDetail(@PathVariable("id") Integer id,Model model){
+        GoodTeacher goodTeachers = goodTeacherService.getById(id);
+        model.addAttribute("teacher",goodTeachers);
+        return "Index/teacher_detail";
+    }
+
+    /**
+     * 跳转至登录页面
+     * @return
+     */
+    @RequestMapping("/login")
+    public String toLogin(){
+        return "/Index/login";
+    }
 
 }

@@ -70,6 +70,12 @@
         <div class="navBar layui-side-scroll">
             <ul class="layui-nav layui-nav-tree">
                 <li class="layui-nav-item">
+                    <a  href="../index.html">
+                        <i class="iconfont icon-computer" data-icon="icon-computer">
+                        </i><cite>主页</cite></a>
+                </li>
+
+                <li class="layui-nav-item">
                     <a href="javascript:;">
                         <i class="iconfont icon-text" data-icon="icon-text"></i>
                         <cite>首页管理</cite><span class="layui-nav-more"></span></a>
@@ -78,15 +84,15 @@
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
                             <cite>赛事介绍管理</cite></a>
                         </dd>
-                        <dd><a href="javascript:;" data-url="/manage/links.do">
+                        <dd><a href="javascript:;" data-url="/manage/to_news_list/1.do">
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
                             <cite>通知公告管理</cite></a>
                         </dd>
-                        <dd><a href="javascript:;" data-url="page/news/newsList.html">
+                        <dd><a href="javascript:;" data-url="/manage/to_news_list/2.do">
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
                             <cite>政策文件管理</cite></a>
                         </dd>
-                        <dd><a href="javascript:;" data-url="page/news/newsList.html">
+                        <dd><a href="javascript:;" data-url="/manage/to_news_list/3.do">
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
                             <cite>常见问题管理</cite></a>
                         </dd>
@@ -105,6 +111,10 @@
                         <dd><a href="javascript:;" data-url="page/links/linksList.html">
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
                             <cite>轮播图管理</cite></a>
+                        </dd>
+                        <dd><a href="javascript:;" data-url="/manage/links.do">
+                            <i class="iconfont icon-text" data-icon="icon-text"></i>
+                            <cite>友情链接管理</cite></a>
                         </dd>
                     </dl>
                 </li>
@@ -141,13 +151,7 @@
                         </dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item">
 
-                    <a href="../index.html">
-                        <i class="iconfont icon-computer" data-icon="icon-computer">
-
-                        </i><cite>主页</cite></a>
-                </li>
                 <span class="layui-nav-bar"></span>
             </ul>
         </div>

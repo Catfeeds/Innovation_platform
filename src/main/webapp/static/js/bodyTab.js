@@ -1,17 +1,15 @@
-
 var tabFilter,menu=[],liIndex,curNav,delMenu;
 layui.define(["element","jquery"],function(exports){
-	var element = layui.element(),
-		$ = layui.jquery,
-		layId,
-		Tab = function(){
-			this.tabConfig = {
-				closed : true,  
-				openTabNum : undefined,  //最大可打开窗口数量
-				tabFilter : "bodyTab",  //添加窗口的filter
-				url : undefined  //获取菜单json地址
-			}
-		};
+    var element = layui.element,
+        $ = layui.jquery,
+        layId,
+        Tab = function(){
+            this.tabConfig = {
+                closed : true,
+                openTabNum : 10,
+                tabFilter : "bodyTab"
+            }
+        };
 
 	//获取二级菜单数据
 	Tab.prototype.render = function() {

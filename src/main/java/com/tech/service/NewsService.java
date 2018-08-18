@@ -54,4 +54,8 @@ public class NewsService {
         }
         return ServerResponse.createByErrorMessage("delete_fail");
     }
+
+    public int getKindNewsCount(Integer typeNew) {
+        return newsMapper.selectKindNewsCount(typeNew);
+    }
 }

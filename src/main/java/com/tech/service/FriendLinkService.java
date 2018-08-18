@@ -21,25 +21,25 @@ public class FriendLinkService {
     public ServerResponse insertLink(FriendLink friendLink) {
         int count = friendLinkMapper.insert(friendLink);
         if (count > 0){
-            return ServerResponse.createBySuccessMessage("add_success");
+            return ServerResponse.createBySuccessMessage("添加成功");
         }
-        return ServerResponse.createByErrorMessage("add_fail");
+        return ServerResponse.createByErrorMessage("添加失败,请重新尝试!");
     }
 
     public ServerResponse updatetLink(FriendLink friendLink) {
         int count = friendLinkMapper.updateByPrimaryKeySelective(friendLink);
         if (count > 0){
-            return ServerResponse.createBySuccessMessage("update_success");
+            return ServerResponse.createBySuccessMessage("修改成功");
         }
-        return ServerResponse.createByErrorMessage("update_fail");
+        return ServerResponse.createByErrorMessage("修改失败");
     }
 
     public ServerResponse deleteLink(Integer id) {
         int count = friendLinkMapper.deleteByPrimaryKey(id);
         if (count > 0){
-            return ServerResponse.createBySuccessMessage("delete_success");
+            return ServerResponse.createBySuccessMessage("删除成功");
         }
-        return ServerResponse.createByErrorMessage("delete_fail");
+        return ServerResponse.createByErrorMessage("删除失败");
     }
 
     public int getAllCount() {

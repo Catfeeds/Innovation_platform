@@ -155,4 +155,7 @@
     from tbl_news
     where type_news = #{typeNews} order by create_time
   </select>
+    <select id="selectKindNewsCount" resultType="java.lang.Integer" parameterType="int">
+      SELECT count(*) from tbl_news where type_news = #{typeNew}
+    </select>
 </mapper>

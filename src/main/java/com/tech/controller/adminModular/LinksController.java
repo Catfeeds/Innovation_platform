@@ -1,12 +1,13 @@
 package com.tech.controller.adminModular;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.tech.common.ServerResponse;
 import com.tech.pojo.FriendLink;
 import com.tech.service.FriendLinkService;
 import org.nutz.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,20 +22,28 @@ public class LinksController {
     @Autowired
     FriendLinkService friendLinkService;
 
+    /**
+     * 跳转到展示友情链接页面
+     * @return
+     */
     @RequestMapping("/links")
     public String toShowLink(){
         return "Admin/link";
     }
 
-    @RequestMapping("/link")
+    @RequestMapping(value = "/link",produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String showLink(){
+    public String showLink(Integer page,Integer limit){
         int count = friendLinkService.getAllCount();
+        PageHelper.startPage(page,limit);
+        List<FriendLink> linkList = friendLinkService.getAllFriendLinks();
+        //PageInfo pageInfo = new PageInfo(linkList);
+
         Map<String, Object> map = new HashMap<>();
         map.put("code",0);
         map.put("msg","");
         map.put("count",count);
-        map.put("data", friendLinkService.getAllFriendLinks());
+        map.put("data", linkList);
         return Json.toJson(map);
     }
 

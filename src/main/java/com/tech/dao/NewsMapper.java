@@ -23,4 +23,6 @@ public interface NewsMapper {
     List<News> selectKindNewsByType(@Param("typeNews") Integer typeNews, @Param("showCount") Integer showCount);
 
     List<News> selectAllKindNewsByType(Integer typeNews);
+
+    int selectKindNewsCount(Integer typeNew);
 }

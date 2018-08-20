@@ -150,4 +150,7 @@
     <select id="getFileNameById" resultType="java.lang.String" parameterType="int">
       SELECT attachment from tbl_download_file where id = #{id}
     </select>
+    <select id="selectCount" resultType="java.lang.Integer">
+      SELECT count(*) from tbl_download_file
+    </select>
 </mapper>

@@ -7,6 +7,7 @@ import com.tech.pojo.Student;
 import com.tech.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -18,12 +19,23 @@ public class StudentController {
     @Autowired
     StudentService studentService;
 
+    @RequestMapping("/main")
+    public String toMain(){
+        //TODO 共享页面
+        return "Admin/main";
+    }
+
+    @RequestMapping("/to_enroll")
+    public String toEnroll(){
+        return "Student/enroll";
+    }
 
     @RequestMapping("/index")
-    public String index(HttpSession session){
+    public String index(Model model, HttpSession session){
         if (session.getAttribute(Const.CURRENT_USER)==null){
             return "forward:/login.html";
         }
+        model.addAttribute("student",(Student)session.getAttribute(Const.CURRENT_USER));
         return "Student/index";
     }
 
@@ -44,6 +56,16 @@ public class StudentController {
         return ServerResponse.createBySuccess("登出成功");
     }
 
+    @RequestMapping("/stuInfo")
+    public String getUserInfo(HttpSession session,Model model){
+        Student student = (Student) session.getAttribute(Const.CURRENT_USER);
+        if (student==null){
+            return "forward:/login.html";
+        }
+        model.addAttribute("stu",student);
+        return "Student/stu_info";
+    }
+
     /**
      * 通过session获取当前用户信息
      * @param session
@@ -51,7 +73,7 @@ public class StudentController {
      */
     @RequestMapping("/get_info")
     @ResponseBody
-    public ServerResponse<Student> getUserInfo(HttpSession session){
+    public ServerResponse<Student> getUserInfo2(HttpSession session){
         Student student = (Student) session.getAttribute(Const.CURRENT_USER);
         if (student!=null){
             return ServerResponse.createBySuccess(student);
@@ -76,6 +98,16 @@ public class StudentController {
         return ServerResponse.createBySuccess(student);
     }
 
+    @RequestMapping("/changePwd")
+    public String toChangePwd(Model model, HttpSession session){
+        Student student = (Student)session.getAttribute(Const.CURRENT_USER);
+        if (student==null){
+            return "forward:/login.html";
+        }
+        model.addAttribute("stu",student);
+        return "Student/change_pwd";
+    }
+
     @RequestMapping("/change_pwd")
     @ResponseBody
     public ServerResponse<String> changePwd(String oldPwd,String newPwd,HttpSession session){
@@ -85,6 +117,7 @@ public class StudentController {
         }
         ServerResponse<String> serverResponse = studentService.checkOldPwd(student.getSno(),oldPwd);
         if (serverResponse.isSuccess()) {
+            System.out.println(serverResponse.getMsg());
             serverResponse = studentService.changePassword(student.getSno(), newPwd);
         }
         return serverResponse;

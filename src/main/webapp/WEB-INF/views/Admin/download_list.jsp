@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>文章列表</title>
+	<title>下载专区</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -26,34 +26,28 @@
 		    <a class="layui-btn search_btn">查询</a>
 		</div>
 		<div class="layui-inline">
-			<a class="layui-btn layui-btn-normal newsAdd_btn">添加文章</a>
+			<a class="layui-btn layui-btn-normal newsAdd_btn">添加下载</a>
 		</div>
-		<div class="layui-inline">
-			<a class="layui-btn layui-btn-danger batchDel">批量删除</a>
-		</div>
-
+		<%--<div class="layui-inline">--%>
+			<%--<a class="layui-btn layui-btn-danger batchDel">批量删除</a>--%>
+		<%--</div>--%>
 	</blockquote>
-	<div class="layui-form news_list">
-		<input type="hidden" id="newType" value="${newsType}">
-			<table id="newList" lay-filter="newsListID"></table>
-	</div>
-	<div id="page"></div>
+	<table id="downloadList" lay-filter="downloadListID"></table>
 </body>
 <script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
 <script type="text/javascript">
-    var newsType=$("#newType").val();
     layui.use('table', function(){
         var table = layui.table;
 
         $(window).one("resize",function(){
             $(".newsAdd_btn").click(function(){
                 var index = layui.layer.open({
-                    title : "添加文章",
+                    title : "添加下载",
                     type : 2,
-                    content : "${cpath}/manage/to_add_news/"+newsType+".do",
+                    content : "${cpath}/manage/to_download_add.do",
                     success : function(layero, index){
                         setTimeout(function(){
-                            layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                            layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
                                 tips: 3
                             });
                         },500)
@@ -64,17 +58,20 @@
         }).resize();
 
         table.render({
-            elem: '#newList',
-            url: '${cpath}/manage/news_list/'+newsType+'.do',
-            method: 'get',
+            elem: '#downloadList',
+            url: '${cpath}/manage/download_list.do',
+            method: 'post',
             limit: 10,
             cols: [[
                 {field:'id', title: '序号',align:'center',sort:true},
-                {field:'title', title: '标题',align:'center'},
-                {field:'author', title: '发布人',align:'center'},
+                {field:'nameMatch', title: '大赛名称',align:'center'},
+                {field:'titleWork', title: '作品名称',align:'center'},
+                {field:'author', title: '作者',align:'center'},
+                {field:'instructor', title: '指导老师',align:'center'},
                 {field:'clicks',title: '点击次数',align:'center'},
+                {field:'attachment',title: '附件',align:'center'},
                 {field:'createTime', title: '发布时间',align:'center'},
-                {title: '操作',align:'center',toolbar: '#bar'},
+                {title: '操作',width:200,align:'center',toolbar: '#bar',fixed:'right'},
             ]],
             page: true,
             done: function (res, curr, count) {
@@ -82,14 +79,14 @@
             }
         });
 
-        table.on('tool(newsListID)', function(obj){
+        table.on('tool(downloadListID)', function(obj){
             var data = obj.data;
             if(obj.event === 'detail'){
                 //window.open(data.url);
             } else if(obj.event === 'del'){
-                layer.confirm('真的删除'+data.title+'么?', function(index){
+                layer.confirm('真的删除 '+data.titleWork+' 么?', function(index){
                     $.ajax({
-                        url:'${cpath}/manage/delete_news/'+data.id+".do",
+                        url:'${cpath}/manage/download_delete/'+data.id+".do",
                         type:'post',
                         success : function(data) {
                             if(data.status==0){
@@ -105,9 +102,9 @@
             }else if(obj.event === 'edit'){
                 $(window).one("resize",function(){
                     var index = layui.layer.open({
-                        title : "编辑文章",
+                        title : "编辑",
                         type : 2,
-                        content : "${cpath}/manage/to_edit_news/"+data.id+".do",
+                        content : "${cpath}/manage/to_download_edit/"+data.id+".do",
                         success : function(layero, index){
                             setTimeout(function(){
                                 layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
@@ -120,7 +117,6 @@
                 }).resize();
             }
         });
-
     })
 </script>
 <script type="text/html" id="bar">
@@ -128,4 +124,3 @@
 	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">编辑</a>
 	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
-</html>

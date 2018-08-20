@@ -2,7 +2,9 @@ package com.tech.controller.adminModular;
 
 import com.github.pagehelper.PageHelper;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import com.tech.common.Const;
 import com.tech.common.ServerResponse;
+import com.tech.pojo.Admin;
 import com.tech.pojo.News;
 import com.tech.service.NewsService;
 import org.nutz.json.Json;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -54,15 +57,22 @@ public class NewsController {
 
     @RequestMapping("/add_news")
     @ResponseBody
-    public ServerResponse<News> newsAdd(News news){
+    public ServerResponse<News> newsAdd(News news,HttpSession session){
+        try {
+            Admin admin = (Admin)session.getAttribute(Const.CURRENT_USER);
+            news.setAuthor(admin.getUsername());
+        }catch (Exception e){
+            //TODO
+        }
         news.setCreateTime(new Date());
         news.setUpdateTime(new Date());
         ServerResponse serverResponse =  newsService.insertNews(news);
         return serverResponse;
     }
 
-    @RequestMapping("/to_add_news")
-    public String toShowAddPage(Model model){
+    @RequestMapping("/to_add_news/{id}")
+    public String toShowAddPage(Model model,@PathVariable("id") Integer id){
+        model.addAttribute("newsType",id);
         model.addAttribute("action","add");
         return "Admin/news_edit";
     }
@@ -76,7 +86,13 @@ public class NewsController {
 
     @RequestMapping("/update_news")
     @ResponseBody
-    public ServerResponse<News> newsEdit(News news){
+    public ServerResponse<News> newsEdit(News news, HttpSession session){
+        try {
+            Admin admin = (Admin)session.getAttribute(Const.CURRENT_USER);
+            news.setAuthor(admin.getUsername());
+        }catch (Exception e){
+            //TODO
+        }
         news.setUpdateTime(new Date());
         ServerResponse serverResponse =  newsService.updateNews(news);
         return serverResponse;

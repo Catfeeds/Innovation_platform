@@ -20,4 +20,6 @@ public interface GoodWorkMapper {
     int updateByPrimaryKey(GoodWork record);
 
     List<GoodWork> selectAllGoodWorks();
+
+    int selectAllCount();
 }

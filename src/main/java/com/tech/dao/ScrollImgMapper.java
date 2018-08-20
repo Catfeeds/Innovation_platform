@@ -18,4 +18,8 @@ public interface ScrollImgMapper {
     int updateByPrimaryKey(ScrollImg record);
 
     List<ScrollImg> selectShowScrollImg();
+
+    int selectAllCount();
+
+    List<ScrollImg> selectAll();
 }

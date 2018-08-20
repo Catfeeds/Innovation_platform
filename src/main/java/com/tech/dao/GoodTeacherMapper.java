@@ -20,4 +20,6 @@ public interface GoodTeacherMapper {
     int updateByPrimaryKey(GoodTeacher record);
 
     List<GoodTeacher> selectAllGoodTeachers();
+
+    int selectAllCount();
 }

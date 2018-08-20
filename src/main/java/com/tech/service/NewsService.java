@@ -7,6 +7,7 @@ import com.tech.pojo.News;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -34,25 +35,25 @@ public class NewsService {
     public ServerResponse<String> insertNews(News news) {
         int count = newsMapper.insert(news);
         if (count>0){
-            return ServerResponse.createBySuccessMessage("add_success");
+            return ServerResponse.createBySuccessMessage("添加成功");
         }
-        return ServerResponse.createByErrorMessage("add_fail");
+        return ServerResponse.createByErrorMessage("添加失败");
     }
 
     public ServerResponse<String> updateNews(News news){
         int count = newsMapper.updateByPrimaryKeySelective(news);
         if (count>0){
-            return ServerResponse.createBySuccessMessage("update_success");
+            return ServerResponse.createBySuccessMessage("更新成功");
         }
-        return ServerResponse.createByErrorMessage("update_fail");
+        return ServerResponse.createByErrorMessage("更新失败");
     }
 
     public ServerResponse<String> deleteNews(Integer id) {
         int count = newsMapper.deleteByPrimaryKey(id);
         if (count>0){
-            return ServerResponse.createBySuccessMessage("delete_success");
+            return ServerResponse.createBySuccessMessage("删除成功");
         }
-        return ServerResponse.createByErrorMessage("delete_fail");
+        return ServerResponse.createByErrorMessage("删除失败");
     }
 
     public int getKindNewsCount(Integer typeNew) {

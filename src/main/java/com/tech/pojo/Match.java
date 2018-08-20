@@ -122,4 +122,9 @@ public class Match {
     public void setIntroduce(String introduce) {
         this.introduce = introduce == null ? null : introduce.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Match{" + "id=" + id + ", levelMatch=" + levelMatch + ", nameMatch='" + nameMatch + '\'' + ", imgUrl='" + imgUrl + '\'' + ", linkUrl='" + linkUrl + '\'' + ", createTime=" + createTime + ", updateTime=" + updateTime + ", clicks=" + clicks + ", priority=" + priority + ", startTime=" + startTime + ", endTime=" + endTime + ", introduce='" + introduce + '\'' + '}';
+    }
 }

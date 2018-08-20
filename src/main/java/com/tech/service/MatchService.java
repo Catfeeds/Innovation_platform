@@ -26,29 +26,33 @@ public class MatchService {
     public ServerResponse insertMatch(Match match) {
         int count = matchMapper.insert(match);
         if (count>0){
-            return ServerResponse.createBySuccessMessage("add_success");
+            return ServerResponse.createBySuccessMessage("添加赛事成功");
         }
-        return ServerResponse.createByErrorMessage("add_fail");
+        return ServerResponse.createByErrorMessage("添加赛事失败");
     }
 
     public ServerResponse updateMatch(Match match) {
         int count = matchMapper.updateByPrimaryKeySelective(match);
         if (count>0){
-            return ServerResponse.createBySuccessMessage("update_success");
+            return ServerResponse.createBySuccessMessage("更新赛事成功");
         }
-        return ServerResponse.createByErrorMessage("update_fail");
+        return ServerResponse.createByErrorMessage("更新赛事失败");
     }
 
     public ServerResponse deleteMatch(Integer id) {
         int count = matchMapper.deleteByPrimaryKey(id);
         if (count>0){
-            return ServerResponse.createBySuccessMessage("delete_success");
+            return ServerResponse.createBySuccessMessage("删除赛事成功");
         }
-        return ServerResponse.createByErrorMessage("delete_fail");
+        return ServerResponse.createByErrorMessage("删除赛事失败");
     }
 
     public Match getMatch(Integer matchId) {
         Match match = matchMapper.selectByPrimaryKey(matchId);
         return match;
+    }
+
+    public int getMatchCount() {
+        return matchMapper.selectMatchCount();
     }
 }

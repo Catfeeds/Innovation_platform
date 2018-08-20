@@ -80,7 +80,7 @@
                         <i class="iconfont icon-text" data-icon="icon-text"></i>
                         <cite>首页管理</cite><span class="layui-nav-more"></span></a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="/static/page/news/compete.html">
+                        <dd><a href="javascript:;" data-url="/manage/to_match_list.do">
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
                             <cite>赛事介绍管理</cite></a>
                         </dd>
@@ -96,19 +96,19 @@
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
                             <cite>常见问题管理</cite></a>
                         </dd>
-                        <dd><a href="javascript:;" data-url="page/news/product.html">
+                        <dd><a href="javascript:;" data-url="/manage/to_download_list.do">
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
                             <cite>下载专区管理</cite></a>
                         </dd>
-                        <dd><a href="javascript:;" data-url="page/news/works.html">
+                        <dd><a href="javascript:;" data-url="/manage/to_work_list.do">
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
                             <cite>成果展示管理</cite></a>
                         </dd>
-                        <dd><a href="javascript:;" data-url="page/news/teachers.html">
+                        <dd><a href="javascript:;" data-url="/manage/to_tech_list.do">
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
                             <cite>优秀教师管理</cite></a>
                         </dd>
-                        <dd><a href="javascript:;" data-url="page/links/linksList.html">
+                        <dd><a href="javascript:;" data-url="/manage/to_scroll_list.do">
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
                             <cite>轮播图管理</cite></a>
                         </dd>

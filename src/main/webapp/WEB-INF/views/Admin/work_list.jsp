@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>文章列表</title>
+	<title>作品展示</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -26,7 +26,7 @@
 		    <a class="layui-btn search_btn">查询</a>
 		</div>
 		<div class="layui-inline">
-			<a class="layui-btn layui-btn-normal newsAdd_btn">添加文章</a>
+			<a class="layui-btn layui-btn-normal newsAdd_btn">添加作品展示</a>
 		</div>
 		<div class="layui-inline">
 			<a class="layui-btn layui-btn-danger batchDel">批量删除</a>
@@ -34,8 +34,7 @@
 
 	</blockquote>
 	<div class="layui-form news_list">
-		<input type="hidden" id="newType" value="${newsType}">
-			<table id="newList" lay-filter="newsListID"></table>
+			<table id="List" lay-filter="ListID"></table>
 	</div>
 	<div id="page"></div>
 </body>
@@ -48,9 +47,9 @@
         $(window).one("resize",function(){
             $(".newsAdd_btn").click(function(){
                 var index = layui.layer.open({
-                    title : "添加文章",
+                    title : "添加优秀作品",
                     type : 2,
-                    content : "${cpath}/manage/to_add_news/"+newsType+".do",
+                    content : "${cpath}/manage/to_work_add.do",
                     success : function(layero, index){
                         setTimeout(function(){
                             layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
@@ -64,16 +63,19 @@
         }).resize();
 
         table.render({
-            elem: '#newList',
-            url: '${cpath}/manage/news_list/'+newsType+'.do',
+            elem: '#List',
+            url: '${cpath}/manage/work_list.do',
             method: 'get',
             limit: 10,
             cols: [[
                 {field:'id', title: '序号',align:'center',sort:true},
-                {field:'title', title: '标题',align:'center'},
-                {field:'author', title: '发布人',align:'center'},
-                {field:'clicks',title: '点击次数',align:'center'},
+                {field:'matchName', title: '大赛名称',align:'center'},
+                {field:'itemName', title: '项目名称',align:'center'},
+                {field:'coverUrl', title: '封面url',align:'center'},
+				{field:'clicks',title: '点击次数',align:'center'},
+                {field:'finishTime', title: '完成时间',align:'center'},
                 {field:'createTime', title: '发布时间',align:'center'},
+                {field:'introduce', title: '简介',align:'center'},
                 {title: '操作',align:'center',toolbar: '#bar'},
             ]],
             page: true,
@@ -82,7 +84,7 @@
             }
         });
 
-        table.on('tool(newsListID)', function(obj){
+        table.on('tool(ListID)', function(obj){
             var data = obj.data;
             if(obj.event === 'detail'){
                 //window.open(data.url);

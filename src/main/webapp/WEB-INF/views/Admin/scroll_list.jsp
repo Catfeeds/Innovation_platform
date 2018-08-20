@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>友情链接显示</title>
+	<title>滚动图</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -20,27 +20,34 @@
 <body class="childrenBody">
 	<blockquote class="layui-elem-quote news_search">
 		<div class="layui-inline">
-			<a class="layui-btn layui-btn-normal newsAdd_btn">添加链接</a>
+			<a class="layui-btn layui-btn-normal newsAdd_btn">添加滚动图</a>
 		</div>
 	</blockquote>
 	<div class="layui-form news_list">
 		<input type="hidden" id="newType" value="debug">
-			<table id="linkTableList" lay-filter="linkTableId"></table>
+			<table id="List" lay-filter="listID"></table>
 	</div>
 	<div id="page"></div>
 </body>
 <script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
+<script type="text/html" id="bar">
+	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script type="text/html" id="isShow">
+	<input type="checkbox" value="{{d.isShow}}" lay-skin="switch" lay-filter="show" lay-text="是|否" {{ d.isShow == 1 ? 'checked' : '' }} >
+</script>
 <script type="text/javascript">
-	var a = '';
     layui.use('table', function(){
-        var table = layui.table;
+        var table = layui.table
+            ,form = layui.form;
 
         $(window).one("resize",function(){
             $(".newsAdd_btn").click(function(){
                 var index = layui.layer.open({
-                    title : "添加新友情链接",
+                    title : "添加滚动图",
                     type : 2,
-                    content : "${cpath}/static/page/link_add.html",
+                    content : "/static/page/link_add.html",
                     success : function(layero, index){
                         setTimeout(function(){
                             layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
@@ -54,30 +61,48 @@
         }).resize();
 
         table.render({
-            elem: '#linkTableList',
-            url: '${cpath}/manage/link.do',
-            method: 'get',
+            elem: '#List',
+            url: '/manage/scroll_list.do',
+            method: 'post',
             limit: 10,
             cols: [[
                 {field:'id', title: '序号',align:'center',sort:true},
-                {field:'nameLink', title: '链接名称',align:'center',edit: 'text',},
-                {field:'url', title: '链接地址',align:'center',edit: 'text',},
-                {title: '操作',align:'center',toolbar: '#bar'},
+                {field:'urlImg', title: '链接地址',align:'center',edit: 'text'},
+				{field:'nameLink', title: '链接名称',align:'center',edit: 'text'},
+				{field:'link', title: '超链接',align:'center',edit: 'text'},
+                {field:'isShow', title: '是否展示',align:'center',templet:'#isShow'},
+                {title: '操作',align:'center',toolbar: '#bar',fixed:'right'},
             ]],
             page: true,
             done: function (res, curr, count) {
 
             }
         });
+        //监听展示操作
+        form.on('switch(show)', function(obj){
+            //layer.tips(this.value + ' ' + this.name + '：'+ obj.elem.checked, obj.0this);
+            $.ajax({
+                url:'/manage/xxx/'+data.id+'.do',
+                type:'post',
+                success : function(data) {
+                    if(data.status==0){
+                        obj.del();
+                        layer.msg(data.msg);
+                    }
+                    else
+                        layer.msg(data.msg);
+                }
+            });
+        });
 
-        table.on('tool(linkTableId)', function(obj){
+        table.on('tool(listID)', function(obj){
             var data = obj.data;
             if(obj.event === 'detail'){
-                window.open(data.url);
+                window.open("/index.html");
             } else if(obj.event === 'del'){
-                layer.confirm('真的删除'+data.nameLink+'么?', function(index){
+                layer.confirm('真的要删除么?', function(index){
                     $.ajax({
-                        url:'/manage/delete_link/'+data.id+'.do',
+                        url:'/manage/delete_scroll/'+data.id+'.do',
                         type:'post',
                         success : function(data) {
                             if(data.status==0){
@@ -93,13 +118,13 @@
             }
         });
 
-        table.on('edit(linkTableId)', function(obj){
+        table.on('edit(listID)', function(obj){
             var value = obj.value
                 ,data = obj.data
                 ,field = obj.field;
 
             $.ajax({
-                url:'/manage/update_link.do',
+                url:'/manage/update_scroll.do',
                 type:'post',
                 data:{
                     id:data.id,
@@ -116,8 +141,5 @@
         });
     })
 </script>
-<script type="text/html" id="bar">
-	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-</script>
+
 </html>

@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 @Controller
-@RequestMapping("/student")
+@RequestMapping("/stu")
 public class EnrollController {
     @Autowired
     MemberService memberService;

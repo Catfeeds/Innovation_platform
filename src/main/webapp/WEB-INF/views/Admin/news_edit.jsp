@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>文章添加--后台管理模板</title>
+	<title>文章编辑</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -16,19 +16,19 @@
 	<script src="${cpath}/static/js/jquery-1.8.3.min.js"></script>
 </head>
 <body class="childrenBody">
-	<form class="layui-form">
-		<input id="newsID" name="newsID" type="hidden" value="${news.id}">
+	<form class="layui-form" style="width: 90%">
 		<input id="action"  type="hidden" value="${action}">
-
 		<br>
 		<div class="layui-form-item">
 			<label class="layui-form-label">文章标题</label>
 			<div class="layui-input-block">
 				<c:if test="${action == 'edit' }">
-					<input value="${news.title}" id="news_title" type="text" class="layui-input newsName" lay-verify="required" placeholder="编辑文章">
+					<input id="newsID" name="id" type="hidden" value="${news.id}">
+					<input name="title" value="${news.title}" id="news_title" type="text" class="layui-input newsName" lay-verify="required" placeholder="编辑文章">
 				</c:if>
 				<c:if test="${action == 'add' }">
-					<input id="news_title" type="text" class="layui-input newsName" lay-verify="required" placeholder="请输入文章标题">
+					<input name="typeNews" id="newsType"  type="hidden" value="${newsType}">
+					<input name="title" id="news_title" type="text" class="layui-input newsName" lay-verify="required" placeholder="请输入文章标题">
 				</c:if>
 			</div>
 		</div>
@@ -39,7 +39,12 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">文章内容</label>
 			<div class="layui-input-block">
-				<textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="news_content"></textarea>
+				<c:if test="${action == 'edit' }">
+				<textarea  class="layui-textarea layui-hide" name="content" lay-verify="content" id="news_content">${news.content}</textarea>
+				</c:if>
+				<c:if test="${action == 'add' }">
+					<textarea  class="layui-textarea layui-hide" name="content" lay-verify="content" id="news_content"></textarea>
+				</c:if>
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -52,7 +57,6 @@
 	<script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
 	<script type="text/javascript" >
 		var action = $("#action").val();
-		var newsID = $("#newsID").val();
         layui.use(['form','layer','jquery','layedit'], function(){
             var form = layui.form,
                 layer = parent.layer === undefined ? layui.layer : parent.layer,
@@ -63,16 +67,11 @@
 
             form.on("submit(addNews)",function(data){
                 layedit.sync(editIndex);
-                //layer.msg($("#news_content").val());
                 if(action=='edit'){
                     $.ajax({
                         type:'post',
                         url:'/manage/update_news.do',
-                        data:{
-                            id:newsID,
-                            title:$("#news_title").val(),
-                            content:$("#news_content").val()
-                        },
+                        data:data.field,
                         success:function (data) {
                             layer.msg(data.msg);
                         },
@@ -80,15 +79,11 @@
                             layer.msg('接口错误');
                         }
                     });
-                }else if(aciton=='add'){
+                }else if(action=='add'){
                     $.ajax({
                         type:'post',
                         url:'/manage/add_news.do',
-                        data:{
-                            typeNews:1,
-                            title:$("#news_title").val(),
-                            content:$("#news_content").val()
-                        },
+                        data: data.field,
                         success:function (data) {
                             layer.msg(data.msg);
                         },

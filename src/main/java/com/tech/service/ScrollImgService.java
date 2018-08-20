@@ -41,4 +41,13 @@ public class ScrollImgService {
         }
         return ServerResponse.createByErrorMessage("delete_fail");
     }
+
+    public int getAllCount() {
+        return scrollImgMapper.selectAllCount();
+    }
+
+    public List<ScrollImg> getAllScrollImg() {
+        List<ScrollImg> scrollImgs  = scrollImgMapper.selectAll();
+        return scrollImgs;
+    }
 }

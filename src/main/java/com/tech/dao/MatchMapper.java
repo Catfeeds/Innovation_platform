@@ -22,4 +22,6 @@ public interface MatchMapper {
     List<Match> selectAllMatches();
 
     List<Match> selectCountMatches(Integer count);
+
+    int selectMatchCount();
 }

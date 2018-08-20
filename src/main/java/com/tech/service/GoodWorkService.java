@@ -46,4 +46,8 @@ public class GoodWorkService {
         GoodWork goodWork = goodWorkMapper.selectByPrimaryKey(id);
         return goodWork;
     }
+
+    public int getAllCount() {
+        return goodWorkMapper.selectAllCount();
+    }
 }

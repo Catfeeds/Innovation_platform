@@ -201,4 +201,7 @@
   <select id="selectCountMatches" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select * from tbl_match ORDER BY priority DESC LIMIT #{counts}
   </select>
+    <select id="selectMatchCount" resultType="java.lang.Integer">
+      SELECT count(*) from tbl_match
+    </select>
 </mapper>

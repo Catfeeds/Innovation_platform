@@ -27,8 +27,8 @@ public class StudentService {
     public ServerResponse<String> changePassword(String sno,String newPwd) {
          int count = studentMapper.updatePasswordBySno(sno,newPwd);
          if (count>0){
-             return ServerResponse.createBySuccessMessage("修改成功");
-         }
+            return ServerResponse.createBySuccessMessage("修改成功");
+        }
          return ServerResponse.createByErrorMessage("修改失败");
     }
 

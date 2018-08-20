@@ -45,4 +45,8 @@ public class GoodTeacherService {
     public GoodTeacher getById(Integer id) {
         return goodTeacherMapper.selectByPrimaryKey(id);
     }
+
+    public int getAllCount() {
+        return goodTeacherMapper.selectAllCount();
+    }
 }

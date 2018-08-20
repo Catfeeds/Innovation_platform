@@ -10,28 +10,29 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="format-detection" content="telephone=no">
 	<link rel="stylesheet" href="/static/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="/static/css/public.css">
 	<script src="/static/js/jquery-1.8.3.min.js"></script>
 </head>
 <body class="childrenBody">
-	<form class="layui-form">
+	<form class="layui-form" style="width: 80%;">
 		<br>
-		<div class="layui-form-item">
+		<div class="layui-form-item layui-row layui-col-xs12" >
 			<label class="layui-form-label">文章标题</label>
 			<div class="layui-input-block">
-				<input id="news_title" type="text" class="layui-input newsName" lay-verify="required" placeholder="请输入文章标题">
+				<input width="300px" id="news_title" type="text" class="layui-input newsName" lay-verify="required" placeholder="请输入文章标题">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			
 		</div>
 		
-		<div class="layui-form-item">
+		<div class="layui-form-item layui-row layui-col-xs12">
 			<label class="layui-form-label">文章内容</label>
 			<div class="layui-input-block">
 				<textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="news_content"></textarea>
 			</div>
 		</div>
-		<div class="layui-form-item">
+		<div class="layui-form-item layui-row layui-col-xs12">
 			<div class="layui-input-block">
 				<button class="layui-btn" lay-submit="" lay-filter="addNews">确认添加</button>
 				<button type="reset" class="layui-btn layui-btn-primary">重置</button>

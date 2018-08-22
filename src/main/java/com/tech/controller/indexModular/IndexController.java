@@ -2,12 +2,16 @@ package com.tech.controller.indexModular;
 
 import com.tech.pojo.*;
 import com.tech.service.*;
+import com.tech.utils.CreateImageCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -28,6 +32,25 @@ public class IndexController {
     GoodWorkService goodWorkService;
     @Autowired
     FileService fileService;
+
+    /**
+     * 跳转至登录页面
+     * @return
+     */
+    @RequestMapping("/login")
+    public String toLogin(){
+        return "login";
+    }
+
+    /**
+     * 生成验证码
+     */
+    @RequestMapping("/makeCode")
+    public void Captcha(HttpServletResponse response, HttpSession session)throws IOException {
+        CreateImageCode vCode = new CreateImageCode(116,36,5,10);
+        session.setAttribute("code", vCode.getCode());
+        vCode.write(response.getOutputStream());
+    }
 
     @RequestMapping("/index")
     public String showIndex(Model model){
@@ -123,15 +146,6 @@ public class IndexController {
         GoodTeacher goodTeachers = goodTeacherService.getById(id);
         model.addAttribute("teacher",goodTeachers);
         return "Index/teacher_detail";
-    }
-
-    /**
-     * 跳转至登录页面
-     * @return
-     */
-    @RequestMapping("/login")
-    public String toLogin(){
-        return "/Index/login";
     }
 
 }

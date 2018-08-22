@@ -18,13 +18,18 @@
 <body class="childrenBody">
 <br>
 <br>
-<input id="downloadID"  type="hidden" value="${download.id}">
-<input id="action"  type="hidden" value="${action}">
-	<form class="layui-form" style="width: 80%">
+	<form class="layui-form" style="width: 70%">
+		<input id="action"  type="hidden" value="${action}">
 		<div class="layui-form-item">
 			<label class="layui-form-label">大赛名称</label>
 			<div class="layui-input-block">
-				<input type="text" class="layui-input newsName" lay-verify="required" placeholder="请输入大赛名称">
+				<c:if test="${action == 'add' }">
+					<input name="nameMatch" type="text" class="layui-input newsName" lay-verify="required" placeholder="请输入大赛名称">
+				</c:if>
+				<c:if test="${action == 'edit' }">
+					<input name="id" id="downloadID"  type="hidden" value="${download.id}">
+					<input name="nameMatch" type="text" class="layui-input newsName" lay-verify="required" value="${download.nameMatch}">
+				</c:if>
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -33,25 +38,40 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">作品名称</label>
 			<div class="layui-input-block">
-				<input type="text" class="layui-input productName" lay-verify="required" placeholder="请输入作品名称">
+				<c:if test="${action == 'add' }">
+					<input name="titleWork" type="text" class="layui-input productName" lay-verify="required" placeholder="请输入作品名称">
+				</c:if>
+				<c:if test="${action == 'edit' }">
+					<input name="titleWork" type="text" class="layui-input productName" lay-verify="required" value="${download.titleWork}">
+				</c:if>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">作者姓名</label>
 			<div class="layui-input-block">
-				<input type="text" class="layui-input productAuthor" lay-verify="required" placeholder="请输入作者姓名">
+				<c:if test="${action == 'add' }">
+					<input name="author" type="text" class="layui-input productAuthor" lay-verify="required" placeholder="请输入作者姓名">
+				</c:if>
+				<c:if test="${action == 'edit' }">
+					<input name="author" type="text" class="layui-input productAuthor" lay-verify="required"value="${download.author}">
+				</c:if>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">指导老师</label>
 			<div class="layui-input-block">
-				<input type="text" class="layui-input teacher" lay-verify="required" placeholder="请输入指导老师">
+				<c:if test="${action == 'add' }">
+					<input name="instructor" type="text" class="layui-input teacher" lay-verify="required" placeholder="请输入指导老师">
+				</c:if>
+				<c:if test="${action == 'edit' }">
+					<input name="instructor" type="text" class="layui-input teacher" lay-verify="required" value="${download.instructor}">
+				</c:if>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">作品附件</label>
 			<div class="layui-input-block">
-				<textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="news_content"></textarea>
+
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -65,26 +85,17 @@
 <script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
 <script type="text/javascript" >
     var action = $("#action").val();
-    var downloadID = $("#downloadID").val();
-    layui.use(['form','layer','jquery','layedit'], function(){
+    layui.use(['form','layer','jquery'], function(){
         var form = layui.form,
             layer = parent.layer === undefined ? layui.layer : parent.layer,
-            layedit = layui.layedit,
             $ = layui.jquery;
 
-        //var editIndex = layedit.build('news_content');
-
         form.on("submit(addNews)",function(data){
-            layedit.sync(editIndex);
             if(action=='edit'){
                 $.ajax({
                     type:'post',
                     url:'/manage/download_update.do',
-                    data:{
-                        id:downloadID,
-                        title:$("#news_title").val(),
-                        content:$("#news_content").val()
-                    },
+                    data:data.field,
                     success:function (data) {
                         layer.msg(data.msg);
                     },
@@ -96,11 +107,7 @@
                 $.ajax({
                     type:'post',
                     url:'/manage/download_add.do',
-                    data:{
-                        typeNews:1,
-                        title:$("#news_title").val(),
-                        content:$("#news_content").val()
-                    },
+                    data:data.field,
                     success:function (data) {
                         layer.msg(data.msg);
                     },

@@ -26,7 +26,7 @@
 		    <a class="layui-btn search_btn">查询</a>
 		</div>
 		<div class="layui-inline">
-			<a class="layui-btn layui-btn-normal newsAdd_btn">添加文章</a>
+			<a class="layui-btn layui-btn-normal newsAdd_btn">添加赛事介绍</a>
 		</div>
 		
 		<div class="layui-inline">
@@ -44,7 +44,7 @@
         $(window).one("resize",function(){
             $(".newsAdd_btn").click(function(){
                 var index = layui.layer.open({
-                    title : "添加赛事",
+                    title : "添加赛事介绍",
                     type : 2,
                     content : "${cpath}/manage/to_match_add.do",
                     success : function(layero, index){
@@ -65,10 +65,11 @@
                 url: '${cpath}/manage/match_list.do',
                 method: 'post',
                 limit: 10,
+				size:'lg',
                 cols: [[
                     {field:'id', title: '序号',align:'center',sort:true},
                     {field:'nameMatch', title: '大赛名称',align:'center'},
-                    {field:'levelMatch', title: '大赛级别',align:'center',templet:function(d){
+                    {field:'levelMatch', title: '赛事级别',align:'center',templet:function(d){
                         if(d.levelMatch == "1"){
                             return "国家级";
                         }else if(d.levelMatch == "2"){
@@ -78,14 +79,11 @@
                         }
                     }},
                     {field:'imgUrl', title: '封面',align:'center',templet:function(d) {
-                        return '<img src="' + d.imgUrl + '" height="26" />';
+                        return '<img src="' + d.imgUrl + '" />';
                     }},
                     {field:'linkUrl', title: '官网链接',align:'center'},
-                    {field:'clicks',title: '点击次数',align:'center'},
                     {field:'createTime', title: '发布时间',align:'center'},
                     {field:'priority', title: '封面优先级',align:'center',edit:'text'},
-                    {field:'startTime', title: '开始时间',align:'center'},
-                    {field:'endTime', title: '结束时间',align:'center'},
                     {title: '操作',width:200,align:'center',toolbar: '#bar',fixed:'right'},
                 ]],
                 page: true,
@@ -97,7 +95,7 @@
             table.on('tool(matchListID)', function(obj){
                 var data = obj.data;
                 if(obj.event === 'detail'){
-                    //window.open(data.url);
+                    window.open('/compete/'+data.id+'.html');
                 } else if(obj.event === 'del'){
                     layer.confirm('真的删除 '+data.nameMatch+' 么?', function(index){
                         $.ajax({

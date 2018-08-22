@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,6 +67,7 @@ public class GoodWorkController {
     @RequestMapping("/update_gwork")
     @ResponseBody
     public ServerResponse<String> updateGoodWork(GoodWork goodWork){
+        goodWork.setUpdateTime(new Date());
         ServerResponse serverResponse = goodWorkService.updateGoodWork(goodWork);
         return serverResponse;
     }

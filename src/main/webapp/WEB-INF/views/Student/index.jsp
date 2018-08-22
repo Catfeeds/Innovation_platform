@@ -82,7 +82,7 @@
 							<cite>我的项目</cite></a>
 					</li>
 					<li class="layui-nav-item">
-						<a href="javascript:;" data-url="page/links/linksList.html">
+						<a href="javascript:;" data-url="/stu/to_match_list.html">
 							<i class="iconfont icon-text" data-icon="icon-text">
 
 							</i><cite>赛事报名</cite></a>

@@ -94,6 +94,7 @@ public class NewsController {
             //TODO
         }
         news.setUpdateTime(new Date());
+System.out.println(news.toString());
         ServerResponse serverResponse =  newsService.updateNews(news);
         return serverResponse;
     }

@@ -50,4 +50,20 @@ public class ScrollImgService {
         List<ScrollImg> scrollImgs  = scrollImgMapper.selectAll();
         return scrollImgs;
     }
+
+    public ServerResponse setHideById(Integer id) {
+        int count =  scrollImgMapper.updateHide(id);
+        if (count>0){
+            return ServerResponse.createBySuccessMessage("隐藏成功");
+        }
+        return ServerResponse.createByErrorMessage("隐藏失败");
+    }
+
+    public ServerResponse setShowById(Integer id) {
+        int count =  scrollImgMapper.updateShow(id);
+        if (count>0){
+            return ServerResponse.createBySuccessMessage("显示成功");
+        }
+        return ServerResponse.createByErrorMessage("显示失败");
+    }
 }

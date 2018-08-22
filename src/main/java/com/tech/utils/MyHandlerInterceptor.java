@@ -27,10 +27,10 @@ public class MyHandlerInterceptor implements HandlerInterceptor {
                         return true;
                     }else {
                         request.setAttribute("message","what are you doing?");
-                        request.getRequestDispatcher("/WEB-INF/views/Index/login.jsp").forward(request,response);
+                        request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request,response);
                     }
                 }catch (Exception e){
-                    request.getRequestDispatcher("/WEB-INF/views/Index/login.jsp").forward(request,response);
+                    request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request,response);
                     return false;
                 }
             }

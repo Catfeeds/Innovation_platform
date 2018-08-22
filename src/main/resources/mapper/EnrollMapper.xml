@@ -5,6 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="match_id" jdbcType="INTEGER" property="matchId" />
     <result column="group_id" jdbcType="INTEGER" property="groupId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
     <result column="title_enroll" jdbcType="VARCHAR" property="titleEnroll" />
     <result column="instructor" jdbcType="VARCHAR" property="instructor" />
     <result column="attachment" jdbcType="VARCHAR" property="attachment" />
@@ -12,7 +13,7 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, match_id, group_id, title_enroll, instructor, attachment, create_time, update_time
+    id, match_id, group_id,status, title_enroll, instructor, attachment, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -25,10 +26,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.tech.pojo.Enroll">
-    insert into tbl_enroll (id, match_id, group_id, 
+    insert into tbl_enroll (id,status, match_id, group_id,
       title_enroll, instructor, attachment, 
       create_time, update_time)
-    values (#{id,jdbcType=INTEGER}, #{matchId,jdbcType=INTEGER}, #{groupId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER},#{status,jdbcType=INTEGER}, #{matchId,jdbcType=INTEGER}, #{groupId,jdbcType=INTEGER},
       #{titleEnroll,jdbcType=VARCHAR}, #{instructor,jdbcType=VARCHAR}, #{attachment,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
@@ -125,4 +126,5 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
 </mapper>

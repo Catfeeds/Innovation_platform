@@ -82,4 +82,9 @@ public class News {
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
     }
+
+    @Override
+    public String toString() {
+        return "News{" + "id=" + id + ", typeNews=" + typeNews + ", title='" + title + '\'' + ", clicks=" + clicks + ", author='" + author + '\'' + ", createTime=" + createTime + ", updateTime=" + updateTime + ", content='" + content + '\'' + '}';
+    }
 }

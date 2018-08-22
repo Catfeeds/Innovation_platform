@@ -68,7 +68,6 @@
                 {field:'titleWork', title: '作品名称',align:'center'},
                 {field:'author', title: '作者',align:'center'},
                 {field:'instructor', title: '指导老师',align:'center'},
-                {field:'clicks',title: '点击次数',align:'center'},
                 {field:'attachment',title: '附件',align:'center'},
                 {field:'createTime', title: '发布时间',align:'center'},
                 {title: '操作',width:200,align:'center',toolbar: '#bar',fixed:'right'},
@@ -82,7 +81,7 @@
         table.on('tool(downloadListID)', function(obj){
             var data = obj.data;
             if(obj.event === 'detail'){
-                //window.open(data.url);
+                window.open('/downloads.html');
             } else if(obj.event === 'del'){
                 layer.confirm('真的删除 '+data.titleWork+' 么?', function(index){
                     $.ajax({

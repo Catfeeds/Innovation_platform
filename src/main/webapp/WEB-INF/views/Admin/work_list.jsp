@@ -71,11 +71,11 @@
                 {field:'id', title: '序号',align:'center',sort:true},
                 {field:'matchName', title: '大赛名称',align:'center'},
                 {field:'itemName', title: '项目名称',align:'center'},
-                {field:'coverUrl', title: '封面url',align:'center'},
-				{field:'clicks',title: '点击次数',align:'center'},
+                {field:'coverUrl', title: '封面',align:'center',templet:function(d) {
+                    return '<img src="' + d.coverUrl + '" />'}},
                 {field:'finishTime', title: '完成时间',align:'center'},
-                {field:'createTime', title: '发布时间',align:'center'},
                 {field:'introduce', title: '简介',align:'center'},
+				{field:'createTime', title: '发布时间',align:'center'},
                 {title: '操作',align:'center',toolbar: '#bar'},
             ]],
             page: true,
@@ -91,7 +91,7 @@
             } else if(obj.event === 'del'){
                 layer.confirm('真的删除'+data.title+'么?', function(index){
                     $.ajax({
-                        url:'${cpath}/manage/delete_news/'+data.id+".do",
+                        url:'${cpath}/manage/delete_gwork/'+data.id+".do",
                         type:'post',
                         success : function(data) {
                             if(data.status==0){
@@ -107,9 +107,9 @@
             }else if(obj.event === 'edit'){
                 $(window).one("resize",function(){
                     var index = layui.layer.open({
-                        title : "编辑文章",
+                        title : "编辑优秀作品",
                         type : 2,
-                        content : "${cpath}/manage/to_edit_news/"+data.id+".do",
+                        content : "${cpath}/manage/to_work_edit/"+data.id+".do",
                         success : function(layero, index){
                             setTimeout(function(){
                                 layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {

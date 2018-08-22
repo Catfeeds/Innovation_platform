@@ -64,6 +64,8 @@ public class MatchController {
     @RequestMapping("/match_add")
     @ResponseBody
     public ServerResponse<String> addMatch(Match match){
+        match.setCreateTime(new Date());
+        match.setUpdateTime(new Date());
         ServerResponse serverResponse =  matchService.insertMatch(match);
         System.out.println(match);
         return serverResponse;

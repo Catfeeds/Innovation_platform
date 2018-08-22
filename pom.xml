@@ -151,6 +151,14 @@
       <classifier>jdk15</classifier>
     </dependency>
 
+    <!--kindeditor测试 -->
+    <dependency>
+      <groupId>org.apache.clerezza.ext</groupId>
+      <artifactId>org.json.simple</artifactId>
+      <version>0.4</version>
+    </dependency>
+
+
   </dependencies>
 
   <build>

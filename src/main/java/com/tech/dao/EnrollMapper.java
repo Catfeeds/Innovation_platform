@@ -1,6 +1,9 @@
 package com.tech.dao;
 
 import com.tech.pojo.Enroll;
+import com.tech.pojo.Item;
+
+import java.util.List;
 
 public interface EnrollMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,5 @@ public interface EnrollMapper {
     int updateByPrimaryKeySelective(Enroll record);
 
     int updateByPrimaryKey(Enroll record);
+
 }

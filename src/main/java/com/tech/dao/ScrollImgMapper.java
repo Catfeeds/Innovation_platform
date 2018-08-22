@@ -22,4 +22,8 @@ public interface ScrollImgMapper {
     int selectAllCount();
 
     List<ScrollImg> selectAll();
+
+    int updateHide(Integer id);
+
+    int updateShow(Integer id);
 }

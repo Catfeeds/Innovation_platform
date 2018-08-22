@@ -85,7 +85,7 @@
         table.on('tool(newsListID)', function(obj){
             var data = obj.data;
             if(obj.event === 'detail'){
-                //window.open(data.url);
+                window.open('/news/'+data.id+'.html');
             } else if(obj.event === 'del'){
                 layer.confirm('真的删除'+data.title+'么?', function(index){
                     $.ajax({

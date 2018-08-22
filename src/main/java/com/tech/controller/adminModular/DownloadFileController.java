@@ -61,13 +61,7 @@ public class DownloadFileController {
 
     @RequestMapping("/download_add")
     @ResponseBody
-    public ServerResponse<String> addDownloadFile(DownloadFile downloadFile, HttpSession session){
-        try {
-            Admin admin = (Admin)session.getAttribute(Const.CURRENT_USER);
-            downloadFile.setAuthor(admin.getUsername());
-        }catch (Exception e){
-            //TODO
-        }
+    public ServerResponse<String> addDownloadFile(DownloadFile downloadFile){
         downloadFile.setCreateTime(new Date());
         downloadFile.setUpdateTime(new Date());
         ServerResponse<String> serverResponse =  downloadFileService.insertDownloadFile(downloadFile);
@@ -77,12 +71,6 @@ public class DownloadFileController {
     @RequestMapping("/download_update")
     @ResponseBody
     public ServerResponse<String> updateDownloadFile(DownloadFile downloadFile,HttpSession session){
-        try {
-            Admin admin = (Admin)session.getAttribute(Const.CURRENT_USER);
-            downloadFile.setAuthor(admin.getUsername());
-        }catch (Exception e){
-            //TODO
-        }
         downloadFile.setUpdateTime(new Date());
         ServerResponse<String> serverResponse =  downloadFileService.updateDownloadFile(downloadFile);
         return serverResponse;

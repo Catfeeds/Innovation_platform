@@ -35,7 +35,7 @@
 	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <script type="text/html" id="isShow">
-	<input type="checkbox" value="{{d.isShow}}" lay-skin="switch" lay-filter="show" lay-text="是|否" {{ d.isShow == 1 ? 'checked' : '' }} >
+	<input type="checkbox" value="{{d.id}}" lay-skin="switch" lay-filter="show" lay-text="是|否" {{ d.isShow == 1 ? 'checked' : '' }} >
 </script>
 <script type="text/javascript">
     layui.use('table', function(){
@@ -67,9 +67,10 @@
             limit: 10,
             cols: [[
                 {field:'id', title: '序号',align:'center',sort:true},
-                {field:'urlImg', title: '链接地址',align:'center',edit: 'text'},
-				{field:'nameLink', title: '链接名称',align:'center',edit: 'text'},
-				{field:'link', title: '超链接',align:'center',edit: 'text'},
+                {field:'urlImg', title: '链接地址',align:'center',templet:function(d) {
+					return '<img src="' + d.urlImg + '" style="height: 50px" />';
+				}},
+				{field:'link', title: '超链接',align:'center'},
                 {field:'isShow', title: '是否展示',align:'center',templet:'#isShow'},
                 {title: '操作',align:'center',toolbar: '#bar',fixed:'right'},
             ]],
@@ -80,19 +81,32 @@
         });
         //监听展示操作
         form.on('switch(show)', function(obj){
-            //layer.tips(this.value + ' ' + this.name + '：'+ obj.elem.checked, obj.0this);
+            var action;
+            if(obj.elem.checked){
+                action='show';
+			}else {
+                action='hide';
+			}
+			//layer.tips(this.value+' '+action+ ' ' + this.name + '：'+ obj.elem.checked, obj.othis);
             $.ajax({
-                url:'/manage/xxx/'+data.id+'.do',
+                url:'/manage/update_scroll_show.do',
                 type:'post',
+				data:{
+                    id:this.value,
+                  	showAction:action,
+				},
                 success : function(data) {
-                    if(data.status==0){
-                        obj.del();
-                        layer.msg(data.msg);
-                    }
-                    else
-                        layer.msg(data.msg);
+					layer.msg(data.msg);
+                },
+				error:function (data) {
+                    layer.msg("接口错误");
                 }
             });
+//			  算了
+//            setTimeout(function(){
+//                location.reload();
+//            },500);
+            return false;
         });
 
         table.on('tool(listID)', function(obj){

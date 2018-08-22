@@ -14,6 +14,8 @@
 	<meta name="format-detection" content="telephone=no">
 	<link rel="stylesheet" href="${cpath}/static/layui/css/layui.css" media="all" />
 	<script src="${cpath}/static/js/jquery-1.8.3.min.js"></script>
+	<script src="${cpath}/static/kindeditor/kindeditor-all-min.js"></script>
+	<script src="${cpath}/static/js/MyTextarea.js"></script>
 </head>
 <body class="childrenBody">
 	<form class="layui-form" style="width: 90%">
@@ -35,18 +37,19 @@
 		<div class="layui-form-item">
 			
 		</div>
-		
+
 		<div class="layui-form-item">
 			<label class="layui-form-label">文章内容</label>
 			<div class="layui-input-block">
 				<c:if test="${action == 'edit' }">
-				<textarea  class="layui-textarea layui-hide" name="content" lay-verify="content" id="news_content">${news.content}</textarea>
+					<textarea id="mytextarea" name="content" style="width:100%;height: 400px ">${news.content}</textarea>
 				</c:if>
 				<c:if test="${action == 'add' }">
-					<textarea  class="layui-textarea layui-hide" name="content" lay-verify="content" id="news_content"></textarea>
+					<textarea id="mytextarea" name="content" style="width:100%;height: 400px "></textarea>
 				</c:if>
 			</div>
 		</div>
+
 		<div class="layui-form-item">
 			<div class="layui-input-block">
 				<button class="layui-btn" lay-submit="" lay-filter="addNews">${action == 'add' ? "确认添加":"确认编辑"}</button>

@@ -10,6 +10,7 @@ import com.tech.pojo.Student;
 import com.tech.service.EnrollService;
 import com.tech.service.GroupService;
 import com.tech.service.MemberService;
+import org.nutz.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/stu")
@@ -67,5 +71,26 @@ public class EnrollController {
     public ServerResponse<Group> addTest(){
         Group group =  groupService.addGroup("组名测试");
         return ServerResponse.createBySuccess(group);
+    }
+
+
+    @RequestMapping("/to_enroll")
+    public String toEnroll(){
+        return "Student/enroll";
+    }
+
+    @RequestMapping(value = "/enroll_list",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String enrollList(HttpSession session){
+        //TODO complish
+//        Student student = (Student) session.getAttribute(Const.CURRENT_USER);
+//        List<Item> list = enrollService.getItemsBySno(student.getSno());
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("code",0);
+//        map.put("msg","");
+//        map.put("count",666);
+//        map.put("data", list);
+//        return Json.toJson(map);
+        return null;
     }
 }

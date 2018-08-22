@@ -66,24 +66,23 @@
     </div>
     <!-- 左侧导航 -->
     <div class="layui-side layui-bg-black">
-
+        <div class="user-photo">
+            <a class="img" title="我的头像" ><img src="${cpath}/static/images/timg.jpg"></a>
+            <p><span class="userName">管理员</span></p>
+        </div>
         <div class="navBar layui-side-scroll">
             <ul class="layui-nav layui-nav-tree">
-                <li class="layui-nav-item">
-                    <a  href="../index.html">
-                        <i class="iconfont icon-computer" data-icon="icon-computer">
-                        </i><cite>主页</cite></a>
-                </li>
+                <%--<li class="layui-nav-item">--%>
+                    <%--<a  href="../index.html">--%>
+                        <%--<i class="iconfont icon-computer" data-icon="icon-computer">--%>
+                        <%--</i><cite>主页</cite></a>--%>
+                <%--</li>--%>
 
                 <li class="layui-nav-item">
                     <a href="javascript:;">
-                        <i class="iconfont icon-text" data-icon="icon-text"></i>
+                        <i class="iconfont icon-computer" data-icon="icon-text"></i>
                         <cite>首页管理</cite><span class="layui-nav-more"></span></a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="/manage/to_match_list.do">
-                            <i class="iconfont icon-text" data-icon="icon-text"></i>
-                            <cite>赛事介绍管理</cite></a>
-                        </dd>
                         <dd><a href="javascript:;" data-url="/manage/to_news_list/1.do">
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
                             <cite>通知公告管理</cite></a>
@@ -95,6 +94,10 @@
                         <dd><a href="javascript:;" data-url="/manage/to_news_list/3.do">
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
                             <cite>常见问题管理</cite></a>
+                        </dd>
+                        <dd><a href="javascript:;" data-url="/manage/to_match_list.do">
+                            <i class="iconfont icon-text" data-icon="icon-text"></i>
+                            <cite>赛事介绍管理</cite></a>
                         </dd>
                         <dd><a href="javascript:;" data-url="/manage/to_download_list.do">
                             <i class="iconfont icon-text" data-icon="icon-text"></i>

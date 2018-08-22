@@ -7,11 +7,13 @@ import com.tech.pojo.ScrollImg;
 import com.tech.service.ScrollImgService;
 import org.nutz.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +59,20 @@ public class ScrollController {
     @ResponseBody
     public ServerResponse<String> updateScrollImg(ScrollImg scrollImg){
         ServerResponse serverResponse = scrollImgService.updateScrollImg(scrollImg);
+        return serverResponse;
+    }
+
+    @RequestMapping("/update_scroll_show")
+    @ResponseBody
+    public ServerResponse<String> updateIsShowScrollImg(HttpServletRequest request){
+        Integer id = Integer.parseInt(request.getParameter("id"));
+        String action = request.getParameter("showAction");
+        ServerResponse serverResponse;
+        if (action.equals("hide")){
+             serverResponse = scrollImgService.setHideById(id);
+        }else{
+             serverResponse = scrollImgService.setShowById(id);
+        }
         return serverResponse;
     }
 

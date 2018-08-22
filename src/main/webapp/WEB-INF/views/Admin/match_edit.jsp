@@ -16,9 +16,10 @@
 	<link rel="stylesheet" href="${cpath}/static/layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="${cpath}/static/css/public.css" media="all" />
 	<script src="${cpath}/static/js/jquery-1.8.3.min.js"></script>
+	<script src="${cpath}/static/kindeditor/kindeditor-all-min.js"></script>
+	<script src="${cpath}/static/js/MyTextarea.js"></script>
 </head>
 <body class="childrenBody">
-	<input id="matchID" name="newsID" type="hidden" value="${match.id}">
 	<input id="action"  type="hidden" value="${action}">
 	<br>
 	<form class="layui-form layui-row layui-col-space10">
@@ -29,6 +30,7 @@
 						<label class="layui-form-label">赛事名称</label>
 						<div class="layui-input-block">
 							<c:if test="${action=='edit'}">
+								<input id="matchID" name="id" type="hidden" value="${match.id}">
 								<input name="nameMatch" type="text" class="layui-input newsName" lay-verify="required" value="${match.nameMatch}">
 							</c:if>
 							<c:if test="${action=='add'}">
@@ -50,28 +52,6 @@
 
 					<div class="layui-form-item">
 						<div class="layui-inline">
-							<label class="layui-form-label">赛事时间</label>
-							<div class="layui-input-inline">
-								<c:if test="${action=='edit'}">
-									<input name="startTime" id="startTime" value="<fmt:formatDate value="${match.startTime}"  pattern="yyyy-MM-dd HH:mm:ss"/>" type="text" placeholder="起始时间"  class="layui-input time" lay-verify="required|datetime" >
-								</c:if>
-								<c:if test="${action=='add'}">
-									<input name="startTime" id="startTime" type="text" placeholder="起始时间"  class="layui-input time" lay-verify="required|datetime" >
-								</c:if>
-							</div>
-							<div class="layui-input-inline">
-								<c:if test="${action=='edit'}">
-									<input value="<fmt:formatDate value="${match.endTime}"  pattern="yyyy-MM-dd HH:mm:ss"/>" name="endTime" id="endTime" type="text" placeholder="截止时间" class="layui-input time" lay-verify="required|datetime" >
-								</c:if>
-								<c:if test="${action=='add'}">
-									<input name="endTime" id="endTime" type="text" placeholder="截止时间" class="layui-input time" lay-verify="required|datetime" >
-								</c:if>
-							</div>
-						</div>
-					</div>
-
-					<div class="layui-form-item">
-						<div class="layui-inline">
 							<label class="layui-form-label">赛事级别</label>
 							<div class="layui-input-inline">
 								<select name="levelMatch" class="Level" lay-filter="browseLook">
@@ -82,23 +62,33 @@
 								</select>
 							</div>
 						</div>
+						<label class="layui-form-label">封面优先级</label>
+						<div class="layui-input-inline">
+							<c:if test="${action=='edit'}">
+								<input name="priority" type="text" class="layui-input " lay-verify="required" value="${match.priority}">
+							</c:if>
+							<c:if test="${action=='add'}">
+								<input name="priority" type="text" class="layui-input " lay-verify="required" placeholder="请输入封面优先级">
+							</c:if>
+						</div>
 					</div>
 
 
 				</div>
 				<div class="layui-col-md3 layui-col-xs5">
 					<div class="layui-upload-list thumbBox mag0 magt3">
-						<img class="layui-upload-img thumbImg">
+						<img class="layui-upload-img thumbImg" >
 					</div>
 				</div>
+
 				<div class="layui-form-item">
 					<label class="layui-form-label">赛事简介</label>
 					<div class="layui-input-block">
 						<c:if test="${action=='add'}">
-							<textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="news_content"></textarea>
+							<textarea id="mytextarea" name="introduce" lay-verify="content"  class="mytextarea"></textarea>
 						</c:if>
 						<c:if test="${action=='edit'}">
-							<textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="news_content">${match.introduce}</textarea>
+							<textarea id="mytextarea" name="introduce" lay-verify="content"  class="mytextarea">${match.introduce}</textarea>
 						</c:if>
 					</div>
 				</div>
@@ -106,7 +96,6 @@
 				<div class="layui-form-item">
 					<div class="layui-input-block">
 						<button class="layui-btn" lay-submit="" lay-filter="addNews">确认添加</button>
-						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 					</div>
 				</div>
 		</div>
@@ -114,7 +103,6 @@
 	<script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
 	<script type="text/javascript" >
         var action = $("#action").val();
-        var matchID = $("#matchID").val();
         layui.use(['form','layer','layedit','laydate','upload'],function(){
             var form = layui.form
             layer = parent.layer === undefined ? layui.layer : top.layer,
@@ -130,6 +118,10 @@
 					type:'datetime'
                 });
             });
+            if(action=='edit'){
+                $('.thumbImg').attr('src', '${match.imgUrl}');
+                $("select option[value='${match.levelMatch}']").attr("selected","selected");
+            }
 
             //上传缩略图
             upload.render({
@@ -154,14 +146,8 @@
                 if(action=='edit'){
                     $.ajax({
                         type:'post',
-                        url:'/manage/match_update/'+matchID+'.do',
-                        data:{
-                            nameMatch:data.field.nameMatch,
-                            levelMatch:data.field.levelMatch,
-                            startTime:new Date(data.field.startTime),
-                            endTime:new Date(data.field.endTime),
-                            introduce:$("#news_content").val(),
-                        },
+                        url:'/manage/match_update.do',
+                        data:data.field,
                         success:function (data) {
                             layer.msg(data.msg);
                         },
@@ -174,13 +160,7 @@
                     $.ajax({
                         type:'post',
                         url:'${cpath}/manage/match_add.do',
-                        data:{
-                            nameMatch:data.field.nameMatch,
-                            levelMatch:data.field.levelMatch,
-                            startTime:new Date(data.field.startTime),
-                            endTime:new Date(data.field.endTime),
-							introduce:$("#news_content").val(),
-                        },
+                        data:data.field,
                         success:function (data) {
                             layer.msg(data.msg);
                         },

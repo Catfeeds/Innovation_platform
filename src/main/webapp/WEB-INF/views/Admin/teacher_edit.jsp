@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>文章列表--layui后台管理模板 2.0</title>
+	<title>优秀教师</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -16,13 +16,16 @@
 	<link rel="stylesheet" href="${cpath}/static/layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="${cpath}/static/css/public.css" media="all" />
 	<script src="${cpath}/static/js/jquery-1.8.3.min.js"></script>
+	<script src="${cpath}/static/kindeditor/kindeditor-all-min.js"></script>
+	<script src="${cpath}/static/js/MyTextarea.js"></script>
 	<style>
 		.thumbBox:after{
-			content: "测试";
+			content: "优秀教师图片";
 		}
 	</style>
 </head>
 <body class="childrenBody">
+<input id="action"  type="hidden" value="${action}">
 <form class="layui-form layui-row layui-col-space10">
 	<div class="layui-col-md9 layui-col-xs12">
 		<div class="layui-row layui-col-space10">
@@ -30,31 +33,57 @@
 				<div class="layui-form-item magt3">
 					<label class="layui-form-label">姓名</label>
 					<div class="layui-input-inline">
-						<input type="text" class="layui-input newsName" lay-verify="newsName" placeholder="请输姓名">
+						<c:if test="${action == 'add' }">
+							<input name="nameTeacher" type="text" class="layui-input newsName" lay-verify="newsName" placeholder="请输姓名">
+						</c:if>
+						<c:if test="${action == 'edit' }">
+							<input name="id" type="hidden" value="${teacher.id}">
+							<input name="nameTeacher" type="text" class="layui-input newsName" lay-verify="newsName" value="${teacher.nameTeacher}">
+						</c:if>
 					</div>
 				</div>
 				<div class="layui-form-item magt3">
 					<label class="layui-form-label">职称</label>
 					<div class="layui-input-inline">
-						<input type="text" class="layui-input newsName" lay-verify="newsName" placeholder="请输入职称">
+						<c:if test="${action == 'add' }">
+							<input name="occupationCall" type="text" class="layui-input newsName"  placeholder="请输入职称">
+						</c:if>
+						<c:if test="${action == 'edit' }">
+							<input name="occupationCall" type="text" class="layui-input newsName"  value="${teacher.occupationCall}">
+						</c:if>
 					</div>
 				</div>
 				<div class="layui-form-item magt3">
 					<label class="layui-form-label">联系方式</label>
 					<div class="layui-input-inline">
-						<input type="text" class="layui-input newsName" lay-verify="newsName" placeholder="请输入联系方式">
+						<c:if test="${action == 'add' }">
+							<input name="phone" type="text" class="layui-input newsName" lay-verify="newsName" placeholder="请输入联系方式">
+						</c:if>
+						<c:if test="${action == 'edit' }">
+							<input name="phone" type="text" class="layui-input newsName" lay-verify="newsName" value="${teacher.phone}">
+						</c:if>
 					</div>
 				</div>
 				<div class="layui-form-item magt3">
 					<label class="layui-form-label">邮箱</label>
 					<div class="layui-input-inline">
-						<input type="text" class="layui-input newsName" lay-verify="newsName" placeholder="请输入邮箱">
+						<c:if test="${action == 'add' }">
+							<input name="email" type="text" class="layui-input newsName" lay-verify="newsName" placeholder="请输入邮箱">
+						</c:if>
+						<c:if test="${action == 'edit' }">
+							<input name="email" type="text" class="layui-input newsName" lay-verify="newsName" value="${teacher.email}">
+						</c:if>
 					</div>
 				</div>
 				<div class="layui-form-item magt3">
 					<label class="layui-form-label">研究方向</label>
 					<div class="layui-input-block">
-						<input type="text" class="layui-input newsName" lay-verify="newsName" placeholder="请输研究方向">
+						<c:if test="${action == 'add' }">
+							<input name="researchDirection" type="text" class="layui-input newsName" lay-verify="newsName" placeholder="请输研究方向">
+						</c:if>
+						<c:if test="${action == 'edit' }">
+							<input name="researchDirection" type="text" class="layui-input newsName" lay-verify="newsName" value="${teacher.researchDirection}">
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -67,7 +96,12 @@
 		<div class="layui-form-item magb0">
 			<label class="layui-form-label">介绍内容</label>
 			<div class="layui-input-block">
-				<textarea class="layui-textarea layui-hide" name="content" lay-verify="requried" id="news_content"></textarea>
+				<c:if test="${action == 'add' }">
+					<textarea  name="introduce" lay-verify="requried"  class="mytextarea" id="mytextarea"></textarea>
+				</c:if>
+				<c:if test="${action == 'edit' }">
+					<textarea  name="introduce" lay-verify="requried" class="mytextarea" id="mytextarea">${teacher.introduce}</textarea>
+				</c:if>
 			</div>
 		</div>
 	</div>
@@ -81,22 +115,18 @@
 </body>
 <script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
 <script type="text/javascript" >
-    layui.use(['form','layer','layedit','laydate','upload'],function(){
+    var action = $("#action").val();
+    layui.use(['form','layer','upload'],function(){
         var form = layui.form
         layer = parent.layer === undefined ? layui.layer : top.layer,
             laypage = layui.laypage,
             upload = layui.upload,
-            layedit = layui.layedit,
-            laydate = layui.laydate,
             $ = layui.jquery;
-
-        //用于同步编辑器内容到textarea
-        layedit.sync(editIndex);
 
         //上传缩略图
         upload.render({
             elem: '.thumbBox',
-            url: '../../json/userface.json',
+            url: 'xxxxxx',
             before: function(obj){
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, file, result){
@@ -112,63 +142,43 @@
 		laydate.render({
             elem: '#release',
             type: 'datetime',
-            trigger : "click",
-            done : function(value, date, endDate){
-                submitTime = value;
-            }
-        });
-        form.on("radio(release)",function(data){
-            if(data.elem.title == "定时发布"){
-                $(".releaseDate").removeClass("layui-hide");
-                $(".releaseDate #release").attr("lay-verify","required");
-            }else{
-                $(".releaseDate").addClass("layui-hide");
-                $(".releaseDate #release").removeAttr("lay-verify");
-                submitTime = time.getFullYear()+'-'+(time.getMonth()+1)+'-'+time.getDate()+' '+time.getHours()+':'+time.getMinutes()+':'+time.getSeconds();
-            }
         });
 
         form.on("submit(addNews)",function(data){
-            //截取文章内容中的一部分文字放入文章摘要
-            var abstract = layedit.getText(editIndex).substring(0,50);
-            //弹出loading
-            var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
-            // 实际使用时的提交信息
-            // $.post("上传路径",{
-            //     newsName : $(".newsName").val(),  //文章标题
-            //     abstract : $(".abstract").val(),  //文章摘要
-            //     content : layedit.getContent(editIndex).split('<audio controls="controls" style="display: none;"></audio>')[0],  //文章内容
-            //     newsImg : $(".thumbImg").attr("src"),  //缩略图
-            //     classify : '1',    //文章分类
-            //     newsStatus : $('.newsStatus select').val(),    //发布状态
-            //     newsTime : submitTime,    //发布时间
-            //     newsTop : data.filed.newsTop == "on" ? "checked" : "",    //是否置顶
-            // },function(res){
-            //
-            // })
+            if(action=='edit'){
+                $.ajax({
+                    type:'post',
+                    url:'/manage/update_teacher.do',
+                    data:data.field,
+                    success:function (data) {
+                        layer.msg(data.msg);
+                    },
+                    error:function (data) {
+                        layer.msg('接口错误');
+                    }
+                });
+
+            }else if(action=='add'){
+                $.ajax({
+                    type:'post',
+                    url:'${cpath}/manage/add_teacher.do',
+                    data:data.field,
+                    success:function (data) {
+                        layer.msg(data.msg);
+                    },
+                    error:function (data) {
+                        layer.msg(data);
+                    }
+                });
+            }
+
             setTimeout(function(){
-                top.layer.close(index);
-                top.layer.msg("文章添加成功！");
                 layer.closeAll("iframe");
                 //刷新父页面
                 parent.location.reload();
             },500);
             return false;
         })
-
-        //预览
-        form.on("submit(look)",function(){
-            layer.alert("此功能需要前台展示，实际开发中传入对应的必要参数进行文章内容页面访问");
-            return false;
-        })
-
-        //创建一个编辑器
-        var editIndex = layedit.build('news_content',{
-            height : 535,
-            uploadImage : {
-                url : "../../json/newsImg.json"
-            }
-        });
 
     })
 </script>

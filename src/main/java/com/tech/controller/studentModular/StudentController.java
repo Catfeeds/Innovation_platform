@@ -25,11 +25,6 @@ public class StudentController {
         return "Admin/main";
     }
 
-    @RequestMapping("/to_enroll")
-    public String toEnroll(){
-        return "Student/enroll";
-    }
-
     @RequestMapping("/index")
     public String index(Model model, HttpSession session){
         if (session.getAttribute(Const.CURRENT_USER)==null){

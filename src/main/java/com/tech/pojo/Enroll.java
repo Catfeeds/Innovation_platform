@@ -9,6 +9,16 @@ public class Enroll {
 
     private Integer groupId;
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    private Integer status;
+
     private String titleEnroll;
 
     private String instructor;

@@ -54,7 +54,7 @@
 						<label class="layui-form-label">完成时间</label>
 						<div class="layui-input-inline">
 							<c:if test="${action == 'add' }">
-								<input name="finishTime" id="finishTime" type="text" placeholder="点击选择时间" class="layui-input time" lay-verify="required|datetime" >
+								<input name="finishTime" id="finishTime" type="text" placeholder="点击选择时间" class="layui-input time" lay-verify="required" >
 							</c:if>
 							<c:if test="${action == 'edit' }">
 								<input name="finishTime" id="finishTime" type="text" value="<fmt:formatDate value="${work.finishTime}" pattern="yyyy-MM-dd" />" class="layui-input time" lay-verify="required" >
@@ -125,6 +125,7 @@
                     $.ajax({
                         type:'post',
                         url:'/manage/update_gwork.do',
+						dataType:'json',
                         data:data.field,
                         success:function (data) {
                             layer.msg(data.msg);

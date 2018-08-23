@@ -151,4 +151,12 @@
     <select id="selectPartBySno" resultMap="BaseResultMap">
       select name_student,classno,phone from tbl_student where sno = #{sno}
     </select>
+    <select id="selectAllCount" resultType="java.lang.Integer">
+      SELECT COUNT(*) from tbl_student
+    </select>
+  <select id="selectAllStudent" resultType="com.tech.pojo.Student">
+    SELECT
+    <include refid="Base_Column_List" />
+    from tbl_student
+  </select>
 </mapper>

@@ -21,25 +21,25 @@ public class GoodTeacherService {
     public ServerResponse insertGoodTeacher(GoodTeacher goodTeacher) {
         int count = goodTeacherMapper.insert(goodTeacher);
         if(count>0){
-            return ServerResponse.createBySuccessMessage("add_success");
+            return ServerResponse.createBySuccessMessage("添加优秀教师成功");
         }
-        return ServerResponse.createByErrorMessage("add_fail");
+        return ServerResponse.createByErrorMessage("添加优秀教师失败");
     }
 
     public ServerResponse updateGoodTeacher(GoodTeacher goodTeacher) {
         int count = goodTeacherMapper.updateByPrimaryKeySelective(goodTeacher);
         if(count>0){
-            return ServerResponse.createBySuccessMessage("update_success");
+            return ServerResponse.createBySuccessMessage("更新优秀教师成功");
         }
-        return ServerResponse.createByErrorMessage("update_fail");
+        return ServerResponse.createByErrorMessage("更新优秀教师失败");
     }
 
     public ServerResponse deleteGoodTeacher(Integer id) {
         int count = goodTeacherMapper.deleteByPrimaryKey(id);
         if(count>0){
-            return ServerResponse.createBySuccessMessage("delete_success");
+            return ServerResponse.createBySuccessMessage("删除优秀教师成功");
         }
-        return ServerResponse.createByErrorMessage("delete_fail");
+        return ServerResponse.createByErrorMessage("删除优秀教师失败");
     }
 
     public GoodTeacher getById(Integer id) {

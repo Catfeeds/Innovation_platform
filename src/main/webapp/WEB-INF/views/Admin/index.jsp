@@ -11,7 +11,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>后台管理模板</title>
+    <title>科技创新项目平台</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
@@ -122,12 +122,13 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;"><i class="iconfont icon-text" data-icon="icon-text"></i>
+                    <a href="javascript:;">
+                        <i class="iconfont icon-text" data-icon="icon-text"></i>
                         <cite>学生管理</cite>
                         <span class="layui-nav-more"></span>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="page/news/studentInfo.html">
+                        <dd><a href="javascript:;" data-url="/manage/to_student_info_list.do">
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
                             <cite>学生信息管理</cite></a>
                         </dd>
@@ -139,16 +140,16 @@
                         <span class="layui-nav-more"></span>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="page/item/applyMasage.html">
+                        <dd><a href="javascript:;" data-url="/manage/to_itemEnroll_list.do">
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
                             <cite>项目申报管理</cite>
                         </a>
                         </dd>
-                        <dd><a href="javascript:;" data-url="page/item/apply.html">
+                        <dd><a href="javascript:;" data-url="/manage/to_matchEnroll_list.do">
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
                             <cite>赛事报名管理</cite></a>
                         </dd>
-                        <dd><a href="javascript:;" data-url="page/item/apply.html">
+                        <dd><a href="javascript:;" data-url="/manage/to_itemTotal_list.do">
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
                             <cite>项目统计</cite></a>
                         </dd>

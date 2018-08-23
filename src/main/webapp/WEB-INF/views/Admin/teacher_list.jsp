@@ -70,7 +70,7 @@
                     {field:'nameTeacher', title: '教师姓名',align:'center'},
                     {field:'occupationCall', title: '职称',align:'center'},
                     {field:'imageUrl', title: '照片',align:'center',templet:function(d) {
-                        return '<img src="' + d.imageUrl + '"/>';
+                        return '<img src="' + d.imageUrl + '" style="height: 80px"/>';
                     }},
                     {field:'researchDirection', title: '研究方向',align:'center'},
                     {field:'phone',title: '联系方式',align:'center'},
@@ -87,7 +87,7 @@
             table.on('tool(ListID)', function(obj){
                 var data = obj.data;
                 if(obj.event === 'detail'){
-                    //window.open(data.url);
+                    window.open('/teacher/'+data.id+'.html');
                 } else if(obj.event === 'del'){
                     layer.confirm('真的删除 '+data.nameMatch+' 么?', function(index){
                         $.ajax({

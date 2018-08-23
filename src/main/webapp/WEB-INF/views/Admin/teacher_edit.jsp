@@ -25,8 +25,8 @@
 	</style>
 </head>
 <body class="childrenBody">
-<input id="action"  type="hidden" value="${action}">
 <form class="layui-form layui-row layui-col-space10">
+	<input id="action"  type="hidden" value="${action}">
 	<div class="layui-col-md9 layui-col-xs12">
 		<div class="layui-row layui-col-space10">
 			<div class="layui-col-md9 layui-col-xs7">
@@ -117,9 +117,7 @@
 <script type="text/javascript" >
     var action = $("#action").val();
     layui.use(['form','layer','upload'],function(){
-        var form = layui.form
-        layer = parent.layer === undefined ? layui.layer : top.layer,
-            laypage = layui.laypage,
+        var form = layui.form,
             upload = layui.upload,
             $ = layui.jquery;
 
@@ -134,17 +132,13 @@
                 });
             },
             done: function(res, index, upload){
-                $('.thumbImg').attr('src',res.data[num].src);
+                //$('.thumbImg').attr('src',res.data[num].src);
                 $('.thumbBox').css("background","#fff");
             }
         });
 
-		laydate.render({
-            elem: '#release',
-            type: 'datetime',
-        });
-
         form.on("submit(addNews)",function(data){
+            console.log(action);
             if(action=='edit'){
                 $.ajax({
                     type:'post',
@@ -161,7 +155,7 @@
             }else if(action=='add'){
                 $.ajax({
                     type:'post',
-                    url:'${cpath}/manage/add_teacher.do',
+                    url:'/manage/add_teacher.do',
                     data:data.field,
                     success:function (data) {
                         layer.msg(data.msg);
@@ -171,6 +165,7 @@
                     }
                 });
             }
+
 
             setTimeout(function(){
                 layer.closeAll("iframe");

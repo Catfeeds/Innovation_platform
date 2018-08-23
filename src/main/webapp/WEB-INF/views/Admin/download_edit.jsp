@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>文章添加--后台管理模板</title>
+	<title>下载文件编辑</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -71,13 +71,16 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">作品附件</label>
 			<div class="layui-input-block">
-
+				<input id="attachment" type="hidden" name="attachment">
+				<button type="button" class="layui-btn" id="upload_btn">
+					<i class="layui-icon">&#xe67c;</i>上传附件
+				</button>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<div class="layui-input-block">
-				<button class="layui-btn" lay-submit="" lay-filter="addNews">确认添加</button>
-				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				<button class="layui-btn" lay-submit="" lay-filter="addNews">确认</button>
+				<%--<button type="reset" class="layui-btn layui-btn-primary">重置</button>--%>
 		    </div>
 		</div>
 	</form>
@@ -85,10 +88,29 @@
 <script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
 <script type="text/javascript" >
     var action = $("#action").val();
-    layui.use(['form','layer','jquery'], function(){
+    layui.use(['form','upload','layer','jquery'], function(){
         var form = layui.form,
             layer = parent.layer === undefined ? layui.layer : parent.layer,
+            upload = layui.upload,
             $ = layui.jquery;
+
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#upload_btn' //绑定元素
+            ,url: '/upload.do' //上传接口
+            ,accept: 'file'
+            ,done: function(res){
+                layer.msg('文件上传成功'+res.data);
+                console.log(res);
+                $('#attachment').attr("value",res.data);
+                //上传完毕回调
+            }
+            ,error: function(){
+                //请求异常回调
+                layer.msg('请求接口异常');
+            }
+        });
+
 
         form.on("submit(addNews)",function(data){
             if(action=='edit'){

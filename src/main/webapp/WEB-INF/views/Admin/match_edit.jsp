@@ -72,12 +72,15 @@
 							</c:if>
 						</div>
 					</div>
-
-
 				</div>
+				<%--<div class="layui-col-md3 layui-col-xs5">--%>
+					<%--<div class="layui-upload-list thumbBox mag0 magt3">--%>
+						<%--<img class="layui-upload-img thumbImg" >--%>
+					<%--</div>--%>
+				<%--</div>--%>
 				<div class="layui-col-md3 layui-col-xs5">
-					<div class="layui-upload-list thumbBox mag0 magt3">
-						<img class="layui-upload-img thumbImg" >
+					<div class=" thumbBox mag0 magt3">
+						<img class=" thumbImg" >
 					</div>
 				</div>
 
@@ -95,7 +98,7 @@
 				</div>
 				<div class="layui-form-item">
 					<div class="layui-input-block">
-						<button class="layui-btn" lay-submit="" lay-filter="addNews">确认添加</button>
+						<button class="layui-btn" lay-submit="" lay-filter="addNews">确认</button>
 					</div>
 				</div>
 		</div>

@@ -3,17 +3,20 @@ package com.tech.controller.adminModular;
 
 import com.github.pagehelper.PageHelper;
 import com.tech.common.ServerResponse;
-import com.tech.pojo.DownloadFile;
 import com.tech.pojo.GoodWork;
 import com.tech.service.GoodWorkService;
 import org.nutz.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -60,9 +63,25 @@ public class GoodWorkController {
     @RequestMapping("/add_gwork")
     @ResponseBody
     public ServerResponse<String> addGoodWork(GoodWork goodWork){
+        goodWork.setCreateTime(new Date());
+        goodWork.setUpdateTime(new Date());
         ServerResponse serverResponse = goodWorkService.insertGoodWork(goodWork);
         return serverResponse;
     }
+
+    /**
+     * form表单提交 Date类型数据绑定
+     * <功能详细描述>
+     * @param binder
+     * @see [类、类#方法、类#成员]
+     */
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+
 
     @RequestMapping("/update_gwork")
     @ResponseBody

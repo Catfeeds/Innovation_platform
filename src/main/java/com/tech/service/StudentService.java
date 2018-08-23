@@ -7,6 +7,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StudentService {
     @Autowired
@@ -44,5 +46,13 @@ public class StudentService {
         //TODO
         Student student = studentMapper.selectPartBySno(sno);
         return student;
+    }
+
+    public int getAllCount() {
+        return studentMapper.selectAllCount();
+    }
+
+    public List<Student> getAllStudent() {
+        return studentMapper.selectAllStudent();
     }
 }

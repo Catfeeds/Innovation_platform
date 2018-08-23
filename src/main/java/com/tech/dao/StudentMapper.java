@@ -3,6 +3,8 @@ package com.tech.dao;
 import com.tech.pojo.Student;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface StudentMapper {
     int deleteByPrimaryKey(String sno);
 
@@ -23,4 +25,8 @@ public interface StudentMapper {
     int selectBySnoAndPwd(@Param("sno") String sno,@Param("oldPwd") String oldPwd);
 
     Student selectPartBySno(String sno);
+
+    int selectAllCount();
+
+    List<Student> selectAllStudent();
 }

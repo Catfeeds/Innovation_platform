@@ -1,32 +1,44 @@
 package com.tech.pojo;
 
+import java.util.Arrays;
+
 public class Item {
-    private Integer matchId;
+    private Integer competeId;
+    private Integer groupId;
+    private String competeName;
     private String title;
     private String instructor;
     private String groupName;
-    private String headMan;
+    private String grouper;
     private String[] members;
     private String attachment;
 
-    public Integer getMatchId() {
-        return matchId;
+    public Integer getCompeteId() {
+        return competeId;
     }
 
-    public void setMatchId(Integer matchId) {
-        this.matchId = matchId;
+    public void setCompeteId(Integer competeId) {
+        this.competeId = competeId;
+    }
+
+    public Integer getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
+    }
+
+    public String getCompeteName() {
+        return competeName;
+    }
+
+    public void setCompeteName(String competeName) {
+        this.competeName = competeName;
     }
 
     public String getTitle() {
         return title;
-    }
-
-    public String getHeadMan() {
-        return headMan;
-    }
-
-    public void setHeadMan(String headMan) {
-        this.headMan = headMan;
     }
 
     public void setTitle(String title) {
@@ -49,6 +61,14 @@ public class Item {
         this.groupName = groupName;
     }
 
+    public String getGrouper() {
+        return grouper;
+    }
+
+    public void setGrouper(String grouper) {
+        this.grouper = grouper;
+    }
+
     public String[] getMembers() {
         return members;
     }
@@ -63,5 +83,11 @@ public class Item {
 
     public void setAttachment(String attachment) {
         this.attachment = attachment;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Item{" + "competeId=" + competeId + ", groupId=" + groupId + ", competeName='" + competeName + '\'' + ", title='" + title + '\'' + ", instructor='" + instructor + '\'' + ", groupName='" + groupName + '\'' + ", grouper='" + grouper + '\'' + ", members=" + Arrays.toString(members) + ", attachment='" + attachment + '\'' + '}';
     }
 }

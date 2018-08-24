@@ -29,4 +29,6 @@ public interface StudentMapper {
     int selectAllCount();
 
     List<Student> selectAllStudent();
+
+    Student selectInfoExceptPwdBySno(String sno);
 }

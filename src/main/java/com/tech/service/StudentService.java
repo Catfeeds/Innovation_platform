@@ -55,4 +55,16 @@ public class StudentService {
     public List<Student> getAllStudent() {
         return studentMapper.selectAllStudent();
     }
+
+    public ServerResponse<String> changePersonalInfo(Student student) {
+        int count =  studentMapper.updateByPrimaryKeySelective(student);
+        if (count>0){
+            return ServerResponse.createBySuccessMessage("修改成功");
+        }
+        return ServerResponse.createByErrorMessage("修改失败");
+    }
+
+    public Student getInfoExceptPwdBySno(String sno) {
+        return studentMapper.selectInfoExceptPwdBySno(sno);
+    }
 }

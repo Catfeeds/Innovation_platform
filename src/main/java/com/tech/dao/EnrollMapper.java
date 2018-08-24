@@ -1,7 +1,6 @@
 package com.tech.dao;
 
 import com.tech.pojo.Enroll;
-import com.tech.pojo.Item;
 
 import java.util.List;
 
@@ -18,4 +17,7 @@ public interface EnrollMapper {
 
     int updateByPrimaryKey(Enroll record);
 
+    int selectAllCount();
+
+    List<Enroll> selectAllEnroll();
 }

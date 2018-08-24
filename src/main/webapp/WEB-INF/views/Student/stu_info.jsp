@@ -26,7 +26,7 @@
 			<div class="layui-form-item">
 			    <label class="layui-form-label">学号：</label>
 			    <div class="layui-input-block">
-			    	<input type="text" value="${stu.sno}" disabled class="layui-input layui-disabled">
+			    	<input name="sno" type="text" value="${stu.sno}" disabled class="layui-input layui-disabled">
 			    </div>
 			</div>
 			<div class="layui-form-item">
@@ -35,14 +35,7 @@
 			    	<input type="text" value="${stu.classno}" disabled class="layui-input layui-disabled">
 			    </div>
 			</div>
-			<!--<div class="layui-form-item" pane="">
-			    <label class="layui-form-label">性别：</label>
-			    <div class="layui-input-block userSex">
-			    	<input type="radio" name="sex" value="男" title="男" checked="">
-	     			<input type="radio" name="sex" value="女" title="女">
-	     			<input type="radio" name="sex" value="保密" title="保密">
-			    </div>
-			</div>-->
+
 			<div class="layui-form-item">
 			    <label class="layui-form-label">联系电话：</label>
 			    <div class="layui-input-block">
@@ -55,24 +48,6 @@
 			    	<input name="qq" type="text" value="${stu.qq}" placeholder="QQ" lay-verify="required" class="layui-input">
 			    </div>
 			</div>
-			<!--<div class="layui-form-item userAddress">
-			    <label class="layui-form-label">家庭住址：</label>
-			    <div class="layui-input-inline">
-	                <select name="province" lay-filter="province">
-	                    <option value="">请选择省</option>
-	                </select>
-	            </div>
-	            <div class="layui-input-inline">
-	                <select name="city" lay-filter="city" disabled>
-	                    <option value="">请选择市</option>
-	                </select>
-	            </div>
-	            <div class="layui-input-inline">
-	                <select name="area" lay-filter="area" disabled>
-	                    <option value="">请选择县/区</option>
-	                </select>
-	            </div>
-			</div>-->
 			
 			<div class="layui-form-item">
 			    <label class="layui-form-label">邮箱：</label>
@@ -80,12 +55,7 @@
 			    	<input name="email" type="text" value="${stu.email}" placeholder="请输入邮箱" lay-verify="required|email" class="layui-input userEmail">
 			    </div>
 			</div>
-			<!--<div class="layui-form-item">
-			    <label class="layui-form-label">自我描述：</label>
-			    <div class="layui-input-block">
-			    	<textarea placeholder="请输入内容" class="layui-textarea myself"></textarea>
-			    </div>
-			</div>-->
+
 		</div>
 		<div class="user_right">
 			<img src="${stu.imgurl}" class="layui-circle" id="userFace">
@@ -96,6 +66,30 @@
 		    </div>
 		</div>
 	</form>
-	<script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
 </body>
+<script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
+<script>
+    layui.use(['form','jquery'], function(){
+        var form = layui.form,
+            $ = layui.jquery;
+
+        form.on("submit(changeUser)",function(data){
+			$.ajax({
+				type:'post',
+				url:'/stu/change_info.do',
+				data:data.field,
+				success:function (data) {
+					layer.msg(data.msg);
+				},
+				error:function () {
+					layer.msg('接口错误');
+				}
+			});
+//            setTimeout(function(){
+//                location.reload();
+//            },800);
+            return false;
+        })
+    })
+</script>
 </html>

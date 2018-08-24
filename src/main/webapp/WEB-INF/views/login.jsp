@@ -53,15 +53,15 @@
 											<form id="login" name="login" method="post" action="#">
 												<fieldset>
 													<label class="inline" style="margin-right:30px;">
-	                                                    <input name="radio" type="radio" id="radio1" value="radio" class="ace" ><span class="lbl"> 学生登录</span>
+	                                                    <input name="radio" type="radio" id="radio1" value="radio" class="ace" checked><span class="lbl"> 学生登录</span>
                                                     </label>
                                                     <label class="inline">
-                                                        <input type="radio" name="radio" id="radio2" value="radio" class="ace" checked><span class="lbl"> 老师登录</span>
+                                                        <input type="radio" name="radio" id="radio2" value="radio" class="ace" ><span class="lbl"> 老师登录</span>
                                                     </label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input value="admin" id="username" type="text" class="form-control" placeholder="用户名" />
+															<input value="1800300818" id="username" type="text" class="form-control" placeholder="用户名" />
 															<i class="ace-icon fa fa-user"></i>
 													  </span>
 												  </label>

@@ -24,4 +24,9 @@ public class Group {
     public void setNameGroup(String nameGroup) {
         this.nameGroup = nameGroup == null ? null : nameGroup.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Group{" + "id=" + id + ", nameGroup='" + nameGroup + '\'' + '}';
+    }
 }

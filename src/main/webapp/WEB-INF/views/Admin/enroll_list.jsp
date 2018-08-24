@@ -35,15 +35,15 @@
 
         table.render({
             elem: '#List',
-            url: '${cpath}/manage/itemEnroll_list.do',
+            url: '/manage/enroll_list.do',
             method: 'post',
             limit: 10,
             cols: [[
                 {field:'id', title: '序号',align:'center',sort:true},
-                {field:'nameStudent', title: '赛事名称',align:'center'},
-                {field:'classno', title: '参赛题目',align:'center'},
-                {field:'phone', title: '团队成员',align:'center'},
-                {field:'qq', title: '指导老师',align:'center'},
+                {field:'competeId', title: '赛事名称',align:'center'},
+                {field:'titleEnroll', title: '参赛题目',align:'center'},
+                {field:'groupId', title: '团队成员',align:'center'},
+                {field:'instructor', title: '指导老师',align:'center'},
                 {field:'status',title: '状态',align:'center',templet:'#status'},
                 {title: '操作',width:200,align:'center',toolbar: '#bar',fixed:'right'},
             ]],
@@ -60,7 +60,7 @@
                     var index = layui.layer.open({
                         title : "详情",
                         type : 2,
-                        content : "${cpath}/manage/xxxx/"+data.id+".do",
+                        content : "${cpath}/manage/to_enroll_edit/"+data.id+".do",
                         success : function(layero, index){
                             setTimeout(function(){
                                 layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
@@ -79,9 +79,13 @@
 	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">详情</a>
 </script>
 <script type="text/html" id="status">
-	{{#  if(d.status === '1'){ }}
-		<span style="color: #F581B1;">{{ d.status }}</span>
+	{{#  if(d.status === 0){ }}
+		<span style="color: #F581B1;">待审核</span>
+	{{#  } else if(d.status === 1){ }}
+		<span style="color: green;">已通过</span>
+	{{#  } else if(d.status === 2){ }}
+		<span style="color: red;">未通过</span>
 	{{#  } else { }}
-		{{ d.sex }}
+		<span style="color: #f1a02f;">未知参数</span>
 	{{#  } }}
 </script>

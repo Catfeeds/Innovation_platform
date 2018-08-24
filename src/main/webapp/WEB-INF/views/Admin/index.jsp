@@ -140,12 +140,12 @@
                         <span class="layui-nav-more"></span>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="/manage/to_itemEnroll_list.do">
+                        <dd><a href="javascript:;" data-url="/manage/to_enroll_list.do">
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
                             <cite>项目申报管理</cite>
                         </a>
                         </dd>
-                        <dd><a href="javascript:;" data-url="/manage/to_matchEnroll_list.do">
+                        <dd><a href="javascript:;" data-url="/manage/to_compete_list.do">
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
                             <cite>赛事报名管理</cite></a>
                         </dd>

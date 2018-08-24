@@ -1,7 +1,7 @@
 package com.tech.controller.adminModular;
 
 import com.github.pagehelper.PageHelper;
-import com.tech.pojo.Student;
+import com.tech.pojo.Enroll;
 import com.tech.service.EnrollService;
 import org.nutz.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,22 +19,22 @@ public class StuEnrollController {
     @Autowired
     EnrollService enrollService;
 
-    @RequestMapping("/to_itemEnroll_list")
+    @RequestMapping("/to_enroll_list")
     public String toItemEnrollList(){
-        return "Admin/itemEnroll_list";
+        return "Admin/enroll_list";
     }
 
-    @RequestMapping(value = "/itemEnroll_list",produces = "text/html;charset=UTF-8")
+    @RequestMapping(value = "/enroll_list",produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String itemEnrollList(Integer page,Integer limit){
         PageHelper.startPage(page,limit);
-//        int count = enrollService.getAllCount();
-//        List<Student> list = enrollService.getAllStudent();
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("code",0);
-//        map.put("msg","");
-//        map.put("count",count);
-//        map.put("data", list);
-        return Json.toJson("");
+        int count = enrollService.getAllCount();
+        List<Enroll> list = enrollService.getAllEnroll();
+        Map<String, Object> map = new HashMap<>();
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",count);
+        map.put("data", list);
+        return Json.toJson(map);
     }
 }

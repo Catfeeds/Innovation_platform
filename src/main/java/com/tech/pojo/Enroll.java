@@ -5,17 +5,9 @@ import java.util.Date;
 public class Enroll {
     private Integer id;
 
-    private Integer matchId;
+    private Integer competeId;
 
     private Integer groupId;
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
 
     private Integer status;
 
@@ -37,12 +29,12 @@ public class Enroll {
         this.id = id;
     }
 
-    public Integer getMatchId() {
-        return matchId;
+    public Integer getCompeteId() {
+        return competeId;
     }
 
-    public void setMatchId(Integer matchId) {
-        this.matchId = matchId;
+    public void setCompeteId(Integer competeId) {
+        this.competeId = competeId;
     }
 
     public Integer getGroupId() {
@@ -51,6 +43,14 @@ public class Enroll {
 
     public void setGroupId(Integer groupId) {
         this.groupId = groupId;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public String getTitleEnroll() {

@@ -19,22 +19,22 @@
 </head>
 <body class="childrenBody">
 	<blockquote class="layui-elem-quote news_search">
+		<%--<div class="layui-inline">--%>
+		    <%--<div class="layui-input-inline">--%>
+		    	<%--<input type="text" value="" placeholder="请输入关键字" class="layui-input search_input">--%>
+		    <%--</div>--%>
+		    <%--<a class="layui-btn search_btn">查询</a>--%>
+		<%--</div>--%>
 		<div class="layui-inline">
-		    <div class="layui-input-inline">
-		    	<input type="text" value="" placeholder="请输入关键字" class="layui-input search_input">
-		    </div>
-		    <a class="layui-btn search_btn">查询</a>
-		</div>
-		<div class="layui-inline">
-			<a class="layui-btn layui-btn-normal newsAdd_btn">添加文章</a>
+			<a class="layui-btn layui-btn-normal newsAdd_btn">添加赛事报名</a>
 		</div>
 		
-		<div class="layui-inline">
-			<a class="layui-btn layui-btn-danger batchDel">批量删除</a>
-		</div>
+		<%--<div class="layui-inline">--%>
+			<%--<a class="layui-btn layui-btn-danger batchDel">批量删除</a>--%>
+		<%--</div>--%>
 	</blockquote>
 
-	<table id="matchList" lay-filter="matchListID"></table>
+	<table id="List" lay-filter="ListID"></table>
 </body>
 <script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
 <script type="text/javascript">
@@ -44,9 +44,9 @@
         $(window).one("resize",function(){
             $(".newsAdd_btn").click(function(){
                 var index = layui.layer.open({
-                    title : "添加赛事",
+                    title : "添加赛事报名",
                     type : 2,
-                    content : "${cpath}/manage/to_match_add.do",
+                    content : "${cpath}/manage/to_compete_add.do",
                     success : function(layero, index){
                         setTimeout(function(){
                             layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
@@ -59,33 +59,31 @@
 			})
 		}).resize();
 
-
-            table.render({
-                elem: '#matchList',
-                url: '${cpath}/manage/match_list.do',
+			table.render({
+                elem: '#List',
+                url: '${cpath}/manage/compete_list.do',
                 method: 'post',
+				size:'lg',
                 limit: 10,
                 cols: [[
                     {field:'id', title: '序号',align:'center',sort:true},
-                    {field:'nameMatch', title: '大赛名称',align:'center'},
-                    {field:'levelMatch', title: '大赛级别',align:'center',templet:function(d){
-                        if(d.levelMatch == "1"){
+                    {field:'nameCompete', title: '大赛名称',align:'center'},
+                    {field:'levelCompete', title: '大赛级别',align:'center',templet:function(d){
+                        if(d.levelCompete == "1"){
                             return "国家级";
-                        }else if(d.levelMatch == "2"){
+                        }else if(d.levelCompete == "2"){
                             return "市级";
                         }else{
                             return "其他";
                         }
                     }},
-                    {field:'imgUrl', title: '封面',align:'center',templet:function(d) {
-                        return '<img src="' + d.imgUrl + '" height="26" />';
+                    {field:'coverUrl', title: '封面图片',align:'center',templet:function(d) {
+                        return '<img src="' + d.coverUrl + '" />';
                     }},
-                    {field:'linkUrl', title: '官网链接',align:'center'},
-                    {field:'clicks',title: '点击次数',align:'center'},
-                    {field:'createTime', title: '发布时间',align:'center'},
-                    {field:'priority', title: '封面优先级',align:'center',edit:'text'},
                     {field:'startTime', title: '开始时间',align:'center'},
-                    {field:'endTime', title: '结束时间',align:'center'},
+                    {field:'endTime',title: '结束时间',align:'center'},
+                    {field:'createTime', title: '创建时间',align:'center'},
+                    {field:'requirement', title: '报名要求',align:'center'},
                     {title: '操作',width:200,align:'center',toolbar: '#bar',fixed:'right'},
                 ]],
                 page: true,
@@ -94,14 +92,14 @@
                 }
             });
 
-            table.on('tool(matchListID)', function(obj){
+            table.on('tool(ListID)', function(obj){
                 var data = obj.data;
                 if(obj.event === 'detail'){
                     //window.open(data.url);
                 } else if(obj.event === 'del'){
-                    layer.confirm('真的删除 '+data.nameMatch+' 么?', function(index){
+                    layer.confirm('真的删除 '+data.nameCompete+' 么?', function(index){
                         $.ajax({
-                            url:'${cpath}/manage/match_delete/'+data.id+".do",
+                            url:'${cpath}/manage/delete_compete/'+data.id+".do",
                             type:'post',
                             success : function(data) {
                                 if(data.status==0){
@@ -117,9 +115,9 @@
                 }else if(obj.event === 'edit'){
                     $(window).one("resize",function(){
                         var index = layui.layer.open({
-                            title : "编辑赛事",
+                            title : "编辑赛事报名",
                             type : 2,
-                            content : "${cpath}/manage/to_match_edit/"+data.id+".do",
+                            content : "${cpath}/manage/to_compete_edit/"+data.id+".do",
                             success : function(layero, index){
                                 setTimeout(function(){
                                     layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {

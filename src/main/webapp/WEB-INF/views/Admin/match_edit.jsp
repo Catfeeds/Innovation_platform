@@ -107,9 +107,7 @@
 	<script type="text/javascript" >
         var action = $("#action").val();
         layui.use(['form','layer','layedit','laydate','upload'],function(){
-            var form = layui.form
-            layer = parent.layer === undefined ? layui.layer : top.layer,
-                laypage = layui.laypage,
+            var form = layui.form,
                 upload = layui.upload,
                 layedit = layui.layedit,
                 laydate = layui.laydate,
@@ -126,12 +124,10 @@
                 $("select option[value='${match.levelMatch}']").attr("selected","selected");
             }
 
-            //上传缩略图
             upload.render({
                 elem: '.thumbBox',
                 url: '../../json/userface.json',
                 before: function(obj){
-                    //预读本地文件示例，不支持ie8
                     obj.preview(function(index, file, result){
                         $('.thumbImg').attr('src', result); //图片链接（base64）
                     });

@@ -49,7 +49,7 @@
 			    <ul class="layui-nav top_menu">			    	
 					<li class="layui-nav-item" pc>
 						<a href="javascript:;">
-							<img src="${cpath}/static/images/face.jpg" class="layui-circle" width="35" height="35">
+							<img src="${student.imgurl}" class="layui-circle" width="35" height="35">
 							<cite>${student.nameStudent}</cite>
 						</a>
 						<dl class="layui-nav-child">
@@ -77,12 +77,12 @@
 							</i><cite>首页</cite></a>
 					</li>
 					<li class="layui-nav-item">
-						<a href="javascript:;" data-url="/stu/to_enroll.html">
+						<a href="javascript:;" data-url="/stu/to_enroll_list.html">
 							<i class="iconfont icon-text" data-icon="icon-text"></i>
 							<cite>我的项目</cite></a>
 					</li>
 					<li class="layui-nav-item">
-						<a href="javascript:;" data-url="/stu/to_match_list.html">
+						<a href="javascript:;" data-url="/stu/to_compete_list.html">
 							<i class="iconfont icon-text" data-icon="icon-text">
 
 							</i><cite>赛事报名</cite></a>

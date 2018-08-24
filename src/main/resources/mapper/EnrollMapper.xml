@@ -3,7 +3,7 @@
 <mapper namespace="com.tech.dao.EnrollMapper">
   <resultMap id="BaseResultMap" type="com.tech.pojo.Enroll">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="match_id" jdbcType="INTEGER" property="matchId" />
+    <result column="compete_id" jdbcType="INTEGER" property="competeId" />
     <result column="group_id" jdbcType="INTEGER" property="groupId" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="title_enroll" jdbcType="VARCHAR" property="titleEnroll" />
@@ -13,7 +13,8 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, match_id, group_id,status, title_enroll, instructor, attachment, create_time, update_time
+    id, compete_id, group_id, status, title_enroll, instructor, attachment, create_time, 
+    update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -21,17 +22,20 @@
     from tbl_enroll
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from tbl_enroll
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.tech.pojo.Enroll">
-    insert into tbl_enroll (id,status, match_id, group_id,
-      title_enroll, instructor, attachment, 
-      create_time, update_time)
-    values (#{id,jdbcType=INTEGER},#{status,jdbcType=INTEGER}, #{matchId,jdbcType=INTEGER}, #{groupId,jdbcType=INTEGER},
-      #{titleEnroll,jdbcType=VARCHAR}, #{instructor,jdbcType=VARCHAR}, #{attachment,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    insert into tbl_enroll (id, compete_id, group_id, 
+      status, title_enroll, instructor, 
+      attachment, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{competeId,jdbcType=INTEGER}, #{groupId,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{titleEnroll,jdbcType=VARCHAR}, #{instructor,jdbcType=VARCHAR}, 
+      #{attachment,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.tech.pojo.Enroll">
     insert into tbl_enroll
@@ -39,11 +43,14 @@
       <if test="id != null">
         id,
       </if>
-      <if test="matchId != null">
-        match_id,
+      <if test="competeId != null">
+        compete_id,
       </if>
       <if test="groupId != null">
         group_id,
+      </if>
+      <if test="status != null">
+        status,
       </if>
       <if test="titleEnroll != null">
         title_enroll,
@@ -65,11 +72,14 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="matchId != null">
-        #{matchId,jdbcType=INTEGER},
+      <if test="competeId != null">
+        #{competeId,jdbcType=INTEGER},
       </if>
       <if test="groupId != null">
         #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="titleEnroll != null">
         #{titleEnroll,jdbcType=VARCHAR},
@@ -91,11 +101,14 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.tech.pojo.Enroll">
     update tbl_enroll
     <set>
-      <if test="matchId != null">
-        match_id = #{matchId,jdbcType=INTEGER},
+      <if test="competeId != null">
+        compete_id = #{competeId,jdbcType=INTEGER},
       </if>
       <if test="groupId != null">
         group_id = #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="titleEnroll != null">
         title_enroll = #{titleEnroll,jdbcType=VARCHAR},
@@ -117,8 +130,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tech.pojo.Enroll">
     update tbl_enroll
-    set match_id = #{matchId,jdbcType=INTEGER},
+    set compete_id = #{competeId,jdbcType=INTEGER},
       group_id = #{groupId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
       title_enroll = #{titleEnroll,jdbcType=VARCHAR},
       instructor = #{instructor,jdbcType=VARCHAR},
       attachment = #{attachment,jdbcType=VARCHAR},
@@ -126,5 +140,12 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
+  <select id="selectAllCount" resultType="java.lang.Integer">
+    select count(*) from tbl_enroll
+  </select>
+  <select id="selectAllEnroll" resultType="com.tech.pojo.Enroll">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_enroll
+  </select>
 </mapper>

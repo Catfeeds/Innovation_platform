@@ -142,7 +142,9 @@
       update tbl_student set password = #{newPwd} where sno = #{sno}
     </update>
     <select id="selectLogin" resultMap="BaseResultMap" parameterType="java.lang.String">
-    select * from tbl_student
+    select
+      <include refid="Base_Column_List" />
+     from tbl_student
     where sno = #{sno}
   </select>
   <select id="selectBySnoAndPwd" resultType="java.lang.Integer" parameterType="map">
@@ -158,5 +160,11 @@
     SELECT
     <include refid="Base_Column_List" />
     from tbl_student
+  </select>
+  <select id="selectInfoExceptPwdBySno" resultMap="BaseResultMap" parameterType="string">
+    SELECT
+    sno, name_student, classno, phone, qq, email, imgurl, update_time
+    FROM
+    tbl_student where sno = #{sno}
   </select>
 </mapper>

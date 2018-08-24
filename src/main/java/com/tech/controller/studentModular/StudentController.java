@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/stu")
@@ -22,7 +23,7 @@ public class StudentController {
     @RequestMapping("/main")
     public String toMain(){
         //TODO 共享页面
-        return "Admin/main";
+        return "main";
     }
 
     @RequestMapping("/index")
@@ -45,10 +46,9 @@ public class StudentController {
     }
 
     @RequestMapping("/logout")
-    @ResponseBody
-    public ServerResponse<String> stuLogout(HttpSession session){
+    public String stuLogout(HttpSession session){
         session.removeAttribute(Const.CURRENT_USER);
-        return ServerResponse.createBySuccess("登出成功");
+        return "forward:/login.html";
     }
 
     @RequestMapping("/stuInfo")
@@ -57,7 +57,7 @@ public class StudentController {
         if (student==null){
             return "forward:/login.html";
         }
-        model.addAttribute("stu",student);
+        model.addAttribute("stu",studentService.getInfoExceptPwdBySno(student.getSno()));
         return "Student/stu_info";
     }
 
@@ -115,6 +115,27 @@ public class StudentController {
             System.out.println(serverResponse.getMsg());
             serverResponse = studentService.changePassword(student.getSno(), newPwd);
         }
+        return serverResponse;
+    }
+
+    /**
+     * 修改个人部分信息  安全问题 修改之后重新设置session
+     */
+    @RequestMapping("/change_info")
+    @ResponseBody
+    public ServerResponse<String> modifyInfo(HttpSession session,Student s){
+        s.setNameStudent(null);
+        s.setPassword(null);
+        s.setClassno(null);
+        s.setUpdateTime(new Date());
+        Student student = (Student) session.getAttribute(Const.CURRENT_USER);
+        if (student==null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"请登录后重新尝试");
+        }
+        if (!s.getSno().equals(student.getSno())){
+            return ServerResponse.createByErrorMessage("账户不一致");
+        }
+        ServerResponse<String> serverResponse = studentService.changePersonalInfo(s);
         return serverResponse;
     }
 }

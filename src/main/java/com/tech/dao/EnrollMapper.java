@@ -1,6 +1,7 @@
 package com.tech.dao;
 
 import com.tech.pojo.Enroll;
+import com.tech.pojo.Item;
 
 import java.util.List;
 
@@ -20,4 +21,6 @@ public interface EnrollMapper {
     int selectAllCount();
 
     List<Enroll> selectAllEnroll();
+
+    List<Item> selectItemFromVm(String sno);
 }

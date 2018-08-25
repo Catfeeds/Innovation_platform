@@ -148,4 +148,18 @@
     <include refid="Base_Column_List" />
     from tbl_enroll
   </select>
+
+  <resultMap id="BaseResultMap2" type="com.tech.pojo.Item">
+    <result column="compete_id" jdbcType="INTEGER" property="competeId" />
+    <result column="group_id" jdbcType="INTEGER" property="groupId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="title_enroll" jdbcType="VARCHAR" property="title" />
+    <result column="instructor" jdbcType="VARCHAR" property="instructor" />
+    <result column="attachment" jdbcType="VARCHAR" property="attachment" />
+    <result column="name_compete" jdbcType="TIMESTAMP" property="competeName" />
+    <result column="name_group" jdbcType="TIMESTAMP" property="groupName" />
+  </resultMap>
+    <select id="selectItemFromVm" resultMap="BaseResultMap2" parameterType="string">
+      select name_compete,title_enroll,name_group,instructor,status FROM vm_item where sno = #{sno}
+    </select>
 </mapper>

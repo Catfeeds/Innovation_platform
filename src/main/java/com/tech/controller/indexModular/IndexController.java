@@ -1,18 +1,23 @@
 package com.tech.controller.indexModular;
 
+import com.github.pagehelper.PageHelper;
 import com.tech.pojo.*;
 import com.tech.service.*;
 import com.tech.utils.CreateImageCode;
+import org.nutz.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class IndexController {
@@ -80,10 +85,32 @@ public class IndexController {
      * @return
      */
     @RequestMapping("/news_list/{type_id}")
-    public String newsList(@PathVariable("type_id") Integer typeNews, Model model){
+    public String newsList(@PathVariable("type_id") Integer typeNews, Model model,Integer page){
+        if(page==null){
+            page=1;
+        }
+        PageHelper.startPage(page,2);
         List<News> news = newsService.getAllKindNews(typeNews);
         model.addAttribute("news",news);
+        model.addAttribute("newsType",typeNews);
         return "Index/news_list";
+    }
+
+    @RequestMapping(value = "/test/{type_id}",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String newsListJson(@PathVariable("type_id") Integer typeNews,Integer page){
+        if(page==null){
+            page=1;
+        }
+        PageHelper.startPage(page,2);
+        List<News> list = newsService.getAllKindNews(typeNews);
+        int count = newsService.getKindNewsCount(typeNews);
+        Map<String, Object> map = new HashMap<>();
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",count);
+        map.put("data", list);
+        return Json.toJson(map);
     }
 
     /**

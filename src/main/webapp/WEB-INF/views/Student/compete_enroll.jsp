@@ -52,7 +52,7 @@
 </head>
 <body class="childrenBody">
 <br>
-	<form class="layui-form" style="width:80%; display: block; float: left;">
+	<form id="form_enroll" class="layui-form" style="width:80%; display: block; float: left;">
 		<input  name="competeId" type="hidden"   value="${compete.id}">
 		<div class="layui-form-item">
 			<label class="layui-form-label">队长姓名：</label>
@@ -116,7 +116,7 @@
 		<tbody>
 			<tr>
 				<td height="30" align="center">
-					<input onblur="getInfo($(this))" class="layui-input" type="text" name="members" /></td>
+					<input name="members" onblur="getInfo($(this))" class="layui-input" type="text" /></td>
 				<td align="center">
 					<input class="layui-input" type="text" disabled/></td>
 				<td align="center">
@@ -144,7 +144,7 @@
 		<tbody>
 			<tr>
 				<td height="30" align="center">
-					<input onblur="getInfo($(this))" class="layui-input" type="text" name="members" /></td>
+					<input name="members" onblur="getInfo($(this))" class="layui-input" type="text"/></td>
 				<td align="center">
 					<input class="layui-input layui-disabled" type="text"  disabled/></td>
 				<td align="center">
@@ -155,6 +155,7 @@
 					<input type="button" onClick="deltr(this)" value="删行" class="layui-btn layui-btn-danger layui-btn-xs" >
 				</td>
 			</tr>
+
 		</tbody>
 	</table>
 		</div>
@@ -188,7 +189,7 @@
             $.ajax({
                 type: 'post',
                 url: '/stu/enroll.do',
-                data: data.field,
+                data: $('#form_enroll').serialize(),
                 success: function (data) {
                     layer.msg(data.msg);
                 },

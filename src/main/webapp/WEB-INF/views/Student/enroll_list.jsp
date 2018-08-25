@@ -17,33 +17,7 @@
 	
 </head>
 <body class="childrenBody">
-	<div class="layui-form news_list">
-	  	<table class="layui-table">
-		    <thead>
-				<tr>
-					<th>编号</th>
-					<th>赛事名称</th>
-					<th>参赛题目</th>
-					<th>状态</th>
-					<th>团队名称</th>					
-					<th>团队成员</th>
-					<th>指导老师</th>
-				</tr> 
-		    </thead>
-		    <tr>
-		    	<td>1</td>
-		    	<td>第七届robomaster机器人大赛</td>
-		    	<td>参赛题目参赛题目参赛题目</td>
-		    	<td>通过</td>
-		    	<td>smartrobot</td>
-		    	<td>成员 成员成员 成员成员</td>
-		    	<td>老师 老师</td>
-		    </tr>
-		</table>
-	</div>
-
 	<table id="List" lay-filter="ListID"></table>
-
 	 <script src="${cpath}/static/js/jquery-1.8.3.min.js"></script>
 	<script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
 	<script type="text/javascript">
@@ -52,15 +26,16 @@
 
             table.render({
                 elem: '#List',
-                url: '${cpath}/stu/xxxx.do',
+                url: '${cpath}/stu/enroll_list.do',
                 method: 'post',
+				size:'lg',
                 cols: [[
-                    {field:'id', title: '序号',align:'center',sort:true},
-                    {field:'matchId', title: '赛事ID',align:'center'},
+                    {field:'competeName', title: '赛事名称',align:'center'},
                     {field:'title', title: '参赛题目',align:'center'},
-                    {field:'clicks',title: '状态',align:'center'},
-                    {field:'createTime', title: '团队名称',align:'center'},
-                    {field:'createTime', title: '指导老师',align:'center'},
+                    {field:'groupName', title: '团队名称',align:'center'},
+                    {field:'instructor', title: '指导老师',align:'center'},
+					{field:'status',title: '状态',align:'center',templet:'#status'},
+                    {title: '操作',width:200,align:'center',toolbar: '#bar',fixed:'right'},
                 ]],
                 done: function (res, curr, count) {
 
@@ -70,4 +45,20 @@
         })
 	</script>
 </body>
+<script type="text/html" id="status">
+	{{#  if(d.status === 0){ }}
+	<span style="color: #ffc657;">待审核</span>
+	{{#  } else if(d.status === 1){ }}
+	<span style="color: green;">通过/立项</span>
+	{{#  } else if(d.status === 2){ }}
+	<span style="color: red;">未通过</span>
+	{{#  } else { }}
+	<span style="color: #f1a02f;">未知参数</span>
+	{{#  } }}
+</script>
+<script type="text/html" id="bar">
+	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">编辑</a>
+	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
 </html>

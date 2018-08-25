@@ -32,6 +32,8 @@ public class EnrollService {
         enroll.setTitleEnroll(item.getTitle());
         enroll.setCreateTime(new Date());
         enroll.setUpdateTime(new Date());
+        //设置报名状态
+        enroll.setStatus(0);
         int count = enrollMapper.insert(enroll);
         if (count > 0){
             //添加成员  1-队长  0-队员
@@ -56,5 +58,13 @@ public class EnrollService {
         return enrollMapper.selectAllEnroll();
     }
 
-
+    /**
+     * 从视图中查询
+     * @param sno
+     * @return
+     */
+    public List<Item> getEnrollItemBySno(String sno) {
+        List<Item> list = enrollMapper.selectItemFromVm(sno);
+        return list;
+    }
 }

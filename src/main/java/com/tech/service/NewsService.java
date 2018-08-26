@@ -59,4 +59,8 @@ public class NewsService {
     public int getKindNewsCount(Integer typeNew) {
         return newsMapper.selectKindNewsCount(typeNew);
     }
+
+    public String getTypeNameByTypeId(Integer typeNewsId) {
+        return newsMapper.selectTypeName(typeNewsId);
+    }
 }

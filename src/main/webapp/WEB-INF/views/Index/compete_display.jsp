@@ -10,7 +10,10 @@
     <title>科技创新项目管理平台</title>
     <link rel="stylesheet" type="text/css" href="/css/reset.css">
     <link rel="stylesheet" type="text/css" href="/css/index.css">
-<style type="text/css">
+	<link rel="stylesheet" type="text/css" href="/static/layui/css/layui.css">
+	<script src="/js/jquery-1.8.3.min.js"></script>
+	<script src="/static/layui/layui.js"></script>
+	<style type="text/css">
 .test{
 	width: 280px;
 	float: left;
@@ -64,6 +67,7 @@
         </div>
     </div>
     <!-- slide end -->
+		<input id="count" type="hidden" value="${count}">
 <div id="detail2-box" class="clearfix">
 	
 	<div class="tit-80"><a href="list-text1.html">新闻中心</a> - 查看详情</div>
@@ -79,77 +83,31 @@
         </ul>
     </div>
     
-    <div class="content-box">
+    <div class="content-box" id="data_fill">
     	<h1>赛事介绍</h1>
-		<c:forEach var="match" items="${requestScope.match}">
-			<div class="test">
-				<img src="${match.imgUrl}" />
-				<h2>大赛名称：${match.nameMatch}</h2>
-				<p class="time">报名时间：<span><fmt:formatDate value="${match.startTime}" pattern="yyyy-MM-dd" />-<fmt:formatDate value="${match.endTime}" pattern="yyyy-MM-dd" /></span></p>
-				<p>赛事简介：${fn:substring(match.introduce, 0, 100)}...</p>
-				<div class="layui-inline">
-					<a href="compete/${match.id}.html"><input  type="button"  value="详情"  /></a>
-				</div>
-			</div>
-		</c:forEach>
-        <div class="test">
-				<img src="/images/robomaster.png" />
-				<h2>大赛名称：大赛名称大赛名称大赛名称</h2>
-				<p class="time">报名时间：<span>2017/12/12-2017/12/13</span></p>
-				<p>赛事简介：赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介
-					赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介</p>
-				<div class="layui-inline">
-					<a href="news.html"><input  type="button"  value="详情"  /></a>
-				</div>
-		</div>
-		<div class="test">
-				<img src="/images/robomaster.png" />
-				<h2>大赛名称：大赛名称大赛名称大赛名称</h2>
-				<p class="time">报名时间：<span>2017/12/12-2017/12/13</span></p>
-				<p>赛事简介：赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介
-					赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介</p>
-				<div class="layui-inline">
-					<a href="news.html"><input  type="button"  value="详情"  /></a>
-				</div>
-					
-			
-		</div>	
-		<div class="test">
-				<img src="/images/robomaster.png" />
-				<h2>大赛名称：大赛名称大赛名称大赛名称</h2>
-				<p class="time">报名时间：<span>2017/12/12-2017/12/13</span></p>
-				<p>赛事简介：赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介
-					赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介</p>
-				<div class="layui-inline">
-					<a href="news.html"><input  type="button"  value="详情"  /></a>
-				</div>
-					
-			
-		</div>	
-		<div class="test">
-				<img src="/images/robomaster.png" />
-				<h2>大赛名称：大赛名称大赛名称大赛名称</h2>
-				<p class="time">报名时间：<span>2017/12/12-2017/12/13</span></p>
-				<p>赛事简介：赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介
-					赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介</p>
-				<div class="layui-inline">
-					<a href="news.html"><input  type="button" id="" value="详情"  /></a>
-				</div>
-		</div>			
- <div class="tcdPageCode" style="float: left; margin-left: 150px;"></div>
-<script src="/js/jquery-1.8.3.min.js"></script>
-<script src="/js/jquery.page.js"></script>
-<script>
-    $(".tcdPageCode").createPage({
-        pageCount:100,
-        current:1,
-        backFn:function(p){
-            //console.log(p);
-        }
-    });
-</script>       
-    </div>
-  
+		<%--<c:forEach var="match" items="${requestScope.match}">--%>
+			<%--<div class="test">--%>
+				<%--<img src="${match.imgUrl}" />--%>
+				<%--<h2>大赛名称：${match.nameMatch}</h2>--%>
+				<%--<p class="time">报名时间：<span><fmt:formatDate value="${match.startTime}" pattern="yyyy-MM-dd" />-<fmt:formatDate value="${match.endTime}" pattern="yyyy-MM-dd" /></span></p>--%>
+				<%--<p>赛事简介：${fn:substring(match.introduce, 0, 100)}...</p>--%>
+				<%--<div class="layui-inline">--%>
+					<%--<a href="compete/${match.id}.html"><input  type="button"  value="详情"  /></a>--%>
+				<%--</div>--%>
+			<%--</div>--%>
+		<%--</c:forEach>--%>
+        <%--<div class="test">--%>
+				<%--<img src="/images/robomaster.png" />--%>
+				<%--<h2>大赛名称：大赛名称大赛名称大赛名称</h2>--%>
+				<%--<p class="time">报名时间：<span>2017/12/12-2017/12/13</span></p>--%>
+				<%--<p>赛事简介：赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介--%>
+					<%--赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介</p>--%>
+				<%--<div class="layui-inline">--%>
+					<%--<a href="news.html"><input  type="button"  value="详情"  /></a>--%>
+				<%--</div>--%>
+		<%--</div>--%>
+	</div>
+	<div id="PageCode" style="float: right; margin-right: 100px"></div>
 
 </div>
 
@@ -189,5 +147,56 @@
     <!-- footer end-->
  </div>
 </body>
+<script>
+    var count = $('#count').val();
+    var limit = 2;
+    layui.use('laypage', function(){
+        var laypage = layui.laypage;
 
+        laypage.render({
+            elem: 'PageCode'
+            ,count: count
+            ,limit: limit
+            ,theme: '#0aa6d6'
+            ,jump: function(obj, first){
+                console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                console.log(obj.limit); //得到每页显示的条数
+                toPage(obj.curr);
+                if(!first){
+                    toPage(obj.curr);
+                }
+            }
+        });
+    })
+
+    function toPage(page) {
+        $.ajax({
+            type:'post',
+            url:'/compete_page.do',
+            dataType: "json",
+            data:{
+                page:page
+                ,limit:limit
+            },
+            success:function (data) {
+                fillData(data);
+            },
+            error:function () {
+                layer.msg('接口错误');
+            }
+        });
+    }
+
+    function fillData(res) {
+        $("#data_fill").empty();
+        $.each(res.data, function (index, item) {
+            var img = $("<img/>").attr("src","/images/robomaster.png");
+            var h2 = $("<h2></h2>").append("大赛名称: "+item.nameMatch);
+			var p = $("<p></p>").addClass("time").append("报名时间: ").append($("<span></span>").append("2017/12/12-2017/12/13"));
+			var p2 =  $("<p></p>").append("赛事简介:");
+            var div = $("<div></div>").addClass("layui-inline").append($("<a></a>").attr("href","xxxx").append($("<input/>").val("详情").attr("type","button")));
+            $("<div></div>").addClass("test").append(img).append(h2).append(p).append(p2).append(div).appendTo("#data_fill");
+        });
+    }
+</script>
 </html>

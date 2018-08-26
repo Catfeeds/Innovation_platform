@@ -10,6 +10,9 @@
     <title>科技创新项目管理平台</title>
     <link rel="stylesheet" type="text/css" href="/css/reset.css">
     <link rel="stylesheet" type="text/css" href="/css/index.css">
+	<link rel="stylesheet" type="text/css" href="/static/layui/css/layui.css">
+	<script src="/js/jquery-1.8.3.min.js"></script>
+	<script src="/static/layui/layui.js"></script>
 <style type="text/css">
 .product{
 	width: 100%;
@@ -72,6 +75,7 @@
         </div>
     </div>
     <!-- slide end -->
+	<input id="count" type="hidden" value="${count}">
 <div id="detail2-box" class="clearfix">
 	
 	<div class="tit-80"><a href="list-text1.html">新闻中心</a> - 查看详情</div>
@@ -87,49 +91,35 @@
         </ul>
     </div>
     
-    <div class="content-box">
+    <div class="content-box" id="data_fill">
     	<h1>成果展示</h1>
-		<c:forEach var="goodWork" items="${requestScope.goodWorks}">
-			<div class="product">
-				<img src="/images/robomaster.png" />
-				<div class="product_detail">
-					<h2>项目名称：${goodWork.itemName}</h2>
-					<p>完成时间：<fmt:formatDate value="${goodWork.finishTime}" pattern="yyyy-MM-dd" /></p>
+		<%--<c:forEach var="goodWork" items="${requestScope.goodWorks}">--%>
+			<%--<div class="product">--%>
+				<%--<img src="/images/robomaster.png" />--%>
+				<%--<div class="product_detail">--%>
+					<%--<h2>项目名称：${goodWork.itemName}</h2>--%>
+					<%--<p>完成时间：<fmt:formatDate value="${goodWork.finishTime}" pattern="yyyy-MM-dd" /></p>--%>
 
-					<div class="index1-right">
-						<p>赛事介绍：${fn:substring(goodWork.introduce,0,100)}...<a href="achievement/${goodWork.id}.html" target="_blank">查看更多...</a></p>
-					</div>
+					<%--<div class="index1-right">--%>
+						<%--<p>赛事介绍：${fn:substring(goodWork.introduce,0,100)}...<a href="achievement/${goodWork.id}.html" target="_blank">查看更多...</a></p>--%>
+					<%--</div>--%>
 
-				</div>
-			</div>
-		</c:forEach>
-    	<div class="product">
-    		<img src="/images/robomaster.png" />
-    		<div class="product_detail">
-    		<h2>项目名称：作品名称作品名称作品名称</h2>
-    		<p>完成时间：2017/12/12</p>
-    		
-    		<div class="index1-right">    	
-        		<p>赛事介绍：内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容...<a href="news.html" target="_blank">查看更多...</a></p>
-    		</div>
-    		
-    		</div>    		
-    	</div>
-        
- <div class="tcdPageCode"></div>
-<script src="/js/jquery-1.8.3.min.js"></script>
-<script src="/js/jquery.page.js"></script>
-<script>
-    $(".tcdPageCode").createPage({
-        pageCount:100,
-        current:1,
-        backFn:function(p){
-            //console.log(p);
-        }
-    });
-</script>       
-    </div>
-  
+				<%--</div>--%>
+			<%--</div>--%>
+		<%--</c:forEach>--%>
+    	<%--<div class="product">--%>
+    		<%--<img src="/images/robomaster.png" />--%>
+    		<%--<div class="product_detail">--%>
+    		<%--<h2>项目名称：作品名称作品名称作品名称</h2>--%>
+    		<%--<p>完成时间：2017/12/12</p>--%>
+    		<%--<div class="index1-right">    	--%>
+        		<%--<p>赛事介绍：内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容...<a href="news.html" target="_blank">查看更多...</a></p>--%>
+    		<%--</div>--%>
+    		<%--</div>    		--%>
+    	<%--</div>--%>
+
+</div>
+	<div id="PageCode"></div>
 
 </div>
 
@@ -169,5 +159,56 @@
     <!-- footer end-->
  </div>
 </body>
+<script>
+    var count = $('#count').val();
+    var limit = 2;
+    layui.use('laypage', function(){
+        var laypage = layui.laypage;
 
+        laypage.render({
+            elem: 'PageCode'
+            ,count: count
+            ,limit: limit
+            ,theme: '#0aa6d6'
+            ,jump: function(obj, first){
+                console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                console.log(obj.limit); //得到每页显示的条数
+                toPage(obj.curr);
+                if(!first){
+                    toPage(obj.curr);
+                }
+            }
+        });
+    })
+
+    function toPage(page) {
+        $.ajax({
+            type:'post',
+            url:'/achievement_page.do',
+            dataType: "json",
+            data:{
+                page:page
+                ,limit:limit
+            },
+            success:function (data) {
+                fillData(data);
+            },
+            error:function () {
+                layer.msg('接口错误');
+            }
+        });
+    }
+
+    function fillData(res) {
+        $("#data_fill div.product").remove();
+        $.each(res.data, function (index, item) {
+            var img = $("<img/>").attr("src","/images/robomaster.png");
+            var h2 = $("<h2></h2>").append("项目名称: "+item.itemName);
+            var p =  $("<p></p>").append("完成时间:"+item.finishTime);
+            var div2 = $("<div></div>").addClass("index1-right").append($("<p></p>").append("赛事介绍:"+item.introduce))
+            var div1 = $("<div></div>").addClass("product_detail").append(h2).append(p).append(div2);
+            $("<div></div>").addClass("product").append(img).append(div1).appendTo("#data_fill");
+        });
+    }
+</script>
 </html>

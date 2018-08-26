@@ -248,8 +248,8 @@
 }
 
 .index1-left p {
-	padding: 10px;
-	font-size: 12px;
+	padding: 14px;
+	font-size: 14px;
 	text-indent: 2em;
 	line-height: 20px;
 	color: #888;
@@ -257,8 +257,8 @@
 
 .index1-left p img {
 	margin: 0 10px 10px 0;
-	width: 150px;
-	height: 150px;
+	width: 200px;
+	height: 145px;
 }
 
 .index1-left p a {

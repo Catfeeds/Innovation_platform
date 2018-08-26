@@ -80,31 +80,49 @@ public class IndexController {
 
     /**
      * 根据新闻类型获取新闻
-     * @param typeNews
      * @param model
      * @return
      */
     @RequestMapping("/news_list/{type_id}")
-    public String newsList(@PathVariable("type_id") Integer typeNews, Model model,Integer page){
-        if(page==null){
-            page=1;
-        }
-        PageHelper.startPage(page,2);
-        List<News> news = newsService.getAllKindNews(typeNews);
-        model.addAttribute("news",news);
-        model.addAttribute("newsType",typeNews);
+    public String newsList(@PathVariable("type_id") Integer typeNewsId, Model model){
+        model.addAttribute("newsTypeId",typeNewsId);
+        model.addAttribute("newsType",newsService.getTypeNameByTypeId(typeNewsId));
+        model.addAttribute("newsCount",newsService.getKindNewsCount(typeNewsId));
         return "Index/news_list";
     }
 
-    @RequestMapping(value = "/test/{type_id}",produces = "text/html;charset=UTF-8")
+    @RequestMapping(value = "/news_page/{type_id}",produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String newsListJson(@PathVariable("type_id") Integer typeNews,Integer page){
+    public String newsListJson(@PathVariable("type_id") Integer typeNews,Integer page,Integer limit){
         if(page==null){
             page=1;
         }
-        PageHelper.startPage(page,2);
+        if(limit==null){
+            limit=10;
+        }
+        PageHelper.startPage(page,limit);
         List<News> list = newsService.getAllKindNews(typeNews);
         int count = newsService.getKindNewsCount(typeNews);
+        Map<String, Object> map = new HashMap<>();
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",count);
+        map.put("data", list);
+        return Json.toJson(map);
+    }
+
+    @RequestMapping(value = "/download_page",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String downloadListJson(Integer page,Integer limit){
+        if(page==null){
+            page=1;
+        }
+        if(limit==null){
+            limit=10;
+        }
+        PageHelper.startPage(page,limit);
+        List<DownloadFile> list = downloadFileService.getAll();
+        int count = downloadFileService.getAllCount();
         Map<String, Object> map = new HashMap<>();
         map.put("code",0);
         map.put("msg","");
@@ -128,10 +146,31 @@ public class IndexController {
 
     @RequestMapping("/compete_display")
     public String competeList(Model model){
-        List<Match> matches = matchService.getAllMatches();
-        model.addAttribute("match",matches);
+        model.addAttribute("count",matchService.getMatchCount());
         return "Index/compete_display";
     }
+
+    @RequestMapping(value = "/compete_page",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String competeListJson(Integer page,Integer limit){
+        if(page==null){
+            page=1;
+        }
+        if(limit==null){
+            limit=10;
+        }
+        PageHelper.startPage(page,limit);
+        List<Match> list = matchService.getAllMatches();
+        int count = matchService.getMatchCount();
+        Map<String, Object> map = new HashMap<>();
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",count);
+        map.put("data", list);
+        return Json.toJson(map);
+    }
+
+
 
     @RequestMapping("/compete/{id}")
     public String competeDetail(@PathVariable("id")Integer matchId,Model model){
@@ -142,16 +181,34 @@ public class IndexController {
 
     @RequestMapping("/downloads")
     public String downloadList(Model model){
-        List<DownloadFile> downloadFiles = downloadFileService.getAll();
-        model.addAttribute("download",downloadFiles);
+        model.addAttribute("count",downloadFileService.getAllCount());
         return "Index/download";
     }
 
     @RequestMapping("/achievements")
     public String goodWorkList(Model model){
-        List<GoodWork> goodWorks = goodWorkService.getAllGoodWorks();
-        model.addAttribute("goodWorks",goodWorks);
+        model.addAttribute("count",goodWorkService.getAllCount());
         return "Index/achievement_display";
+    }
+
+    @RequestMapping(value = "/achievement_page",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String achievementListJson(Integer page,Integer limit){
+        if(page==null){
+            page=1;
+        }
+        if(limit==null){
+            limit=10;
+        }
+        PageHelper.startPage(page,limit);
+        List<GoodWork> list = goodWorkService.getAllGoodWorks();
+        int count = goodWorkService.getAllCount();
+        Map<String, Object> map = new HashMap<>();
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",count);
+        map.put("data", list);
+        return Json.toJson(map);
     }
 
     @RequestMapping("/achievement/{id}")

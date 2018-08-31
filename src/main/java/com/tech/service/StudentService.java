@@ -42,10 +42,12 @@ public class StudentService {
         return ServerResponse.createByErrorMessage("旧密码校验失败");
     }
 
-    public Student getInfoBySno(String sno) {
-        //TODO
+    public ServerResponse<Student> getInfoBySno(String sno) {
         Student student = studentMapper.selectPartBySno(sno);
-        return student;
+        if(student==null){
+            return ServerResponse.createByErrorMessage("查询不到该学号学生:"+sno);
+        }
+        return ServerResponse.createBySuccess("查询成功",student);
     }
 
     public int getAllCount() {
@@ -66,5 +68,13 @@ public class StudentService {
 
     public Student getInfoExceptPwdBySno(String sno) {
         return studentMapper.selectInfoExceptPwdBySno(sno);
+    }
+
+    public ServerResponse updateStudentImg(Student newStudent) {
+        int count = studentMapper.updateByPrimaryKeySelective(newStudent);
+        if (count>0){
+            return ServerResponse.createBySuccessMessage("更新头像更改");
+        }
+        return ServerResponse.createByErrorMessage("更新头像失败");
     }
 }

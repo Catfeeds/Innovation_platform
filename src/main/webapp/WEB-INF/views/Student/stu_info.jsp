@@ -58,20 +58,36 @@
 
 		</div>
 		<div class="user_right">
-			<img src="${stu.imgurl}" class="layui-circle" id="userFace">
+			<img onerror='this.src="/static/images/timg.jpg"' src="${stu.imgurl}" class="layui-upload-img layui-circle" id="userFace">
 		</div>
 		<div class="layui-form-item" style="margin-left: 5%;">
 		    <div class="layui-input-block">
-		    	<button class="layui-btn" lay-submit="" lay-filter="changeUser">立即提交</button>
+		    	<button class="layui-btn" lay-submit="" lay-filter="changeUser">保存</button>
 		    </div>
 		</div>
 	</form>
 </body>
 <script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
 <script>
-    layui.use(['form','jquery'], function(){
+    layui.use(['form','jquery','upload'], function(){
         var form = layui.form,
+            upload = layui.upload,
             $ = layui.jquery;
+
+        upload.render({
+            elem: '#userFace',
+            url: '/userFace_upload.do',
+            acceptMime: 'image/jpg, image/png,image/jpeg',
+            size:'4096',
+            done: function(res){
+                if(res.status==0){
+                    $('#userFace').attr('src',res.data);
+                    layer.msg(res.msg);
+                }else{
+                    layer.msg(res.msg);
+                }
+            }
+        });
 
         form.on("submit(changeUser)",function(data){
 			$.ajax({
@@ -85,9 +101,6 @@
 					layer.msg('接口错误');
 				}
 			});
-//            setTimeout(function(){
-//                location.reload();
-//            },800);
             return false;
         })
     })

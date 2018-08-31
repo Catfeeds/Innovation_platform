@@ -14,14 +14,17 @@
 	<script src="/js/jquery-1.8.3.min.js"></script>
 	<script src="/static/layui/layui.js"></script>
 	<style type="text/css">
-.test{
-	width: 280px;
-	float: left;
-	margin: 30px;
-	border: solid darkgray 1px;
-	padding-bottom: 10px;
-	border-radius: 5px;
-}
+	.tabula-box{
+		min-height: 530px;
+	}
+	.test{
+		width: 280px;
+		float: left;
+		margin: 30px;
+		border: solid darkgray 1px;
+		padding-bottom: 10px;
+		border-radius: 5px;
+	}
 	.test img{
 		width: 260px;
 		height: 200px;
@@ -70,20 +73,10 @@
 		<input id="count" type="hidden" value="${count}">
 <div id="detail2-box" class="clearfix">
 	
-	<div class="tit-80"><a href="list-text1.html">新闻中心</a> - 查看详情</div>
-	    <div class="tabula-box">
-    	<div class="max-tit">新闻中心</div>
-        <ul>
-            
-            <li><a href="news_list.html">通知公告</a></li>
-            <li><a href="news_list.html">政策文件</a></li>
-            <li><a href="download.html">下载专区</a></li>
-            <li><a href="news_list.html">常见问题</a></li>
-            
-        </ul>
-    </div>
+	<div class="tit-80"><a href="/index.html">首页</a>  - 赛事中心</div>
+			<%@include file="tag.jsp"%>
     
-    <div class="content-box" id="data_fill">
+    <div class="content-box" id="data_fill" style="min-height: 420px">
     	<h1>赛事介绍</h1>
 		<%--<c:forEach var="match" items="${requestScope.match}">--%>
 			<%--<div class="test">--%>
@@ -106,8 +99,9 @@
 					<%--<a href="news.html"><input  type="button"  value="详情"  /></a>--%>
 				<%--</div>--%>
 		<%--</div>--%>
+
 	</div>
-	<div id="PageCode" style="float: right; margin-right: 100px"></div>
+			<div id="PageCode" style="text-align: center"></div>
 
 </div>
 
@@ -119,21 +113,6 @@
 
 				<div class="footer_right">
 					<div class="nav">
-						
-		                <ul>
-		                	<li>友情连接：</li>
-		                    <li><a href="http://www.sdust.edu.cn/" target="_blank">山东科技大学</a>
-		                    </li>
-		                    <li><a href="http://lib.sdust.edu.cn/" target="_blank">山东科技大学图书馆</a>
-		                    </li>
-		                    <li><a href="http://jwc.sdust.edu.cn/" target="_blank">山东科技大学教务处</a>
-		                    </li>
-		                    <li><a href="http://bjx.sdust.edu.cn/" target="_blank">北极星</a>
-		                    </li>
-		                    <li><a href="http://xsgzc.sdust.edu.cn/" target="_blank">学生处(部)</a>
-		                    </li>
-		                    
-		                </ul>
 	               </div>
 				</div>
 			</div>
@@ -188,14 +167,13 @@
     }
 
     function fillData(res) {
-        $("#data_fill").empty();
+        $("#data_fill div.test").remove();
         $.each(res.data, function (index, item) {
             var img = $("<img/>").attr("src","/images/robomaster.png");
             var h2 = $("<h2></h2>").append("大赛名称: "+item.nameMatch);
 			var p = $("<p></p>").addClass("time").append("报名时间: ").append($("<span></span>").append("2017/12/12-2017/12/13"));
-			var p2 =  $("<p></p>").append("赛事简介:");
             var div = $("<div></div>").addClass("layui-inline").append($("<a></a>").attr("href","xxxx").append($("<input/>").val("详情").attr("type","button")));
-            $("<div></div>").addClass("test").append(img).append(h2).append(p).append(p2).append(div).appendTo("#data_fill");
+            $("<div></div>").addClass("test").append(img).append(h2).append(p).append(div).appendTo("#data_fill");
         });
     }
 </script>

@@ -49,7 +49,7 @@
 			    <ul class="layui-nav top_menu">			    	
 					<li class="layui-nav-item" pc>
 						<a href="javascript:;">
-							<img src="${student.imgurl}" class="layui-circle" width="35" height="35">
+							<img onerror='this.src="/static/images/timg.jpg"' src="${student.imgurl}" class="layui-circle" width="35" height="35">
 							<cite>${student.nameStudent}</cite>
 						</a>
 						<dl class="layui-nav-child">
@@ -64,7 +64,7 @@
 		<!-- 左侧导航 -->
 		<div class="layui-side layui-bg-black">
 			<div class="user-photo">
-				<a class="img" title="我的头像" ><img src="${student.imgurl}"></a>
+				<a class="img" title="我的头像" ><img onerror='this.src="/static/images/timg.jpg"' src="${student.imgurl}"></a>
 				<p><span class="userName">${student.nameStudent}</span></p>
 			</div>
 			<div class="navBar layui-side-scroll" style="height: 200px;">

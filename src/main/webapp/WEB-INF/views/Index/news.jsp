@@ -47,13 +47,7 @@
     <div class="content-box">
     	<h1>${requestScope.news.title}</h1>
         <div class="content">
-        	<br /><br />
             ${requestScope.news.content}
-            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-        </div>
-        <div class="n-p-box clearfix">
-        	<div class="prv"><a href="#">上一篇：11新闻标题新闻标题新闻标题新闻标题新闻标题新闻标题新闻</a></div>
-            <div class="next"><a href="#">下一篇：22新闻标题新闻标题新闻标题新闻标题新闻标题新闻标题新闻</a></div>
         </div>
     </div>
     

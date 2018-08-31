@@ -93,6 +93,7 @@
 				</div>
 			</div>
 		</div>
+		<input type="hidden" name="imageUrl" id="coverUrl" value="">
 		<div class="layui-form-item magb0">
 			<label class="layui-form-label">介绍内容</label>
 			<div class="layui-input-block">
@@ -121,19 +122,23 @@
             upload = layui.upload,
             $ = layui.jquery;
 
+
+        if(action=='edit'){
+            $('.thumbImg').attr('src', '${teacher.imageUrl}');
+            $('#coverUrl').val('${teacher.imageUrl}');
+        }
         //上传缩略图
         upload.render({
             elem: '.thumbBox',
-            url: 'xxxxxx',
-            before: function(obj){
-                //预读本地文件示例，不支持ie8
-                obj.preview(function(index, file, result){
-                    $('.thumbImg').attr('src', result); //图片链接（base64）
-                });
-            },
-            done: function(res, index, upload){
-                //$('.thumbImg').attr('src',res.data[num].src);
-                $('.thumbBox').css("background","#fff");
+            url: '/manage/fileUpload.do',
+            done: function(res){
+                if(res.error==0){
+                    $('#coverUrl').val(res.url);
+                    $('.thumbImg').attr('src',res.url);
+                    $('.thumbBox').css("background","#fff");
+                }else{
+                    layer.msg(res.message);
+                }
             }
         });
 

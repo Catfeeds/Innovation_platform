@@ -80,7 +80,6 @@
 		<div class="layui-form-item">
 			<div class="layui-input-block">
 				<button class="layui-btn" lay-submit="" lay-filter="addNews">确认</button>
-				<%--<button type="reset" class="layui-btn layui-btn-primary">重置</button>--%>
 		    </div>
 		</div>
 	</form>
@@ -94,19 +93,24 @@
             upload = layui.upload,
             $ = layui.jquery;
 
+
+        if(action=='edit'){
+            $('.thumbImg').attr('src', '${download.attachment}');
+            $('#attachment').val('${download.attachment}');
+        }
         //执行实例
         var uploadInst = upload.render({
             elem: '#upload_btn' //绑定元素
-            ,url: '/upload.do' //上传接口
-            ,accept: 'file'
+            ,url: '/manage/fileUpload.do' //上传接口
             ,done: function(res){
-                layer.msg('文件上传成功'+res.data);
-                console.log(res);
-                $('#attachment').attr("value",res.data);
-                //上传完毕回调
+                if(res.error==0){
+                    layer.msg('文件上传成功'+res.url);
+                    $('#attachment').attr("value",res.url);
+				}else{
+                    layer.msg(res.message);
+				}
             }
             ,error: function(){
-                //请求异常回调
                 layer.msg('请求接口异常');
             }
         });

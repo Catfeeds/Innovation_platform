@@ -48,8 +48,8 @@ public class DownloadFileController {
     @RequestMapping(value = "/download_list",produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String toShowDownloadPage(Integer page,Integer limit){
-        PageHelper.startPage(page,limit);
         int count = downloadFileService.getAllCount();
+        PageHelper.startPage(page,limit);
         List<DownloadFile> list = downloadFileService.getAll();
         Map<String, Object> map = new HashMap<>();
         map.put("code",0);

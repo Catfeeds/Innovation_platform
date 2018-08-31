@@ -140,8 +140,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectAll" resultMap="BaseResultMap">
-    SELECT *
-    from tbl_download_file
+    SELECT * from tbl_download_file
   </select>
     <select id="selectPart" resultMap="BaseResultMap" parameterType="int">
       SELECT *

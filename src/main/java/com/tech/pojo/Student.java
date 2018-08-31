@@ -92,4 +92,9 @@ public class Student {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+    @Override
+    public String toString() {
+        return "Student{" + "sno='" + sno + '\'' + ", password='" + password + '\'' + ", nameStudent='" + nameStudent + '\'' + ", classno='" + classno + '\'' + ", phone='" + phone + '\'' + ", qq='" + qq + '\'' + ", email='" + email + '\'' + ", imgurl='" + imgurl + '\'' + ", updateTime=" + updateTime + '}';
+    }
 }

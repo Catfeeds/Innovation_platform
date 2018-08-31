@@ -31,7 +31,7 @@ public class ScrollController {
 
     @RequestMapping("/to_scroll_add")
     public String toScrollAdd(){
-        return "Admin/scroll_edit";
+        return "Admin/scroll_add";
     }
 
     @RequestMapping(value = "/scroll_list",produces = "text/html;charset=UTF-8")

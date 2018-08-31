@@ -26,7 +26,7 @@
 		    <a class="layui-btn search_btn">查询</a>
 		</div>
 		<div class="layui-inline">
-			<a class="layui-btn layui-btn-normal newsAdd_btn">添加文章</a>
+			<a class="layui-btn layui-btn-normal newsAdd_btn">添加通知公告</a>
 		</div>
 		<div class="layui-inline">
 			<a class="layui-btn layui-btn-danger batchDel">批量删除</a>
@@ -48,7 +48,7 @@
         $(window).one("resize",function(){
             $(".newsAdd_btn").click(function(){
                 var index = layui.layer.open({
-                    title : "添加文章",
+                    title : "添加通知公告",
                     type : 2,
                     content : "${cpath}/manage/to_add_news/"+newsType+".do",
                     success : function(layero, index){

@@ -30,8 +30,8 @@
 
 		function deltr(opp) {
 			var length = $("#dynamicTable tbody tr").length;
-			if (length <= 1) {
-				alert('至少保留一行,可不填~');
+			if (length <= 0) {
+
 			} else {
 				$(opp).parent().parent().remove();
 			}
@@ -54,6 +54,12 @@
 <br>
 	<form id="form_enroll" class="layui-form" style="width:80%; display: block; float: left;">
 		<input  name="competeId" type="hidden"   value="${compete.id}">
+		<div class="layui-form-item">
+			<label class="layui-form-label">参赛名称:</label>
+			<div class="layui-input-block">
+				<input  type="text" disabled class="layui-input layui-disabled "  value="${compete.nameCompete}">
+			</div>
+		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">队长姓名：</label>
 			<div class="layui-input-block">
@@ -116,13 +122,11 @@
 		<tbody>
 			<tr>
 				<td height="30" align="center">
-					<input name="members" onblur="getInfo($(this))" class="layui-input" type="text" /></td>
+					<input name="members2" onblur="getInfo($(this))" class="layui-input" type="text" /></td>
 				<td align="center">
 					<input class="layui-input" type="text" disabled/></td>
 				<td align="center">
 					<input class="layui-input" type="text"  disabled/></td>
-				<td align="center">
-					<input class="layui-input" type="text" disabled/></td>
 				<td>
 					<input type="button" onClick="deltr(this)" value="删行" class="layui-btn layui-btn-danger layui-btn-xs" >
 				</td>
@@ -134,27 +138,24 @@
 	<table id="dynamicTable"  class="layui-table" style="float: right;width: 90%">
 		<thead>
 			<tr>
-					<th style="width: 23%;">学号</th>
-					<th style="width: 23%;">姓名</th>
-					<th style="width: 23%;">班级</th>
-					<th style="width: 30%;">联系电话</th>
-					<th style="width: 20px;">操作</th>
+					<th style="width: 30%;">学号</th>
+					<th style="width: 30%;">姓名</th>
+					<th style="width: 30%;">班级</th>
+					<th style="width: 10px;">操作</th>
 				</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td height="30" align="center">
-					<input name="members" onblur="getInfo($(this))" class="layui-input" type="text"/></td>
-				<td align="center">
-					<input class="layui-input layui-disabled" type="text"  disabled/></td>
-				<td align="center">
-					<input class="layui-input layui-disabled" type="text" disabled/></td>
-				<td align="center">
-					<input class="layui-input layui-disabled" type="text" disabled/></td>
-				<td>
-					<input type="button" onClick="deltr(this)" value="删行" class="layui-btn layui-btn-danger layui-btn-xs" >
-				</td>
-			</tr>
+			<%--<tr>--%>
+				<%--<td height="30" align="center">--%>
+					<%--<input name="members" onblur="getInfo($(this))" class="layui-input" type="text"/></td>--%>
+				<%--<td align="center">--%>
+					<%--<input class="layui-input layui-disabled" type="text"  disabled/></td>--%>
+				<%--<td align="center">--%>
+					<%--<input class="layui-input layui-disabled" type="text" disabled/></td>--%>
+				<%--<td>--%>
+					<%--<input type="button" onClick="deltr(this)" value="删行" class="layui-btn layui-btn-danger layui-btn-xs" >--%>
+				<%--</td>--%>
+			<%--</tr>--%>
 
 		</tbody>
 	</table>
@@ -162,8 +163,8 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">上传附件：</label>
 			<div class="layui-input-block">
-				<input name="attachment" type="tel" class="layui-input " lay-verify="" placeholder="" >
-				<img src="${cpath}/static/images/u831.png">
+				<button type="button" class="layui-btn" id="attachment"><i class="layui-icon"></i>上传文件</button>
+				<input id="attachmentVal" name="attachment" type="hidden" value="">
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -175,15 +176,32 @@
 	</form>
 	<div style="float: right; height: 50px; width: 200px; margin-right: 20px">
 		<span><img src="${cpath}/static/images/u827.png">
-		本科学生大一不能参加超过2项竞赛，大二不能参加超过2项竞赛，本科四年不能参加超过10项竞赛${compete.id}
+		本科学生大一不能参加超过2项竞赛，大二不能参加超过2项竞赛，本科四年不能参加超过10项竞赛
 		</span>
 	</div>
 </body>
 <script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
 <script>
-    layui.use(['form'],function() {
+    layui.use(['form','upload'],function() {
         var form = layui.form,
-            $ = layui.jquery;
+			upload = layui.upload,
+        	$ = layui.jquery;
+
+        upload.render({
+            elem: '#attachment'
+            ,url: '/manage/fileUpload.do'
+            ,accept: 'file'
+            ,done: function(res){
+                if(res.error==0){
+                    $('#attachmentVal').val(res.url);
+                    layer.msg(res.message);
+                }else{
+                    layer.msg(res.message);
+                }
+            },error:function () {
+                layer.msg('上传文件接口错误');
+            }
+        });
 
         form.on("submit(add)", function (data) {
             $.ajax({
@@ -207,22 +225,31 @@
     })
 
     function getInfo(obj) {
-        $.ajax({
-            url:'${cpath}/stu/get_info2.do',
-            type:'post',
-            data:{
-                sno:obj.val(),
-            },
-            success : function(res) {
-                if(res.status==0){
-                    obj.parents("tr").find("td:eq(1)").find("input").val(res.data.nameStudent);
-                    obj.parents("tr").find("td:eq(2)").find("input").val(res.data.classno);
-                    obj.parents("tr").find("td:eq(3)").find("input").val(res.data.phone);
-                }
-                else
-                    layer.msg(res);
-            }
-        });
+        if(obj.val()==''){
+            obj.parents("tr").find("td:eq(1)").find("input").val("");
+            obj.parents("tr").find("td:eq(2)").find("input").val("");
+		}else{
+			$.ajax({
+				url:'${cpath}/stu/get_info2.do',
+				type:'post',
+				dataType:'json',
+				data:{
+					sno:obj.val(),
+				},
+				success : function(res) {
+					console.log(res);
+					if(res.status==0){
+						obj.parents("tr").find("td:eq(1)").find("input").val(res.data.nameStudent);
+						obj.parents("tr").find("td:eq(2)").find("input").val(res.data.classno);
+					}
+					else{
+						layer.msg(res.msg);
+                        obj.parents("tr").find("td:eq(1)").find("input").val("");
+                        obj.parents("tr").find("td:eq(2)").find("input").val("");
+					}
+				}
+			});
+		}
     }
 </script>
 </html>

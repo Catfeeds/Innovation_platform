@@ -220,9 +220,28 @@ public class IndexController {
 
     @RequestMapping("/teacher")
     public String goodTeacherList(Model model){
-        List<GoodTeacher> goodTeachers = goodTeacherService.getAllGoodTeachers();
-        model.addAttribute("goodTeachers",goodTeachers);
+        model.addAttribute("count",goodTeacherService.getAllCount());
         return "Index/teacher_display";
+    }
+
+    @RequestMapping(value = "/teacher_page",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String teacherListJson(Integer page,Integer limit){
+        if(page==null){
+            page=1;
+        }
+        if(limit==null){
+            limit=10;
+        }
+        PageHelper.startPage(page,limit);
+        List<GoodTeacher> list = goodTeacherService.getAllGoodTeachers();
+        int count = goodTeacherService.getAllCount();
+        Map<String, Object> map = new HashMap<>();
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",count);
+        map.put("data", list);
+        return Json.toJson(map);
     }
 
     @RequestMapping("/teacher/{id}")

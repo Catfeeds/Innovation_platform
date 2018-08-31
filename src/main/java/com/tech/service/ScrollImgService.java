@@ -19,6 +19,7 @@ public class ScrollImgService {
     }
 
     public ServerResponse insertScrollImg(ScrollImg scrollImg) {
+        scrollImg.setIsShow(1);
         int count =  scrollImgMapper.insert(scrollImg);
         if (count>0){
             return ServerResponse.createBySuccessMessage("add_success");

@@ -22,5 +22,14 @@ public interface EnrollMapper {
 
     List<Enroll> selectAllEnroll();
 
-    List<Item> selectItemFromVm(String sno);
+    List<Item> selectAllItem();
+
+    List<Item> selectItemFromVmBySno(String sno);
+
+    Item selectItemByEnrollId(Integer id);
+
+    int agreeEnroll(Integer id);
+
+    int refuseEnroll(Integer id);
+
 }

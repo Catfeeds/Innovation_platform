@@ -47,7 +47,7 @@
                 var index = layui.layer.open({
                     title : "添加滚动图",
                     type : 2,
-                    content : "/static/page/link_add.html",
+                    content : "/manage/to_scroll_add.html",
                     success : function(layero, index){
                         setTimeout(function(){
                             layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
@@ -65,6 +65,7 @@
             url: '/manage/scroll_list.do',
             method: 'post',
             limit: 10,
+			size:'lg',
             cols: [[
                 {field:'id', title: '序号',align:'center',sort:true},
                 {field:'urlImg', title: '链接地址',align:'center',templet:function(d) {
@@ -79,7 +80,7 @@
 
             }
         });
-        //监听展示操作
+
         form.on('switch(show)', function(obj){
             var action;
             if(obj.elem.checked){
@@ -87,7 +88,6 @@
 			}else {
                 action='hide';
 			}
-			//layer.tips(this.value+' '+action+ ' ' + this.name + '：'+ obj.elem.checked, obj.othis);
             $.ajax({
                 url:'/manage/update_scroll_show.do',
                 type:'post',
@@ -102,10 +102,6 @@
                     layer.msg("接口错误");
                 }
             });
-//			  算了
-//            setTimeout(function(){
-//                location.reload();
-//            },500);
             return false;
         });
 

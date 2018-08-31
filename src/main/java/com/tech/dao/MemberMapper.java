@@ -2,6 +2,8 @@ package com.tech.dao;
 
 import com.tech.pojo.Member;
 
+import java.util.List;
+
 public interface MemberMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -18,4 +20,10 @@ public interface MemberMapper {
     int selectCountBySno(String sno);
 
     int selectMatchPCount(Integer matchID);
+
+    List<Member> selectMembersIncludeNameByGid(Integer groupId);
+
+    Member selectLeaderByGid(Integer groupId);
+
+    List<Member> selectMembersIncludeNamePhoneClassnoByGid(Integer groupId);
 }

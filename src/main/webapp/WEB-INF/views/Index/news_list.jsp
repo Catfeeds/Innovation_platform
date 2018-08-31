@@ -12,6 +12,11 @@
     <link rel="stylesheet" type="text/css" href="/static/layui/css/layui.css">
     <script src="/js/jquery-1.8.3.min.js"></script>
     <script src="/static/layui/layui.js"></script>
+    <style>
+        .tabula-box{
+            min-height: 530px;
+        }
+    </style>
 </head>
 
 <body>
@@ -36,26 +41,15 @@
 <div id="detail2-box" class="clearfix">
 	
 	<div class="tit-80"><a href="/index.html">首页</a>-<a href="/news_list/${newsTypeId}.html">新闻中心</a> - ${newsType}</div>
-	    <div class="tabula-box">
-    	<div class="max-tit">新闻中心</div>
-        <ul>
-            
-            <li><a href="news_list.jsp">通知公告</a></li>
-            <li><a href="news_list.jsp">政策文件</a></li>
-            <li><a href="download.html">下载专区</a></li>
-            <li><a href="news_list.jsp">常见问题</a></li>
-            
-        </ul>
-    </div>
+    	<%@include file="tag.jsp"%>
     <input id="news_typeId" type="hidden" value="${newsTypeId}">
     <input id="news_count" type="hidden" value="${newsCount}">
-    <div class="content-box" style="min-height: 450px">
+    <div class="content-box" style="min-height: 489px">
     	<h1>${newsType}</h1>
         <ul id="news_fill">
         </ul>
     </div>
     <div id="news_page" style="text-align: center"></div>
-
 </div>
    
     <!-- footer -->
@@ -66,7 +60,7 @@
 <script>
     var type = $('#news_typeId').val();
     var count = $('#news_count').val();
-    var limit = 2;
+    var limit = 10;
     layui.use('laypage', function(){
         var laypage = layui.laypage;
 

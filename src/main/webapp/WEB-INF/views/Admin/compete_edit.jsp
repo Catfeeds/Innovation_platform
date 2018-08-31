@@ -67,8 +67,9 @@
 								<select name="levelCompete" class="Level" lay-filter="browseLook">
 									<option value="1">国家级</option>
 									<option value="2">省级</option>
-									<option value="3">校级</option>
-									<option value="4">院级</option>
+									<option value="3">校级A类</option>
+									<option value="4">校级B类</option>
+									<option value="5">校级C类</option>
 								</select>
 							</div>
 						</div>
@@ -81,6 +82,7 @@
 						<img class="layui-upload-img thumbImg">
 					</div>
 				</div>
+				<input type="hidden" name="coverUrl" id="coverUrl" value="">
 				<div class="layui-form-item">
 					<label class="layui-form-label">报名要求</label>
 					<div class="layui-input-block">
@@ -95,8 +97,7 @@
 				</div>
 				<div class="layui-form-item">
 					<div class="layui-input-block">
-						<button class="layui-btn" lay-submit="" lay-filter="addNews">确认添加</button>
-						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						<button class="layui-btn" lay-submit="" lay-filter="addNews">确认</button>
 					</div>
 				</div>
 		</div>
@@ -122,20 +123,24 @@
 
             if(action=='edit'){
                 $('.thumbImg').attr('src', '${compete.coverUrl}');
+                $('#coverUrl').val('${compete.coverUrl}');
                 $("select option[value='${compete.levelCompete}']").attr("selected","selected");
             }
 
 			upload.render({
                 elem: '.thumbBox',
-                url: 'xxxx',
-                before: function(obj){
-                    obj.preview(function(index, file, result){
-                        $('.thumbImg').attr('src', result); //图片链接（base64）
-                    });
+                url: '/manage/fileUpload.do',
+                done: function(res){
+                    if(res.error==0){
+                        $('#coverUrl').val(res.url);
+                        $('.thumbImg').attr('src',res.url);
+                        $('.thumbBox').css("background","#fff");
+                    }else{
+                        layer.msg(res.message);
+                    }
                 },
-                done: function(res, index, upload){
-                    //$('.thumbImg').attr('src',res.data[num].src);
-                    $('.thumbBox').css("background","#fff");
+				error: function(){
+                    layer.msg('接口错误');
                 }
             });
 

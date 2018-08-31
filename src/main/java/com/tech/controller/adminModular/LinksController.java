@@ -31,14 +31,18 @@ public class LinksController {
         return "Admin/link";
     }
 
+    @RequestMapping("/to_link_add")
+    public String toShowAddLink(){
+        return "Admin/link_add";
+    }
+
+
     @RequestMapping(value = "/link",produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String showLink(Integer page,Integer limit){
         int count = friendLinkService.getAllCount();
         PageHelper.startPage(page,limit);
         List<FriendLink> linkList = friendLinkService.getAllFriendLinks();
-        //PageInfo pageInfo = new PageInfo(linkList);
-
         Map<String, Object> map = new HashMap<>();
         map.put("code",0);
         map.put("msg","");

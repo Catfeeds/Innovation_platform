@@ -10,7 +10,14 @@
     <title>科技创新项目管理平台</title>
     <link rel="stylesheet" type="text/css" href="/css/reset.css">
     <link rel="stylesheet" type="text/css" href="/css/index.css">
-
+    <link rel="stylesheet" type="text/css" href="/static/layui/css/layui.css">
+    <script src="/js/jquery-1.8.3.min.js"></script>
+    <script src="/static/layui/layui.js"></script>
+    <style>
+        .tabula-box{
+            min-height: 560px;
+        }
+    </style>
 </head>
 
 <body>
@@ -32,94 +39,26 @@
         </div>
     </div>
     <!-- slide end -->
-<div id="detail2-box" class="clearfix">
+        <input id="count" type="hidden" value="${count}">
+
+        <div id="detail2-box" class="clearfix">
 	
-	<div class="tit-80"><a href="list-text1.html">新闻中心</a> - 查看详情</div>
-	    <div class="tabula-box">
-    	<div class="max-tit">新闻中心</div>
-        <ul>
-            
-            <li><a href="news_list.html">通知公告</a></li>
-            <li><a href="news_list.html">政策文件</a></li>
-            <li><a href="news_list.html">下载专区</a></li>
-            <li><a href="news_list.html">常见问题</a></li>
-            
-        </ul>
-    </div>
+	<div class="tit-80"><a href="/index.html">首页</a> - 优秀教师</div>
+        <%@include file="tag.jsp"%>
     
     <div class="content-box">
     	<h1>优秀指导教师</h1>
-        <ul class="clearfix" style=" width:705px; margin-left:-10px;">
-            <c:forEach var="tech" items="${requestScope.goodTeachers}">
-                <li class="pic">
-                    <div class="img-box">
-                        <img src="${tech.imageUrl}">
-                    </div>
-                    <h3><a href="teacher/${tech.id}.html">${tech.nameTeacher}</a></h3>
-                </li>
-            </c:forEach>
-            <li class="pic">
-            	<div class="img-box">                	
-                		<img src="/images/黄鹤松（优秀教师）.jpg">
-                </div>
-                <h3><a href="teacher_detail.html">黄鹤松</a></h3>
-            </li>
-            <li class="pic">
-            	<div class="img-box">                	
-                		<img src="/images/黄鹤松（优秀教师）.jpg">
-                    
-                </div>
-                <h3><a href="teacher_detail.html">黄鹤松</a></h3>
-            </li>
-            <li class="pic">
-            	<div class="img-box">
-                	
-                		<img src="/images/黄鹤松（优秀教师）.jpg">
-                    
-                </div>
-                <h3><a href="teacher_detail.html">黄鹤松</a></h3>
-            </li>
-            <li class="pic">
-            	<div class="img-box">
-                	
-                		<img src="/images/黄鹤松（优秀教师）.jpg">
-                   
-                </div>
-                <h3><a href="teacher_detail.html">黄鹤松</a></h3>
-            </li>
-            <li class="pic">
-            	<div class="img-box">
-                		<img src="/images/黄鹤松（优秀教师）.jpg">
-                    
-                </div>
-                <h3><a href="teacher_detail.html">黄鹤松</a></h3>
-            </li>
-            <li class="pic">
-            	<div class="img-box">
-                	
-                		<img src="images/黄鹤松（优秀教师）.jpg">
-                    
-                </div>
-                <h3><a href="teacher_detail.html">黄鹤松</a></h3>
-            </li>
-
+        <ul class="clearfix" id="data_fill" style=" width:705px; margin-left:-10px;">
+            <%--<li class="pic">--%>
+            	<%--<div class="img-box">                	--%>
+                		<%--<img src="/images/黄鹤松（优秀教师）.jpg">--%>
+                <%--</div>--%>
+                <%--<h3><a href="teacher_detail.html">黄鹤松</a></h3>--%>
+            <%--</li>--%>
         </ul>
- <div class="tcdPageCode"></div>
-<script src="js/jquery-1.8.3.min.js"></script>
-<script src="js/jquery.page.js"></script>
-<script>
-    $(".tcdPageCode").createPage({
-        pageCount:100,
-        current:1,
-        backFn:function(p){
-            //console.log(p);
-        }
-    });
-</script>       
     </div>
-  
-
-</div>
+    <div id="PageCode" style="text-align: center;" ></div>
+ </div>
 
    
     <!-- footer -->
@@ -129,21 +68,6 @@
 
 				<div class="footer_right">
 					<div class="nav">
-						
-		                <ul>
-		                	<li>友情连接：</li>
-		                    <li><a href="http://www.sdust.edu.cn/" target="_blank">山东科技大学</a>
-		                    </li>
-		                    <li><a href="http://lib.sdust.edu.cn/" target="_blank">山东科技大学图书馆</a>
-		                    </li>
-		                    <li><a href="http://jwc.sdust.edu.cn/" target="_blank">山东科技大学教务处</a>
-		                    </li>
-		                    <li><a href="http://bjx.sdust.edu.cn/" target="_blank">北极星</a>
-		                    </li>
-		                    <li><a href="http://xsgzc.sdust.edu.cn/" target="_blank">学生处(部)</a>
-		                    </li>
-		                    
-		                </ul>
 	               </div>
 				</div>
 			</div>
@@ -157,5 +81,54 @@
     <!-- footer end-->
  </div>
 </body>
+<script>
+    var count = $('#count').val();
+    var limit = 6;
+    layui.use('laypage', function(){
+        var laypage = layui.laypage;
 
+        laypage.render({
+            elem: 'PageCode'
+            ,count: count
+            ,limit: limit
+            ,theme: '#0aa6d6'
+            ,jump: function(obj, first){
+                console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                console.log(obj.limit); //得到每页显示的条数
+                toPage(obj.curr);
+                if(!first){
+                    toPage(obj.curr);
+                }
+            }
+        });
+    })
+
+    function toPage(page) {
+        $.ajax({
+            type:'post',
+            url:'/teacher_page.do',
+            dataType: "json",
+            data:{
+                page:page
+                ,limit:limit
+            },
+            success:function (data) {
+                fillData(data);
+            },
+            error:function () {
+                layer.msg('接口错误');
+            }
+        });
+    }
+
+    function fillData(res) {
+        $("#data_fill").empty();
+        $.each(res.data, function (index, item) {
+            var img = $("<img/>").attr("src","/images/黄鹤松（优秀教师）.jpg");
+            var div = $("<div></div>").addClass("img-box").append(img);
+            var h3 = $("<h3></h3>").append($("<a></a>").attr("href","teacher/"+item.id+".html").append(item.nameTeacher));
+            $("<li></li>").addClass("pic").append(div).append(h3).appendTo("#data_fill");
+        });
+    }
+</script>
 </html>

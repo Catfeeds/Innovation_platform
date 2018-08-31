@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../Admin/headTag.jsp"%><!DOCTYPE html>
 <!DOCTYPE html>
@@ -59,26 +60,14 @@
 			<div class="test">
 				<img src="${compete.coverUrl}" />
 				<h1>大赛名称：${compete.nameCompete}</h1>
-				<%--<p class="time">报名开始时间：<span><fmt:formatDate value="${match.startTime}" pattern="yyyy-MM-dd mm:HH" />-<fmt:formatDate value="${match.endTime}" pattern="yyyy-MM-dd mm:HH" /></span></p>--%>
 				<p class="time">报名开始时间：<span><fmt:formatDate value="${compete.startTime}" pattern="yyyy-MM-dd HH:mm" /></span></p>
 				<p class="time">报名结束时间：<span><fmt:formatDate value="${compete.endTime}" pattern="yyyy-MM-dd HH:mm" /></span></p>
+				<%--<p>报名要求:${fn:substring(compete.requirement,0,200)}...</p>--%>
 				<div class="layui-inline">
 					<a class="layui-btn linksAdd_btn" competeId="${compete.id}" style="background-color:#5FB878">报名</a>
 				</div>
 			</div>
 		</c:forEach>
-
-			<%--<div class="test">--%>
-				<%--<img src="../../images/robomaster.png" />--%>
-				<%--<h1>大赛名称：大赛名称大赛名称大赛名称</h1>--%>
-				<%--<p class="time">报名时间：<span>2017/12/12-2017/12/13</span></p>--%>
-				<%--<p>赛事简介：赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介--%>
-					<%--赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介</p>--%>
-					<%--<div class="layui-inline">--%>
-					<%--<a class="layui-btn linksAdd_btn" style="background-color:#5FB878">报名</a>--%>
-				<%--</div>--%>
-			<%----%>
-			<%--</div>--%>
 
 	 <script src="${cpath}/static/js/jquery-1.8.3.min.js"></script>
 	</div>

@@ -140,6 +140,12 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="agreeEnroll" parameterType="int">
+    update tbl_enroll set status = 1 where id = #{id}
+  </update>
+  <update id="refuseEnroll" parameterType="int">
+    update tbl_enroll set status = 2 where id = #{id}
+  </update>
   <select id="selectAllCount" resultType="java.lang.Integer">
     select count(*) from tbl_enroll
   </select>
@@ -149,7 +155,8 @@
     from tbl_enroll
   </select>
 
-  <resultMap id="BaseResultMap2" type="com.tech.pojo.Item">
+  <resultMap id="BaseResultMapTotalEnroll" type="com.tech.pojo.Item">
+    <result column="id" jdbcType="INTEGER" property="enrollId" />
     <result column="compete_id" jdbcType="INTEGER" property="competeId" />
     <result column="group_id" jdbcType="INTEGER" property="groupId" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -159,7 +166,13 @@
     <result column="name_compete" jdbcType="TIMESTAMP" property="competeName" />
     <result column="name_group" jdbcType="TIMESTAMP" property="groupName" />
   </resultMap>
-    <select id="selectItemFromVm" resultMap="BaseResultMap2" parameterType="string">
-      select name_compete,title_enroll,name_group,instructor,status FROM vm_item where sno = #{sno}
+    <select id="selectItemFromVmBySno" resultMap="BaseResultMapTotalEnroll" parameterType="string">
+      select id,name_compete,title_enroll,group_id,name_group,instructor,status,attachment FROM vw_item where sno = #{sno} order by status
     </select>
+  <select id="selectAllItem" resultMap="BaseResultMapTotalEnroll">
+      select id,name_compete,title_enroll,group_id,name_group,instructor,status,attachment FROM vw_item order by status
+  </select>
+  <select id="selectItemByEnrollId" resultMap="BaseResultMapTotalEnroll" parameterType="int">
+      select id,name_compete,title_enroll,group_id,name_group,instructor,status,attachment FROM vw_item where id = #{id}
+  </select>
 </mapper>

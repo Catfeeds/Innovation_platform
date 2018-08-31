@@ -69,9 +69,6 @@
 									<p><img src="${match.imgUrl}" align="left">${fn:substring(match.introduce,0,200)}...<a href="#">查看更多...</a></p>
 								</div>
 							</c:forEach>
-							<div class="index1-left">
-								<p><img src="images/FIRST_logo.jpg" align="left">内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容...<a href="news.jsp" target="_blank">查看更多...</a></p>
-							</div>
 						</div>
 					</div>
 					<!--赛事介绍模块 final-->

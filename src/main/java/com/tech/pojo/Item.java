@@ -1,8 +1,10 @@
 package com.tech.pojo;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class Item {
+    private Integer enrollId;
     private Integer competeId;
     private Integer groupId;
     private String competeName;
@@ -10,9 +12,27 @@ public class Item {
     private String instructor;
     private String groupName;
     private String grouper;
-    private String[] members;
+    private Student leader;
+    private List<Member> members;
+    private String[] members2;//报名
     private String attachment;
     private Integer status;
+
+    public Student getLeader() {
+        return leader;
+    }
+
+    public void setLeader(Student leader) {
+        this.leader = leader;
+    }
+
+    public Integer getEnrollId() {
+        return enrollId;
+    }
+
+    public void setEnrollId(Integer enrollId) {
+        this.enrollId = enrollId;
+    }
 
     public Integer getStatus() {
         return status;
@@ -78,11 +98,11 @@ public class Item {
         this.grouper = grouper;
     }
 
-    public String[] getMembers() {
+    public List<Member> getMembers() {
         return members;
     }
 
-    public void setMembers(String[] members) {
+    public void setMembers(List<Member> members) {
         this.members = members;
     }
 
@@ -94,9 +114,16 @@ public class Item {
         this.attachment = attachment;
     }
 
+    public String[] getMembers2() {
+        return members2;
+    }
+
+    public void setMembers2(String[] members2) {
+        this.members2 = members2;
+    }
 
     @Override
     public String toString() {
-        return "Item{" + "competeId=" + competeId + ", groupId=" + groupId + ", competeName='" + competeName + '\'' + ", title='" + title + '\'' + ", instructor='" + instructor + '\'' + ", groupName='" + groupName + '\'' + ", grouper='" + grouper + '\'' + ", members=" + Arrays.toString(members) + ", attachment='" + attachment + '\'' + '}';
+        return "Item{" + "enrollId=" + enrollId + ", competeId=" + competeId + ", groupId=" + groupId + ", competeName='" + competeName + '\'' + ", title='" + title + '\'' + ", instructor='" + instructor + '\'' + ", groupName='" + groupName + '\'' + ", grouper='" + grouper + '\'' + ", leader=" + leader + ", members=" + members + ", members2=" + Arrays.toString(members2) + ", attachment='" + attachment + '\'' + ", status=" + status + '}';
     }
 }

@@ -86,4 +86,29 @@
   <select id="selectMatchPCount" resultType="java.lang.Integer" parameterType="int">
       SELECT COUNT(1) FROM vw_enroll WHERE matchID = #{matchID}
   </select>
+
+  <resultMap id="BaseResultMapIncludeName" type="com.tech.pojo.Member">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="sno" jdbcType="VARCHAR" property="sno" />
+    <result column="group_id" jdbcType="INTEGER" property="groupId" />
+    <result column="type_member" jdbcType="INTEGER" property="typeMember" />
+    <result column="name_student" jdbcType="VARCHAR" property="sname" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="classno" jdbcType="VARCHAR" property="classno" />
+  </resultMap>
+  <select id="selectMembersIncludeNameByGid" parameterType="int" resultMap="BaseResultMapIncludeName">
+    select
+    id, m.sno, group_id, type_member,name_student
+    from tbl_member m,tbl_student s where m.sno = s.sno and group_id = #{groupId}
+  </select>
+    <select id="selectLeaderByGid" resultType="com.tech.pojo.Member" parameterType="int">
+      SELECT
+      <include refid="Base_Column_List" />
+      from tbl_member where group_id = #{groupId} and type_member = 1
+    </select>
+  <select id="selectMembersIncludeNamePhoneClassnoByGid" resultMap="BaseResultMapIncludeName">
+     select
+    id, m.sno, group_id, type_member,name_student,phone,classno
+    from tbl_member m,tbl_student s where m.sno = s.sno and group_id = #{groupId} and type_member = 0
+  </select>
 </mapper>

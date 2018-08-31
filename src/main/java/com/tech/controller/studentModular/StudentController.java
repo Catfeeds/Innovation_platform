@@ -28,7 +28,8 @@ public class StudentController {
 
     @RequestMapping("/index")
     public String index(Model model, HttpSession session){
-        if (session.getAttribute(Const.CURRENT_USER)==null){
+        Student student = (Student) session.getAttribute(Const.CURRENT_USER);
+        if (student==null){
             return "forward:/login.html";
         }
         model.addAttribute("student",(Student)session.getAttribute(Const.CURRENT_USER));
@@ -89,8 +90,8 @@ public class StudentController {
         if (student==null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"请登录后重新尝试");
         }
-        student = studentService.getInfoBySno(sno);
-        return ServerResponse.createBySuccess(student);
+        ServerResponse<Student> serverResponse = studentService.getInfoBySno(sno);
+        return serverResponse;
     }
 
     @RequestMapping("/changePwd")

@@ -9,6 +9,40 @@ public class Member {
 
     private Integer typeMember;
 
+    private String sname;//方便显示成员使用
+
+    private String classno;
+
+    private String phone;
+
+    public String getClassno() {
+        return classno;
+    }
+
+    public void setClassno(String classno) {
+        this.classno = classno;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getSname() {
+        return sname;
+    }
+
+    public void setSname(String sname) {
+        this.sname = sname;
+    }
+
+    public Member(){
+
+    }
+
     public Member(String sno, Integer groupId, Integer typeMember) {
         this.sno = sno;
         this.groupId = groupId;

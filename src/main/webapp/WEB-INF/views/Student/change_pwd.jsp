@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>修改密码--管理模板</title>
+	<title>修改密码</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -57,10 +57,8 @@
 	<script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
 </body>
 <script type="text/javascript">
-    layui.use(['form','layer'],function(){
+    layui.use(['form'],function(){
         var form = layui.form,
-        layer = parent.layer === undefined ? layui.layer : top.layer,
-            laypage = layui.laypage,
             $ = layui.jquery;
 
         form.verify({

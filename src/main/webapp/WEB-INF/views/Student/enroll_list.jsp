@@ -30,12 +30,13 @@
                 method: 'post',
 				size:'lg',
                 cols: [[
+                    {title: '序号',align:'center',type:'numbers'},
                     {field:'competeName', title: '赛事名称',align:'center'},
                     {field:'title', title: '参赛题目',align:'center'},
                     {field:'groupName', title: '团队名称',align:'center'},
+                    {field:'members', title: '团队成员',align:'center',templet:'#members'},
                     {field:'instructor', title: '指导老师',align:'center'},
 					{field:'status',title: '状态',align:'center',templet:'#status'},
-                    {title: '操作',width:200,align:'center',toolbar: '#bar',fixed:'right'},
                 ]],
                 done: function (res, curr, count) {
 
@@ -45,9 +46,14 @@
         })
 	</script>
 </body>
+<script type="text/html" id="members">
+	{{#  layui.each(d.members, function(index, item){ }}
+	<span>{{ item.sname }}  </span>
+	{{#  }); }}
+</script>
 <script type="text/html" id="status">
 	{{#  if(d.status === 0){ }}
-	<span style="color: #ffc657;">待审核</span>
+	<span style="color: black;">待审核</span>
 	{{#  } else if(d.status === 1){ }}
 	<span style="color: green;">通过/立项</span>
 	{{#  } else if(d.status === 2){ }}
@@ -55,10 +61,5 @@
 	{{#  } else { }}
 	<span style="color: #f1a02f;">未知参数</span>
 	{{#  } }}
-</script>
-<script type="text/html" id="bar">
-	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">编辑</a>
-	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 </html>

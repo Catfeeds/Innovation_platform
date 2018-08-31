@@ -83,6 +83,8 @@
 						<img class=" thumbImg" >
 					</div>
 				</div>
+				<input type="hidden" name="imgUrl" id="coverUrl" value="">
+
 
 				<div class="layui-form-item">
 					<label class="layui-form-label">赛事简介</label>
@@ -121,20 +123,21 @@
             });
             if(action=='edit'){
                 $('.thumbImg').attr('src', '${match.imgUrl}');
+                $('#coverUrl').val('${match.imgUrl}');
                 $("select option[value='${match.levelMatch}']").attr("selected","selected");
             }
 
             upload.render({
                 elem: '.thumbBox',
-                url: '../../json/userface.json',
-                before: function(obj){
-                    obj.preview(function(index, file, result){
-                        $('.thumbImg').attr('src', result); //图片链接（base64）
-                    });
-                },
-                done: function(res, index, upload){
-                    $('.thumbImg').attr('src',res.data[num].src);
-                    $('.thumbBox').css("background","#fff");
+                url: '/manage/fileUpload.do',
+                done: function(res){
+                    if(res.error==0){
+                        $('#coverUrl').val(res.url);
+                        $('.thumbImg').attr('src',res.url);
+                        $('.thumbBox').css("background","#fff");
+					}else{
+                        layer.msg(res.message);
+					}
                 }
             });
 

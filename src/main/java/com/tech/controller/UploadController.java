@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
+@RequestMapping("/manage")
 public class UploadController {
 
     @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)

@@ -40,7 +40,7 @@
                 var index = layui.layer.open({
                     title : "添加新友情链接",
                     type : 2,
-                    content : "${cpath}/static/page/link_add.html",
+                    content : "/manage/to_link_add.html",
                     success : function(layero, index){
                         setTimeout(function(){
                             layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {

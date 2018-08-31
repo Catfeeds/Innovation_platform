@@ -54,11 +54,7 @@
 						<div class="layui-inline">
 							<label class="layui-form-label">赛事级别</label>
 							<div class="layui-input-inline">
-								<select name="levelMatch" class="Level" lay-filter="browseLook">
-									<option value="1">国家级</option>
-									<option value="2">省级</option>
-									<option value="3">校级</option>
-									<option value="4">院级</option>
+								<select name="levelMatch" class="Level" lay-filter="browseLook" id="data_fill">
 								</select>
 							</div>
 						</div>
@@ -108,6 +104,26 @@
 	<script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
 	<script type="text/javascript" >
         var action = $("#action").val();
+
+        $.ajax({
+            type:'post',
+            url:'/manage/getLevel.do',
+            dataType: "json",
+            success:function (data) {
+                fillData(data);
+            },
+            error:function () {
+                layer.msg('接口错误');
+            }
+        });
+
+        function fillData(res) {
+            $.each(res.data, function (index, item) {
+                var option = $("<option></option>").val(item.id).append(item.levelName);
+                option.appendTo("#data_fill");
+            });
+        }
+
         layui.use(['form','layer','layedit','laydate','upload'],function(){
             var form = layui.form,
                 upload = layui.upload,

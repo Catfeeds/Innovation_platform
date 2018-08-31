@@ -48,8 +48,8 @@ public class CompeteController {
     @RequestMapping(value = "/compete_list",produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String competeList(Integer page,Integer limit){
-        PageHelper.startPage(page,limit);
         int count = competeService.getAllCount();
+        PageHelper.startPage(page,limit);
         List<Compete> list = competeService.getAllCompete();
         Map<String, Object> map = new HashMap<>();
         map.put("code",0);

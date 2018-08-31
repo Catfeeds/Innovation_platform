@@ -3,8 +3,6 @@ package com.tech.pojo;
 public class Levels {
     private Integer id;
 
-    private Integer levelGrade;
-
     private String levelName;
 
     public Integer getId() {
@@ -13,14 +11,6 @@ public class Levels {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getLevelGrade() {
-        return levelGrade;
-    }
-
-    public void setLevelGrade(Integer levelGrade) {
-        this.levelGrade = levelGrade;
     }
 
     public String getLevelName() {

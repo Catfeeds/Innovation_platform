@@ -50,8 +50,8 @@ public class MatchController {
     @RequestMapping(value = "/match_list",produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String matchList(Integer page,Integer limit){
-        PageHelper.startPage(page,limit);
         int count = matchService.getMatchCount();
+        PageHelper.startPage(page,limit);
         List<Match> list = matchService.getAllMatches();
         Map<String, Object> map = new HashMap<>();
         map.put("code",0);

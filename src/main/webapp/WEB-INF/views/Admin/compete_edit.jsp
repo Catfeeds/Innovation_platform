@@ -64,12 +64,12 @@
 						<div class="layui-inline">
 							<label class="layui-form-label">赛事级别</label>
 							<div class="layui-input-inline">
-								<select name="levelCompete" class="Level" lay-filter="browseLook">
-									<option value="1">国家级</option>
-									<option value="2">省级</option>
-									<option value="3">校级A类</option>
-									<option value="4">校级B类</option>
-									<option value="5">校级C类</option>
+								<select name="levelCompete" class="Level" lay-filter="browseLook" id="data_fill">
+									<%--<option value="1">国家级</option>--%>
+									<%--<option value="2">省级</option>--%>
+									<%--<option value="3">校级A类</option>--%>
+									<%--<option value="4">校级B类</option>--%>
+									<%--<option value="5">校级C类</option>--%>
 								</select>
 							</div>
 						</div>
@@ -105,6 +105,26 @@
 	<script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
 	<script type="text/javascript" >
         var action = $("#action").val();
+
+        $.ajax({
+            type:'post',
+            url:'/manage/getLevel.do',
+            dataType: "json",
+            success:function (data) {
+                fillData(data);
+            },
+            error:function () {
+                layer.msg('接口错误');
+            }
+        });
+
+        function fillData(res) {
+            $.each(res.data, function (index, item) {
+                var option = $("<option></option>").val(item.id).append(item.levelName);
+				option.appendTo("#data_fill");
+            });
+        }
+
         layui.use(['form','layedit','laydate','upload'],function(){
             var form = layui.form,
                 layedit = layui.layedit,

@@ -32,4 +32,9 @@ public class TotalController {
         int count =  totalService.getMatchPCount(matchID);
         return ServerResponse.createBySuccess("成功查询",count);
     }
+
+    @RequestMapping("/to_itemTotal_list")
+    public String toItemTotalList(){
+        return "Admin/itemTotal_list";
+    }
 }

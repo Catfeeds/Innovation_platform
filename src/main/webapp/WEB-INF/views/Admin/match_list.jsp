@@ -69,15 +69,7 @@
                 cols: [[
                     {field:'id', title: '序号',align:'center',sort:true},
                     {field:'nameMatch', title: '大赛名称',align:'center'},
-                    {field:'levelMatch', title: '赛事级别',align:'center',templet:function(d){
-                        if(d.levelMatch == "1"){
-                            return "国家级";
-                        }else if(d.levelMatch == "2"){
-                            return "市级";
-                        }else{
-                            return "其他";
-                        }
-                    }},
+                    {field:'levelName', title: '赛事级别',align:'center'},
                     {field:'imgUrl', title: '封面',align:'center',templet:function(d) {
                         return '<img src="' + d.imgUrl + '" />';
                     }},

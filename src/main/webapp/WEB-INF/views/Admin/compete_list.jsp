@@ -68,15 +68,7 @@
                 cols: [[
                     {field:'id', title: '序号',align:'center',sort:true},
                     {field:'nameCompete', title: '大赛名称',align:'center'},
-                    {field:'levelCompete', title: '大赛级别',align:'center',templet:function(d){
-                        if(d.levelCompete == "1"){
-                            return "国家级";
-                        }else if(d.levelCompete == "2"){
-                            return "市级";
-                        }else{
-                            return "其他";
-                        }
-                    }},
+                    {field:'levelName', title: '大赛级别',align:'center'},
                     {field:'coverUrl', title: '封面图片',align:'center',templet:function(d) {
                         return '<img src="' + d.coverUrl + '" />';
                     }},

@@ -2,6 +2,9 @@ package com.tech.dao;
 
 import com.tech.pojo.Levels;
 
+import java.util.List;
+import java.util.logging.Level;
+
 public interface LevelsMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +17,6 @@ public interface LevelsMapper {
     int updateByPrimaryKeySelective(Levels record);
 
     int updateByPrimaryKey(Levels record);
+
+    List<Level> selectAll();
 }

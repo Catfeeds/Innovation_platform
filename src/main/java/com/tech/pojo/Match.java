@@ -7,6 +7,8 @@ public class Match {
 
     private Integer levelMatch;
 
+    private String levelName;//管理显示
+
     private String nameMatch;
 
     private String imgUrl;
@@ -33,6 +35,14 @@ public class Match {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getLevelName() {
+        return levelName;
+    }
+
+    public void setLevelName(String levelName) {
+        this.levelName = levelName;
     }
 
     public Integer getLevelMatch() {
@@ -123,8 +133,4 @@ public class Match {
         this.introduce = introduce == null ? null : introduce.trim();
     }
 
-    @Override
-    public String toString() {
-        return "Match{" + "id=" + id + ", levelMatch=" + levelMatch + ", nameMatch='" + nameMatch + '\'' + ", imgUrl='" + imgUrl + '\'' + ", linkUrl='" + linkUrl + '\'' + ", createTime=" + createTime + ", updateTime=" + updateTime + ", clicks=" + clicks + ", priority=" + priority + ", startTime=" + startTime + ", endTime=" + endTime + ", introduce='" + introduce + '\'' + '}';
-    }
 }

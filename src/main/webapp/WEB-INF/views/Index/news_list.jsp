@@ -40,7 +40,7 @@
     <!-- slide end -->
 <div id="detail2-box" class="clearfix">
 	
-	<div class="tit-80"><a href="/index.html">首页</a>-<a href="/news_list/${newsTypeId}.html">新闻中心</a> - ${newsType}</div>
+	<div class="tit-80"><a href="/index.html">首页</a> - <a href="/news_list/${newsTypeId}.html">新闻中心</a> - ${newsType}</div>
     	<%@include file="tag.jsp"%>
     <input id="news_typeId" type="hidden" value="${newsTypeId}">
     <input id="news_count" type="hidden" value="${newsCount}">
@@ -61,6 +61,10 @@
     var type = $('#news_typeId').val();
     var count = $('#news_count').val();
     var limit = 10;
+
+    var a = $(".tag").find("li:eq("+(type-1)+")").find("a");
+    a.css("color","#4a00ff");
+
     layui.use('laypage', function(){
         var laypage = layui.laypage;
 
@@ -70,8 +74,6 @@
             ,limit: limit
             ,theme: '#0aa6d6'
             ,jump: function(obj, first){
-                console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-                console.log(obj.limit); //得到每页显示的条数
                 toPage(obj.curr);
                 if(!first){
                     toPage(obj.curr);
@@ -106,5 +108,7 @@
             $("<li></li>").addClass("text").append(a).append(span).appendTo("#news_fill");
         });
     }
+
+
 </script>
 </html>

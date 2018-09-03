@@ -10,7 +10,7 @@
     <title>科技创新项目管理平台</title>
     <link rel="stylesheet" type="text/css" href="/css/reset.css">
     <link rel="stylesheet" type="text/css" href="/css/index.css">
-
+    <script src="/js/jquery-1.8.3.min.js"></script>
 </head>
 
 <body>
@@ -34,7 +34,7 @@
     <!-- slide end -->
 <div id="detail2-box" class="clearfix">
 	
-	<div class="tit-80"><a href="list-text1.html">新闻中心</a> - 查看详情</div>
+	<div class="tit-80"><a href="/index.html">首页</a> - 赛事介绍</div>
 	    <div class="tabula-box">
     	<div class="max-tit">新闻中心</div>
         <ul>
@@ -49,14 +49,10 @@
     
     <div class="content-box">
     	<h1>${requestScope.match.nameMatch}</h1>
-        <div class="content">
-        	<br /><br />
+        <div class="content" style="width: 100%">
         	${requestScope.match.introduce}
-            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         </div>
         <div class="n-p-box clearfix">
-        	<div class="prv"><a href="#">上一篇：11新闻标题新闻标题新闻标题新闻标题新闻标题新闻标题新闻</a></div>
-            <div class="next"><a href="#">下一篇：22新闻标题新闻标题新闻标题新闻标题新闻标题新闻标题新闻</a></div>
         </div>
     </div>
     
@@ -71,21 +67,6 @@
 
 				<div class="footer_right">
 					<div class="nav">
-						
-		                <ul>
-		                	<li>友情连接：</li>
-		                    <li><a href="http://www.sdust.edu.cn/" target="_blank">山东科技大学</a>
-		                    </li>
-		                    <li><a href="http://lib.sdust.edu.cn/" target="_blank">山东科技大学图书馆</a>
-		                    </li>
-		                    <li><a href="http://jwc.sdust.edu.cn/" target="_blank">山东科技大学教务处</a>
-		                    </li>
-		                    <li><a href="http://bjx.sdust.edu.cn/" target="_blank">北极星</a>
-		                    </li>
-		                    <li><a href="http://xsgzc.sdust.edu.cn/" target="_blank">学生处(部)</a>
-		                    </li>
-		                    
-		                </ul>
 	               </div>
 				</div>
 			</div>
@@ -99,5 +80,8 @@
     <!-- footer end-->
  </div>
 </body>
-
+<script>
+    var a = $(".tag").find("li:eq(4)").find("a");
+    a.css("color","#4a00ff");
+</script>
 </html>

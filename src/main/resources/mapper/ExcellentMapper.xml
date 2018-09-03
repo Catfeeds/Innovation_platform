@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tech.dao.ExcellentMapper">
+  <resultMap id="BaseResultMap" type="com.tech.pojo.Excellent">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="enroll_id" jdbcType="INTEGER" property="enrollId" />
+    <result column="prize_id" jdbcType="INTEGER" property="prizeId" />
+    <result column="cover_url" jdbcType="VARCHAR" property="coverUrl" />
+    <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tech.pojo.Excellent">
+    <result column="introduce" jdbcType="LONGVARCHAR" property="introduce" />
+  </resultMap>
+  <resultMap extends="ResultMapWithBLOBs" id="ResultMapWithDetail" type="com.tech.pojo.Excellent">
+    <result column="title_enroll" jdbcType="VARCHAR" property="title" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, enroll_id, prize_id, cover_url, finish_time, author, create_time, update_time
+  </sql>
+  <sql id="Blob_Column_List">
+    introduce
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_excellent
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbl_excellent
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tech.pojo.Excellent">
+    insert into tbl_excellent (id, enroll_id, prize_id, 
+      cover_url, finish_time, author, 
+      create_time, update_time, introduce
+      )
+    values (#{id,jdbcType=INTEGER}, #{enrollId,jdbcType=INTEGER}, #{prizeId,jdbcType=INTEGER}, 
+      #{coverUrl,jdbcType=VARCHAR}, #{finishTime,jdbcType=TIMESTAMP}, #{author,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{introduce,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tech.pojo.Excellent">
+    insert into tbl_excellent
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="enrollId != null">
+        enroll_id,
+      </if>
+      <if test="prizeId != null">
+        prize_id,
+      </if>
+      <if test="coverUrl != null">
+        cover_url,
+      </if>
+      <if test="finishTime != null">
+        finish_time,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="introduce != null">
+        introduce,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="enrollId != null">
+        #{enrollId,jdbcType=INTEGER},
+      </if>
+      <if test="prizeId != null">
+        #{prizeId,jdbcType=INTEGER},
+      </if>
+      <if test="coverUrl != null">
+        #{coverUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="finishTime != null">
+        #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="introduce != null">
+        #{introduce,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tech.pojo.Excellent">
+    update tbl_excellent
+    <set>
+      <if test="enrollId != null">
+        enroll_id = #{enrollId,jdbcType=INTEGER},
+      </if>
+      <if test="prizeId != null">
+        prize_id = #{prizeId,jdbcType=INTEGER},
+      </if>
+      <if test="coverUrl != null">
+        cover_url = #{coverUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="finishTime != null">
+        finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="introduce != null">
+        introduce = #{introduce,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tech.pojo.Excellent">
+    update tbl_excellent
+    set enroll_id = #{enrollId,jdbcType=INTEGER},
+      prize_id = #{prizeId,jdbcType=INTEGER},
+      cover_url = #{coverUrl,jdbcType=VARCHAR},
+      finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      author = #{author,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      introduce = #{introduce,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tech.pojo.Excellent">
+    update tbl_excellent
+    set enroll_id = #{enrollId,jdbcType=INTEGER},
+      prize_id = #{prizeId,jdbcType=INTEGER},
+      cover_url = #{coverUrl,jdbcType=VARCHAR},
+      finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      author = #{author,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllCount" resultType="java.lang.Integer">
+    select count(*) from tbl_excellent
+  </select>
+  <select id="selectAll" resultMap="ResultMapWithDetail">
+    select
+    ex.id, enroll_id, prize_id, cover_url, finish_time, author, ex.create_time, ex.update_time
+    ,
+    <include refid="Blob_Column_List" />,title_enroll
+    from tbl_excellent ex,tbl_enroll en where ex.enroll_id = en.id
+  </select>
+  <select id="selectByPrimaryKeyWithTitle" resultMap="ResultMapWithDetail" parameterType="int">
+    select
+    ex.id, enroll_id, prize_id, cover_url, finish_time, author, ex.create_time, ex.update_time
+    ,
+    <include refid="Blob_Column_List" />,title_enroll
+    from tbl_excellent ex,tbl_enroll en where ex.enroll_id = en.id and ex.id = #{id}
+  </select>
+</mapper>

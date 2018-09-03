@@ -165,14 +165,31 @@
     <result column="attachment" jdbcType="VARCHAR" property="attachment" />
     <result column="name_compete" jdbcType="TIMESTAMP" property="competeName" />
     <result column="name_group" jdbcType="TIMESTAMP" property="groupName" />
+    <result column="prize_id" jdbcType="INTEGER" property="prizeId" />
+    <result column="prize_name" jdbcType="VARCHAR" property="prizeName" />
+    <result column="introduce" jdbcType="VARCHAR" property="gwintroduce" />
+    <result column="finish_time" jdbcType="VARCHAR" property="gwfinishTime" />
+    <result column="cover_url" jdbcType="VARCHAR" property="gwcoverUrl" />
   </resultMap>
     <select id="selectItemFromVmBySno" resultMap="BaseResultMapTotalEnroll" parameterType="string">
-      select id,name_compete,title_enroll,group_id,name_group,instructor,status,attachment FROM vw_item where sno = #{sno} order by status
+      select id,name_compete,title_enroll,group_id,name_group,instructor,status,attachment FROM vm_item where sno = #{sno} order by status
     </select>
   <select id="selectAllItem" resultMap="BaseResultMapTotalEnroll">
       select id,name_compete,title_enroll,group_id,name_group,instructor,status,attachment FROM vw_item order by status
   </select>
   <select id="selectItemByEnrollId" resultMap="BaseResultMapTotalEnroll" parameterType="int">
       select id,name_compete,title_enroll,group_id,name_group,instructor,status,attachment FROM vw_item where id = #{id}
+  </select>
+  <select id="selectPassItemCount" resultType="java.lang.Integer">
+      select count(*) from tbl_enroll where status = 1
+  </select>
+  <select id="selectPassItem" resultMap="BaseResultMapTotalEnroll">
+      select id,name_compete,title_enroll,group_id,name_group,instructor,status,attachment FROM vw_item where status = 1
+  </select>
+  <select id="selectPassPrizeItemCount" resultType="java.lang.Integer">
+    select count(*) from vw_excellent
+  </select>
+  <select id="selectPassPrizeItem" resultMap="BaseResultMapTotalEnroll">
+    select id,name_compete,title_enroll,group_id,name_group,status,prize_name,introduce,finish_time,cover_url,instructor FROM vw_excellent
   </select>
 </mapper>

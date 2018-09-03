@@ -32,4 +32,11 @@ public interface EnrollMapper {
 
     int refuseEnroll(Integer id);
 
+    int selectPassItemCount();
+
+    List<Item> selectPassItem();
+
+    int selectPassPrizeItemCount();
+
+    List<Item> selectPassPrizeItem();
 }

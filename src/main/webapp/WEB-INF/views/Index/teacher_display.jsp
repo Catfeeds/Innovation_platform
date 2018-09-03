@@ -48,14 +48,16 @@
     
     <div class="content-box">
     	<h1>优秀指导教师</h1>
-        <ul class="clearfix" id="data_fill" style=" width:705px; margin-left:-10px;">
-            <%--<li class="pic">--%>
-            	<%--<div class="img-box">                	--%>
-                		<%--<img src="/images/黄鹤松（优秀教师）.jpg">--%>
-                <%--</div>--%>
-                <%--<h3><a href="teacher_detail.html">黄鹤松</a></h3>--%>
-            <%--</li>--%>
-        </ul>
+        <div style="margin-left: 40px">
+            <ul class="clearfix" id="data_fill" style=" width:705px; margin-left:-10px;">
+                <%--<li class="pic">--%>
+                    <%--<div class="img-box">                	--%>
+                            <%--<img src="/images/黄鹤松（优秀教师）.jpg">--%>
+                    <%--</div>--%>
+                    <%--<h3><a href="teacher_detail.html">黄鹤松</a></h3>--%>
+                <%--</li>--%>
+            </ul>
+        </div>
     </div>
     <div id="PageCode" style="text-align: center;" ></div>
  </div>
@@ -84,6 +86,10 @@
 <script>
     var count = $('#count').val();
     var limit = 6;
+
+    var a = $(".tag").find("li:eq(6)").find("a");
+    a.css("color","#4a00ff");
+
     layui.use('laypage', function(){
         var laypage = layui.laypage;
 
@@ -93,8 +99,6 @@
             ,limit: limit
             ,theme: '#0aa6d6'
             ,jump: function(obj, first){
-                console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-                console.log(obj.limit); //得到每页显示的条数
                 toPage(obj.curr);
                 if(!first){
                     toPage(obj.curr);
@@ -124,7 +128,7 @@
     function fillData(res) {
         $("#data_fill").empty();
         $.each(res.data, function (index, item) {
-            var img = $("<img/>").attr("src","/images/黄鹤松（优秀教师）.jpg");
+            var img = $("<img/>").attr("src",item.imageUrl);
             var div = $("<div></div>").addClass("img-box").append(img);
             var h3 = $("<h3></h3>").append($("<a></a>").attr("href","teacher/"+item.id+".html").append(item.nameTeacher));
             $("<li></li>").addClass("pic").append(div).append(h3).appendTo("#data_fill");

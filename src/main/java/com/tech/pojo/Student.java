@@ -21,6 +21,16 @@ public class Student {
 
     private Date updateTime;
 
+    private Integer participateCount;
+
+    public Integer getParticipateCount() {
+        return participateCount;
+    }
+
+    public void setParticipateCount(Integer participateCount) {
+        this.participateCount = participateCount;
+    }
+
     public String getSno() {
         return sno;
     }

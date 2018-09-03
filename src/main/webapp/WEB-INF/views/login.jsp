@@ -2,27 +2,41 @@
 <%@include file="Admin/headTag.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-		<meta charset="utf-8" />
-		<title>科技创新项目管理平台</title>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta charset="utf-8" />
+	<title>科技创新项目管理平台</title>
 
-		<meta name="description" content="User login page" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+	<meta name="description" content="User login page" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
-		<!-- bootstrap & fontawesome -->
-		<link rel="stylesheet" href="${cpath}/assets/css/bootstrap.min.css" />
-		<link rel="stylesheet" href="${cpath}/assets/font-awesome/4.2.0/css/font-awesome.min.css" />
+	<!-- bootstrap & fontawesome -->
+	<link rel="stylesheet" href="${cpath}/assets/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="${cpath}/assets/font-awesome/4.2.0/css/font-awesome.min.css" />
 
-		<!-- text fonts -->
-		<link rel="stylesheet" href="${cpath}/assets/fonts/fonts.googleapis.com.css" />
+	<!-- text fonts -->
+	<link rel="stylesheet" href="${cpath}/assets/fonts/fonts.googleapis.com.css" />
 
-		<!-- ace styles -->
-		<link rel="stylesheet" href="${cpath}/assets/css/ace.min.css" />
+	<!-- ace styles -->
+	<link rel="stylesheet" href="${cpath}/assets/css/ace.min.css" />
 
-		<link rel="stylesheet" href="${cpath}/assets/css/ace-rtl.min.css" />
+	<!--[if lte IE 9]>
+	<link rel="stylesheet" href="assets/css/ace-part2.min.css" />
+	<![endif]-->
+	<link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
 
-	</head>
+	<!--[if lte IE 9]>
+	<link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+	<![endif]-->
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+	<!--[if lt IE 9]>
+	<script src="assets/js/html5shiv.min.js"></script>
+	<script src="assets/js/respond.min.js"></script>
+	<![endif]-->
+	<script src="${cpath}/static/js/jquery-1.8.3.min.js"></script>
+</head>
 
 	<body class="login-layout light-login">
 		<div class="main-container">
@@ -34,7 +48,7 @@
 								<h1>
 									科技创新项目管理平台
 								</h1>
-								
+
 							</div>
 
 							<div class="space-6"></div>
@@ -74,16 +88,22 @@
 													</label>
 
 													<label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<div class="code"><img src="${cpath}/makeCode.html" width="116" height="36"></div>
-															<i class="ace-icon fa fa-lock"></i>
+														<span id="message" class="block input-icon input-icon-right" style="color: red;">
+															${message}
 														</span>
 													</label>
+
+													<%--<label class="block clearfix">--%>
+														<%--<span class="block input-icon input-icon-right">--%>
+															<%--<div class="code"><img src="${cpath}/makeCode.html" width="116" height="36"></div>--%>
+															<%--<i class="ace-icon fa fa-lock"></i>--%>
+														<%--</span>--%>
+													<%--</label>--%>
 
 													<div class="space"></div>
 
 													<div class="clearfix">
-														
+
 
 														<button id="btn-login" type="button" class="width-35 pull-right btn btn-sm btn-primary">
 															<i class="ace-icon fa fa-key"></i>
@@ -95,12 +115,12 @@
 												</fieldset>
 											</form>
 
-											
+
 										</div><!-- /.widget-main -->
 
 										<div class="toolbar clearfix">
 											<div>
-												
+
 											</div>
 
 											<div>
@@ -112,17 +132,35 @@
 										</div>
 									</div>
 								</div>
-							</div>	
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
 		<!--[if !IE]> -->
-		<script src="${cpath}/assets/js/jquery.2.1.1.min.js"></script>
+		<script src="assets/js/jquery.2.1.1.min.js"></script>
 
+		<!-- <![endif]-->
 
-<![endif]-->
+		<!--[if IE]>
+		<script src="assets/js/jquery.1.11.1.min.js"></script>
+		<![endif]-->
+
+		<!--[if !IE]> -->
+		<script type="text/javascript">
+            window.jQuery || document.write("<script src='assets/js/jquery.min.js'>"+"<"+"/script>");
+		</script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"/script>");
+		</script>
+		<![endif]-->
+
 		<script type="text/javascript">
 			if('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 
@@ -158,7 +196,8 @@
                             dataType:'json',
                             success : function(data) {
                                 if(data.status==1){
-                                    alert(data.msg);
+                                    $('#message').html("");
+                                    $('#message').append(data.msg);
                                 }else if(data.status==0){
                                     location.href="/admin/index.html";
                                 }
@@ -175,7 +214,8 @@
                             dataType:'json',
                             success : function(data) {
                                 if(data.status==1){
-                                    alert(data.msg);
+                                    $('#message').html("");
+                                    $('#message').append(data.msg);
                                 }else if(data.status==0){
                                     location.href="/stu/index.html";
                                 }

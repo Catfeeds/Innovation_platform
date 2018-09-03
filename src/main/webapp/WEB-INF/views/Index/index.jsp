@@ -66,7 +66,7 @@
 						<div class="complate">
 							<c:forEach var="match" items="${requestScope.matches}">
 								<div class="index1-left">
-									<p><img src="${match.imgUrl}" align="left">${fn:substring(match.introduce,0,200)}...<a href="#">查看更多...</a></p>
+									<img src="${match.imgUrl}" align="left" style="width: 200px;height: 150px;margin: 10px"><div style="margin-left: 230px;margin-top: 15px;margin-right: 15px"><h1>大赛名称:  ${match.nameMatch}</h1><h1>大赛级别:  ${match.levelName}</h1>大赛简介: ${fn:substring(match.introduce,0,120)}...<a href="/compete/${match.id}.html" style="color: #1d6fa6"> 查看更多</a></div>
 								</div>
 							</c:forEach>
 						</div>
@@ -144,13 +144,13 @@
 					<div class="index_left  index_projecte index_projecte3">
 						<div class="index_left_h3">
 							<h3>下载专区
-								<span><a href="downloads.html" target="_blank"><img src="images/bai2.png"></a></span>
+								<span><a href="/downloads.html" target="_blank"><img src="images/bai2.png"></a></span>
 							</h3>
 						</div>
 						<div class="index1-right300">
 							<ul>
 								<c:forEach var="download" items="${requestScope.downloadFiles}">
-									<li><a href="#" target="_blank" title="${download.titleWork}">${download.titleWork}</a><span><fmt:formatDate value="${download.createTime}" pattern="yyyy-MM-dd" /></span></li>
+									<li><a href="/downloads.html" target="_blank" title="${download.titleWork}">${download.titleWork}</a><span><fmt:formatDate value="${download.createTime}" pattern="yyyy-MM-dd" /></span></li>
 								</c:forEach>
 							</ul>
 						</div>
@@ -171,19 +171,19 @@
 						<img class="mr_frBtnL prev" src="images/mfrl.gif" />
 						<div class="mr_frUl" >
 							<ul id="mr_fu">
-								<c:forEach var="gw" items="${requestScope.goodWorks}">
+								<c:forEach var="gw" items="${excellents}">
 									<li>
-										<a href="#">
+										<a href="/achievement/${gw.id}.html">
 											<img src="${gw.coverUrl}" />
 										</a>
 									</li>
 								</c:forEach>
-								<li>
-									<a href="news.jsp">
-										<img src="images/成果4.jpg" />
-									</a>
+								<%--<li>--%>
+									<%--<a href="news.jsp">--%>
+										<%--<img src="images/成果4.jpg" />--%>
+									<%--</a>--%>
 
-								</li>
+								<%--</li>--%>
 							</ul>
 						</div>
 						<img class="mr_frBtnR next" src="images/mfrr.gif" />

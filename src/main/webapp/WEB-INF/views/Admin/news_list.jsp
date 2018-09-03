@@ -26,7 +26,7 @@
 		    <a class="layui-btn search_btn">查询</a>
 		</div>
 		<div class="layui-inline">
-			<a class="layui-btn layui-btn-normal newsAdd_btn">添加通知公告</a>
+			<a class="layui-btn layui-btn-normal newsAdd_btn">添加文章</a>
 		</div>
 		<div class="layui-inline">
 			<a class="layui-btn layui-btn-danger batchDel">批量删除</a>

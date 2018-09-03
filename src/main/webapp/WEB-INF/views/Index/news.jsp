@@ -7,7 +7,7 @@
     <title>科技创新项目管理平台</title>
     <link rel="stylesheet" type="text/css" href="/css/reset.css">
     <link rel="stylesheet" type="text/css" href="/css/index.css">
-
+	<script src="/js/jquery-1.8.3.min.js"></script>
 </head>
 
 <body>
@@ -31,30 +31,20 @@
     <!-- slide end -->
 <div id="detail2-box" class="clearfix">
 	
-	<div class="tit-80"><a href="list-text1.html">新闻中心</a> - 查看详情</div>
-	    <div class="tabula-box">
-    	<div class="max-tit">新闻中心</div>
-        <ul>
-            
-            <li><a href="news_list.jsp">通知公告</a></li>
-            <li><a href="news_list.jsp">政策文件</a></li>
-            <li><a href="download.html">下载专区</a></li>
-            <li><a href="news_list.jsp">常见问题</a></li>
-            
-        </ul>
-    </div>
+	<div class="tit-80"><a href="/index.html">首页</a> - 新闻详情</div>
+    <input type="hidden" id="new_type" value="${news.typeNews}">
+    <%@include file="tag.jsp"%>
     
-    <div class="content-box">
-    	<h1>${requestScope.news.title}</h1>
-        <div class="content">
-            ${requestScope.news.content}
+    <div class="content-box" >
+    	<h1>${news.title}</h1>
+        <div class="content" style="width: 100%">
+            ${news.content}
         </div>
     </div>
     
 
 </div>
 
-   
     <!-- footer -->
     <div id="footer">
 		<div class="footer">
@@ -90,5 +80,7 @@
     <!-- footer end-->
  </div>
 </body>
+<script type="text/javascript">
 
+</script>
 </html>

@@ -1,6 +1,7 @@
 package com.tech.service;
 
 import com.tech.common.ServerResponse;
+import com.tech.dao.MemberMapper;
 import com.tech.dao.StudentMapper;
 import com.tech.pojo.Student;
 import org.apache.commons.lang3.StringUtils;
@@ -13,6 +14,8 @@ import java.util.List;
 public class StudentService {
     @Autowired
     StudentMapper studentMapper;
+    @Autowired
+    MemberMapper memberMapper;
 
     public ServerResponse<Student> login(String sno, String password){
         Student student = studentMapper.selectLogin(sno);
@@ -55,7 +58,11 @@ public class StudentService {
     }
 
     public List<Student> getAllStudent() {
-        return studentMapper.selectAllStudent();
+        List<Student> list = studentMapper.selectAllStudent();
+        for (Student s:list) {
+            s.setParticipateCount(memberMapper.selectCountBySno(s.getSno()));
+        }
+        return list;
     }
 
     public ServerResponse<String> changePersonalInfo(Student student) {

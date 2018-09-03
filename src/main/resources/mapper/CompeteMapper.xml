@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tech.dao.CompeteMapper">
+  <resultMap id="BaseResultMap" type="com.tech.pojo.Compete">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name_compete" jdbcType="VARCHAR" property="nameCompete" />
+    <result column="level_compete" jdbcType="INTEGER" property="levelCompete" />
+    <result column="cover_url" jdbcType="VARCHAR" property="coverUrl" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tech.pojo.Compete">
+    <result column="requirement" jdbcType="LONGVARCHAR" property="requirement" />
+  </resultMap>
+  <resultMap extends="ResultMapWithBLOBs" id="ResultMapWithLevelName" type="com.tech.pojo.Compete">
+    <result column="level_name" jdbcType="VARCHAR" property="levelName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name_compete, level_compete, cover_url, start_time, end_time, create_time, update_time, 
+    author
+  </sql>
+  <sql id="Blob_Column_List">
+    requirement
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_compete
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbl_compete
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tech.pojo.Compete">
+    insert into tbl_compete (id, name_compete, level_compete, 
+      cover_url, start_time, end_time, 
+      create_time, update_time, author, 
+      requirement)
+    values (#{id,jdbcType=INTEGER}, #{nameCompete,jdbcType=VARCHAR}, #{levelCompete,jdbcType=INTEGER}, 
+      #{coverUrl,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{author,jdbcType=VARCHAR}, 
+      #{requirement,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tech.pojo.Compete">
+    insert into tbl_compete
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="nameCompete != null">
+        name_compete,
+      </if>
+      <if test="levelCompete != null">
+        level_compete,
+      </if>
+      <if test="coverUrl != null">
+        cover_url,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="requirement != null">
+        requirement,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="nameCompete != null">
+        #{nameCompete,jdbcType=VARCHAR},
+      </if>
+      <if test="levelCompete != null">
+        #{levelCompete,jdbcType=INTEGER},
+      </if>
+      <if test="coverUrl != null">
+        #{coverUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="requirement != null">
+        #{requirement,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tech.pojo.Compete">
+    update tbl_compete
+    <set>
+      <if test="nameCompete != null">
+        name_compete = #{nameCompete,jdbcType=VARCHAR},
+      </if>
+      <if test="levelCompete != null">
+        level_compete = #{levelCompete,jdbcType=INTEGER},
+      </if>
+      <if test="coverUrl != null">
+        cover_url = #{coverUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="requirement != null">
+        requirement = #{requirement,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tech.pojo.Compete">
+    update tbl_compete
+    set name_compete = #{nameCompete,jdbcType=VARCHAR},
+      level_compete = #{levelCompete,jdbcType=INTEGER},
+      cover_url = #{coverUrl,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      author = #{author,jdbcType=VARCHAR},
+      requirement = #{requirement,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tech.pojo.Compete">
+    update tbl_compete
+    set name_compete = #{nameCompete,jdbcType=VARCHAR},
+      level_compete = #{levelCompete,jdbcType=INTEGER},
+      cover_url = #{coverUrl,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      author = #{author,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllCount" resultType="java.lang.Integer">
+    select count(*) from tbl_compete
+  </select>
+  <select id="selectAllCompete" resultMap="ResultMapWithLevelName">
+    select
+    tc.id, name_compete, level_compete, cover_url, start_time, end_time, create_time, update_time,
+    author,
+    <include refid="Blob_Column_List" />
+    ,level_name
+    from tbl_compete tc,tbl_levels tl where tc.level_compete = tl.id
+  </select>
+
+</mapper>

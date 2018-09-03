@@ -30,11 +30,24 @@ public class StuEnrollController {
         return "Admin/enroll_detail";
     }
 
+    @RequestMapping("/to_enroll_detail2/{id}")
+    public String toItemDetail2(@PathVariable("id") Integer id, Model model){
+        Item item = enrollService.getItemByEnrollId(id);
+        model.addAttribute("item",item);
+        return "Admin/enroll_detail2";
+    }
+
     @RequestMapping("/to_enroll_list")
     public String toItemEnrollList(){
         return "Admin/enroll_list";
     }
 
+    /**
+     * 所有报名项目  vw_item *
+     * @param page
+     * @param limit
+     * @return
+     */
     @RequestMapping(value = "/enroll_list",produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String itemEnrollList(Integer page,Integer limit){
@@ -48,6 +61,48 @@ public class StuEnrollController {
         map.put("data", list);
         return Json.toJson(map);
     }
+
+    /**
+     * 已通过的报名项目 vw_item  status == 1  添加优秀作品模块
+     * @param page
+     * @param limit
+     * @return
+     */
+    @RequestMapping(value = "/pass_enroll_list",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String itemPassEnrollList(Integer page,Integer limit){
+        int count = enrollService.getPassItemCount();
+        PageHelper.startPage(page,limit);
+        List<Item> list = enrollService.getPassEnroll();
+        Map<String, Object> map = new HashMap<>();
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",count);
+        map.put("data", list);
+        return Json.toJson(map);
+    }
+
+    /**
+     * 已通过的报名项目且获奖项目 vw_excellent *   优秀作品管理模块
+     * @param page
+     * @param limit
+     * @return
+     */
+    @RequestMapping(value = "/pass_prize_enroll_list",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String itemPassPrizeEnrollList(Integer page,Integer limit){
+        int count = enrollService.getPassPrizeItemCount();
+        PageHelper.startPage(page,limit);
+        List<Item> list = enrollService.getPassPrizeItem();
+        Map<String, Object> map = new HashMap<>();
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",count);
+        map.put("data", list);
+        return Json.toJson(map);
+    }
+
+
 
     @RequestMapping("/enroll_agree")
     @ResponseBody

@@ -1,6 +1,7 @@
 package com.tech.pojo;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class Item {
@@ -17,6 +18,52 @@ public class Item {
     private String[] members2;//报名
     private String attachment;
     private Integer status;
+    private Integer prizeId;
+    private String prizeName;
+    private String gwintroduce;//优秀作品简介
+    private Date gwfinishTime;
+    private String gwcoverUrl;
+
+    public String getGwintroduce() {
+        return gwintroduce;
+    }
+
+    public void setGwintroduce(String gwintroduce) {
+        this.gwintroduce = gwintroduce;
+    }
+
+
+    public Date getGwfinishTime() {
+        return gwfinishTime;
+    }
+
+    public void setGwfinishTime(Date gwfinishTime) {
+        this.gwfinishTime = gwfinishTime;
+    }
+
+    public String getGwcoverUrl() {
+        return gwcoverUrl;
+    }
+
+    public void setGwcoverUrl(String gwcoverUrl) {
+        this.gwcoverUrl = gwcoverUrl;
+    }
+
+    public Integer getPrizeId() {
+        return prizeId;
+    }
+
+    public void setPrizeId(Integer prizeId) {
+        this.prizeId = prizeId;
+    }
+
+    public String getPrizeName() {
+        return prizeName;
+    }
+
+    public void setPrizeName(String prizeName) {
+        this.prizeName = prizeName;
+    }
 
     public Student getLeader() {
         return leader;

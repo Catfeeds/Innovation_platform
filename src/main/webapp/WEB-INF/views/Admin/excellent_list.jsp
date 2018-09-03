@@ -35,17 +35,20 @@
 
         table.render({
             elem: '#List',
-            url: '/manage/enroll_list.do',
+            url: '/manage/pass_prize_enroll_list.do',
             method: 'post',
             limit: 10,
             cols: [[
-                {field:'enrollId', title: '序号',align:'center',sort:true},
-                {field:'competeName', title: '赛事名称',align:'center'},
+                {field:'enrollId', title: 'EnrollID',align:'center',sort:true},
+                {field:'gwcoverUrl', title: '主页封面',align:'center',templet:function(d) {
+                    return '<img src="' + d.gwcoverUrl + '" />';}},
+                {field:'competeName', title: '大赛名称',align:'center'},
                 {field:'title', title: '参赛题目',align:'center'},
-                {field:'members', title: '团队成员',align:'center',templet:'#members'},
-                {field:'instructor', title: '指导老师',align:'center'},
-                {field:'status',title: '状态',align:'center',templet:'#status'},
-                {title: '操作',width:200,align:'center',toolbar: '#bar',fixed:'right'}
+                {field:'members', title: '小组成员',align:'center',templet:"#members"},
+                {field:'gwfinishTime', title: '完成时间',align:'center'},
+                {field:'gwintroduce', title: '优秀作品简介',align:'center'},
+				{field:'prizeName', title: '获奖情况',align:'center'},
+                {title: '操作',width:100,align:'center',toolbar: '#bar',fixed:'right'},
             ]],
             page: true,
             done: function (res, curr, count) {
@@ -60,7 +63,7 @@
                     var index = layui.layer.open({
                         title : "详情",
                         type : 2,
-                        content : "${cpath}/manage/to_enroll_detail/"+data.enrollId+".do",
+                        content : "${cpath}/manage/to_enroll_detail2/"+data.enrollId+".do",
                         success : function(layero, index){
                             setTimeout(function(){
                                 layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
@@ -82,15 +85,4 @@
 	{{#  layui.each(d.members, function(index, item){ }}
 	<span>{{ item.sname }}  </span>
 	{{#  }); }}
-</script>
-<script type="text/html" id="status">
-	{{#  if(d.status === 0){ }}
-		<span style="color: black;">待审核</span>
-	{{#  } else if(d.status === 1){ }}
-		<span style="color: green;">已通过</span>
-	{{#  } else if(d.status === 2){ }}
-		<span style="color: red;">未通过</span>
-	{{#  } else { }}
-		<span style="color: #f1a02f;">未知参数</span>
-	{{#  } }}
 </script>

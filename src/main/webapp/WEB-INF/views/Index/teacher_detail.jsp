@@ -10,6 +10,7 @@
     <title>科技创新项目管理平台</title>
     <link rel="stylesheet" type="text/css" href="/css/reset.css">
     <link rel="stylesheet" type="text/css" href="/css/index.css">
+    <script src="/js/jquery-1.8.3.min.js"></script>
 <style>
 .techer_photo,.teacher_play{margin: 25px 0px 50px 42px;}
 .techer_photo img{
@@ -59,38 +60,33 @@
     <!-- slide end -->
 <div id="detail2-box" class="clearfix">
 	
-	<div class="tit-80"><a href="list-text1.html">新闻中心</a> - 查看详情</div>
+	<div class="tit-80"><a href="/index.html">首页</a> - 优秀教师</div>
 	    <div class="tabula-box">
         <div class="techer_photo">
-        	<img src="${requestScope.teacher.imageUrl}" />
-        	<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${requestScope.teacher.nameTeacher}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${requestScope.teacher.occupationCall}</p>
+        	<img src="${teacher.imageUrl}" />
+        	<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${teacher.nameTeacher}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${teacher.occupationCall}</p>
         </div>
         <div class="teacher_play">
         	<div>
         		<span><img src="/images/u572.png"><span class="tea-play-tit">研究方向</span></span>
-                <p>${requestScope.teacher.researchDirection}</p>
-        	<p>test传感器与智能仪表</p>
-        	<p>test自动检测监控与系统集成</p>
+                <p>${teacher.researchDirection}</p>
         	</div>
         	<div>
         		<span><img src="/images/u575.png"><span class="tea-play-tit">联系电话</span></span>
-        	<p>${requestScope.teacher.phone}</p>
-        	<p>0532-80691703</p>
+        	<p>${teacher.phone}</p>
         	
         	</div>
         	<div>
         		<span><img src="/images/u578.png"><span class="tea-play-tit">邮箱</span></span>
-        	<p>${requestScope.teacher.email}</p>
+        	<p>${teacher.email}</p>
         	</div>
         </div>
     </div>
     
     <div class="content-box">
     	<h1>教师详细信息</h1>
-        <div class="content">
-        	<p style="width: 650px; font-size: 16px;">
-                ${requestScope.teacher.introduce}
-        	</p>
+        <div class="content" style="width: 100%">
+			${teacher.introduce}
         </div>
     </div>
     
@@ -105,21 +101,6 @@
 
 				<div class="footer_right">
 					<div class="nav">
-						
-		                <ul>
-		                	<li>友情连接：</li>
-		                    <li><a href="http://www.sdust.edu.cn/" target="_blank">山东科技大学</a>
-		                    </li>
-		                    <li><a href="http://lib.sdust.edu.cn/" target="_blank">山东科技大学图书馆</a>
-		                    </li>
-		                    <li><a href="http://jwc.sdust.edu.cn/" target="_blank">山东科技大学教务处</a>
-		                    </li>
-		                    <li><a href="http://bjx.sdust.edu.cn/" target="_blank">北极星</a>
-		                    </li>
-		                    <li><a href="http://xsgzc.sdust.edu.cn/" target="_blank">学生处(部)</a>
-		                    </li>
-		                    
-		                </ul>
 	               </div>
 				</div>
 			</div>
@@ -133,5 +114,8 @@
     <!-- footer end-->
  </div>
 </body>
-
+<script>
+    var a = $(".tag").find("li:eq(6)").find("a");
+    a.css("color","#4a00ff");
+</script>
 </html>

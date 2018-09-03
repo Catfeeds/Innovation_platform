@@ -37,6 +37,8 @@ public class IndexController {
     GoodWorkService goodWorkService;
     @Autowired
     FileService fileService;
+    @Autowired
+    ExcellentService excellentService;
 
     /**
      * 跳转至登录页面
@@ -68,12 +70,13 @@ public class IndexController {
         List<FriendLink> friendLinks = friendLinkService.getAllFriendLinks();//友情链接
         List<GoodTeacher> goodTeachers = goodTeacherService.getAllGoodTeachers();//获取优秀教师
         List<GoodWork> goodWorks = goodWorkService.getAllGoodWorks();//获取优秀作品
+        List<Excellent> excellents = excellentService.getAllExcellent();
         model.addAttribute("notices",notices).addAttribute("policies",policies).addAttribute("questions",questions);
         model.addAttribute("matches",matches);
         model.addAttribute("scrollImages",scrollImages);
         model.addAttribute("friendLinks",friendLinks);
         model.addAttribute("goodTeachers",goodTeachers);
-        model.addAttribute("goodWorks",goodWorks);
+        model.addAttribute("excellents",excellents);
         model.addAttribute("downloadFiles",downloadFiles);
         return "Index/index";
     }
@@ -170,8 +173,6 @@ public class IndexController {
         return Json.toJson(map);
     }
 
-
-
     @RequestMapping("/compete/{id}")
     public String competeDetail(@PathVariable("id")Integer matchId,Model model){
         Match match = matchService.getMatch(matchId);
@@ -187,7 +188,7 @@ public class IndexController {
 
     @RequestMapping("/achievements")
     public String goodWorkList(Model model){
-        model.addAttribute("count",goodWorkService.getAllCount());
+        model.addAttribute("count",excellentService.getAllCount());
         return "Index/achievement_display";
     }
 
@@ -201,8 +202,8 @@ public class IndexController {
             limit=10;
         }
         PageHelper.startPage(page,limit);
-        List<GoodWork> list = goodWorkService.getAllGoodWorks();
-        int count = goodWorkService.getAllCount();
+        List<Excellent> list = excellentService.getAllExcellent();
+        int count = excellentService.getAllCount();
         Map<String, Object> map = new HashMap<>();
         map.put("code",0);
         map.put("msg","");
@@ -213,8 +214,8 @@ public class IndexController {
 
     @RequestMapping("/achievement/{id}")
     public String goodWorkDetail(@PathVariable("id") Integer id,Model model){
-        GoodWork goodWork = goodWorkService.getById(id);
-        model.addAttribute("goodWork",goodWork);
+        Excellent excellent = excellentService.getById(id);
+        model.addAttribute("excellent",excellent);
         return "Index/achievement";
     }
 

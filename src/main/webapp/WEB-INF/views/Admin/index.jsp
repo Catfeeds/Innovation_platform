@@ -149,12 +149,29 @@
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
                             <cite>赛事报名管理</cite></a>
                         </dd>
-                        <dd><a href="javascript:;" data-url="/manage/to_itemTotal_list.do">
-                            <i class="iconfont icon-text" data-icon="icon-text"></i>
-                            <cite>项目统计</cite></a>
-                        </dd>
+
                     </dl>
                 </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="iconfont icon-text" data-icon="icon-text"></i>
+                        <cite>获奖管理</cite>
+                        <span class="layui-nav-more"></span>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" data-url="/manage/to_excellent_list.do">
+                            <i class="iconfont icon-text" data-icon="icon-text"></i>
+                            <cite>优秀作品管理</cite></a>
+                        </dd>
+                        <dd><a href="javascript:;" data-url="/manage/to_pass_enroll_list.do">
+                            <i class="iconfont icon-text" data-icon="icon-text"></i>
+                            <cite>添加优秀作品</cite></a>
+                        </dd>
+                        <dd><a href="javascript:;" data-url="/manage/to_itemTotal_list.do">
+                            <i class="iconfont icon-text" data-icon="icon-text"></i>
+                            <cite>获奖项目统计</cite></a>
+                        </dd>
+                    </dl>
+                </l i>
 
                 <span class="layui-nav-bar"></span>
             </ul>

@@ -74,6 +74,8 @@
 <script>
     var count = $('#count').val();
     var limit = 8;
+    var a = $(".tag").find("li:eq(3)").find("a");
+    a.css("color","#4a00ff");
     layui.use('laypage', function(){
         var laypage = layui.laypage;
 

@@ -15,10 +15,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -42,10 +44,11 @@ public class FileController {
      * @return
      */
     @RequestMapping("/download_file/{id}")
-    public String downloadFile(HttpSession session,@PathVariable("id")Integer id){
+    public String downloadFile(HttpSession session, @PathVariable("id")Integer id, RedirectAttributes attr){
         Object object = session.getAttribute(Const.CURRENT_USER);
         //判断用户是否登录
         if (object==null){
+            attr.addFlashAttribute("message","请登录后重新请求下载~");
             return "redirect:/login.html";
         }else{
             String filename = fileService.getFileNameById(id);

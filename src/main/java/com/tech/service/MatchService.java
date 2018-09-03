@@ -15,11 +15,21 @@ public class MatchService {
 
     public List<Match> getAllMatches(){
         List<Match> allMatches = matchMapper.selectAllMatches();
+        String intro ;
+        for (Match m:allMatches) {
+            intro = m.getIntroduce().replaceAll("<(S*?)[^>]*>.*?|<.*? />", "").replaceAll("&.{2,6}?;", "");
+            intro = intro.length()>120?intro.substring(0,120):intro;
+            m.setIntroduce(intro);
+        }
         return allMatches;
     }
 
     public List<Match> getCountMatches(Integer count){
         List<Match> countMatches = matchMapper.selectCountMatches(count);
+        //过滤HTML
+        for (Match m:countMatches) {
+            m.setIntroduce(m.getIntroduce().replaceAll("<(S*?)[^>]*>.*?|<.*? />", "").replaceAll("&.{2,6}?;", ""));
+        }
         return countMatches;
     }
 

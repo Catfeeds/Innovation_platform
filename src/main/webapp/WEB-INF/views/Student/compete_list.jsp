@@ -60,6 +60,7 @@
 			<div class="test">
 				<img src="${compete.coverUrl}" />
 				<h1>大赛名称：${compete.nameCompete}</h1>
+				<h1>大赛级别：${compete.levelName}</h1>
 				<p class="time">报名开始时间：<span><fmt:formatDate value="${compete.startTime}" pattern="yyyy-MM-dd HH:mm" /></span></p>
 				<p class="time">报名结束时间：<span><fmt:formatDate value="${compete.endTime}" pattern="yyyy-MM-dd HH:mm" /></span></p>
 				<%--<p>报名要求:${fn:substring(compete.requirement,0,200)}...</p>--%>

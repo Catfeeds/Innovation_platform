@@ -34,11 +34,8 @@
 			<div class="layui-inline">
 				<select name="p">
 					<option value=""></option>
-					<option value="0">写作</option>
-					<option value="1" selected="">阅读</option>
-					<option value="2">游戏</option>
-					<option value="3">音乐</option>
-					<option value="4">旅行</option>
+					<option value="0">土木工程</option>
+					<option value="1" selected="">计算机</option>
 				</select>
 			</div>
 			<div class="layui-inline">
@@ -161,16 +158,17 @@
 
         table.render({
             elem: '#List',
-            url: '/manage/enroll_list.do',
+            url: '/manage/pass_prize_enroll_list.do',
             method: 'post',
             limit: 10,
             cols: [[
                 {field:'enrollId', title: '序号',align:'center',sort:true},
                 {field:'competeName', title: '赛事名称',align:'center'},
                 {field:'title', title: '参赛题目',align:'center'},
-                {field:'members', title: '团队成员',align:'center',templet:'members'},
+                {field:'members', title: '团队成员',align:'center',templet:'#members'},
                 {field:'instructor', title: '指导老师',align:'center'},
                 {field:'status',title: '状态',align:'center',templet:'#status'},
+                {field:'prizeName', title: '获奖情况',align:'center'},
                 {title: '操作',width:200,align:'center',toolbar: '#bar',fixed:'right'},
             ]],
             page: true,
@@ -186,7 +184,7 @@
                     var index = layui.layer.open({
                         title : "详情",
                         type : 2,
-                        content : "${cpath}/manage/to_enroll_detail/"+data.enrollId+".do",
+                        content : "${cpath}/manage/to_enroll_detail2/"+data.enrollId+".do",
                         success : function(layero, index){
                             setTimeout(function(){
                                 layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
@@ -206,7 +204,7 @@
 </script>
 <script type="text/html" id="members">
 	{{#  layui.each(d.members, function(index, item){ }}
-	<span>{{ item.sno }}  </span>
+	<span>{{ item.sname }}  </span>
 	{{#  }); }}
 </script>
 <script type="text/html" id="status">

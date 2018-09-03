@@ -46,7 +46,7 @@
                 {field:'phone', title: '联系电话',align:'center'},
                 {field:'qq', title: 'QQ',align:'center'},
                 {field:'email',title: '邮箱',align:'center'},
-                {field:'', title: '已参与项目数',align:'center'},
+                {field:'participateCount', title: '已参与项目数',align:'center'},
                 {field:'password', title: '登录密码',align:'center'},
                 {title: '操作',width:200,align:'center',toolbar: '#bar',fixed:'right'},
             ]],

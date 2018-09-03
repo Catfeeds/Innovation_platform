@@ -143,6 +143,10 @@
 <script>
     var count = $('#count').val();
     var limit = 3;
+
+    var a = $(".tag").find("li:eq(5)").find("a");
+    a.css("color","#4a00ff");
+
     layui.use('laypage', function(){
         var laypage = layui.laypage;
 
@@ -183,12 +187,12 @@
     function fillData(res) {
         $("#data_fill div.product").remove();
         $.each(res.data, function (index, item) {
-            var img = $("<img/>").attr("src","/images/robomaster.png");
-            var h2 = $("<h2></h2>").append("项目名称: "+item.itemName);
+            var a = $("<a></a>").attr("href","/achievement/"+item.id+".html").append($("<img/>").attr("src",item.coverUrl));
+            var h2 = $("<h2></h2>").append("项目名称: "+item.title);
             var p =  $("<p></p>").append("完成时间:"+item.finishTime);
             var div2 = $("<div></div>").addClass("index1-right").append($("<p></p>").append("赛事介绍:"+item.introduce))
-            var div1 = $("<div></div>").addClass("product_detail").append(h2).append(p).append(div2);
-            $("<div></div>").addClass("product").append(img).append(div1).appendTo("#data_fill");
+            var div1 = $("<div></div>").addClass("product_detail").append(h2).append(div2);
+            $("<div></div>").addClass("product").append(a).append(div1).appendTo("#data_fill");
         });
     }
 </script>

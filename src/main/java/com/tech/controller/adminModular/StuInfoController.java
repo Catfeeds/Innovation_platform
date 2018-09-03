@@ -24,11 +24,17 @@ public class StuInfoController {
         return "Admin/student_info_list";
     }
 
+    /**
+     * 学生信息展示
+     * @param page
+     * @param limit
+     * @return
+     */
     @RequestMapping(value = "/student_info_list",produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String studentInfoList(Integer page,Integer limit){
-        PageHelper.startPage(page,limit);
         int count = studentService.getAllCount();
+        PageHelper.startPage(page,limit);
         List<Student> list = studentService.getAllStudent();
         Map<String, Object> map = new HashMap<>();
         map.put("code",0);

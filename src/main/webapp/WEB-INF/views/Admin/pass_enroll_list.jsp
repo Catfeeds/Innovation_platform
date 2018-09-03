@@ -35,7 +35,7 @@
 
         table.render({
             elem: '#List',
-            url: '/manage/enroll_list.do',
+            url: '/manage/pass_enroll_list.do',
             method: 'post',
             limit: 10,
             cols: [[
@@ -45,7 +45,7 @@
                 {field:'members', title: '团队成员',align:'center',templet:'#members'},
                 {field:'instructor', title: '指导老师',align:'center'},
                 {field:'status',title: '状态',align:'center',templet:'#status'},
-                {title: '操作',width:200,align:'center',toolbar: '#bar',fixed:'right'}
+                {title: '操作',width:200,align:'center',toolbar: '#bar',fixed:'right'},
             ]],
             page: true,
             done: function (res, curr, count) {
@@ -60,7 +60,23 @@
                     var index = layui.layer.open({
                         title : "详情",
                         type : 2,
-                        content : "${cpath}/manage/to_enroll_detail/"+data.enrollId+".do",
+                        content : "${cpath}/manage/to_enroll_detail2/"+data.enrollId+".do",
+                        success : function(layero, index){
+                            setTimeout(function(){
+                                layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                                    tips: 3
+                                });
+                            },300)
+                        }
+                    })
+                    layui.layer.full(index);
+                }).resize();
+            }else if(obj.event === 'addPrize') {
+                $(window).one("resize",function(){
+                    var index = layui.layer.open({
+                        title : "添加奖项",
+                        type : 2,
+                        content : "${cpath}/manage/to_excellent_add/"+data.enrollId+".do",
                         success : function(layero, index){
                             setTimeout(function(){
                                 layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
@@ -77,6 +93,7 @@
 </script>
 <script type="text/html" id="bar">
 	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">详情</a>
+	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="addPrize">添加奖项</a>
 </script>
 <script type="text/html" id="members">
 	{{#  layui.each(d.members, function(index, item){ }}

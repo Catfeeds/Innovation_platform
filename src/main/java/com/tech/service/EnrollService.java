@@ -47,6 +47,8 @@ public class EnrollService {
             String[] members2 = item.getMembers2();
             if (count>0){
                 for (String m : members2) {
+                    if(StringUtils.isEmpty(m))
+                        break;
                     memberMapper.insert(new Member(m,item.getGroupId(),0));
                 }
                 return ServerResponse.createBySuccessMessage("报名成功");
@@ -119,5 +121,39 @@ public class EnrollService {
         }else{
             return ServerResponse.createByErrorMessage("拒绝失败");
         }
+    }
+
+    /**
+     * 获取已经审核通过的项目
+     * @return
+     */
+    public int getPassItemCount() {
+        return enrollMapper.selectPassItemCount();
+    }
+
+    public List<Item> getPassEnroll() {
+        List<Item> list = enrollMapper.selectPassItem();
+        for (Item item:list) {
+            List<Member> members  = memberMapper.selectMembersIncludeNameByGid(item.getGroupId());
+            item.setMembers(members);
+        }
+        return list;
+    }
+
+    public Enroll getEnrollById(Integer id) {
+        return enrollMapper.selectByPrimaryKey(id);
+    }
+
+    public int getPassPrizeItemCount() {
+        return enrollMapper.selectPassPrizeItemCount();
+    }
+
+    public List<Item> getPassPrizeItem() {
+        List<Item> list = enrollMapper.selectPassPrizeItem();
+        for (Item item:list) {
+            List<Member> members  = memberMapper.selectMembersIncludeNameByGid(item.getGroupId());
+            item.setMembers(members);
+        }
+        return list;
     }
 }

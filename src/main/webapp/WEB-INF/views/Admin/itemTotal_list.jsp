@@ -39,7 +39,7 @@
 				</select>
 			</div>
 			<div class="layui-inline">
-				<a class="layui-btn layui-btn-normal newsAdd_btn">图表显示</a>
+				<a class="layui-btn layui-btn-normal show-chart">图表显示</a>
 			</div>
 			<div class="layui-inline">
 				<a class="layui-btn layui-btn newsAdd_btn">数据导入</a>
@@ -84,29 +84,6 @@
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('chartPCountBar'));
 
-    // 指定图表的配置项和数据
-    var optionBar = {
-        color: ['#3398DB'],
-        title: {
-            text: '统计获奖人数'
-        },
-        tooltip: {},
-        legend: {
-            data:['人数']
-        },
-        xAxis: {
-            data: ["国家级","省级","校类A级","校类B级","校类C级"]
-        },
-        yAxis: {},
-        series: [{
-            name: '人数',
-            type: 'bar',
-            data: [5, 20, 36, 10, 10]
-        }]
-    };
-    // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(optionBar);
-
     var myChartPie = echarts.init(document.getElementById('chartPCountPie'));
     var optionPie = {
         title : {
@@ -144,7 +121,47 @@
             }
         ]
     };
-    myChartPie.setOption(optionPie);
+    //myChartPie.setOption(optionPie);
+	$(".show-chart").click(function () {
+
+        $.ajax({
+            type:'post',
+            url:'/manage/get_level_json.do',
+            dataType: "json",
+            success:function (res) {
+                // 填入数据
+                console.log(res.categories);
+                console.log(res.data);
+                console.log(res);
+                // 指定图表的配置项和数据
+                var optionBar = {
+                    color: ['#3398DB'],
+                    title: {
+                        text: '统计获奖人数'
+                    },
+                    tooltip: {},
+                    legend: {
+                        data:['人数']
+                    },
+                    xAxis: {
+                        data: res.categories
+                    },
+                    yAxis: {},
+                    series: [{
+                        name: '人数',
+                        type: 'bar',
+                        data: res.data
+                    }]
+                };
+                myChart.setOption(optionBar);
+            },
+            error:function () {
+                layer.msg('接口错误');
+            }
+        });
+
+        myChartPie.setOption(optionPie);
+	})
 </script>
 <script type="text/javascript">
     layui.use(['table','laydate'], function(){
@@ -162,14 +179,15 @@
             method: 'post',
             limit: 10,
             cols: [[
-                {field:'enrollId', title: '序号',align:'center',sort:true},
+                { title: '序号',align:'center',width:100,type:'numbers',sort:true},
+                {field:'enrollId', title: 'EnrollID',align:'center',hide:'true'},
                 {field:'competeName', title: '赛事名称',align:'center'},
                 {field:'title', title: '参赛题目',align:'center'},
                 {field:'members', title: '团队成员',align:'center',templet:'#members'},
                 {field:'instructor', title: '指导老师',align:'center'},
                 {field:'status',title: '状态',align:'center',templet:'#status'},
                 {field:'prizeName', title: '获奖情况',align:'center'},
-                {title: '操作',width:200,align:'center',toolbar: '#bar',fixed:'right'},
+                {title: '操作',width:100,align:'center',toolbar: '#bar',fixed:'right'},
             ]],
             page: true,
             done: function (res, curr, count) {

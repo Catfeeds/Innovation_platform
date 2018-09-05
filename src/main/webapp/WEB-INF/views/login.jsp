@@ -106,7 +106,6 @@
 
 
 														<button id="btn-login" type="button" class="width-35 pull-right btn btn-sm btn-primary">
-															<i class="ace-icon fa fa-key"></i>
 															<span class="bigger-110">登录</span>
 														</button>
 													</div>

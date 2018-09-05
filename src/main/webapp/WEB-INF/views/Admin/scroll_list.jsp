@@ -68,7 +68,7 @@
 			size:'lg',
             cols: [[
                 {field:'id', title: '序号',align:'center',sort:true},
-                {field:'urlImg', title: '链接地址',align:'center',templet:function(d) {
+                {field:'urlImg', title: '图片',align:'center',templet:function(d) {
 					return '<img src="' + d.urlImg + '" style="height: 50px" />';
 				}},
 				{field:'link', title: '超链接',align:'center'},

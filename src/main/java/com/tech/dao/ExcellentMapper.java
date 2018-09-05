@@ -24,4 +24,6 @@ public interface ExcellentMapper {
     List<Excellent> selectAll();
 
     Excellent selectByPrimaryKeyWithTitle(Integer id);
+
+    int selectNumberOfPeopleByPrizeID(Integer id);
 }

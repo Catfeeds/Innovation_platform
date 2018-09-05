@@ -39,15 +39,16 @@
             method: 'post',
             limit: 10,
             cols: [[
-                {field:'enrollId', title: 'EnrollID',align:'center',sort:true},
-                {field:'gwcoverUrl', title: '主页封面',align:'center',templet:function(d) {
-                    return '<img src="' + d.gwcoverUrl + '" />';}},
+                { title: '序号',align:'center',width:100,type:'numbers',sort:true},
+                {field:'enrollId', title: 'EnrollID',align:'center',hide:'true'},
+                {field:'prizeName', title: '获奖情况',align:'center'},
                 {field:'competeName', title: '大赛名称',align:'center'},
                 {field:'title', title: '参赛题目',align:'center'},
                 {field:'members', title: '小组成员',align:'center',templet:"#members"},
                 {field:'gwfinishTime', title: '完成时间',align:'center'},
                 {field:'gwintroduce', title: '优秀作品简介',align:'center'},
-				{field:'prizeName', title: '获奖情况',align:'center'},
+				{field:'gwcoverUrl', title: '主页封面',align:'center',templet:function(d) {
+                    return '<img src="' + d.gwcoverUrl + '" />';}},
                 {title: '操作',width:100,align:'center',toolbar: '#bar',fixed:'right'},
             ]],
             page: true,

@@ -177,4 +177,8 @@
     <include refid="Blob_Column_List" />,title_enroll
     from tbl_excellent ex,tbl_enroll en where ex.enroll_id = en.id and ex.id = #{id}
   </select>
+
+  <select id="selectNumberOfPeopleByPrizeID" resultType="java.lang.Integer" parameterType="int">
+    select count(*) from vm_excellent where prize_id = #{id}
+  </select>
 </mapper>

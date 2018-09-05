@@ -18,5 +18,5 @@ public interface LevelsMapper {
 
     int updateByPrimaryKey(Levels record);
 
-    List<Level> selectAll();
+    List<Levels> selectAll();
 }

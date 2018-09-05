@@ -1,9 +1,11 @@
 package com.tech.controller.indexModular;
 
 import com.github.pagehelper.PageHelper;
+import com.tech.common.Const;
 import com.tech.pojo.*;
 import com.tech.service.*;
 import com.tech.utils.CreateImageCode;
+import org.apache.commons.lang3.StringUtils;
 import org.nutz.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,6 +49,23 @@ public class IndexController {
     @RequestMapping("/login")
     public String toLogin(){
         return "login";
+    }
+
+    /**
+     * 跳转到个人中心
+     */
+    @RequestMapping("/person")
+    public String toPerson(HttpSession session){
+        Object object = session.getAttribute(Const.CURRENT_USER);
+        if (object==null){
+            return "redirect:/login.html";
+        }
+        try {
+            Admin admin = (Admin)object;
+            return "redirect:/admin/index.html";
+        }catch (Exception e){
+            return "redirect:/stu/index.html";
+        }
     }
 
     /**

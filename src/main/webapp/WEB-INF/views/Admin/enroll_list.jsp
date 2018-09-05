@@ -39,13 +39,14 @@
             method: 'post',
             limit: 10,
             cols: [[
-                {field:'enrollId', title: '序号',align:'center',sort:true},
+                {title: '序号',width:100,align:'center',type:'numbers'},
+                {field:'enrollId', title: '报名表ID',align:'center',hide:'true'},
                 {field:'competeName', title: '赛事名称',align:'center'},
                 {field:'title', title: '参赛题目',align:'center'},
                 {field:'members', title: '团队成员',align:'center',templet:'#members'},
                 {field:'instructor', title: '指导老师',align:'center'},
                 {field:'status',title: '状态',align:'center',templet:'#status'},
-                {title: '操作',width:200,align:'center',toolbar: '#bar',fixed:'right'}
+                {title: '操作',width:150,align:'center',toolbar: '#bar',fixed:'right'}
             ]],
             page: true,
             done: function (res, curr, count) {

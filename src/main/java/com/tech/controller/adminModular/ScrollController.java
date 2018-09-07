@@ -9,6 +9,7 @@ import org.nutz.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,27 +25,47 @@ public class ScrollController {
     @Autowired
     ScrollImgService scrollImgService;
 
-    @RequestMapping("/to_scroll_list")
-    public String toScrollList(){
-        return "Admin/scroll_list";
+    @RequestMapping("/to_coverScroll_list")
+    public String toCoverScrollList(){
+        return "Admin/coverScroll_list";
     }
 
-    @RequestMapping("/to_scroll_add")
-    public String toScrollAdd(){
+    @RequestMapping("/to_teacherScroll_list")
+    public String toTeacherScrollList(){
+        return "Admin/teacherScroll_list";
+    }
+
+    @RequestMapping("/to_scroll_add/{type}")
+    public String toScrollAdd(@PathVariable("type")Integer type,Model model){
+        model.addAttribute("type",type);
         return "Admin/scroll_add";
     }
 
-    @RequestMapping(value = "/scroll_list",produces = "text/html;charset=UTF-8")
+    @RequestMapping(value = "/coverScroll_list",produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String showLink(Integer page,Integer limit){
-        int count = scrollImgService.getAllCount();
+    public String showCoverScroll(Integer page,Integer limit){
+        int count = scrollImgService.getCoverScrollCount();
         PageHelper.startPage(page,limit);
-        List<ScrollImg> linkList = scrollImgService.getAllScrollImg();
+        List<ScrollImg> img = scrollImgService.getAllCoverScroll();
         Map<String, Object> map = new HashMap<>();
         map.put("code",0);
         map.put("msg","");
         map.put("count",count);
-        map.put("data", linkList);
+        map.put("data", img);
+        return Json.toJson(map);
+    }
+
+    @RequestMapping(value = "/teacherScroll_list",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String showTeacherScroll(Integer page,Integer limit){
+        int count = scrollImgService.getTeacherScrollCount();
+        PageHelper.startPage(page,limit);
+        List<ScrollImg> img = scrollImgService.getAllTeacherScroll();
+        Map<String, Object> map = new HashMap<>();
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",count);
+        map.put("data", img);
         return Json.toJson(map);
     }
 

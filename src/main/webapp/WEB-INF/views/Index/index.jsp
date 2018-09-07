@@ -30,7 +30,7 @@
 
 		<div class="top_slide_wrap">
 			<ul class="slide_box bxslider">
-				<c:forEach var="img" items="${requestScope.scrollImages}">
+				<c:forEach var="img" items="${coverScroll}">
 					<li>
 						<a href="${img.link}"><img src="${img.urlImg}" alt="${img.link}"></a>
 					</li>
@@ -164,14 +164,14 @@
 		<div class="content2">
 			<div class="index_about clearFloat">
 				<div class="index_class">
-					<h3 class="title_float"><a href="product.html" target="_blank">优秀成果展示</a></h3>
+					<h3 class="title_float"><a href="/achievements.html" target="_blank">优秀成果展示</a></h3>
 				</div>
 				<div class="friend">
 					<div class="mr_frbox">
 						<img class="mr_frBtnL prev" src="images/mfrl.gif" />
 						<div class="mr_frUl" >
 							<ul id="mr_fu">
-								<c:forEach var="gw" items="${excellents}">
+								<c:forEach var="gw" items="${goodWorks}">
 									<li>
 										<a href="/achievement/${gw.id}.html">
 											<img src="${gw.coverUrl}" />
@@ -182,14 +182,14 @@
 									<%--<a href="news.jsp">--%>
 										<%--<img src="images/成果4.jpg" />--%>
 									<%--</a>--%>
-
 								<%--</li>--%>
 							</ul>
 						</div>
 						<img class="mr_frBtnR next" src="images/mfrr.gif" />
 					</div>
 				</div>
-				<script type="text/javascript">$(".mr_frbox").slide({
+				<script type="text/javascript">
+					$(".mr_frbox").slide({
                     titCell: "",
                     mainCell: ".mr_frUl ul",
                     autoPage: true,
@@ -229,28 +229,20 @@
 		<div class="content2">
 			<div class="index_about clearFloat">
 				<div class="index_class index_teacher">
-					<h1 class="title_float"><a href="teacher_display.html" target="_blank">优秀指导教师简介</a></h1>
+					<h1 class="title_float"><a href="/teacher.html" target="_blank">优秀指导教师简介</a></h1>
 				</div>
 				<!-- 代码 开始 -->
 				<div id="main">
 					<div id="index_b_hero">
 						<div class="hero-wrap">
 							<ul class="heros clearfix">
-								<c:forEach var="te" items="${requestScope.goodTeachers}">
+								<c:forEach var="ts" items="${teacherScroll}">
 									<li class="hero">
-										<a href="#">
-											<img src="images/teacher.jpg" class="thumb"  />
+										<a href="${ts.link}">
+											<img src="${ts.urlImg}" class="thumb"  />
 										</a>
 									</li>
 								</c:forEach>
-								<li class="hero">
-									<img src="images/teacher.jpg" class="thumb"  />
-								</li>
-								<li class="hero">
-
-									<img src="images/teacher.jpg" class="thumb"/>
-
-								</li>
 							</ul>
 						</div>
 						<div class="helper">

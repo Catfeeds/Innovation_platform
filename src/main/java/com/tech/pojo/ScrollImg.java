@@ -11,6 +11,17 @@ public class ScrollImg {
 
     private String link;
 
+    private Integer typeScroll;
+
+
+    public Integer getTypeScroll() {
+        return typeScroll;
+    }
+
+    public void setTypeScroll(Integer typeScroll) {
+        this.typeScroll = typeScroll;
+    }
+
     public Integer getId() {
         return id;
     }

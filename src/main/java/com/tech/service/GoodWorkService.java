@@ -15,6 +15,12 @@ public class GoodWorkService {
 
     public List<GoodWork> getAllGoodWorks(){
         List<GoodWork> goodWorks = goodWorkMapper.selectAllGoodWorks();
+        String intro ;
+        for (GoodWork m:goodWorks) {
+            intro = m.getIntroduce().replaceAll("<(S*?)[^>]*>.*?|<.*? />", "").replaceAll("&.{2,6}?;", "");
+            intro = intro.length()>120?intro.substring(0,120):intro;
+            m.setIntroduce(intro);
+        }
         return goodWorks;
     }
 

@@ -5,6 +5,7 @@ import com.tech.common.ServerResponse;
 import com.tech.pojo.Enroll;
 import com.tech.pojo.Item;
 import com.tech.service.EnrollService;
+import com.tech.service.StudentService;
 import org.nutz.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,8 @@ import java.util.Map;
 public class StuEnrollController {
     @Autowired
     EnrollService enrollService;
+    @Autowired
+    StudentService studentService;
 
     @RequestMapping("/to_enroll_detail/{id}")
     public String toItemDetail(@PathVariable("id") Integer id, Model model){
@@ -40,6 +43,19 @@ public class StuEnrollController {
     @RequestMapping("/to_enroll_list")
     public String toItemEnrollList(){
         return "Admin/enroll_list";
+    }
+
+    /**展示学生所参与的项目
+     * @param sno
+     * @param model
+     * @return
+     */
+    @RequestMapping("/enroll_record/{sno}")
+    public String showEnrollRecord(@PathVariable("sno")String sno,Model model){
+        List<Item> item = enrollService.getEnrollItemBySno(sno);
+        model.addAttribute("user",studentService.getInfoBySno(sno).getData());
+        model.addAttribute("items",item);
+        return "Admin/enroll_record";
     }
 
     /**
@@ -62,7 +78,7 @@ public class StuEnrollController {
         return Json.toJson(map);
     }
 
-    /**
+    /** 删除
      * 已通过的报名项目 vw_item  status == 1  添加优秀作品模块
      * @param page
      * @param limit
@@ -82,7 +98,7 @@ public class StuEnrollController {
         return Json.toJson(map);
     }
 
-    /**
+    /**删除
      * 已通过的报名项目且获奖项目 vw_excellent *   优秀作品管理模块
      * @param page
      * @param limit
@@ -101,8 +117,6 @@ public class StuEnrollController {
         map.put("data", list);
         return Json.toJson(map);
     }
-
-
 
     @RequestMapping("/enroll_agree")
     @ResponseBody

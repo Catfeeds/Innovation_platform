@@ -11,6 +11,7 @@
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="imgurl" jdbcType="VARCHAR" property="imgurl" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="pname" jdbcType="VARCHAR" property="pname" />
   </resultMap>
   <sql id="Base_Column_List">
     sno, password, name_student, classno, phone, qq, email, imgurl, update_time
@@ -151,15 +152,15 @@
     SELECT count(1) from tbl_student where sno = #{sno} and password = #{oldPwd}
   </select>
     <select id="selectPartBySno" resultMap="BaseResultMap">
-      select name_student,classno from tbl_student where sno = #{sno}
+      select sno,name_student,classno from tbl_student where sno = #{sno}
     </select>
     <select id="selectAllCount" resultType="java.lang.Integer">
       SELECT COUNT(*) from tbl_student
     </select>
-  <select id="selectAllStudent" resultType="com.tech.pojo.Student">
+  <select id="selectAllStudent" resultMap="BaseResultMap">
     SELECT
-    <include refid="Base_Column_List" />
-    from tbl_student
+    sno, password, name_student, classno, phone, qq, email, imgurl, update_time,pname
+    from tbl_student s,tbl_profession p where s.profession_id = p.id
   </select>
   <select id="selectInfoExceptPwdBySno" resultMap="BaseResultMap" parameterType="string">
     SELECT

@@ -17,13 +17,22 @@ public interface ScrollImgMapper {
 
     int updateByPrimaryKey(ScrollImg record);
 
-    List<ScrollImg> selectShowScrollImg();
+    List<ScrollImg> selectCoverScrollShow();
+
+    List<ScrollImg> selectTeacherScrollShow();
 
     int selectAllCount();
 
-    List<ScrollImg> selectAll();
+    List<ScrollImg> selectAllCoverScroll();
+
+    List<ScrollImg> selectAllTeacherScroll();
+
 
     int updateHide(Integer id);
 
     int updateShow(Integer id);
+
+    int selectCoverScrollCount();
+
+    int selectTeacherScrollCount();
 }

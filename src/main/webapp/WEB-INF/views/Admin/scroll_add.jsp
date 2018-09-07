@@ -27,15 +27,16 @@
 			</div>
 		</div>
 		<input type="hidden" name="urlImg" id="coverUrl" value="">
+		<input type="hidden" name="typeScroll"  value="${type}">
 		<div class="layui-form-item">
 			<label class="layui-form-label">超链接</label>
-			<div class="layui-input-block">
+			<div class="layui-input-block" style="width: 60%">
 				<input name="link" id="link_url" type="text" class="layui-input productName" lay-verify="required" placeholder="请输入网址">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<div class="layui-input-block">
-				<button class="layui-btn" lay-submit="" lay-filter="addNews">确认添加</button>
+				<button class="layui-btn" lay-submit="" lay-filter="addNews">添加</button>
 		    </div>
 		</div>
 	</form>

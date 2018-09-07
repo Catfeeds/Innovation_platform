@@ -34,22 +34,22 @@
 			<div class="layui-inline">
 				<select name="p">
 					<option value=""></option>
-					<option value="0">土木工程</option>
-					<option value="1" selected="">计算机</option>
+					<option value="0">电气专业</option>
+					<option value="1" selected="">自动化专业</option>
 				</select>
 			</div>
 			<div class="layui-inline">
 				<a class="layui-btn layui-btn-normal show-chart">图表显示</a>
 			</div>
 			<div class="layui-inline">
-				<a class="layui-btn layui-btn newsAdd_btn">数据导入</a>
+				<button type="button" class="layui-btn" id="data-import"><i class="layui-icon"></i>数据导入</button>
 			</div>
 		</div>
 	</blockquote>
 </form>
 	<table id="List" lay-filter="ListID"></table>
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-	<legend>卡片面板</legend>
+	<legend>面板</legend>
 </fieldset>
 
 <div style="padding: 20px; background-color: #F2F2F2;">
@@ -161,12 +161,24 @@
         });
 
         myChartPie.setOption(optionPie);
-	})
+	});
+
+
 </script>
 <script type="text/javascript">
-    layui.use(['table','laydate'], function(){
+    layui.use(['table','laydate','upload'], function(){
         var table = layui.table,
+            upload = layui.upload,
             laydate = layui.laydate;
+
+
+        upload.render({
+            elem: '#data-import'
+            ,url: 'xxxxx'
+            ,done: function(res){
+                console.log(res)
+            }
+        });
 
         laydate.render({
             elem: '#chooseTime'
@@ -179,7 +191,7 @@
             method: 'post',
             limit: 10,
             cols: [[
-                { title: '序号',align:'center',width:100,type:'numbers',sort:true},
+                { title: '序号',align:'center',width:100,type:'numbers'},
                 {field:'enrollId', title: 'EnrollID',align:'center',hide:'true'},
                 {field:'competeName', title: '赛事名称',align:'center'},
                 {field:'title', title: '参赛题目',align:'center'},

@@ -23,6 +23,26 @@ public class Student {
 
     private Integer participateCount;
 
+    private Integer professionId;
+
+    private String pname;
+
+    public Integer getProfessionId() {
+        return professionId;
+    }
+
+    public void setProfessionId(Integer professionId) {
+        this.professionId = professionId;
+    }
+
+    public String getPname() {
+        return pname;
+    }
+
+    public void setPname(String pname) {
+        this.pname = pname;
+    }
+
     public Integer getParticipateCount() {
         return participateCount;
     }
@@ -105,6 +125,6 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" + "sno='" + sno + '\'' + ", password='" + password + '\'' + ", nameStudent='" + nameStudent + '\'' + ", classno='" + classno + '\'' + ", phone='" + phone + '\'' + ", qq='" + qq + '\'' + ", email='" + email + '\'' + ", imgurl='" + imgurl + '\'' + ", updateTime=" + updateTime + '}';
+        return "Student{" + "sno='" + sno + '\'' + ", password='" + password + '\'' + ", nameStudent='" + nameStudent + '\'' + ", classno='" + classno + '\'' + ", phone='" + phone + '\'' + ", qq='" + qq + '\'' + ", email='" + email + '\'' + ", imgurl='" + imgurl + '\'' + ", updateTime=" + updateTime + ", participateCount=" + participateCount + ", professionId=" + professionId + ", pname='" + pname + '\'' + '}';
     }
 }

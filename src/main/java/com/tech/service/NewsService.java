@@ -63,4 +63,8 @@ public class NewsService {
     public String getTypeNameByTypeId(Integer typeNewsId) {
         return newsMapper.selectTypeName(typeNewsId);
     }
+
+    public String getTypeNameByNewsId(Integer newsID) {
+        return newsMapper.selectTypeNameByNewsId(newsID);
+    }
 }

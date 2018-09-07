@@ -24,7 +24,7 @@
 				<p  class="logo">个人中心</p>
 				<!-- 显示/隐藏菜单 -->
 				<!--<a href="javascript:;" class="iconfont hideMenu icon-menu1"></a>-->
-				
+
 			    <!-- 天气信息 -->
 			    <div class="weather" pc>
 			    	<div id="tp-weather-widget"></div>
@@ -43,7 +43,8 @@
 					    "uid": "U9EC08A15F",
 					    "hash": "039da28f5581f4bcb5c799fb4cdfb673"
 					});
-					tpwidget("show");</script>
+					tpwidget("show");
+					</script>
 			    </div>
 			    <!-- 顶部右侧菜单 -->
 			    <ul class="layui-nav top_menu">			    	
@@ -64,7 +65,7 @@
 		<!-- 左侧导航 -->
 		<div class="layui-side layui-bg-black">
 			<div class="user-photo">
-				<a class="img" title="我的头像" ><img onerror='this.src="/static/images/timg.jpg"' src="${student.imgurl}"></a>
+				<a class="img" title="这头像够帅了" ><img onerror='this.src="/static/images/timg.jpg"' src="${student.imgurl}"></a>
 				<p><span class="userName">${student.nameStudent}</span></p>
 			</div>
 			<div class="navBar layui-side-scroll" style="height: 200px;">
@@ -87,16 +88,7 @@
 
 							</i><cite>赛事报名</cite></a>
 					</li>
-					<li class="layui-nav-item">
-						
-						<a href="../index.html">
-							<i class="iconfont icon-computer" data-icon="icon-computer">
-								
-							</i><cite>主页</cite></a>
-					</li>		
-							<span class="layui-nav-bar" style="top: 112.5px; height: 0px; opacity: 0;">
-								
-							</span>
+					<span class="layui-nav-bar" style="top: 112.5px; height: 0px; opacity: 0;"></span>
 				</ul>
 			</div>
 			<!--<div class="navBar layui-side-scroll"></div>-->

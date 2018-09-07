@@ -21,6 +21,11 @@
 	 <script src="${cpath}/static/js/jquery-1.8.3.min.js"></script>
 	<script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
 	<script type="text/javascript">
+        $(".editEnroll").click(function () {
+            console.log(this);
+            //console.log($(this).attr("enrollId"));
+        });
+
         layui.use('table', function(){
             var table = layui.table;
 
@@ -30,7 +35,8 @@
                 method: 'post',
 				size:'lg',
                 cols: [[
-                    {title: '序号',align:'center',type:'numbers'},
+                    {title: '序号',align:'center',type:'numbers',width:100},
+                    {field:'enrollId', title: '报名表ID',align:'center',hide:'true'},
                     {field:'competeName', title: '赛事名称',align:'center'},
                     {field:'title', title: '参赛题目',align:'center'},
                     {field:'groupName', title: '团队名称',align:'center'},
@@ -43,6 +49,25 @@
                 }
             });
 
+            function toEdit(data) {
+                console.log(data);
+                var index = layui.layer.open({
+                    title : "赛事报名",
+                    type : 2,
+                    content : "/stu/to_enroll_edit/"+data+".html",
+                    success : function(layero, index){
+                        setTimeout(function(){
+                            layui.layer.tips('点击此处返回友链列表', '.layui-layer-setwin .layui-layer-close', {
+                                tips: 3
+                            });
+                        },500)
+                    }
+                });
+                $(window).resize(function(){
+                    layui.layer.full(index);
+                });
+                layui.layer.full(index);
+            }
         })
 	</script>
 </body>
@@ -57,7 +82,7 @@
 	{{#  } else if(d.status === 1){ }}
 	<span style="color: green;">通过/立项</span>
 	{{#  } else if(d.status === 2){ }}
-	<span style="color: red;">未通过</span>
+	<a href="javascript:;"  enrollId ={{ d.enrollId }} style="text-decoration: underline;color: red;">未通过</a>
 	{{#  } else { }}
 	<span style="color: #f1a02f;">未知参数</span>
 	{{#  } }}

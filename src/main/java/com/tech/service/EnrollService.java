@@ -1,18 +1,13 @@
 package com.tech.service;
 
 import com.tech.common.ServerResponse;
-import com.tech.dao.EnrollMapper;
-import com.tech.dao.GroupMapper;
-import com.tech.dao.MemberMapper;
-import com.tech.dao.StudentMapper;
-import com.tech.pojo.Enroll;
-import com.tech.pojo.Item;
-import com.tech.pojo.Member;
-import com.tech.pojo.Student;
+import com.tech.dao.*;
+import com.tech.pojo.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +21,8 @@ public class EnrollService {
     MemberMapper memberMapper;
     @Autowired
     StudentMapper studentMapper;
+    @Autowired
+    CompeteMapper competeMapper;
 
     public ServerResponse<String> addEnroll(Item item){
         //添加报名表
@@ -155,5 +152,24 @@ public class EnrollService {
             item.setMembers(members);
         }
         return list;
+    }
+
+    public ServerResponse checkTime(Item item) {
+        Compete compete = competeMapper.selectByPrimaryKey(item.getCompeteId());
+        Calendar date = Calendar.getInstance();
+        Date now = new Date();
+        date.setTime(now);
+
+        Calendar after = Calendar.getInstance();
+        after.setTime(compete.getStartTime());
+
+        Calendar before = Calendar.getInstance();
+        before.setTime(compete.getEndTime());
+
+        if (date.after(after)&&date.before(before)){
+            return ServerResponse.createBySuccess("时间校验成功,当前系统时间"+now,now);
+        }else{
+            return ServerResponse.createByErrorDataMessage("时间校验成功,当前系统时间"+now,now);
+        }
     }
 }

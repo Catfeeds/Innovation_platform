@@ -722,7 +722,7 @@
 #detail2-box .content-box { width:795px; padding:0 20px; float:right;}
 #detail2-box .content-box .content { padding:0 0 20px 0; min-height:600px;}
 #detail2-box .content-box .content img,table,td { max-width:100%;}
-#detail2-box .content-box h1{ height:50px; line-height:50px; border-bottom:1px dotted #0f62c5; font-size:16px; text-align:center; margin-bottom:30px;}
+#detail2-box .content-box h1{ height:50px; line-height:50px; border-bottom:1px dotted #0f62c5; font-size:16px; text-align:center; margin-bottom:10px;}
 #detail2-box .content-box .n-p-box{border-top:1px dotted #0f62c5; font-size:14px;}
 #detail2-box .content-box .n-p-box .prv { width:47%; height:50px; line-height:50px; float:left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 #detail2-box .content-box .n-p-box .next { width:47%; height:50px; line-height:50px; float:right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}

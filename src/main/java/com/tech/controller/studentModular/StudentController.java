@@ -106,14 +106,16 @@ public class StudentController {
 
     @RequestMapping("/change_pwd")
     @ResponseBody
-    public ServerResponse<String> changePwd(String oldPwd,String newPwd,HttpSession session){
+    public ServerResponse<String> changePwd(String oldPwd,String newPwd,String confirmPwd,HttpSession session){
+        if (!confirmPwd.equals(newPwd)){
+            return ServerResponse.createBySuccessMessage("两次密码校验失败");
+        }
         Student student = (Student) session.getAttribute(Const.CURRENT_USER);
         if (student==null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"请登录后重新尝试");
         }
         ServerResponse<String> serverResponse = studentService.checkOldPwd(student.getSno(),oldPwd);
         if (serverResponse.isSuccess()) {
-            System.out.println(serverResponse.getMsg());
             serverResponse = studentService.changePassword(student.getSno(), newPwd);
         }
         return serverResponse;

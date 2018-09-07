@@ -26,7 +26,7 @@
 		    <a class="layui-btn search_btn">查询</a>
 		</div>
 		<div class="layui-inline">
-			<a class="layui-btn layui-btn-normal newsAdd_btn">添加文章</a>
+			<a class="layui-btn layui-btn-normal newsAdd_btn">添加${newsType}</a>
 		</div>
 		<div class="layui-inline">
 			<a class="layui-btn layui-btn-danger batchDel">批量删除</a>
@@ -34,14 +34,14 @@
 
 	</blockquote>
 	<div class="layui-form news_list">
-		<input type="hidden" id="newType" value="${newsType}">
+		<input type="hidden" id="newTypeId" value="${newsTypeID}">
 			<table id="newList" lay-filter="newsListID"></table>
 	</div>
 	<div id="page"></div>
 </body>
 <script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
 <script type="text/javascript">
-    var newsType=$("#newType").val();
+    var newsTypeId=$("#newTypeId").val();
     layui.use('table', function(){
         var table = layui.table;
 
@@ -50,7 +50,7 @@
                 var index = layui.layer.open({
                     title : "添加通知公告",
                     type : 2,
-                    content : "${cpath}/manage/to_add_news/"+newsType+".do",
+                    content : "${cpath}/manage/to_add_news/"+newsTypeId+".do",
                     success : function(layero, index){
                         setTimeout(function(){
                             layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
@@ -65,15 +65,15 @@
 
         table.render({
             elem: '#newList',
-            url: '${cpath}/manage/news_list/'+newsType+'.do',
+            url: '${cpath}/manage/news_list/'+newsTypeId+'.do',
             method: 'get',
             limit: 10,
             cols: [[
-                {field:'id', title: '序号',align:'center',sort:true},
+                {title: '序号',width:100,align:'center',type:'numbers'},
+                {field:'id', title: '序号',align:'center',sort:true,hide:'true'},
                 {field:'title', title: '标题',align:'center'},
-                {field:'author', title: '发布人',align:'center'},
-                {field:'clicks',title: '点击次数',align:'center'},
-                {field:'createTime', title: '发布时间',align:'center'},
+                {field:'updateTime', title: '更新时间',align:'center'},
+                {field:'content', title: '内容',align:'center'},
                 {title: '操作',align:'center',toolbar: '#bar'},
             ]],
             page: true,

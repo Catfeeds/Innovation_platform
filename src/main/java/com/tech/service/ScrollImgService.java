@@ -13,8 +13,13 @@ public class ScrollImgService {
     @Autowired
     ScrollImgMapper scrollImgMapper;
 
-    public List<ScrollImg> getShowScrollImg(){
-        List<ScrollImg> scrollImgs  = scrollImgMapper.selectShowScrollImg();
+    public List<ScrollImg> getCoverScrollShow(){
+        List<ScrollImg> scrollImgs  = scrollImgMapper.selectCoverScrollShow();
+        return scrollImgs;
+    }
+
+    public List<ScrollImg> getTeacherScrollShow() {
+        List<ScrollImg> scrollImgs  = scrollImgMapper.selectTeacherScrollShow();
         return scrollImgs;
     }
 
@@ -47,8 +52,13 @@ public class ScrollImgService {
         return scrollImgMapper.selectAllCount();
     }
 
-    public List<ScrollImg> getAllScrollImg() {
-        List<ScrollImg> scrollImgs  = scrollImgMapper.selectAll();
+    public List<ScrollImg> getAllCoverScroll() {
+        List<ScrollImg> scrollImgs  = scrollImgMapper.selectAllCoverScroll();
+        return scrollImgs;
+    }
+
+    public List<ScrollImg> getAllTeacherScroll() {
+        List<ScrollImg> scrollImgs  = scrollImgMapper.selectAllTeacherScroll();
         return scrollImgs;
     }
 
@@ -66,5 +76,14 @@ public class ScrollImgService {
             return ServerResponse.createBySuccessMessage("显示成功");
         }
         return ServerResponse.createByErrorMessage("显示失败");
+    }
+
+
+    public int getCoverScrollCount() {
+        return scrollImgMapper.selectCoverScrollCount();
+    }
+
+    public int getTeacherScrollCount() {
+        return scrollImgMapper.selectTeacherScrollCount();
     }
 }

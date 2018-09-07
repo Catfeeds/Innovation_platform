@@ -34,13 +34,14 @@
     <!-- slide end -->
 <div id="detail2-box" class="clearfix">
 	
-	<div class="tit-80"><a href="/index.html">首页</a> - 优秀作品</div>
+	<div class="tit-80"><a href="/index.html">首页</a> - <a href="/achievement.html">优秀作品</a> - <a href="#">作品详情</a></div>
     <%@include file="tag.jsp"%>
     
     <div class="content-box" >
-    	<h1>${excellent.title}</h1>
+    	<h1>${excellent.itemName}</h1>
         <div class="content" style="width: 100%">
-        	${excellent.introduce}
+            <p style="margin-bottom: 15px"><img src="/images/calendar.png" style="width: 15px"> 发布于 <fmt:formatDate value="${excellent.finishTime}" pattern="yyyy-MM-dd  HH:mm:ss" /></p>
+        ${excellent.introduce}
         </div>
     </div>
     
@@ -55,21 +56,7 @@
 
 				<div class="footer_right">
 					<div class="nav">
-						
-		                <ul>
-		                	<li>友情连接：</li>
-		                    <li><a href="http://www.sdust.edu.cn/" target="_blank">山东科技大学</a>
-		                    </li>
-		                    <li><a href="http://lib.sdust.edu.cn/" target="_blank">山东科技大学图书馆</a>
-		                    </li>
-		                    <li><a href="http://jwc.sdust.edu.cn/" target="_blank">山东科技大学教务处</a>
-		                    </li>
-		                    <li><a href="http://bjx.sdust.edu.cn/" target="_blank">北极星</a>
-		                    </li>
-		                    <li><a href="http://xsgzc.sdust.edu.cn/" target="_blank">学生处(部)</a>
-		                    </li>
-		                    
-		                </ul>
+
 	               </div>
 				</div>
 			</div>

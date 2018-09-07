@@ -26,7 +26,7 @@ public class MyHandlerInterceptor implements HandlerInterceptor {
                     if (admin!=null){
                         return true;
                     }else {
-                        request.setAttribute("message","what are you doing?");
+                        request.setAttribute("message","身份验证过期,请重新登录!");
                         request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request,response);
                     }
                 }catch (Exception e){

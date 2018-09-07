@@ -12,6 +12,8 @@ import com.tech.service.MemberService;
 import org.nutz.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -30,6 +32,13 @@ public class EnrollController {
     @Autowired
     EnrollService enrollService;
 
+    @RequestMapping("/to_enroll_edit/{id}")
+    public String toItemEdit(@PathVariable("id") Integer id, Model model){
+        Item item = enrollService.getItemByEnrollId(id);
+        model.addAttribute("item",item);
+        return "Student/enroll_edit";
+    }
+
     /**
      * 学生报名
      * @param item
@@ -39,6 +48,11 @@ public class EnrollController {
     @RequestMapping("/enroll")
     @ResponseBody
     public ServerResponse enroll(Item item, HttpSession session){
+        //TODO 校验时间
+        ServerResponse resCheckTime = enrollService.checkTime(item);
+        if (!resCheckTime.isSuccess()){
+            return resCheckTime;
+        }
         Student student = (Student) session.getAttribute(Const.CURRENT_USER);
         if (student==null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"请登陆后尝试");

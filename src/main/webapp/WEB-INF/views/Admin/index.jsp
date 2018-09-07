@@ -61,22 +61,30 @@
                 });
                 tpwidget("show");</script>
             </div>
-
+            <!-- 顶部右侧菜单 -->
+            <ul class="layui-nav top_menu">
+                <li class="layui-nav-item" pc>
+                    <a href="javascript:;">
+                        <%--<img onerror='this.src="/static/images/timg.jpg"' src="${cpath}/static/images/timg.jpg" class="layui-circle" width="35" height="35">--%>
+                        <cite>${admin.typeAliases}</cite>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" data-url="/stu/stuInfo.html"><i class="iconfont icon-zhanghu" data-icon="icon-zhanghu"></i><cite>个人资料</cite></a></dd>
+                        <dd><a href="/index.html" ><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>主页</cite></a></dd>
+                        <dd><a href="/admin/logout.html" class="signOut"><i class="iconfont icon-loginout"></i><cite>退出</cite></a></dd>
+                    </dl>
+                </li>
+            </ul>
         </div>
     </div>
     <!-- 左侧导航 -->
     <div class="layui-side layui-bg-black">
         <div class="user-photo">
             <a class="img" title="我的头像" ><img src="${cpath}/static/images/timg.jpg"></a>
-            <p><span class="userName">管理员</span></p>
+            <p><span class="userName">${admin.typeAliases}</span></p>
         </div>
         <div class="navBar layui-side-scroll">
             <ul class="layui-nav layui-nav-tree">
-                <%--<li class="layui-nav-item">--%>
-                    <%--<a  href="../index.html">--%>
-                        <%--<i class="iconfont icon-computer" data-icon="icon-computer">--%>
-                        <%--</i><cite>主页</cite></a>--%>
-                <%--</li>--%>
 
                 <li class="layui-nav-item">
                     <a href="javascript:;">
@@ -111,9 +119,13 @@
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
                             <cite>优秀教师管理</cite></a>
                         </dd>
-                        <dd><a href="javascript:;" data-url="/manage/to_scroll_list.do">
+                        <dd><a href="javascript:;" data-url="/manage/to_coverScroll_list.do">
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
-                            <cite>轮播图管理</cite></a>
+                            <cite>封面轮播图</cite></a>
+                        </dd>
+                        <dd><a href="javascript:;" data-url="/manage/to_teacherScroll_list.do">
+                            <i class="iconfont icon-text" data-icon="icon-text"></i>
+                            <cite>优秀教师轮播图</cite></a>
                         </dd>
                         <dd><a href="javascript:;" data-url="/manage/links.do">
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
@@ -149,29 +161,29 @@
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
                             <cite>赛事报名管理</cite></a>
                         </dd>
-
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;"><i class="iconfont icon-text" data-icon="icon-text"></i>
-                        <cite>获奖管理</cite>
-                        <span class="layui-nav-more"></span>
-                    </a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="/manage/to_excellent_list.do">
-                            <i class="iconfont icon-text" data-icon="icon-text"></i>
-                            <cite>优秀作品管理</cite></a>
-                        </dd>
-                        <dd><a href="javascript:;" data-url="/manage/to_pass_enroll_list.do">
-                            <i class="iconfont icon-text" data-icon="icon-text"></i>
-                            <cite>添加优秀作品</cite></a>
-                        </dd>
                         <dd><a href="javascript:;" data-url="/manage/to_itemTotal_list.do">
                             <i class="iconfont icon-text" data-icon="icon-text"></i>
                             <cite>获奖项目统计</cite></a>
                         </dd>
                     </dl>
-                </l i>
+                </li>
+                <%--<li class="layui-nav-item">--%>
+                    <%--<a href="javascript:;"><i class="iconfont icon-text" data-icon="icon-text"></i>--%>
+                        <%--<cite>获奖管理</cite>--%>
+                        <%--<span class="layui-nav-more"></span>--%>
+                    <%--</a>--%>
+                    <%--<dl class="layui-nav-child">--%>
+                        <%--<dd><a href="javascript:;" data-url="/manage/to_excellent_list.do">--%>
+                            <%--<i class="iconfont icon-text" data-icon="icon-text"></i>--%>
+                            <%--<cite>优秀作品管理</cite></a>--%>
+                        <%--</dd>--%>
+                        <%--<dd><a href="javascript:;" data-url="/manage/to_pass_enroll_list.do">--%>
+                            <%--<i class="iconfont icon-text" data-icon="icon-text"></i>--%>
+                            <%--<cite>添加优秀作品</cite></a>--%>
+                        <%--</dd>--%>
+
+                    <%--</dl>--%>
+                <%--</li>--%>
 
                 <span class="layui-nav-bar"></span>
             </ul>

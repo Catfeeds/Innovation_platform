@@ -67,7 +67,8 @@
                 limit: 10,
 				size:'lg',
                 cols: [[
-                    {field:'id', title: '序号',align:'center',sort:true},
+                    {title: '序号',width:100,align:'center',type:'numbers'},
+                    {field:'id', title: '序号',align:'center',sort:true,hide:'true'},
                     {field:'nameMatch', title: '大赛名称',align:'center'},
                     {field:'levelName', title: '赛事级别',align:'center'},
                     {field:'imgUrl', title: '封面',align:'center',templet:function(d) {

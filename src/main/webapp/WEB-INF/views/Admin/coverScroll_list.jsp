@@ -47,7 +47,7 @@
                 var index = layui.layer.open({
                     title : "添加滚动图",
                     type : 2,
-                    content : "/manage/to_scroll_add.html",
+                    content : "/manage/to_scroll_add/1.html",
                     success : function(layero, index){
                         setTimeout(function(){
                             layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
@@ -62,14 +62,15 @@
 
         table.render({
             elem: '#List',
-            url: '/manage/scroll_list.do',
+            url: '/manage/coverScroll_list.do',
             method: 'post',
             limit: 10,
 			size:'lg',
             cols: [[
-                {field:'id', title: '序号',align:'center',sort:true},
+                {title: '序号',align:'center',width:100,type:'numbers'},
+                {field:'id', title: 'id',align:'center',hide:'true'},
                 {field:'urlImg', title: '图片',align:'center',templet:function(d) {
-					return '<img src="' + d.urlImg + '" style="height: 50px" />';
+					return '<img src="' + d.urlImg + '"  />';
 				}},
 				{field:'link', title: '超链接',align:'center'},
                 {field:'isShow', title: '是否展示',align:'center',templet:'#isShow'},

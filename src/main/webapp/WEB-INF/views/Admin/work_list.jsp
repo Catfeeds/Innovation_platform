@@ -40,7 +40,6 @@
 </body>
 <script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
 <script type="text/javascript">
-    var newsType=$("#newType").val();
     layui.use('table', function(){
         var table = layui.table;
 
@@ -68,14 +67,14 @@
             method: 'get',
             limit: 10,
             cols: [[
-                {field:'id', title: '序号',align:'center',width:94,sort:true},
+                {title: '序号',width:100,align:'center',type:'numbers'},
+                {field:'id', title: '序号',align:'center',sort:true,hide:'true'},
                 {field:'matchName', title: '大赛名称',align:'center'},
                 {field:'itemName', title: '项目名称',align:'center'},
                 {field:'coverUrl', title: '封面',align:'center',templet:function(d) {
                     return '<img src="' + d.coverUrl + '" />'}},
                 {field:'finishTime', title: '完成时间',align:'center',width:125},
                 {field:'introduce', title: '简介',align:'center'},
-				{field:'createTime', title: '发布时间',align:'center'},
                 {title: '操作',align:'center',toolbar: '#bar'},
             ]],
             page: true,

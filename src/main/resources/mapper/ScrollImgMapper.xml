@@ -7,9 +7,10 @@
     <result column="name_img" jdbcType="VARCHAR" property="nameImg" />
     <result column="is_show" jdbcType="INTEGER" property="isShow" />
     <result column="link" jdbcType="VARCHAR" property="link" />
+    <result column="type_scroll" jdbcType="INTEGER" property="typeScroll" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, url_img, name_img, is_show, link
+    id, url_img, name_img, is_show, link,type_scroll
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -23,9 +24,9 @@
   </delete>
   <insert id="insert" parameterType="com.tech.pojo.ScrollImg">
     insert into tbl_scrollimg (id, url_img, name_img, 
-      is_show, link)
+      is_show, link,type_scroll)
     values (#{id,jdbcType=INTEGER}, #{urlImg,jdbcType=VARCHAR}, #{nameImg,jdbcType=VARCHAR}, 
-      #{isShow,jdbcType=INTEGER}, #{link,jdbcType=VARCHAR})
+      #{isShow,jdbcType=INTEGER}, #{link,jdbcType=VARCHAR},#{typeScroll,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.tech.pojo.ScrollImg">
     insert into tbl_scrollimg
@@ -98,14 +99,38 @@
     update tbl_scrollimg set is_show = 1 where id=#{id}
   </update>
 
-  <select id="selectShowScrollImg" resultMap="BaseResultMap">
-select *
-from tbl_scrollimg where is_show = 1
+  <select id="selectCoverScrollShow" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_scrollimg where is_show = 1 and type_scroll = 1
+  </select>
+
+  <select id="selectTeacherScrollShow" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_scrollimg where is_show = 1 and type_scroll = 2
+  </select>
+
+  <select id="selectAllCount" resultType="java.lang.Integer">
+  select COUNT(*) from tbl_scrollimg
+  </select>
+
+  <select id="selectAllCoverScroll" resultMap="BaseResultMap">
+  SELECT
+  <include refid="Base_Column_List" />
+  from tbl_scrollimg where type_scroll = 1
 </select>
-<select id="selectAllCount" resultType="java.lang.Integer">
-select COUNT(*) from tbl_scrollimg
-</select>
-<select id="selectAll" resultType="com.tech.pojo.ScrollImg">
-SELECT * from tbl_scrollimg
-</select>
+
+  <select id="selectAllTeacherScroll" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from tbl_scrollimg where type_scroll = 2
+  </select>
+  <select id="selectCoverScrollCount" resultType="java.lang.Integer">
+      select COUNT(*) from tbl_scrollimg where type_scroll = 1
+  </select>
+  <select id="selectTeacherScrollCount" resultType="java.lang.Integer">
+      select COUNT(*) from tbl_scrollimg where type_scroll = 2
+  </select>
+
 </mapper>

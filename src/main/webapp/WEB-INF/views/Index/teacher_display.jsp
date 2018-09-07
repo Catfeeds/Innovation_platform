@@ -48,14 +48,8 @@
     
     <div class="content-box">
     	<h1>优秀指导教师</h1>
-        <div style="margin-left: 40px">
+        <div style="margin-left: 40px;margin-top: 40px">
             <ul class="clearfix" id="data_fill" style=" width:705px; margin-left:-10px;">
-                <%--<li class="pic">--%>
-                    <%--<div class="img-box">                	--%>
-                            <%--<img src="/images/黄鹤松（优秀教师）.jpg">--%>
-                    <%--</div>--%>
-                    <%--<h3><a href="teacher_detail.html">黄鹤松</a></h3>--%>
-                <%--</li>--%>
             </ul>
         </div>
     </div>
@@ -129,8 +123,9 @@
         $("#data_fill").empty();
         $.each(res.data, function (index, item) {
             var img = $("<img/>").attr("src",item.imageUrl);
-            var div = $("<div></div>").addClass("img-box").append(img);
-            var h3 = $("<h3></h3>").append($("<a></a>").attr("href","teacher/"+item.id+".html").append(item.nameTeacher));
+            var a = $("<a></a>").attr("href","/teacher/"+item.id+".html").append(img);
+            var div = $("<div></div>").addClass("img-box").append(a);
+            var h3 = $("<h3></h3>").append($("<a></a>").attr("href","/teacher/"+item.id+".html").append(item.nameTeacher));
             $("<li></li>").addClass("pic").append(div).append(h3).appendTo("#data_fill");
         });
     }

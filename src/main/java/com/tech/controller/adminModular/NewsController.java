@@ -30,7 +30,8 @@ public class NewsController {
 
     @RequestMapping(value = "/to_news_list/{id}",method = RequestMethod.GET)
     public String toShowNew(Model model,@PathVariable("id") Integer typeNews){
-        model.addAttribute("newsType",typeNews);
+        model.addAttribute("newsTypeID",typeNews);
+        model.addAttribute("newsType",newsService.getTypeNameByTypeId(typeNews));
         return "Admin/news_list";
     }
 

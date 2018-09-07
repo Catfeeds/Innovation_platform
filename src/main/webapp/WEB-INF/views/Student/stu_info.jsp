@@ -58,7 +58,7 @@
 
 		</div>
 		<div class="user_right">
-			<img onerror='this.src="/static/images/timg.jpg"' src="${stu.imgurl}" class="layui-upload-img layui-circle" id="userFace">
+			<img onerror='this.src="/static/images/timg.jpg"' src="${stu.imgurl}" class="layui-upload-img layui-circle" id="userFace" style="cursor: pointer;">
 		</div>
 		<div class="layui-form-item" style="margin-left: 5%;">
 		    <div class="layui-input-block">

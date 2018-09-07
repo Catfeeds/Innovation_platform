@@ -17,7 +17,7 @@
 </head>
 <body class="childrenBody">
 	<form class="layui-form changePwd">
-		<div style="margin:0 0 15px 110px;color:#f00;"><!--旧密码请输入“123456”，-->新密码必须两次输入一致才能提交</div>
+		<%--<div style="margin:0 0 15px 110px;color:#f00;">新密码必须两次输入一致才能提交</div>--%>
 		<div class="layui-form-item">
 		    <label class="layui-form-label">用户名</label>
 		    <div class="layui-input-block">
@@ -39,13 +39,13 @@
 		<div class="layui-form-item">
 		    <label class="layui-form-label">新密码</label>
 		    <div class="layui-input-block">
-		    	<input name="newPwd" type="password" placeholder="请输入新密码" lay-verify="required|newPwd" id="oldPwd" class="layui-input pwd">
+		    	<input name="newPwd" type="password" placeholder="请输入新密码" lay-verify="required|newPwd" id="fPwd" class="layui-input pwd">
 		    </div>
 		</div>
 		<div class="layui-form-item">
 		    <label class="layui-form-label">确认密码</label>
 		    <div class="layui-input-block">
-		    	<input name="" type="password"  placeholder="请确认密码" lay-verify="required|confirmPwd" class="layui-input pwd">
+		    	<input name="confirmPwd" type="password" id="sPwd" onchange="check()"  placeholder="请确认密码" lay-verify="required|confirmPwd" class="layui-input pwd"><p id="message" style="color: red"></p>
 		    </div>
 		</div>
 		<div class="layui-form-item">
@@ -57,6 +57,17 @@
 	<script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
 </body>
 <script type="text/javascript">
+	function check() {
+		var fPwd = $("#fPwd").val();
+		var sPwd = $("#sPwd").val();
+		if(fPwd!=sPwd){
+            $("#message").html("");
+		    $("#message").append("两次密码不一致!");
+		}else{
+            $("#message").html("");
+        }
+    }
+
     layui.use(['form'],function(){
         var form = layui.form,
             $ = layui.jquery;
@@ -66,12 +77,6 @@
                 //验证登陆账号
                 if(!new RegExp("^[0-9A-Za-z_]{2,20}$").test(value)){
                     return '登陆账号只能为英文、数字、下划线，长度2-20位';
-                }
-            },
-            userName: function(value, item){
-                //验证用户名
-                if(!new RegExp("^([\u4e00-\u9fa5]){2,10}$").test(value)){
-                    return '用户姓名只能为中文，长度2-7位';
                 }
             }
         });

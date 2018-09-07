@@ -38,7 +38,7 @@
 	min-height: 10px;	
 	float: right;
 	margin-top: 12px;
-	
+	margin-right:30px;
 }
 .product_detail p{
 	margin: 2px;
@@ -156,8 +156,6 @@
             ,limit: limit
             ,theme: '#0aa6d6'
             ,jump: function(obj, first){
-                console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-                console.log(obj.limit); //得到每页显示的条数
                 toPage(obj.curr);
                 if(!first){
                     toPage(obj.curr);
@@ -188,10 +186,10 @@
         $("#data_fill div.product").remove();
         $.each(res.data, function (index, item) {
             var a = $("<a></a>").attr("href","/achievement/"+item.id+".html").append($("<img/>").attr("src",item.coverUrl));
-            var h2 = $("<h2></h2>").append("项目名称: "+item.title);
+            var h2 = $("<h2></h2>").append("项目名称: "+item.itemName);
             var p =  $("<p></p>").append("完成时间:"+item.finishTime);
             var div2 = $("<div></div>").addClass("index1-right").append($("<p></p>").append("赛事介绍:"+item.introduce))
-            var div1 = $("<div></div>").addClass("product_detail").append(h2).append(div2);
+            var div1 = $("<div></div>").addClass("product_detail").append(h2).append(p).append(div2);
             $("<div></div>").addClass("product").append(a).append(div1).appendTo("#data_fill");
         });
     }

@@ -66,7 +66,8 @@
                 method: 'post',
                 limit: 10,
                 cols: [[
-                    {field:'id', title: '序号',align:'center',sort:true},
+                    {title: '序号',width:100,align:'center',type:'numbers'},
+                    {field:'id', title: '序号',align:'center',sort:true,hide:'true'},
                     {field:'nameTeacher', title: '教师姓名',align:'center'},
                     {field:'occupationCall', title: '职称',align:'center'},
                     {field:'imageUrl', title: '照片',align:'center',templet:function(d) {

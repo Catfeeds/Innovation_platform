@@ -104,26 +104,28 @@
 	</form>
 	<script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
 	<script type="text/javascript" >
-        var action = $("#action").val();
+		var action = $("#action").val();
+   	 	$(document).ready(function(){
+            $.ajax({
+                type:'post',
+                url:'/manage/getLevel.do',
+                dataType: "json",
+                success:function (data) {
+                    fillData(data);
+                },
+                error:function () {
+                    layer.msg('接口错误');
+                }
+            });
 
-        $.ajax({
-            type:'post',
-            url:'/manage/getLevel.do',
-            dataType: "json",
-            success:function (data) {
-                fillData(data);
-            },
-            error:function () {
-                layer.msg('接口错误');
+            function fillData(res) {
+                $.each(res.data, function (index, item) {
+                    var option = $("<option></option>").val(item.id).append(item.levelName);
+                    option.appendTo("#data_fill");
+                });
             }
         });
 
-        function fillData(res) {
-            $.each(res.data, function (index, item) {
-                var option = $("<option></option>").val(item.id).append(item.levelName);
-				option.appendTo("#data_fill");
-            });
-        }
 
         layui.use(['form','layedit','laydate','upload'],function(){
             var form = layui.form,

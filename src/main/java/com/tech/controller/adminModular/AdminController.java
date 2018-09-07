@@ -6,6 +6,7 @@ import com.tech.pojo.Admin;
 import com.tech.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,17 +30,18 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/logout",method = RequestMethod.GET)
-    @ResponseBody
-    public ServerResponse<String> adminLogout(HttpSession session){
+    public String adminLogout(HttpSession session){
         session.removeAttribute(Const.CURRENT_USER);
-        return ServerResponse.createBySuccess("登出成功");
+        return "forward:/login.html";
     }
 
     @RequestMapping("/index")
-    public String showIndex(HttpSession session){
-        if (session.getAttribute(Const.CURRENT_USER)==null){
+    public String showIndex(HttpSession session, Model model){
+        Admin admin = (Admin)session.getAttribute(Const.CURRENT_USER);
+        if (admin==null){
             return "forward:/login.html";
         }
+        model.addAttribute("admin",admin);
         return "Admin/index";
     }
 }

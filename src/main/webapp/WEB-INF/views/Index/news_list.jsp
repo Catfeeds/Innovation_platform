@@ -40,7 +40,7 @@
     <!-- slide end -->
 <div id="detail2-box" class="clearfix">
 	
-	<div class="tit-80"><a href="/index.html">首页</a> - <a href="/news_list/${newsTypeId}.html">新闻中心</a> - ${newsType}</div>
+	<div class="tit-80"><a href="/index.html">首页</a> - <a href="/news_list/${newsTypeId}.html">${newsType}</a></div>
     	<%@include file="tag.jsp"%>
     <input id="news_typeId" type="hidden" value="${newsTypeId}">
     <input id="news_count" type="hidden" value="${newsCount}">

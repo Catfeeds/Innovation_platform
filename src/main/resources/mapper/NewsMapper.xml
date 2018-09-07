@@ -161,4 +161,7 @@
     <select id="selectTypeName" resultType="java.lang.String" parameterType="int">
       select type_name from tbl_news_type where id = #{typeNewsId}
     </select>
+    <select id="selectTypeNameByNewsId" resultType="java.lang.String">
+      select type_name from tbl_news_type t,tbl_news n where n.type_news = t.id and n.id = #{newsID}
+    </select>
 </mapper>

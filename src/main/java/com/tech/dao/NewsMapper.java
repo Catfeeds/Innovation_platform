@@ -27,4 +27,6 @@ public interface NewsMapper {
     int selectKindNewsCount(Integer typeNew);
 
     String selectTypeName(Integer typeNewsId);
+
+    String selectTypeNameByNewsId(Integer newsID);
 }

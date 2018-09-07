@@ -60,10 +60,8 @@
 			<div class="test">
 				<img src="${compete.coverUrl}" />
 				<h1>大赛名称：${compete.nameCompete}</h1>
-				<h1>大赛级别：${compete.levelName}</h1>
-				<p class="time">报名开始时间：<span><fmt:formatDate value="${compete.startTime}" pattern="yyyy-MM-dd HH:mm" /></span></p>
-				<p class="time">报名结束时间：<span><fmt:formatDate value="${compete.endTime}" pattern="yyyy-MM-dd HH:mm" /></span></p>
-				<%--<p>报名要求:${fn:substring(compete.requirement,0,200)}...</p>--%>
+				<p class="time">报名时间：<span><fmt:formatDate value="${compete.startTime}" pattern="yyyy-MM-dd HH:mm" /> - <fmt:formatDate value="${compete.endTime}" pattern="yyyy-MM-dd HH:mm" /></span></p>
+				<p>报名要求:${compete.requirement}</p>
 				<div class="layui-inline">
 					<a class="layui-btn linksAdd_btn" competeId="${compete.id}" style="background-color:#5FB878">报名</a>
 				</div>
@@ -79,22 +77,29 @@
 
         $(".linksAdd_btn").click(function(){
             var id = $(this).attr("competeId");
-            var index = layui.layer.open({
-                title : "赛事报名",
-                type : 2,
-                content : "/stu/to_compete_enroll/"+id+".html",
-                success : function(layero, index){
-                    setTimeout(function(){
-                        layui.layer.tips('点击此处返回友链列表', '.layui-layer-setwin .layui-layer-close', {
-                            tips: 3
-                        });
-                    },500)
+            $.get("/stu/check_time/"+id+".do", function(res){
+                if(res.status == 0){
+                    var index = layui.layer.open({
+                        title : "赛事报名",
+                        type : 2,
+                        content : "/stu/to_compete_enroll/"+id+".html",
+                        success : function(layero, index){
+                            setTimeout(function(){
+                                layui.layer.tips('点击此处返回友链列表', '.layui-layer-setwin .layui-layer-close', {
+                                    tips: 3
+                                });
+                            },500)
+                        }
+                    });
+                    $(window).resize(function(){
+                        layui.layer.full(index);
+                    });
+                    layui.layer.full(index);
+				}else{
+                    layer.msg(res.data);
                 }
-            })
-            $(window).resize(function(){
-                layui.layer.full(index);
-            })
-            layui.layer.full(index);
+            });
+
         })
     })
 </script>

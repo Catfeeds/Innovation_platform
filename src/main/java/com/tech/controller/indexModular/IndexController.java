@@ -5,7 +5,6 @@ import com.tech.common.Const;
 import com.tech.pojo.*;
 import com.tech.service.*;
 import com.tech.utils.CreateImageCode;
-import org.apache.commons.lang3.StringUtils;
 import org.nutz.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -84,27 +83,28 @@ public class IndexController {
         List<News> policies =  newsService.getKindNews(2,7);//政策新闻
         List<News> questions =  newsService.getKindNews(3,7);//常见问题
         List<DownloadFile> downloadFiles = downloadFileService.getPartByCount(7);//文件下载
+
         List<Match> matches = matchService.getCountMatches(3);//赛事项目
-        List<ScrollImg> scrollImages = scrollImgService.getShowScrollImg();//滚动图
+        List<ScrollImg> coverScroll = scrollImgService.getCoverScrollShow();//封面滚动图
+        List<ScrollImg> teacherScroll = scrollImgService.getTeacherScrollShow();//优秀教师滚动图
+
         List<FriendLink> friendLinks = friendLinkService.getAllFriendLinks();//友情链接
         List<GoodTeacher> goodTeachers = goodTeacherService.getAllGoodTeachers();//获取优秀教师
         List<GoodWork> goodWorks = goodWorkService.getAllGoodWorks();//获取优秀作品
         List<Excellent> excellents = excellentService.getAllExcellent();
         model.addAttribute("notices",notices).addAttribute("policies",policies).addAttribute("questions",questions);
         model.addAttribute("matches",matches);
-        model.addAttribute("scrollImages",scrollImages);
+
+        model.addAttribute("coverScroll",coverScroll);
+        model.addAttribute("teacherScroll",teacherScroll);
+
         model.addAttribute("friendLinks",friendLinks);
         model.addAttribute("goodTeachers",goodTeachers);
-        model.addAttribute("excellents",excellents);
+        model.addAttribute("goodWorks",goodWorks);
         model.addAttribute("downloadFiles",downloadFiles);
         return "Index/index";
     }
 
-    /**
-     * 根据新闻类型获取新闻
-     * @param model
-     * @return
-     */
     @RequestMapping("/news_list/{type_id}")
     public String newsList(@PathVariable("type_id") Integer typeNewsId, Model model){
         model.addAttribute("newsTypeId",typeNewsId);
@@ -153,15 +153,10 @@ public class IndexController {
         return Json.toJson(map);
     }
 
-    /**
-     * 获取新闻详细信息
-     * @param newsID
-     * @param model
-     * @return
-     */
     @RequestMapping("/news/{id}")
     public String newsDetail(@PathVariable("id")Integer newsID,Model model){
         News news = newsService.getNews(newsID);
+        model.addAttribute("newsType",newsService.getTypeNameByTypeId(news.getTypeNews()));
         model.addAttribute("news",news);
         return "Index/news";
     }
@@ -221,8 +216,8 @@ public class IndexController {
             limit=10;
         }
         PageHelper.startPage(page,limit);
-        List<Excellent> list = excellentService.getAllExcellent();
-        int count = excellentService.getAllCount();
+        List<GoodWork> list = goodWorkService.getAllGoodWorks();
+        int count = goodWorkService.getAllCount();
         Map<String, Object> map = new HashMap<>();
         map.put("code",0);
         map.put("msg","");
@@ -233,8 +228,8 @@ public class IndexController {
 
     @RequestMapping("/achievement/{id}")
     public String goodWorkDetail(@PathVariable("id") Integer id,Model model){
-        Excellent excellent = excellentService.getById(id);
-        model.addAttribute("excellent",excellent);
+        GoodWork goodWork = goodWorkService.getById(id);
+        model.addAttribute("excellent",goodWork);
         return "Index/achievement";
     }
 

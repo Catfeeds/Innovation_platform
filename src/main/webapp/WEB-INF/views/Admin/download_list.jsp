@@ -63,13 +63,13 @@
             method: 'post',
             limit: 10,
             cols: [[
-                {field:'id', title: '序号',align:'center',sort:true},
+                {title: '序号',align:'center',width:100,type:'numbers'},
+                {field:'id', title: '序号',align:'center',sort:true,hide:'true'},
                 {field:'nameMatch', title: '大赛名称',align:'center'},
-                {field:'titleWork', title: '作品名称',align:'center'},
-                {field:'author', title: '作者',align:'center'},
+                {field:'titleWork', title: '作品标题',align:'center'},
+                {field:'author', title: '作者姓名',align:'center'},
                 {field:'instructor', title: '指导老师',align:'center'},
-                {field:'attachment',title: '附件',align:'center'},
-                {field:'createTime', title: '发布时间',align:'center'},
+                {field:'attachment',title: '附件',align:'center',templet:'#attach'},
                 {title: '操作',width:200,align:'center',toolbar: '#bar',fixed:'right'},
             ]],
             page: true,
@@ -122,4 +122,11 @@
 	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
 	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">编辑</a>
 	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script type="text/html" id="attach">
+	{{# if(d.attachment==''){ }}
+		<span style="color:red">未上传</span>
+	{{#}else{ }}
+		<span style="color:green">已上传</span>
+	{{#} }}
 </script>

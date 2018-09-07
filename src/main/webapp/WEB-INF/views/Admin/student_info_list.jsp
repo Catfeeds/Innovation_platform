@@ -41,12 +41,12 @@
             cols: [[
                 {field:'sno', title: '学号',align:'center',sort:true},
                 {field:'nameStudent', title: '姓名',align:'center'},
-                {field:'classno', title: '班级',align:'center'},
-                {field:'', title: '专业',align:'center'},
+                {field:'classno', title: '班级',align:'center',sort:true},
+                {field:'pname', title: '专业',align:'center',sort:true},
                 {field:'phone', title: '联系电话',align:'center'},
                 {field:'qq', title: 'QQ',align:'center'},
                 {field:'email',title: '邮箱',align:'center'},
-                {field:'participateCount', title: '已参与项目数',align:'center'},
+                {field:'participateCount', title: '已参与项目数',templet:'#count',sort:true},
                 {field:'password', title: '登录密码',align:'center'},
                 {title: '操作',width:200,align:'center',toolbar: '#bar',fixed:'right'},
             ]],
@@ -55,6 +55,7 @@
 
             }
         });
+
 
         table.on('tool(ListID)', function(obj){
             var data = obj.data;
@@ -92,6 +93,22 @@
                     })
                     layui.layer.full(index);
                 }).resize();
+            }else if(obj.event === 'enroll_record'){
+                $(window).one("resize",function(){
+                    var index = layui.layer.open({
+                        title : "项目记录",
+                        type : 2,
+                        content : "${cpath}/manage/enroll_record/"+data.sno+".do",
+                        success : function(layero, index){
+                            setTimeout(function(){
+                                layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                                    tips: 3
+                                });
+                            },500)
+                        }
+                    })
+                    layui.layer.full(index);
+                }).resize();
             }
         });
     })
@@ -99,4 +116,7 @@
 <script type="text/html" id="bar">
 	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">编辑</a>
 	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script type="text/html" id="count">
+	<a style="text-decoration:underline" lay-event="enroll_record" href="#">{{ d.participateCount }}</a>
 </script>

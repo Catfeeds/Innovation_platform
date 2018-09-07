@@ -3,10 +3,11 @@ package com.tech.service;
 import com.tech.common.ServerResponse;
 import com.tech.dao.CompeteMapper;
 import com.tech.pojo.Compete;
-import com.tech.pojo.GoodWork;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -49,5 +50,23 @@ public class CompeteService {
             return ServerResponse.createBySuccessMessage("delete_success");
         }
         return ServerResponse.createByErrorMessage("delete_fail");
+    }
+
+    public ServerResponse checkTime(Integer id) {
+        Compete compete = competeMapper.selectByPrimaryKey(id);
+        Calendar date = Calendar.getInstance();
+        date.setTime(new Date());
+
+        Calendar after = Calendar.getInstance();
+        after.setTime(compete.getStartTime());
+
+        Calendar before = Calendar.getInstance();
+        before.setTime(compete.getEndTime());
+
+        if (date.after(after)&&date.before(before)){
+            return ServerResponse.createBySuccess("时间校验成功,当前系统时间"+date,date);
+        }else{
+            return ServerResponse.createByErrorDataMessage("时间校验成功,当前系统时间"+date,date);
+        }
     }
 }

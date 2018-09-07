@@ -39,7 +39,7 @@
             method: 'post',
             limit: 10,
             cols: [[
-                { title: '序号',align:'center',width:100,type:'numbers',sort:true},
+                { title: '序号',align:'center',width:100,type:'numbers'},
                 {field:'enrollId', title: 'EnrollID',align:'center',hide:'true'},
                 {field:'prizeName', title: '获奖情况',align:'center'},
                 {field:'competeName', title: '大赛名称',align:'center'},

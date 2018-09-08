@@ -164,4 +164,18 @@
     <select id="selectTypeNameByNewsId" resultType="java.lang.String">
       select type_name from tbl_news_type t,tbl_news n where n.type_news = t.id and n.id = #{newsID}
     </select>
+    <select id="selectSearchNewsByKey" resultType="com.tech.pojo.News" parameterType="map">
+      select
+      <include refid="Base_Column_List" />
+      ,
+      <include refid="Blob_Column_List" />
+      from tbl_news
+      where title like CONCAT('%',#{key},'%') and type_news = #{newsTypeId}
+    </select>
+  <select id="selectSearchNewsByKeyCount" resultType="java.lang.Integer" parameterType="map">
+    select
+    count(*)
+    from tbl_news
+    where title like CONCAT('%',#{key},'%') and type_news = #{newsTypeId}
+  </select>
 </mapper>

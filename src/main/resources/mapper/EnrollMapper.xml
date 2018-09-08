@@ -192,4 +192,13 @@
   <select id="selectPassPrizeItem" resultMap="BaseResultMapTotalEnroll">
     select id,name_compete,title_enroll,group_id,name_group,status,prize_name,introduce,finish_time,cover_url,instructor FROM vw_excellent
   </select>
+    <select id="selectSearchCount" resultType="java.lang.Integer">
+          select count(*) FROM vw_item where title_enroll like CONCAT('%',#{key},'%')
+    </select>
+  <select id="selectSeach" resultMap="BaseResultMapTotalEnroll">
+    select id,name_compete,title_enroll,group_id,name_group,instructor,status,attachment FROM vw_item where title_enroll like CONCAT('%',#{key},'%') order by status
+  </select>
+  <select id="selectIdByCIdAndTitle" resultType="java.lang.Integer" parameterType="map">
+    select id from tbl_enroll where compete_id = #{competeId} and title_enroll = #{title}
+  </select>
 </mapper>

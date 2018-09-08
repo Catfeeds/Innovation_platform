@@ -168,4 +168,13 @@
     FROM
     tbl_student where sno = #{sno}
   </select>
+    <select id="selectSearchCount" resultType="java.lang.Integer">
+      select count(*)
+      from tbl_student where (sno like CONCAT('%',#{key},'%') or name_student like CONCAT('%',#{key},'%'))
+    </select>
+  <select id="selectSearch" resultMap="BaseResultMap">
+     SELECT
+    sno, password, name_student, classno, phone, qq, email, imgurl, update_time,pname
+    from tbl_student s,tbl_profession p where s.profession_id = p.id and (sno like CONCAT('%',#{key},'%') or name_student like CONCAT('%',#{key},'%'))
+  </select>
 </mapper>

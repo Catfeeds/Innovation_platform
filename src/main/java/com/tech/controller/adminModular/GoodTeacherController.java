@@ -44,9 +44,23 @@ public class GoodTeacherController {
     @RequestMapping(value = "/teacher_list",produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String teacherList(Integer page,Integer limit){
-        PageHelper.startPage(page,limit);
         int count = goodTeacherService.getAllCount();
+        PageHelper.startPage(page,limit);
         List<GoodTeacher> list = goodTeacherService.getAllGoodTeachers();
+        Map<String, Object> map = new HashMap<>();
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",count);
+        map.put("data", list);
+        return Json.toJson(map);
+    }
+
+    @RequestMapping(value = "/teacher_search",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String teacherSearch(Integer page,Integer limit,String key){
+        int count = goodTeacherService.getSearchCount(key);
+        PageHelper.startPage(page,limit);
+        List<GoodTeacher> list = goodTeacherService.getSeach(key);
         Map<String, Object> map = new HashMap<>();
         map.put("code",0);
         map.put("msg","");

@@ -22,4 +22,6 @@ public interface CompeteMapper {
     int selectAllCount();
 
     List<Compete> selectAllCompete();
+
+    Integer selectIdByName(String competeName);
 }

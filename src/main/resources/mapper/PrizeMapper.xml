@@ -60,5 +60,8 @@
     <include refid="Base_Column_List" />
     from tbl_prize
   </select>
+    <select id="selectIdByName" resultType="java.lang.Integer" parameterType="string">
+      select id from tbl_prize where prize_name = #{prizeName}
+    </select>
 
 </mapper>

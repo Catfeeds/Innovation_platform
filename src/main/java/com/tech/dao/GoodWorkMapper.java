@@ -22,4 +22,8 @@ public interface GoodWorkMapper {
     List<GoodWork> selectAllGoodWorks();
 
     int selectAllCount();
+
+    int selectSeachCount(String key);
+
+    List<GoodWork> selectSearch(String key);
 }

@@ -31,4 +31,8 @@ public interface StudentMapper {
     List<Student> selectAllStudent();
 
     Student selectInfoExceptPwdBySno(String sno);
+
+    int selectSearchCount(String key);
+
+    List<Student> selectSearch(String key);
 }

@@ -59,6 +59,20 @@ public class DownloadFileController {
         return Json.toJson(map);
     }
 
+    @RequestMapping(value = "/download_search",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String downloadSearch(Integer page,Integer limit,String key){
+        int count = downloadFileService.getSeachCountByKey(key);
+        PageHelper.startPage(page,limit);
+        List<DownloadFile> list = downloadFileService.getSeachByKey(key);
+        Map<String, Object> map = new HashMap<>();
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",count);
+        map.put("data", list);
+        return Json.toJson(map);
+    }
+
     @RequestMapping("/download_add")
     @ResponseBody
     public ServerResponse<String> addDownloadFile(DownloadFile downloadFile){

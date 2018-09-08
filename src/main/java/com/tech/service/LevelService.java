@@ -16,4 +16,8 @@ public class LevelService {
         List<Levels> list = levelsMapper.selectAll();
         return list;
     }
+
+    public Integer getIdByName(String levelName) {
+        return levelsMapper.selectIdByName(levelName);
+    }
 }

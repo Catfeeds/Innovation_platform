@@ -62,6 +62,7 @@
         }).resize();
 
         table.render({
+			id:'search_tb',
             elem: '#List',
             url: '${cpath}/manage/work_list.do',
             method: 'get',
@@ -81,6 +82,13 @@
             done: function (res, curr, count) {
 
             }
+        });
+
+        $(".search_btn").click(function() {
+            table.reload('search_tb', {
+                url: '/manage/work_search.do'
+                , where: {key: $(".search_input").val()}
+            });
         });
 
         table.on('tool(ListID)', function(obj){

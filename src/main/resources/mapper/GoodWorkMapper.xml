@@ -162,4 +162,18 @@
     <select id="selectAllCount" resultType="java.lang.Integer">
       select count(*) from tbl_good_work
     </select>
+    <select id="selectSeachCount" resultType="java.lang.Integer">
+      select
+      count(*)
+      from tbl_good_work
+      where item_name like CONCAT('%',#{key},'%')
+    </select>
+  <select id="selectSearch" resultType="com.tech.pojo.GoodWork">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_good_work
+    where item_name like CONCAT('%',#{key},'%')
+  </select>
 </mapper>

@@ -69,4 +69,8 @@ public class CompeteService {
             return ServerResponse.createByErrorDataMessage("时间校验成功,当前系统时间"+date,date);
         }
     }
+
+    public Integer getIdByName(String competeName) {
+        return competeMapper.selectIdByName(competeName);
+    }
 }

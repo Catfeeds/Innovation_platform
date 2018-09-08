@@ -22,4 +22,8 @@ public interface GoodTeacherMapper {
     List<GoodTeacher> selectAllGoodTeachers();
 
     int selectAllCount();
+
+    int selectSearchCount(String key);
+
+    List<GoodTeacher> selectSearch(String key);
 }

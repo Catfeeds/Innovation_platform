@@ -19,4 +19,6 @@ public interface LevelsMapper {
     int updateByPrimaryKey(Levels record);
 
     List<Levels> selectAll();
+
+    Integer selectIdByName(String levelName);
 }

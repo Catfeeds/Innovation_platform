@@ -64,6 +64,7 @@
         }).resize();
 
         table.render({
+			id:'search_tb',
             elem: '#newList',
             url: '${cpath}/manage/news_list/'+newsTypeId+'.do',
             method: 'get',
@@ -80,6 +81,12 @@
             done: function (res, curr, count) {
 
             }
+        });
+        $(".search_btn").click(function() {
+            table.reload('search_tb', {
+                url: '/manage/news_search.do'
+                , where: {key: $(".search_input").val(),newsTypeId:newsTypeId}
+            });
         });
 
         table.on('tool(newsListID)', function(obj){

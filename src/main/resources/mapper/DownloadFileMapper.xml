@@ -152,4 +152,13 @@
     <select id="selectCount" resultType="java.lang.Integer">
       SELECT count(*) from tbl_download_file
     </select>
+    <select id="selectSeachCountByKey" resultType="java.lang.Integer">
+      select count(*) from tbl_download_file where title_work like CONCAT('%',#{key},'%')
+    </select>
+  <select id="selectSeachByKey" resultType="com.tech.pojo.DownloadFile">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_download_file
+    where title_work like CONCAT('%',#{key},'%')
+  </select>
 </mapper>

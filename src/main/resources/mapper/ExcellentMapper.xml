@@ -4,47 +4,40 @@
   <resultMap id="BaseResultMap" type="com.tech.pojo.Excellent">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="enroll_id" jdbcType="INTEGER" property="enrollId" />
+    <result column="year" jdbcType="VARCHAR" property="year" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="compete_id" jdbcType="INTEGER" property="competeId" />
+    <result column="compete_name" jdbcType="VARCHAR" property="competeName" />
+    <result column="compete_level" jdbcType="INTEGER" property="competeLevel" />
+    <result column="level_name" jdbcType="VARCHAR" property="levelName" />
     <result column="prize_id" jdbcType="INTEGER" property="prizeId" />
-    <result column="cover_url" jdbcType="VARCHAR" property="coverUrl" />
-    <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
-    <result column="author" jdbcType="VARCHAR" property="author" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tech.pojo.Excellent">
-    <result column="introduce" jdbcType="LONGVARCHAR" property="introduce" />
-  </resultMap>
-  <resultMap extends="ResultMapWithBLOBs" id="ResultMapWithDetail" type="com.tech.pojo.Excellent">
-    <result column="title_enroll" jdbcType="VARCHAR" property="title" />
+    <result column="prize_name" jdbcType="VARCHAR" property="prizeName" />
+    <result column="members" jdbcType="VARCHAR" property="members" />
+    <result column="instructor" jdbcType="VARCHAR" property="instructor" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, enroll_id, prize_id, cover_url, finish_time, author, create_time, update_time
+    id, year,enroll_id, title, compete_id, compete_name, compete_level, level_name, prize_id, prize_name,
+    members, instructor
   </sql>
-  <sql id="Blob_Column_List">
-    introduce
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from tbl_excellent
     where id = #{id,jdbcType=INTEGER}
   </select>
-
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from tbl_excellent
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.tech.pojo.Excellent">
-    insert into tbl_excellent (id, enroll_id, prize_id, 
-      cover_url, finish_time, author, 
-      create_time, update_time, introduce
-      )
-    values (#{id,jdbcType=INTEGER}, #{enrollId,jdbcType=INTEGER}, #{prizeId,jdbcType=INTEGER}, 
-      #{coverUrl,jdbcType=VARCHAR}, #{finishTime,jdbcType=TIMESTAMP}, #{author,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{introduce,jdbcType=LONGVARCHAR}
-      )
+    insert into tbl_excellent (id, year, enroll_id, title,
+      compete_id, compete_name, compete_level, 
+      level_name, prize_id, prize_name, 
+      members, instructor)
+    values (#{id,jdbcType=INTEGER}, #{year,jdbcType=VARCHAR}, #{enrollId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR},
+      #{competeId,jdbcType=INTEGER}, #{competeName,jdbcType=VARCHAR}, #{competeLevel,jdbcType=INTEGER}, 
+      #{levelName,jdbcType=VARCHAR}, #{prizeId,jdbcType=INTEGER}, #{prizeName,jdbcType=VARCHAR}, 
+      #{members,jdbcType=VARCHAR}, #{instructor,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tech.pojo.Excellent">
     insert into tbl_excellent
@@ -52,133 +45,142 @@
       <if test="id != null">
         id,
       </if>
-      <if test="enrollId != null">
-        enroll_id,
+      <if test="year != null">
+        year,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="competeId != null">
+        compete_id,
+      </if>
+      <if test="competeName != null">
+        compete_name,
+      </if>
+      <if test="competeLevel != null">
+        compete_level,
+      </if>
+      <if test="levelName != null">
+        level_name,
       </if>
       <if test="prizeId != null">
         prize_id,
       </if>
-      <if test="coverUrl != null">
-        cover_url,
+      <if test="prizeName != null">
+        prize_name,
       </if>
-      <if test="finishTime != null">
-        finish_time,
+      <if test="members != null">
+        members,
       </if>
-      <if test="author != null">
-        author,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-      <if test="introduce != null">
-        introduce,
+      <if test="instructor != null">
+        instructor,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="enrollId != null">
-        #{enrollId,jdbcType=INTEGER},
+      <if test="year != null">
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="competeId != null">
+        #{competeId,jdbcType=INTEGER},
+      </if>
+      <if test="competeName != null">
+        #{competeName,jdbcType=VARCHAR},
+      </if>
+      <if test="competeLevel != null">
+        #{competeLevel,jdbcType=INTEGER},
+      </if>
+      <if test="levelName != null">
+        #{levelName,jdbcType=VARCHAR},
       </if>
       <if test="prizeId != null">
         #{prizeId,jdbcType=INTEGER},
       </if>
-      <if test="coverUrl != null">
-        #{coverUrl,jdbcType=VARCHAR},
+      <if test="prizeName != null">
+        #{prizeName,jdbcType=VARCHAR},
       </if>
-      <if test="finishTime != null">
-        #{finishTime,jdbcType=TIMESTAMP},
+      <if test="members != null">
+        #{members,jdbcType=VARCHAR},
       </if>
-      <if test="author != null">
-        #{author,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="introduce != null">
-        #{introduce,jdbcType=LONGVARCHAR},
+      <if test="instructor != null">
+        #{instructor,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tech.pojo.Excellent">
     update tbl_excellent
     <set>
-      <if test="enrollId != null">
-        enroll_id = #{enrollId,jdbcType=INTEGER},
+      <if test="year != null">
+        year = #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="competeId != null">
+        compete_id = #{competeId,jdbcType=INTEGER},
+      </if>
+      <if test="competeName != null">
+        compete_name = #{competeName,jdbcType=VARCHAR},
+      </if>
+      <if test="competeLevel != null">
+        compete_level = #{competeLevel,jdbcType=INTEGER},
+      </if>
+      <if test="levelName != null">
+        level_name = #{levelName,jdbcType=VARCHAR},
       </if>
       <if test="prizeId != null">
         prize_id = #{prizeId,jdbcType=INTEGER},
       </if>
-      <if test="coverUrl != null">
-        cover_url = #{coverUrl,jdbcType=VARCHAR},
+      <if test="prizeName != null">
+        prize_name = #{prizeName,jdbcType=VARCHAR},
       </if>
-      <if test="finishTime != null">
-        finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      <if test="members != null">
+        members = #{members,jdbcType=VARCHAR},
       </if>
-      <if test="author != null">
-        author = #{author,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="introduce != null">
-        introduce = #{introduce,jdbcType=LONGVARCHAR},
+      <if test="instructor != null">
+        instructor = #{instructor,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tech.pojo.Excellent">
-    update tbl_excellent
-    set enroll_id = #{enrollId,jdbcType=INTEGER},
-      prize_id = #{prizeId,jdbcType=INTEGER},
-      cover_url = #{coverUrl,jdbcType=VARCHAR},
-      finish_time = #{finishTime,jdbcType=TIMESTAMP},
-      author = #{author,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      introduce = #{introduce,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
   <update id="updateByPrimaryKey" parameterType="com.tech.pojo.Excellent">
     update tbl_excellent
-    set enroll_id = #{enrollId,jdbcType=INTEGER},
+    set year = #{year,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      compete_id = #{competeId,jdbcType=INTEGER},
+      compete_name = #{competeName,jdbcType=VARCHAR},
+      compete_level = #{competeLevel,jdbcType=INTEGER},
+      level_name = #{levelName,jdbcType=VARCHAR},
       prize_id = #{prizeId,jdbcType=INTEGER},
-      cover_url = #{coverUrl,jdbcType=VARCHAR},
-      finish_time = #{finishTime,jdbcType=TIMESTAMP},
-      author = #{author,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      prize_name = #{prizeName,jdbcType=VARCHAR},
+      members = #{members,jdbcType=VARCHAR},
+      instructor = #{instructor,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectAllCount" resultType="java.lang.Integer">
     select count(*) from tbl_excellent
   </select>
-  <select id="selectAll" resultMap="ResultMapWithDetail">
+  <select id="selectAll" resultMap="BaseResultMap">
     select
-    ex.id, enroll_id, prize_id, cover_url, finish_time, author, ex.create_time, ex.update_time
-    ,
-    <include refid="Blob_Column_List" />,title_enroll
-    from tbl_excellent ex,tbl_enroll en where ex.enroll_id = en.id
+    <include refid="Base_Column_List" />
+    from tbl_excellent
   </select>
-  <select id="selectByPrimaryKeyWithTitle" resultMap="ResultMapWithDetail" parameterType="int">
+  <select id="selectByLevelId" resultMap="BaseResultMap">
     select
-    ex.id, enroll_id, prize_id, cover_url, finish_time, author, ex.create_time, ex.update_time
-    ,
-    <include refid="Blob_Column_List" />,title_enroll
-    from tbl_excellent ex,tbl_enroll en where ex.enroll_id = en.id and ex.id = #{id}
+    <include refid="Base_Column_List" />
+    from tbl_excellent where compete_level = #{id}
   </select>
-
-  <select id="selectNumberOfPeopleByPrizeID" resultType="java.lang.Integer" parameterType="int">
-    select count(*) from vm_excellent where prize_id = #{id}
+    <select id="selectGetPrizeItemCountByLevelId" resultType="java.lang.Integer">
+      select count(*) from tbl_excellent where compete_level = #{id}
+    </select>
+  <select id="selectNumberOfPeopleByPrizeIDLevelID" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_excellent where compete_level = #{levelId} and prize_id = #{prizeId}
   </select>
 </mapper>

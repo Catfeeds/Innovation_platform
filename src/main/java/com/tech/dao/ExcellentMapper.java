@@ -1,6 +1,7 @@
 package com.tech.dao;
 
 import com.tech.pojo.Excellent;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,15 +16,15 @@ public interface ExcellentMapper {
 
     int updateByPrimaryKeySelective(Excellent record);
 
-    int updateByPrimaryKeyWithBLOBs(Excellent record);
-
     int updateByPrimaryKey(Excellent record);
 
     int selectAllCount();
 
     List<Excellent> selectAll();
 
-    Excellent selectByPrimaryKeyWithTitle(Integer id);
+    List<Excellent> selectByLevelId(Integer id);
 
-    int selectNumberOfPeopleByPrizeID(Integer id);
+    int selectGetPrizeItemCountByLevelId(Integer id);
+
+    List<Excellent> selectNumberOfPeopleByPrizeIDLevelID(@Param("prizeId") Integer id,@Param("levelId") Integer levelId);
 }

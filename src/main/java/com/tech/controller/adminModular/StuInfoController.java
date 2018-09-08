@@ -44,5 +44,19 @@ public class StuInfoController {
         return Json.toJson(map);
     }
 
+    @RequestMapping(value = "/student_search",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String studentSearch(Integer page,Integer limit,String key){
+        int count = studentService.getSearchCount(key);
+        PageHelper.startPage(page,limit);
+        List<Student> list = studentService.getSearch(key);
+        Map<String, Object> map = new HashMap<>();
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",count);
+        map.put("data", list);
+        return Json.toJson(map);
+    }
+
 
 }

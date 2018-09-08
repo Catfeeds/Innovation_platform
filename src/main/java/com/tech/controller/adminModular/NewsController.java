@@ -1,7 +1,6 @@
 package com.tech.controller.adminModular;
 
 import com.github.pagehelper.PageHelper;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.tech.common.Const;
 import com.tech.common.ServerResponse;
 import com.tech.pojo.Admin;
@@ -41,6 +40,20 @@ public class NewsController {
         PageHelper.startPage(page,limit);
         List<News> list = newsService.getAllKindNews(typeNew);
         int count = newsService.getKindNewsCount(typeNew);
+        Map<String, Object> map = new HashMap<>();
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",count);
+        map.put("data", list);
+        return Json.toJson(map);
+    }
+
+    @RequestMapping(value = "/news_search",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String newsSearch(Integer page,Integer limit,String key,Integer newsTypeId){
+        PageHelper.startPage(page,limit);
+        List<News> list = newsService.getSearchNewsByKey(key,newsTypeId);
+        int count = newsService.getSearchNewsByKeyCount(key,newsTypeId);
         Map<String, Object> map = new HashMap<>();
         map.put("code",0);
         map.put("msg","");

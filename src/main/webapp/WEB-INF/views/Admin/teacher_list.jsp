@@ -60,30 +60,38 @@
 		}).resize();
 
 
-            table.render({
-                elem: '#List',
-                url: '/manage/teacher_list.do',
-                method: 'post',
-                limit: 10,
-                cols: [[
-                    {title: '序号',width:100,align:'center',type:'numbers'},
-                    {field:'id', title: '序号',align:'center',sort:true,hide:'true'},
-                    {field:'nameTeacher', title: '教师姓名',align:'center'},
-                    {field:'occupationCall', title: '职称',align:'center'},
-                    {field:'imageUrl', title: '照片',align:'center',templet:function(d) {
-                        return '<img src="' + d.imageUrl + '" style="height: 80px"/>';
-                    }},
-                    {field:'researchDirection', title: '研究方向',align:'center'},
-                    {field:'phone',title: '联系方式',align:'center'},
-                    {field:'email', title: '邮箱',align:'center'},
-                    {field:'introduce', title: '介绍内容',align:'center'},
-                    {title: '操作',width:200,align:'center',toolbar: '#bar',fixed:'right'},
-                ]],
-                page: true,
-                done: function (res, curr, count) {
+		table.render({
+			id:'search_tb',
+			elem: '#List',
+			url: '/manage/teacher_list.do',
+			method: 'post',
+			limit: 10,
+			cols: [[
+				{title: '序号',width:100,align:'center',type:'numbers'},
+				{field:'id', title: '序号',align:'center',sort:true,hide:'true'},
+				{field:'nameTeacher', title: '教师姓名',align:'center'},
+				{field:'occupationCall', title: '职称',align:'center'},
+				{field:'imageUrl', title: '照片',align:'center',templet:function(d) {
+					return '<img src="' + d.imageUrl + '" style="height: 80px"/>';
+				}},
+				{field:'researchDirection', title: '研究方向',align:'center'},
+				{field:'phone',title: '联系方式',align:'center'},
+				{field:'email', title: '邮箱',align:'center'},
+				{field:'introduce', title: '介绍内容',align:'center'},
+				{title: '操作',width:200,align:'center',toolbar: '#bar',fixed:'right'},
+			]],
+			page: true,
+			done: function (res, curr, count) {
 
-                }
+			}
+		});
+
+        $(".search_btn").click(function() {
+            table.reload('search_tb', {
+                url: '/manage/teacher_search.do'
+                , where: {key: $(".search_input").val()}
             });
+        });
 
             table.on('tool(ListID)', function(obj){
                 var data = obj.data;

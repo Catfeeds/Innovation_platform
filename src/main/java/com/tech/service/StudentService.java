@@ -84,4 +84,16 @@ public class StudentService {
         }
         return ServerResponse.createByErrorMessage("更新头像失败");
     }
+
+    public int getSearchCount(String key) {
+        return studentMapper.selectSearchCount(key);
+    }
+
+    public List<Student> getSearch(String key) {
+        List<Student> list = studentMapper.selectSearch(key);
+        for (Student s:list) {
+            s.setParticipateCount(memberMapper.selectCountBySno(s.getSno()));
+        }
+        return list;
+    }
 }

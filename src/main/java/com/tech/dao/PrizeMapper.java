@@ -18,4 +18,6 @@ public interface PrizeMapper {
     int updateByPrimaryKey(Prize record);
 
     List<Prize> selectAll();
+
+    Integer selectIdByName(String prizeName);
 }

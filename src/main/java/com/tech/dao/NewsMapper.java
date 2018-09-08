@@ -29,4 +29,8 @@ public interface NewsMapper {
     String selectTypeName(Integer typeNewsId);
 
     String selectTypeNameByNewsId(Integer newsID);
+
+    List<News> selectSearchNewsByKey(@Param("key") String key, @Param("newsTypeId") Integer newsTypeId);
+
+    int selectSearchNewsByKeyCount(@Param("key") String key, @Param("newsTypeId") Integer newsTypeId);
 }

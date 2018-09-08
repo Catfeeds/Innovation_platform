@@ -57,4 +57,12 @@ public class DownloadFileService {
     public DownloadFile getById(Integer id) {
         return downloadFileMapper.selectByPrimaryKey(id);
     }
+
+    public int getSeachCountByKey(String key) {
+        return downloadFileMapper.selectSeachCountByKey(key);
+    }
+
+    public List<DownloadFile> getSeachByKey(String key) {
+        return downloadFileMapper.selectSeachByKey(key);
+    }
 }

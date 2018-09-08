@@ -20,8 +20,43 @@
     		cursor: pointer;	
     	}
          .tabula-box{
-             min-height: 530px;
+             min-height: 550px;
          }
+
+        .search-box {
+            width: 100%;
+            height: 20px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .search-box .input-text {
+            width: 120px;
+            height: 15px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 5px 30px 5px 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            background: #fff;
+        }
+
+        .search-box .input-submit {
+            width: 25px;
+            height: 25px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            border: 1px solid #ccc;
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+        .search-box .search-select{
+            height: 26px;
+            margin-left:550px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
     </style>
 </head>
 
@@ -51,7 +86,18 @@
     
     <div class="content-box" style="min-height: 470px">
     	<h1>下载专区</h1>
-		<input id="count" type="hidden" value="${count}">
+        <div class="search-box">
+            <select class="search-select">
+                <option >全部</option>
+                <option >2018</option>
+                <option >2017</option>
+                <option >2016</option>
+                <option >2015</option>
+            </select>
+            <input type="text" name="textfield" id="textfield" class="input-text" placeholder="请输入关键词">
+            <input type="image" src="images/search.png" class="input-submit" />
+        </div>
+        <input id="count" type="hidden" value="${count}">
 		<table style="width: 100%;" id="data_fill">
         	<tr>
         		<th style="width: 5%;">序号</th>

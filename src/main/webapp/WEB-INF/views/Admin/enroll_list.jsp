@@ -34,6 +34,7 @@
         var table = layui.table;
 
         table.render({
+			id:'search_tb',
             elem: '#List',
             url: '/manage/enroll_list.do',
             method: 'post',
@@ -41,10 +42,10 @@
             cols: [[
                 {title: '序号',width:100,align:'center',type:'numbers'},
                 {field:'enrollId', title: '报名表ID',align:'center',hide:'true'},
-                {field:'competeName', title: '赛事名称',align:'center'},
+                {field:'competeName', title: '赛事名称',align:'center',sort:true},
                 {field:'title', title: '参赛题目',align:'center'},
                 {field:'members', title: '团队成员',align:'center',templet:'#members'},
-                {field:'instructor', title: '指导老师',align:'center'},
+                {field:'instructor', title: '指导老师',align:'center',sort:true},
                 {field:'status',title: '状态',align:'center',templet:'#status'},
                 {title: '操作',width:150,align:'center',toolbar: '#bar',fixed:'right'}
             ]],
@@ -52,6 +53,13 @@
             done: function (res, curr, count) {
 
             }
+        });
+
+        $(".search_btn").click(function() {
+            table.reload('search_tb', {
+                url: '/manage/enroll_search.do'
+                , where: {key: $(".search_input").val()}
+            });
         });
 
         table.on('tool(ListID)', function(obj){

@@ -19,19 +19,19 @@
 </head>
 <body class="childrenBody">
 	<blockquote class="layui-elem-quote news_search">
-		<div class="layui-inline">
-		    <div class="layui-input-inline">
-		    	<input type="text" value="" placeholder="请输入关键字" class="layui-input search_input">
-		    </div>
-		    <a class="layui-btn search_btn">查询</a>
-		</div>
+		<%--<div class="layui-inline">--%>
+		    <%--<div class="layui-input-inline">--%>
+		    	<%--<input type="text" value="" placeholder="请输入关键字" class="layui-input search_input">--%>
+		    <%--</div>--%>
+		    <%--<a class="layui-btn search_btn">查询</a>--%>
+		<%--</div>--%>
 		<div class="layui-inline">
 			<a class="layui-btn layui-btn-normal newsAdd_btn">添加赛事介绍</a>
 		</div>
 		
-		<div class="layui-inline">
-			<a class="layui-btn layui-btn-danger batchDel">批量删除</a>
-		</div>
+		<%--<div class="layui-inline">--%>
+			<%--<a class="layui-btn layui-btn-danger batchDel">批量删除</a>--%>
+		<%--</div>--%>
 	</blockquote>
 
 	<table id="matchList" lay-filter="matchListID"></table>
@@ -59,31 +59,38 @@
 			})
 		}).resize();
 
+		table.render({
+			id:'search_tb',
+			elem: '#matchList',
+			url: '${cpath}/manage/match_list.do',
+			method: 'post',
+			limit: 10,
+			size:'lg',
+			cols: [[
+				{title: '序号',width:100,align:'center',type:'numbers'},
+				{field:'id', title: '序号',align:'center',sort:true,hide:'true'},
+				{field:'nameMatch', title: '大赛名称',align:'center'},
+				{field:'levelName', title: '赛事级别',align:'center'},
+				{field:'imgUrl', title: '封面',align:'center',templet:function(d) {
+					return '<img src="' + d.imgUrl + '" />';
+				}},
+				{field:'linkUrl', title: '官网链接',align:'center'},
+				{field:'createTime', title: '发布时间',align:'center'},
+				{field:'priority', title: '封面优先级',align:'center',edit:'text'},
+				{title: '操作',width:200,align:'center',toolbar: '#bar',fixed:'right'},
+			]],
+			page: true,
+			done: function (res, curr, count) {
 
-            table.render({
-                elem: '#matchList',
-                url: '${cpath}/manage/match_list.do',
-                method: 'post',
-                limit: 10,
-				size:'lg',
-                cols: [[
-                    {title: '序号',width:100,align:'center',type:'numbers'},
-                    {field:'id', title: '序号',align:'center',sort:true,hide:'true'},
-                    {field:'nameMatch', title: '大赛名称',align:'center'},
-                    {field:'levelName', title: '赛事级别',align:'center'},
-                    {field:'imgUrl', title: '封面',align:'center',templet:function(d) {
-                        return '<img src="' + d.imgUrl + '" />';
-                    }},
-                    {field:'linkUrl', title: '官网链接',align:'center'},
-                    {field:'createTime', title: '发布时间',align:'center'},
-                    {field:'priority', title: '封面优先级',align:'center',edit:'text'},
-                    {title: '操作',width:200,align:'center',toolbar: '#bar',fixed:'right'},
-                ]],
-                page: true,
-                done: function (res, curr, count) {
+			}
+		});
 
-                }
+        $(".search_btn").click(function() {
+            table.reload('search_tb', {
+                url: '/manage/match_search.do'
+                , where: {key: $(".search_input").val()}
             });
+        });
 
             table.on('tool(matchListID)', function(obj){
                 var data = obj.data;

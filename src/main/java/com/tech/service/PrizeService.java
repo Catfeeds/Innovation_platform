@@ -17,4 +17,13 @@ public class PrizeService {
         List<Prize> list = prizeMapper.selectAll();
         return ServerResponse.createBySuccess(list);
     }
+
+    public Integer getIdByName(String prizeName) {
+        return prizeMapper.selectIdByName(prizeName);
+    }
+
+    public List<Prize> getAll() {
+        List<Prize> list = prizeMapper.selectAll();
+        return list;
+    }
 }

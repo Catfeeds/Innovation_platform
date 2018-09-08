@@ -21,7 +21,7 @@
 	<blockquote class="layui-elem-quote news_search">
 		<div class="layui-inline">
 		    <div class="layui-input-inline">
-		    	<input type="text" value="" placeholder="请输入关键字" class="layui-input search_input">
+		    	<input type="text" value="" placeholder="请输入作品标题" class="layui-input search_input">
 		    </div>
 		    <a class="layui-btn search_btn">查询</a>
 		</div>
@@ -58,6 +58,7 @@
         }).resize();
 
         table.render({
+			id:'search_tb',
             elem: '#downloadList',
             url: '${cpath}/manage/download_list.do',
             method: 'post',
@@ -65,17 +66,24 @@
             cols: [[
                 {title: '序号',align:'center',width:100,type:'numbers'},
                 {field:'id', title: '序号',align:'center',sort:true,hide:'true'},
-                {field:'nameMatch', title: '大赛名称',align:'center'},
+                {field:'nameMatch', title: '大赛名称',align:'center',sort:true},
                 {field:'titleWork', title: '作品标题',align:'center'},
                 {field:'author', title: '作者姓名',align:'center'},
                 {field:'instructor', title: '指导老师',align:'center'},
-                {field:'attachment',title: '附件',align:'center',templet:'#attach'},
+                {field:'attachment',title: '附件',align:'center',templet:'#attach',sort:true},
                 {title: '操作',width:200,align:'center',toolbar: '#bar',fixed:'right'},
             ]],
             page: true,
             done: function (res, curr, count) {
 
             }
+        });
+
+        $(".search_btn").click(function() {
+            table.reload('search_tb', {
+                url: '/manage/download_search.do'
+                , where: {key: $(".search_input").val()}
+            });
         });
 
         table.on('tool(downloadListID)', function(obj){

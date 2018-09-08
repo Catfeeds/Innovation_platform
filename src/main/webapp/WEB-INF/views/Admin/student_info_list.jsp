@@ -34,6 +34,7 @@
         var table = layui.table;
 
         table.render({
+			id:'search_tb',
             elem: '#List',
             url: '${cpath}/manage/student_info_list.do',
             method: 'post',
@@ -46,9 +47,9 @@
                 {field:'phone', title: '联系电话',align:'center'},
                 {field:'qq', title: 'QQ',align:'center'},
                 {field:'email',title: '邮箱',align:'center'},
-                {field:'participateCount', title: '已参与项目数',templet:'#count',sort:true},
+                {field:'participateCount', title: '已参与项目数',templet:'#count',sort:true,width:145},
                 {field:'password', title: '登录密码',align:'center'},
-                {title: '操作',width:200,align:'center',toolbar: '#bar',fixed:'right'},
+                {title: '操作',width:150,align:'center',toolbar: '#bar',fixed:'right'}
             ]],
             page: true,
             done: function (res, curr, count) {
@@ -56,6 +57,12 @@
             }
         });
 
+        $(".search_btn").click(function() {
+            table.reload('search_tb', {
+                url: '/manage/student_search.do'
+                , where: {key: $(".search_input").val()}
+            });
+        });
 
         table.on('tool(ListID)', function(obj){
             var data = obj.data;
@@ -67,7 +74,7 @@
                         url:'${cpath}/manage/xxxx/'+data.id+".do",
                         type:'post',
                         success : function(data) {
-                            if(data.status==0){
+                            if(data.status === 0){
                                 obj.del();
                                 layer.msg(data.msg);
                             }

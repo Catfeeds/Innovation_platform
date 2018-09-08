@@ -56,4 +56,12 @@ public class GoodWorkService {
     public int getAllCount() {
         return goodWorkMapper.selectAllCount();
     }
+
+    public int getSearcgCount(String key) {
+        return goodWorkMapper.selectSeachCount(key);
+    }
+
+    public List<GoodWork> getSeach(String key) {
+        return goodWorkMapper.selectSearch(key);
+    }
 }

@@ -172,4 +172,27 @@ public class EnrollService {
             return ServerResponse.createByErrorDataMessage("时间校验成功,当前系统时间"+now,now);
         }
     }
+
+    public int getSearchCount(String key) {
+        return enrollMapper.selectSearchCount(key);
+    }
+
+    public List<Item> getSeach(String key) {
+        List<Item> list = enrollMapper.selectSeach(key);
+        for (Item item:list) {
+            List<Member> members  = memberMapper.selectMembersIncludeNameByGid(item.getGroupId());
+            item.setMembers(members);
+        }
+        return list;
+    }
+
+    /**
+     * 获取Enroll ID
+     * @param competeId
+     * @param title
+     * @return
+     */
+    public Integer getIdByCIdAndTitle(Integer competeId, String title) {
+        return enrollMapper.selectIdByCIdAndTitle(competeId,title);
+    }
 }

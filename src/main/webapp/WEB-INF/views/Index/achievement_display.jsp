@@ -14,50 +14,85 @@
 	<script src="/js/jquery-1.8.3.min.js"></script>
 	<script src="/static/layui/layui.js"></script>
 <style type="text/css">
-
 	.tabula-box{
-		min-height: 650px;
+		min-height: 680px;
 	}
 
-.product{
-	width: 100%;
-	height: 180px;
-	overflow: hidden;
-	border: 1px solid #CCCCCC;
-	border-radius: 5px;
-	margin-bottom: 12px;
-}	
-.product img{
-	width: 250px;
-	height: 150px;
-	float: left;
-	margin: 12px;
-}
-.product_detail{
-	width:60% ;
-	min-height: 10px;	
-	float: right;
-	margin-top: 12px;
-	margin-right:30px;
-}
-.product_detail p{
-	margin: 2px;
-}
-.index1-right {
-	width: 100%;
-	height: 170px;
-	float: left;
-	margin-bottom: 15px;
-	overflow: hidden;
-	
-}
+	.product{
+		width: 100%;
+		height: 180px;
+		overflow: hidden;
+		border: 1px solid #CCCCCC;
+		border-radius: 5px;
+		margin-bottom: 12px;
+	}
+	.product img{
+		width: 250px;
+		height: 150px;
+		float: left;
+		margin: 12px;
+	}
+	.product_detail{
+		width:60% ;
+		min-height: 10px;
+		float: right;
+		margin-top: 12px;
+		margin-right:30px;
+	}
+	.product_detail p{
+		margin: 2px;
+	}
+	.index1-right {
+		width: 100%;
+		height: 170px;
+		float: left;
+		margin-bottom: 15px;
+		overflow: hidden;
 
+	}
 
-.index1-right p a {
-	margin-left: 20px;
-	color: #0aa6d6;
-	font-size: 12px;
-}
+	.index1-right p a {
+		margin-left: 20px;
+		color: #0aa6d6;
+		font-size: 12px;
+	}
+	.search-box {
+		/*margin-left: 167px;*/
+		width: 100%;
+		height: 37px;
+		position: relative;
+	}
+	.search-box .input-text {
+		width: 120px;
+		height: 15px;
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding: 5px 30px 5px 5px;
+		border: 1px solid #ccc;
+		border-radius: 3px;
+		background: #fff;
+	}
+
+	.search-box .input-submit {
+		width: 25px;
+		height: 25px;
+		position: absolute;
+		top: 0;
+		right: 0;
+		border: 1px solid #ccc;
+		border-top-right-radius: 3px;
+		border-bottom-right-radius: 3px;
+	}
+	.search-box .search-select{
+		margin-left:460px;
+
+	}
+	.search-select select{
+		height: 26px;
+		border-radius: 3px;
+		border: 1px solid #ccc;
+	}
 </style>
 </head>
 
@@ -88,37 +123,31 @@
     
     <div class="content-box" id="data_fill" style="min-height: 661px">
     	<h1>成果展示</h1>
-		<%--<c:forEach var="goodWork" items="${requestScope.goodWorks}">--%>
-			<%--<div class="product">--%>
-				<%--<img src="/images/robomaster.png" />--%>
-				<%--<div class="product_detail">--%>
-					<%--<h2>项目名称：${goodWork.itemName}</h2>--%>
-					<%--<p>完成时间：<fmt:formatDate value="${goodWork.finishTime}" pattern="yyyy-MM-dd" /></p>--%>
-
-					<%--<div class="index1-right">--%>
-						<%--<p>赛事介绍：${fn:substring(goodWork.introduce,0,100)}...<a href="achievement/${goodWork.id}.html" target="_blank">查看更多...</a></p>--%>
-					<%--</div>--%>
-
-				<%--</div>--%>
-			<%--</div>--%>
-		<%--</c:forEach>--%>
-    	<%--<div class="product">--%>
-    		<%--<img src="/images/robomaster.png" />--%>
-    		<%--<div class="product_detail">--%>
-    		<%--<h2>项目名称：作品名称作品名称作品名称</h2>--%>
-    		<%--<p>完成时间：2017/12/12</p>--%>
-    		<%--<div class="index1-right">    	--%>
-        		<%--<p>赛事介绍：内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容...<a href="news.html" target="_blank">查看更多...</a></p>--%>
-    		<%--</div>--%>
-    		<%--</div>    		--%>
-    	<%--</div>--%>
-
+		<div class="search-box">
+			<span class="search-select">
+			<select>
+			<option >等级</option>
+			<option >国家级</option>
+			<option >省级</option>
+			<option >校级</option>
+			<option >院级</option>
+			</select>
+			</span>
+			<span class="search-select" style="margin-left: 10px;" >
+			<select >
+			<option >全部</option>
+			<option >一等奖</option>
+			<option >二等奖</option>
+			<option >三等奖</option>
+			</select>
+			</span>
+			<input type="text" name="textfield" id="textfield" class="input-text" placeholder="请输入大赛名称">
+			<input type="image" src="images/search.png" class="input-submit" />
+		</div>
 </div>
 	<div id="PageCode" style="text-align: center"></div>
-
 </div>
 
-   
     <!-- footer -->
     <div id="footer">
 		<div class="footer">

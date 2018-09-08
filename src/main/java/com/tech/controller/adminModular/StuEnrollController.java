@@ -2,7 +2,6 @@ package com.tech.controller.adminModular;
 
 import com.github.pagehelper.PageHelper;
 import com.tech.common.ServerResponse;
-import com.tech.pojo.Enroll;
 import com.tech.pojo.Item;
 import com.tech.service.EnrollService;
 import com.tech.service.StudentService;
@@ -59,7 +58,7 @@ public class StuEnrollController {
     }
 
     /**
-     * 所有报名项目  vw_item *
+     * 获取所有报名项目  vw_item *
      * @param page
      * @param limit
      * @return
@@ -78,8 +77,22 @@ public class StuEnrollController {
         return Json.toJson(map);
     }
 
+    @RequestMapping(value = "/enroll_search",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String itemEnrollList(Integer page,Integer limit,String key){
+        int count = enrollService.getSearchCount(key);
+        PageHelper.startPage(page,limit);
+        List<Item> list = enrollService.getSeach(key);
+        Map<String, Object> map = new HashMap<>();
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",count);
+        map.put("data", list);
+        return Json.toJson(map);
+    }
+
     /** 删除
-     * 已通过的报名项目 vw_item  status == 1  添加优秀作品模块
+     * 获取已经通过的报名项目 vw_item  status == 1  添加优秀作品模块
      * @param page
      * @param limit
      * @return
@@ -98,25 +111,6 @@ public class StuEnrollController {
         return Json.toJson(map);
     }
 
-    /**删除
-     * 已通过的报名项目且获奖项目 vw_excellent *   优秀作品管理模块
-     * @param page
-     * @param limit
-     * @return
-     */
-    @RequestMapping(value = "/pass_prize_enroll_list",produces = "text/html;charset=UTF-8")
-    @ResponseBody
-    public String itemPassPrizeEnrollList(Integer page,Integer limit){
-        int count = enrollService.getPassPrizeItemCount();
-        PageHelper.startPage(page,limit);
-        List<Item> list = enrollService.getPassPrizeItem();
-        Map<String, Object> map = new HashMap<>();
-        map.put("code",0);
-        map.put("msg","");
-        map.put("count",count);
-        map.put("data", list);
-        return Json.toJson(map);
-    }
 
     @RequestMapping("/enroll_agree")
     @ResponseBody

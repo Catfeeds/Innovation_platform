@@ -49,4 +49,12 @@ public class GoodTeacherService {
     public int getAllCount() {
         return goodTeacherMapper.selectAllCount();
     }
+
+    public int getSearchCount(String key) {
+        return goodTeacherMapper.selectSearchCount(key);
+    }
+
+    public List<GoodTeacher> getSeach(String key) {
+        return goodTeacherMapper.selectSearch(key);
+    }
 }

@@ -2,9 +2,11 @@ package com.tech.service;
 
 import com.tech.dao.ExcellentMapper;
 import com.tech.dao.MemberMapper;
-import com.tech.dao.PrizeMapper;
+import com.tech.pojo.Excellent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TotalService {
@@ -25,13 +27,29 @@ public class TotalService {
         return count;
     }
 
-    /**
-     * 从vm_excellent查询
-     * @param id
-     * @return
-     */
-    public int getNumberOfPeopleByPrizeID(Integer id) {
-        int count = excellentMapper.selectNumberOfPeopleByPrizeID(id);
+    public int getNumberOfPeopleByLevelID(Integer id) {
+        List<Excellent> list = excellentMapper.selectByLevelId(id);
+        int count = 0;
+        for (Excellent e:list) {
+            String members = e.getMembers();
+            String[] strings = members.split("、");
+            count += strings.length;
+        }
+        return count;
+    }
+
+    public int getNumberOfItemByLevelID(Integer id) {
+        return excellentMapper.selectGetPrizeItemCountByLevelId(id);
+    }
+
+    public int getNumberOfPeopleByPrizeIDLevelID(Integer id, Integer levelId) {
+        List<Excellent> list = excellentMapper.selectNumberOfPeopleByPrizeIDLevelID(id,levelId);
+        int count = 0;
+        for (Excellent e:list) {
+            String members = e.getMembers();
+            String[] strings = members.split("、");
+            count += strings.length;
+        }
         return count;
     }
 }

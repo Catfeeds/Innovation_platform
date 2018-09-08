@@ -60,5 +60,8 @@
     <include refid="Base_Column_List" />
     from tbl_levels
   </select>
+    <select id="selectIdByName" resultType="java.lang.Integer" parameterType="string">
+      select id from tbl_levels where level_name = #{levelName}
+    </select>
 
 </mapper>

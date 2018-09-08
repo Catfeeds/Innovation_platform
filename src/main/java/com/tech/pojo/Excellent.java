@@ -1,34 +1,45 @@
 package com.tech.pojo;
 
-import java.util.Date;
+import cn.afterturn.easypoi.excel.annotation.Excel;
 
 public class Excellent {
     private Integer id;
 
     private Integer enrollId;
 
+    @Excel(name="年份")
+    private String year;
+
+    @Excel(name="参赛题目")
+    private String title;
+
+    private Integer competeId;
+
+    @Excel(name="大赛名称")
+    private String competeName;
+
+    private Integer competeLevel;
+
+    @Excel(name="赛事级别")
+    private String levelName;
+
     private Integer prizeId;
 
-    private String coverUrl;
+    @Excel(name="获奖名次")
+    private String prizeName;
 
-    private Date finishTime;
+    @Excel(name="团队成员")
+    private String members;
 
-    private String author;
+    @Excel(name="指导老师")
+    private String instructor;
 
-    private Date createTime;
-
-    private Date updateTime;
-
-    private String introduce;
-
-    private String title;//主页优秀作品
-
-    public String getTitle() {
-        return title;
+    public Integer getEnrollId() {
+        return enrollId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setEnrollId(Integer enrollId) {
+        this.enrollId = enrollId;
     }
 
     public Integer getId() {
@@ -39,12 +50,52 @@ public class Excellent {
         this.id = id;
     }
 
-    public Integer getEnrollId() {
-        return enrollId;
+    public String getYear() {
+        return year;
     }
 
-    public void setEnrollId(Integer enrollId) {
-        this.enrollId = enrollId;
+    public void setYear(String year) {
+        this.year = year == null ? null : year.trim();
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title == null ? null : title.trim();
+    }
+
+    public Integer getCompeteId() {
+        return competeId;
+    }
+
+    public void setCompeteId(Integer competeId) {
+        this.competeId = competeId;
+    }
+
+    public String getCompeteName() {
+        return competeName;
+    }
+
+    public void setCompeteName(String competeName) {
+        this.competeName = competeName == null ? null : competeName.trim();
+    }
+
+    public Integer getCompeteLevel() {
+        return competeLevel;
+    }
+
+    public void setCompeteLevel(Integer competeLevel) {
+        this.competeLevel = competeLevel;
+    }
+
+    public String getLevelName() {
+        return levelName;
+    }
+
+    public void setLevelName(String levelName) {
+        this.levelName = levelName == null ? null : levelName.trim();
     }
 
     public Integer getPrizeId() {
@@ -55,51 +106,32 @@ public class Excellent {
         this.prizeId = prizeId;
     }
 
-    public String getCoverUrl() {
-        return coverUrl;
+    public String getPrizeName() {
+        return prizeName;
     }
 
-    public void setCoverUrl(String coverUrl) {
-        this.coverUrl = coverUrl == null ? null : coverUrl.trim();
+    public void setPrizeName(String prizeName) {
+        this.prizeName = prizeName == null ? null : prizeName.trim();
     }
 
-    public Date getFinishTime() {
-        return finishTime;
+    public String getMembers() {
+        return members;
     }
 
-    public void setFinishTime(Date finishTime) {
-        this.finishTime = finishTime;
+    public void setMembers(String members) {
+        this.members = members == null ? null : members.trim();
     }
 
-    public String getAuthor() {
-        return author;
+    public String getInstructor() {
+        return instructor;
     }
 
-    public void setAuthor(String author) {
-        this.author = author == null ? null : author.trim();
+    public void setInstructor(String instructor) {
+        this.instructor = instructor == null ? null : instructor.trim();
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public String getIntroduce() {
-        return introduce;
-    }
-
-    public void setIntroduce(String introduce) {
-        this.introduce = introduce == null ? null : introduce.trim();
+    @Override
+    public String toString() {
+        return "Excellent{" + "id=" + id + ", enrollId=" + enrollId + ", year='" + year + '\'' + ", title='" + title + '\'' + ", competeId=" + competeId + ", competeName='" + competeName + '\'' + ", competeLevel=" + competeLevel + ", levelName='" + levelName + '\'' + ", prizeId=" + prizeId + ", prizeName='" + prizeName + '\'' + ", members='" + members + '\'' + ", instructor='" + instructor + '\'' + '}';
     }
 }

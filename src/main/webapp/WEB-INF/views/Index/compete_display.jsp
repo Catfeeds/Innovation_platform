@@ -13,46 +13,9 @@
 	<link rel="stylesheet" type="text/css" href="/static/layui/css/layui.css">
 	<script src="/js/jquery-1.8.3.min.js"></script>
 	<script src="/static/layui/layui.js"></script>
-	<%--<style type="text/css">--%>
-	<%--.tabula-box{--%>
-		<%--min-height: 530px;--%>
-	<%--}--%>
-	<%--.test{--%>
-		<%--width: 280px;--%>
-		<%--float: left;--%>
-		<%--margin: 30px;--%>
-		<%--border: solid darkgray 1px;--%>
-		<%--padding-bottom: 10px;--%>
-		<%--border-radius: 5px;--%>
-	<%--}--%>
-	<%--.test img{--%>
-		<%--width: 260px;--%>
-		<%--height: 200px;--%>
-		<%--margin: 10px;--%>
-	<%--}--%>
-		<%--.test h2{--%>
-		<%--font-size: 15px;--%>
-		<%--font-weight: bold;--%>
-		<%--padding: 5px 10px;--%>
-	<%--}--%>
-	<%--.test .time{--%>
-		<%--padding:5px 10px ;--%>
-		<%--font-weight: bold;--%>
-	<%--}--%>
-	<%--.test p{--%>
-		<%--padding:5px 10px ;--%>
-	<%--}--%>
-	<%--.test input{--%>
-		<%--width: 100px;--%>
-		<%--margin: 10px 80px;--%>
-		<%--border: 1px solid gray;--%>
-		<%--border-radius: 5px;--%>
-	<%--}	--%>
-<%--</style>--%>
-
 	<style type="text/css">
 		.tabula-box{
-			min-height: 650px;
+			min-height: 670px;
 		}
 
 		.product{
@@ -99,6 +62,41 @@
 			color: #0aa6d6;
 			font-size: 12px;
 		}
+
+		.search-box {
+			width: 100%;
+			height: 20px;
+			position: relative;
+			margin-bottom: 20px;
+		}
+		.search-box .input-text {
+			width: 120px;
+			height: 15px;
+			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 5px 30px 5px 5px;
+			border: 1px solid #ccc;
+			border-radius: 3px;
+			background: #fff;
+		}
+
+		.search-box .input-submit {
+			width: 25px;
+			height: 25px;
+			position: absolute;
+			top: 0;
+			right: 0;
+			border: 1px solid #ccc;
+			border-top-right-radius: 3px;
+			border-bottom-right-radius: 3px;
+		}
+		.search-box .search-select{
+			height: 26px;
+			margin-left:550px;
+			border: 1px solid #ccc;
+			border-radius: 3px;
+		}
 	</style>
 </head>
 
@@ -129,34 +127,20 @@
     
     <div class="content-box" id="data_fill" style="min-height: 420px">
     	<h1>赛事介绍</h1>
-		<%--<c:forEach var="match" items="${requestScope.match}">--%>
-			<%--<div class="test">--%>
-				<%--<img src="${match.imgUrl}" />--%>
-				<%--<h2>大赛名称：${match.nameMatch}</h2>--%>
-				<%--<p class="time">报名时间：<span><fmt:formatDate value="${match.startTime}" pattern="yyyy-MM-dd" />-<fmt:formatDate value="${match.endTime}" pattern="yyyy-MM-dd" /></span></p>--%>
-				<%--<p>赛事简介：${fn:substring(match.introduce, 0, 100)}...</p>--%>
-				<%--<div class="layui-inline">--%>
-					<%--<a href="compete/${match.id}.html"><input  type="button"  value="详情"  /></a>--%>
-				<%--</div>--%>
-			<%--</div>--%>
-		<%--</c:forEach>--%>
-        <%--<div class="test">--%>
-				<%--<img src="/images/robomaster.png" />--%>
-				<%--<h2>大赛名称：大赛名称大赛名称大赛名称</h2>--%>
-				<%--<p class="time">报名时间：<span>2017/12/12-2017/12/13</span></p>--%>
-				<%--<p>赛事简介：赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介--%>
-					<%--赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介赛事简介</p>--%>
-				<%--<div class="layui-inline">--%>
-					<%--<a href="news.html"><input  type="button"  value="详情"  /></a>--%>
-				<%--</div>--%>
-		<%--</div>--%>
-
+		<div class="search-box">
+			<select class="search-select">
+				<option >全部</option>
+				<option >国家级</option>
+				<option >省级</option>
+				<option >校级</option>
+				<option >院级</option>
+			</select>
+			<input type="text" name="textfield" id="textfield" class="input-text" placeholder="请输入关键词">
+			<input type="image" src="images/search.png" class="input-submit" />
+		</div>
 	</div>
 			<div id="PageCode" style="text-align: center"></div>
-
 </div>
-
-   
     <!-- footer -->
     <div id="footer">
 		<div class="footer">

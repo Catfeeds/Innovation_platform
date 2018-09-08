@@ -24,4 +24,8 @@ public interface DownloadFileMapper {
     String getFileNameById(Integer id);
 
     int selectCount();
+
+    int selectSeachCountByKey(String key);
+
+    List<DownloadFile> selectSeachByKey(String key);
 }

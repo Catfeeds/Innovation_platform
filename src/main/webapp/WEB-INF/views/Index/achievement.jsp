@@ -20,8 +20,6 @@
     <!-- header end-->
     <!-- slide -->
     <div id="slide">
-        <div class="slide_top slide_about">
-        </div>
         <div class="top_slide_wrap about_pic">
             <ul class="slide_box bxslider">
                 <li>

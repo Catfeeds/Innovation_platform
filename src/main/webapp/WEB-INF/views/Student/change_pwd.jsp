@@ -39,13 +39,13 @@
 		<div class="layui-form-item">
 		    <label class="layui-form-label">新密码</label>
 		    <div class="layui-input-block">
-		    	<input name="newPwd" type="password" placeholder="请输入新密码" lay-verify="required|newPwd" id="fPwd" class="layui-input pwd">
+		    	<input name="newPwd" type="password" onchange="check()" placeholder="请输入新密码" lay-verify="required|pwd" id="fPwd" class="layui-input pwd">
 		    </div>
 		</div>
 		<div class="layui-form-item">
 		    <label class="layui-form-label">确认密码</label>
 		    <div class="layui-input-block">
-		    	<input name="confirmPwd" type="password" id="sPwd" onchange="check()"  placeholder="请确认密码" lay-verify="required|confirmPwd" class="layui-input pwd"><p id="message" style="color: red"></p>
+		    	<input name="confirmPwd" type="password" id="sPwd" onchange="check()"  placeholder="请确认密码" lay-verify="required|pwd" class="layui-input pwd"><p id="message" style="color: red"></p>
 		    </div>
 		</div>
 		<div class="layui-form-item">
@@ -58,8 +58,8 @@
 </body>
 <script type="text/javascript">
 	function check() {
-		var fPwd = $("#fPwd").val();
-		var sPwd = $("#sPwd").val();
+		var fPwd = $("#fPwd").val().trim();
+		var sPwd = $("#sPwd").val().trim();
 		if(fPwd!=sPwd){
             $("#message").html("");
 		    $("#message").append("两次密码不一致!");
@@ -73,10 +73,10 @@
             $ = layui.jquery;
 
         form.verify({
-            userLoginName: function(value, item){
+            pwd: function(value, item){
                 //验证登陆账号
-                if(!new RegExp("^[0-9A-Za-z_]{2,20}$").test(value)){
-                    return '登陆账号只能为英文、数字、下划线，长度2-20位';
+                if(!new RegExp("^[0-9A-Za-z]{6,20}$").test(value)){
+                    return '密码只能为英文、数字，长度6-20位';
                 }
             }
         });

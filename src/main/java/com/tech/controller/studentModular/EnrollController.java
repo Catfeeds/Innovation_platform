@@ -33,10 +33,20 @@ public class EnrollController {
     EnrollService enrollService;
 
     @RequestMapping("/to_enroll_edit/{id}")
-    public String toItemEdit(@PathVariable("id") Integer id, Model model){
+    public String toItemEdit(@PathVariable("id") Integer id, Model model,HttpSession session){
+        Student student = (Student) session.getAttribute(Const.CURRENT_USER);
+        if (student==null){
+            return "redirect:/login.html";
+        }
         Item item = enrollService.getItemByEnrollId(id);
         model.addAttribute("item",item);
-        return "Student/enroll_edit";
+        if(enrollService.isLeader(student,item)){
+            return "Student/enroll_edit";
+        }else if (enrollService.isGrouper(student,item)){
+            return "Student/enroll_detail";
+        }else{
+            return "redirect:/login.html";
+        }
     }
 
     /**
@@ -48,14 +58,15 @@ public class EnrollController {
     @RequestMapping("/enroll")
     @ResponseBody
     public ServerResponse enroll(Item item, HttpSession session){
-        //TODO 校验时间
-        ServerResponse resCheckTime = enrollService.checkTime(item);
-        if (!resCheckTime.isSuccess()){
-            return resCheckTime;
-        }
         Student student = (Student) session.getAttribute(Const.CURRENT_USER);
         if (student==null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"请登陆后尝试");
+        }
+        // 校验时间
+        // 判断参赛题目是否重复
+        ServerResponse resCheckTime = enrollService.check(item);
+        if (!resCheckTime.isSuccess()){
+            return resCheckTime;
         }
         item.setGrouper(student.getSno());
         ServerResponse<Group> serverResponse = groupService.addGroup(item.getGroupName());

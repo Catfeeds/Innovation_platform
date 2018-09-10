@@ -26,7 +26,7 @@
 	<%@include file="head.jsp"%>
 	<!-- header end-->
 	<!-- slide -->
-	<div id="slide">
+	<div id="index-slide">
 
 		<div class="top_slide_wrap">
 			<ul class="slide_box bxslider">
@@ -174,7 +174,7 @@
 								<c:forEach var="gw" items="${goodWorks}">
 									<li>
 										<a href="/achievement/${gw.id}.html">
-											<img src="${gw.coverUrl}" />
+											<img title="${gw.itemName}" src="${gw.coverUrl}" />
 										</a>
 									</li>
 								</c:forEach>
@@ -227,7 +227,7 @@
 			</div>
 		</div>
 		<div class="content2">
-			<div class="index_about clearFloat">
+			<div class="index_about clearFloat" id="good-teacher">
 				<div class="index_class index_teacher">
 					<h1 class="title_float"><a href="/teacher.html" target="_blank">优秀指导教师简介</a></h1>
 				</div>

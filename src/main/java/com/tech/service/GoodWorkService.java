@@ -64,4 +64,19 @@ public class GoodWorkService {
     public List<GoodWork> getSeach(String key) {
         return goodWorkMapper.selectSearch(key);
     }
+
+    public List<GoodWork> getSearch(String key, String condition1, String condition2) {
+        List<GoodWork> goodWorks = goodWorkMapper.selectSearchIndex(key,condition1,condition2);
+        String intro ;
+        for (GoodWork m:goodWorks) {
+            intro = m.getIntroduce().replaceAll("<(S*?)[^>]*>.*?|<.*? />", "").replaceAll("&.{2,6}?;", "");
+            intro = intro.length()>120?intro.substring(0,120):intro;
+            m.setIntroduce(intro);
+        }
+        return goodWorks;
+    }
+
+    public int getSearchCount(String key, String condition1, String condition2) {
+        return goodWorkMapper.selectSearchCountIndex(key,condition1,condition2);
+    }
 }

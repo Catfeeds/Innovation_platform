@@ -98,7 +98,7 @@
   </resultMap>
   <select id="selectMembersIncludeNameByGid" parameterType="int" resultMap="BaseResultMapIncludeName">
     select
-    id, m.sno, group_id, type_member,name_student
+    id, m.sno, group_id, type_member,name_student,classno
     from tbl_member m,tbl_student s where m.sno = s.sno and group_id = #{groupId}
   </select>
     <select id="selectLeaderByGid" resultType="com.tech.pojo.Member" parameterType="int">

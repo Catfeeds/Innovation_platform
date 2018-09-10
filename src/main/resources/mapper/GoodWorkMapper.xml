@@ -157,7 +157,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectAllGoodWorks" resultMap="BaseResultMap">
-    select * from tbl_good_work
+    select * from tbl_good_work order by id desc
   </select>
     <select id="selectAllCount" resultType="java.lang.Integer">
       select count(*) from tbl_good_work
@@ -174,6 +174,20 @@
     ,
     <include refid="Blob_Column_List" />
     from tbl_good_work
-    where item_name like CONCAT('%',#{key},'%')
+    where item_name like CONCAT('%',#{key},'%') order by id desc
+  </select>
+    <select id="selectSearchIndex" resultMap="BaseResultMap" parameterType="map">
+      select * from tbl_good_work  where
+      <if test="condition_year != null and condition_year != ''">
+        (YEAR(finish_time)) = #{condition_year} and
+      </if>
+        item_name like CONCAT('%',#{key},'%') order by id desc
+    </select>
+  <select id="selectSearchCountIndex" resultType="java.lang.Integer">
+    select count(*) from tbl_good_work  where
+    <if test="condition_year != null and condition_year != ''">
+      (YEAR(finish_time)) = #{condition_year} and
+    </if>
+    item_name like CONCAT('%',#{key},'%')
   </select>
 </mapper>

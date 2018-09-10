@@ -161,4 +161,20 @@
     from tbl_download_file
     where title_work like CONCAT('%',#{key},'%')
   </select>
+    <select id="selectSearchCount" resultType="java.lang.Integer">
+      select count(*) from tbl_download_file where
+      <if test="condition != null and condition != ''">
+      (YEAR(create_time)) = #{condition} and
+    </if>
+      title_work like CONCAT('%',#{key},'%')
+    </select>
+  <select id="selectSearch" resultMap="BaseResultMap" parameterType="map">
+    select
+    *
+    from tbl_download_file where
+    <if test="condition != null and condition != ''">
+      (YEAR(create_time)) = #{condition} and
+    </if>
+    title_work like CONCAT('%',#{key},'%')
+  </select>
 </mapper>

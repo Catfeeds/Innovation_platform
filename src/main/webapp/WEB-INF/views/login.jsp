@@ -67,32 +67,38 @@
 											<form id="login" name="login" method="post" action="#">
 												<fieldset>
 													<label class="inline" style="margin-right:30px;">
-	                                                    <input name="radio" type="radio" id="radio1" value="radio" class="ace" ><span class="lbl"> 学生登录</span>
+	                                                    <input  type="radio" id="radio1" value="radio" class="ace" checked><span class="lbl"> 学生登录</span>
                                                     </label>
                                                     <label class="inline">
-                                                        <input type="radio" name="radio" id="radio2" value="radio" class="ace" checked><span class="lbl"> 老师登录</span>
+                                                        <input type="radio"  id="radio2" value="radio" class="ace" ><span class="lbl"> 老师登录</span>
                                                     </label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input value="admin" id="username" type="text" class="form-control" placeholder="用户名" />
+															<input value="1800300818" id="username" name="username" type="text" class="form-control" placeholder="用户名" />
 															<i class="ace-icon fa fa-user"></i>
 													  </span>
 												  </label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input value="123456" id="password" type="password" class="form-control" placeholder="密码" />
+															<input value="123456" id="password" name="password" type="password" class="form-control" placeholder="密码" />
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
 													</label>
+
+													<label class="clearfix" style="width:100px;">
+														<span class="input-icon input-icon-right">
+															<input name="vCode" type="text" class="form-control" placeholder="验证码" />
+														</span>
+													</label>
+													<img id="code" src="${cpath}/makeCode.html" width="116" height="34">
 
 													<label class="block clearfix">
 														<span id="message" class="block input-icon input-icon-right" style="color: red;">
 															${message}
 														</span>
 													</label>
-
 													<%--<label class="block clearfix">--%>
 														<%--<span class="block input-icon input-icon-right">--%>
 															<%--<div class="code"><img src="${cpath}/makeCode.html" width="116" height="36"></div>--%>
@@ -166,10 +172,10 @@
             /**重新生成验证码*/
             function reqCaptcha() {
                 var url = "/makeCode.html?nocache=" + new Date().getTime()
-                $('.code img').attr("src",url)
+                $('#code').attr("src",url)
             }
             /**点击验证码重新生成*/
-            $('.code img').on('click', function () {
+            $('#code').on('click', function () {
                 reqCaptcha();
             });
 
@@ -188,10 +194,7 @@
                         $.ajax({
                             url:'/admin/login.do',
                             type:'post',
-                            data:{
-                                username:username_el.val(),
-                                password:password_el.val(),
-                            },
+                            data:$('#login').serialize(),
                             dataType:'json',
                             success : function(data) {
                                 if(data.status==1){
@@ -206,10 +209,7 @@
                         $.ajax({
                             url:'/stu/login.do',
                             type:'post',
-                            data:{
-                                sno:username_el.val(),
-                                password:password_el.val(),
-                            },
+                            data:$('#login').serialize(),
                             dataType:'json',
                             success : function(data) {
                                 if(data.status==1){

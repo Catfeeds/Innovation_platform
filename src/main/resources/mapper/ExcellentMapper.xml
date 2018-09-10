@@ -183,4 +183,16 @@
     <include refid="Base_Column_List" />
     from tbl_excellent where compete_level = #{levelId} and prize_id = #{prizeId}
   </select>
+  <select id="selectPrizePeopleCountByCompeteLevel" resultType="java.lang.Integer">
+      select count(*) from vm_excellent where compete_level = #{levelId}
+   </select>
+  <select id="selectPrizeItemCountByCompeteLevel" resultType="java.lang.Integer">
+      select count(*) from vw_excellent where compete_level = #{levelId}
+  </select>
+  <select id="selectPrizePeopleCountByLevelIdPrizeId" resultType="java.lang.Integer">
+      select count(*) from vm_excellent where compete_level = #{levelId} and prize_id = #{prizeId}
+  </select>
+  <select id="selectPrizeItemCountByLevelIdPrizeId" resultType="java.lang.Integer">
+      select count(*) from vw_excellent where compete_level = #{levelId} and prize_id = #{prizeId}
+  </select>
 </mapper>

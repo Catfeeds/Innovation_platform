@@ -17,62 +17,6 @@
 	<link rel="stylesheet" href="${cpath}/static/css/user.css" media="all" />
 </head>
 <body class="childrenBody">
-<%--<div style="margin: 30px;width: 90%">--%>
-	<%--<c:forEach var="item" items="${items}" varStatus="status">--%>
-		<%--<fieldset class="layui-elem-field layui-field-title">--%>
-			<%--<legend>项目${status.index+1}</legend>--%>
-		<%--</fieldset>--%>
-		<%--<table class="layui-table">--%>
-			<%--<thead>--%>
-			<%--<tr>--%>
-				<%--<th>大赛名称</th>--%>
-				<%--<th>参赛项目</th>--%>
-				<%--<th>年份</th>--%>
-				<%--<th>赛事级别</th>--%>
-				<%--<th>团队名称</th>--%>
-				<%--<th>指导老师</th>--%>
-				<%--<th>获奖名次</th>--%>
-			<%--</tr>--%>
-			<%--</thead>--%>
-			<%--<tbody>--%>
-			<%--<tr>--%>
-				<%--<td>${item.competeName}</td>--%>
-				<%--<td>${item.title}</td>--%>
-				<%--<td>xx</td>--%>
-				<%--<td>${item.competeName}</td>--%>
-				<%--<td>${item.groupName}</td>--%>
-				<%--<td>${item.instructor}</td>--%>
-				<%--<td>xx</td>--%>
-			<%--</tr>--%>
-			<%--</tbody>--%>
-		<%--</table>--%>
-		<%--<br>--%>
-		<%--<table class="layui-table" style="table-layout:fixed">--%>
-			<%--<colgroup>--%>
-				<%--<col width="150">--%>
-				<%--<col width="150">--%>
-				<%--<col width="150">--%>
-				<%--<col>--%>
-			<%--</colgroup>--%>
-			<%--<thead>--%>
-			<%--<tr>--%>
-				<%--<th >姓名</th>--%>
-				<%--<th >学号</th>--%>
-				<%--<th >班级</th>--%>
-			<%--</tr>--%>
-			<%--</thead>--%>
-			<%--<tbody>--%>
-			<%--<c:forEach var="member" items="${item.members}">--%>
-				<%--<tr>--%>
-					<%--<td>${member.sname}</td>--%>
-					<%--<td>${member.sno}</td>--%>
-					<%--<td>${member.classno}</td>--%>
-				<%--</tr>--%>
-			<%--</c:forEach>--%>
-			<%--</tbody>--%>
-		<%--</table>--%>
-	<%--</c:forEach>--%>
-<%--</div>--%>
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
 	<legend>${user.sno}${user.nameStudent}</legend>
 </fieldset>
@@ -87,6 +31,7 @@
 					<table class="layui-table">
 					<thead>
 					<tr>
+					<th>审批状态</th>
 					<th>大赛名称</th>
 					<th>参赛项目</th>
 					<th>年份</th>
@@ -98,13 +43,25 @@
 					</thead>
 					<tbody>
 					<tr>
+					<td><c:if test="${item.status==0}">
+							<span style="color: black;">待审核</span>
+						</c:if>
+						<c:if test="${item.status==1}">
+							<span style="color: green;">已通过</span>
+						</c:if>
+						<c:if test="${item.status==2}">
+							<span style="color: red;">未通过</span>
+						</c:if>
+						<c:if test="${item.status==3}">
+							<span style="color: darkorange;">未知参数</span>
+						</c:if></td>
 					<td>${item.competeName}</td>
 					<td>${item.title}</td>
-					<td>xx</td>
+					<td>${item.year}</td>
 					<td>${item.competeName}</td>
 					<td>${item.groupName}</td>
 					<td>${item.instructor}</td>
-					<td>xx</td>
+					<td>${item.prizeName}</td>
 					</tr>
 					</tbody>
 					</table>

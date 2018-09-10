@@ -27,4 +27,12 @@ public interface ExcellentMapper {
     int selectGetPrizeItemCountByLevelId(Integer id);
 
     List<Excellent> selectNumberOfPeopleByPrizeIDLevelID(@Param("prizeId") Integer id,@Param("levelId") Integer levelId);
+
+    int selectPrizePeopleCountByCompeteLevel(Integer levelId);
+
+    int selectPrizeItemCountByCompeteLevel(Integer levelId);
+
+    int selectPrizePeopleCountByLevelIdPrizeId(@Param("prizeId") Integer prizeId, @Param("levelId") Integer levelId);
+
+    int selectPrizeItemCountByLevelIdPrizeId(@Param("prizeId") Integer prizeId, @Param("levelId") Integer levelId);
 }

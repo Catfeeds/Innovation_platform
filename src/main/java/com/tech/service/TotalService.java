@@ -52,4 +52,20 @@ public class TotalService {
         }
         return count;
     }
+
+    public int getPrizePeopleCountByCompeteLevel(Integer id) {
+        return excellentMapper.selectPrizePeopleCountByCompeteLevel(id);
+    }
+
+    public int getPrizeItemCountByCompeteLevel(Integer id) {
+        return excellentMapper.selectPrizeItemCountByCompeteLevel(id);
+    }
+
+    public int getPrizePeopleCountByLevelIdPrizeId(Integer prizeId, Integer levelId) {
+        return excellentMapper.selectPrizePeopleCountByLevelIdPrizeId(prizeId,levelId);
+    }
+
+    public int getPrizeItemCountByLevelIdPrizeId(Integer prizeId, Integer levelId) {
+        return excellentMapper.selectPrizeItemCountByLevelIdPrizeId(prizeId,levelId);
+    }
 }

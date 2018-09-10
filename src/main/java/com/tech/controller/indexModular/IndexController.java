@@ -70,7 +70,7 @@ public class IndexController {
      */
     @RequestMapping("/makeCode")
     public void Captcha(HttpServletResponse response, HttpSession session)throws IOException {
-        CreateImageCode vCode = new CreateImageCode(116,36,5,10);
+        CreateImageCode vCode = new CreateImageCode(116,34,5,10);
         session.setAttribute("code", vCode.getCode());
         vCode.write(response.getOutputStream());
     }
@@ -150,6 +150,27 @@ public class IndexController {
         return Json.toJson(map);
     }
 
+
+    @RequestMapping(value = "/download_search",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String downloadSearch(Integer page,Integer limit,String key,String condition){
+        if(page==null){
+            page=1;
+        }
+        if(limit==null){
+            limit=10;
+        }
+        PageHelper.startPage(page,limit);
+        List<DownloadFile> list = downloadFileService.getSearch(key,condition);
+        int count = downloadFileService.getSearchCount(key,condition);
+        Map<String, Object> map = new HashMap<>();
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",count);
+        map.put("data", list);
+        return Json.toJson(map);
+    }
+
     @RequestMapping("/news/{id}")
     public String newsDetail(@PathVariable("id")Integer newsID,Model model){
         News news = newsService.getNews(newsID);
@@ -176,6 +197,26 @@ public class IndexController {
         PageHelper.startPage(page,limit);
         List<Match> list = matchService.getAllMatches();
         int count = matchService.getMatchCount();
+        Map<String, Object> map = new HashMap<>();
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",count);
+        map.put("data", list);
+        return Json.toJson(map);
+    }
+
+    @RequestMapping(value = "/compete_search",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String competeSearch(Integer page,Integer limit,String key,Integer condition){
+        if(page==null){
+            page=1;
+        }
+        if(limit==null){
+            limit=10;
+        }
+        PageHelper.startPage(page,limit);
+        List<Match> list = matchService.getSearch(key,condition);
+        int count = matchService.getSearchCount(key,condition);
         Map<String, Object> map = new HashMap<>();
         map.put("code",0);
         map.put("msg","");
@@ -223,6 +264,27 @@ public class IndexController {
         return Json.toJson(map);
     }
 
+
+    @RequestMapping(value = "/achievement_search",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String achievementSearch(Integer page,Integer limit,String key,String condition_year,String condition_prize){
+        if(page==null){
+            page=1;
+        }
+        if(limit==null){
+            limit=10;
+        }
+        PageHelper.startPage(page,limit);
+        List<GoodWork> list = goodWorkService.getSearch(key,condition_year,condition_prize);
+        int count = goodWorkService.getSearchCount(key,condition_year,condition_prize);
+        Map<String, Object> map = new HashMap<>();
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",count);
+        map.put("data", list);
+        return Json.toJson(map);
+    }
+
     @RequestMapping("/achievement/{id}")
     public String goodWorkDetail(@PathVariable("id") Integer id,Model model){
         GoodWork goodWork = goodWorkService.getById(id);
@@ -248,6 +310,26 @@ public class IndexController {
         PageHelper.startPage(page,limit);
         List<GoodTeacher> list = goodTeacherService.getAllGoodTeachers();
         int count = goodTeacherService.getAllCount();
+        Map<String, Object> map = new HashMap<>();
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",count);
+        map.put("data", list);
+        return Json.toJson(map);
+    }
+
+    @RequestMapping(value = "/teacher_search",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String teacherSearch(Integer page,Integer limit,String key){
+        if(page==null){
+            page=1;
+        }
+        if(limit==null){
+            limit=10;
+        }
+        PageHelper.startPage(page,limit);
+        List<GoodTeacher> list = goodTeacherService.getSeach(key);
+        int count = goodTeacherService.getSearchCount(key);
         Map<String, Object> map = new HashMap<>();
         map.put("code",0);
         map.put("msg","");

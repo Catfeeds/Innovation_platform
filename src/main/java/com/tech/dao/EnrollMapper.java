@@ -39,11 +39,11 @@ public interface EnrollMapper {
 
     int selectPassPrizeItemCount();
 
-    List<Item> selectPassPrizeItem();
-
     int selectSearchCount(String key);
 
     List<Item> selectSeach(String key);
 
-    Integer selectIdByCIdAndTitle(@Param("competeId") Integer competeId, @Param("title") String title);
+    Integer selectIdByCIdAndTitle(String title);
+
+    int selectTitleIsExsit(String title);
 }

@@ -176,7 +176,7 @@
 	</form>
 	<div style="float: right; height: 50px; width: 200px; margin-right: 20px">
 		<span><img src="${cpath}/static/images/u827.png">
-		本科学生大一不能参加超过2项竞赛，大二不能参加超过2项竞赛，本科四年不能参加超过10项竞赛
+		本科学生大一不能参加超过2项竞赛，大二不能参加超过2项竞赛，本科四年不能参加超过10项竞赛，小组报名只需本组队长填写报名表即可
 		</span>
 	</div>
 </body>

@@ -49,7 +49,7 @@
                 {field:'email',title: '邮箱',align:'center'},
                 {field:'participateCount', title: '已参与项目数',templet:'#count',sort:true,width:145},
                 {field:'password', title: '登录密码',align:'center'},
-                {title: '操作',width:150,align:'center',toolbar: '#bar',fixed:'right'}
+//                {title: '操作',width:150,align:'center',toolbar: '#bar',fixed:'right'}
             ]],
             page: true,
             done: function (res, curr, count) {
@@ -69,7 +69,7 @@
             if(obj.event === 'detail'){
                 //window.open('/downloads.html');
             } else if(obj.event === 'del'){
-                layer.confirm('真的删除 '+data.titleWork+' 么?', function(index){
+                layer.confirm('真的删除 '+data+' 么?', function(index){
                     $.ajax({
                         url:'${cpath}/manage/xxxx/'+data.id+".do",
                         type:'post',

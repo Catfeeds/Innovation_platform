@@ -33,14 +33,14 @@
             <!-- 显示/隐藏菜单 -->
             <!--<a href="javascript:;" class="iconfont hideMenu icon-menu1"></a>-->
             <!-- 搜索 -->
-            <div class="layui-form component">
-                <select name="modules" lay-verify="required" lay-search="">
-                    <option value="">直接选择或搜索选择</option>
-                    <option value="1">首页管理</option>
+            <%--<div class="layui-form component">--%>
+                <%--<select name="modules" lay-verify="required" lay-search="">--%>
+                    <%--<option value="">直接选择或搜索选择</option>--%>
+                    <%--<option value="1">首页管理</option>--%>
 
-                </select>
-                <i class="layui-icon">&#xe615;</i>
-            </div>
+                <%--</select>--%>
+                <%--<i class="layui-icon">&#xe615;</i>--%>
+            <%--</div>--%>
             <!-- 天气信息 -->
             <div class="weather" pc>
                 <div id="tp-weather-widget"></div>
@@ -66,11 +66,11 @@
                 <li class="layui-nav-item" pc>
                     <a href="javascript:;">
                         <%--<img onerror='this.src="/static/images/timg.jpg"' src="${cpath}/static/images/timg.jpg" class="layui-circle" width="35" height="35">--%>
+                        <i class="layui-icon layui-icon-face-smile" style="font-size: 15px; "></i>
                         <cite>${admin.typeAliases}</cite>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="/stu/stuInfo.html"><i class="iconfont icon-zhanghu" data-icon="icon-zhanghu"></i><cite>个人资料</cite></a></dd>
-                        <dd><a href="/index.html" ><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>主页</cite></a></dd>
+                        <dd><a href="javascript:window.open('/index.html');" ><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>主页</cite></a></dd>
                         <dd><a href="/admin/logout.html" class="signOut"><i class="iconfont icon-loginout"></i><cite>退出</cite></a></dd>
                     </dl>
                 </li>
@@ -88,81 +88,81 @@
 
                 <li class="layui-nav-item">
                     <a href="javascript:;">
-                        <i class="iconfont icon-computer" data-icon="icon-text"></i>
+                        <i class="iconfont icon-computer"></i>
                         <cite>首页管理</cite><span class="layui-nav-more"></span></a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-url="/manage/to_news_list/1.do">
-                            <i class="iconfont icon-text" data-icon="icon-text"></i>
+                            <i class="layui-icon layui-icon-notice" ></i>
                             <cite>通知公告管理</cite></a>
                         </dd>
                         <dd><a href="javascript:;" data-url="/manage/to_news_list/2.do">
-                            <i class="iconfont icon-text" data-icon="icon-text"></i>
+                            <i class="layui-icon layui-icon-read" ></i>
                             <cite>政策文件管理</cite></a>
                         </dd>
                         <dd><a href="javascript:;" data-url="/manage/to_news_list/3.do">
-                            <i class="iconfont icon-text" data-icon="icon-text"></i>
+                            <i class="layui-icon layui-icon-help" ></i>
                             <cite>常见问题管理</cite></a>
                         </dd>
                         <dd><a href="javascript:;" data-url="/manage/to_match_list.do">
-                            <i class="iconfont icon-text" data-icon="icon-text"></i>
+                            <i class="layui-icon layui-icon-file-b" ></i>
                             <cite>赛事介绍管理</cite></a>
                         </dd>
                         <dd><a href="javascript:;" data-url="/manage/to_download_list.do">
-                            <i class="iconfont icon-text" data-icon="icon-text"></i>
+                            <i class="layui-icon layui-icon-download-circle" ></i>
                             <cite>下载专区管理</cite></a>
                         </dd>
                         <dd><a href="javascript:;" data-url="/manage/to_work_list.do">
-                            <i class="iconfont icon-text" data-icon="icon-text"></i>
+                            <i class="layui-icon layui-icon-praise" ></i>
                             <cite>成果展示管理</cite></a>
                         </dd>
                         <dd><a href="javascript:;" data-url="/manage/to_tech_list.do">
-                            <i class="iconfont icon-text" data-icon="icon-text"></i>
+                            <i class="layui-icon layui-icon-praise" ></i>
                             <cite>优秀教师管理</cite></a>
                         </dd>
                         <dd><a href="javascript:;" data-url="/manage/to_coverScroll_list.do">
-                            <i class="iconfont icon-text" data-icon="icon-text"></i>
+                            <i class="layui-icon layui-icon-carousel" ></i>
                             <cite>封面轮播图</cite></a>
                         </dd>
                         <dd><a href="javascript:;" data-url="/manage/to_teacherScroll_list.do">
-                            <i class="iconfont icon-text" data-icon="icon-text"></i>
+                            <i class="layui-icon layui-icon-carousel"></i>
                             <cite>优秀教师轮播图</cite></a>
                         </dd>
                         <dd><a href="javascript:;" data-url="/manage/links.do">
-                            <i class="iconfont icon-text" data-icon="icon-text"></i>
+                            <i class="layui-icon layui-icon-link"></i>
                             <cite>友情链接管理</cite></a>
                         </dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">
-                        <i class="iconfont icon-text" data-icon="icon-text"></i>
+                        <i class="layui-icon layui-icon-user"></i>
                         <cite>学生管理</cite>
                         <span class="layui-nav-more"></span>
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-url="/manage/to_student_info_list.do">
-                            <i class="iconfont icon-text" data-icon="icon-text"></i>
+                            <i class="layui-icon layui-icon-user"></i>
                             <cite>学生信息管理</cite></a>
                         </dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;"><i class="iconfont icon-text" data-icon="icon-text"></i>
+                    <a href="javascript:;"><i class="layui-icon layui-icon-template-1" ></i>
                         <cite>项目管理</cite>
                         <span class="layui-nav-more"></span>
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-url="/manage/to_enroll_list.do">
-                            <i class="iconfont icon-text" data-icon="icon-text"></i>
+                            <i class="layui-icon layui-icon-survey"></i>
                             <cite>项目申报管理</cite>
                         </a>
                         </dd>
                         <dd><a href="javascript:;" data-url="/manage/to_compete_list.do">
-                            <i class="iconfont icon-text" data-icon="icon-text"></i>
+                            <i class="layui-icon layui-icon-form" ></i>
                             <cite>赛事报名管理</cite></a>
                         </dd>
                         <dd><a href="javascript:;" data-url="/manage/to_itemTotal_list.do">
-                            <i class="iconfont icon-text" data-icon="icon-text"></i>
+                            <i class="layui-icon layui-icon-table" ></i>
                             <cite>获奖项目统计</cite></a>
                         </dd>
                     </dl>
@@ -199,9 +199,9 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="iconfont icon-caozuo"></i> 页面操作</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" class="refresh refreshThis"><i class="layui-icon">&#x1002;</i> 刷新当前</a></dd>
-                        <dd><a href="javascript:;" class="closePageOther"><i class="iconfont icon-prohibit"></i> 关闭其他</a></dd>
-                        <dd><a href="javascript:;" class="closePageAll"><i class="iconfont icon-guanbi"></i> 关闭全部</a></dd>
+                        <dd><a href="javascript:;" class="refresh refreshThis"><i class="layui-icon layui-icon-refresh"></i> 刷新当前</a></dd>
+                        <dd><a href="javascript:;" class="closePageOther"><i class="layui-icon layui-icon-close"></i> 关闭其他</a></dd>
+                        <dd><a href="javascript:;" class="closePageAll"><i class="layui-icon layui-icon-close-fill"></i> 关闭全部</a></dd>
                     </dl>
                 </li>
             </ul>

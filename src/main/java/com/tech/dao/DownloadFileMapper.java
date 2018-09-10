@@ -1,6 +1,7 @@
 package com.tech.dao;
 
 import com.tech.pojo.DownloadFile;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -28,4 +29,8 @@ public interface DownloadFileMapper {
     int selectSeachCountByKey(String key);
 
     List<DownloadFile> selectSeachByKey(String key);
+
+    List<DownloadFile> selectSearch(@Param("key") String key,@Param("condition") String condition);
+
+    int selectSearchCount(@Param("key") String key,@Param("condition") String condition);
 }

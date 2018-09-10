@@ -93,7 +93,7 @@
 		}
 		.search-box .search-select{
 			height: 26px;
-			margin-left:550px;
+			margin-left:545px;
 			border: 1px solid #ccc;
 			border-radius: 3px;
 		}
@@ -107,8 +107,6 @@
     <!-- header end-->
     <!-- slide -->
     <div id="slide">
-        <div class="slide_top slide_about">
-        </div>
         <div class="top_slide_wrap about_pic">
             <ul class="slide_box bxslider">
                 <li>
@@ -125,18 +123,19 @@
 	<div class="tit-80"><a href="/index.html">首页</a>  - 赛事介绍</div>
 			<%@include file="tag.jsp"%>
     
-    <div class="content-box" id="data_fill" style="min-height: 420px">
+    <div class="content-box" id="data_fill" style="min-height: 680px">
     	<h1>赛事介绍</h1>
 		<div class="search-box">
-			<select class="search-select">
-				<option >全部</option>
-				<option >国家级</option>
-				<option >省级</option>
-				<option >校级</option>
-				<option >院级</option>
+			<select class="search-select" name="level" id="c-level">
+				<option value="">全部</option>
+				<option value="1">国家级</option>
+				<option value="2">省级</option>
+				<option value="3">校类A级</option>
+				<option value="4">校类B级</option>
+				<option value="5">校类C级</option>
 			</select>
-			<input type="text" name="textfield" id="textfield" class="input-text" placeholder="请输入关键词">
-			<input type="image" src="images/search.png" class="input-submit" />
+			<input type="text" name="textfield" id="key-input" class="input-text" placeholder="请输入关键词">
+			<input type="image" src="images/search.png" class="input-submit" id="search-btn" />
 		</div>
 	</div>
 			<div id="PageCode" style="text-align: center"></div>
@@ -162,70 +161,97 @@
  </div>
 </body>
 <script>
-    var count = $('#count').val();
-    var limit = 3;
-
-    var a = $(".tag").find("li:eq(4)").find("a");
-    a.css("color","#4a00ff");
     layui.use('laypage', function(){
         var laypage = layui.laypage;
+		var limit = 3;
 
-        laypage.render({
-            elem: 'PageCode'
-            ,count: count
-            ,limit: limit
-            ,theme: '#0aa6d6'
-            ,jump: function(obj, first){
-                console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-                console.log(obj.limit); //得到每页显示的条数
-                toPage(obj.curr);
-                if(!first){
-                    toPage(obj.curr);
+        var a = $(".tag").find("li:eq(4)").find("a");
+        a.css("color","#4a00ff");
+
+        $("#search-btn").click(function () {
+            toSearchPage(1,true);
+        });
+
+        //初始化数据
+        laypage_reload(false);
+
+        $("#c-level").change(function () {
+            toSearchPage(1,true);
+        });
+
+        function laypage_reload(isSearch) {
+            laypage.render({
+                elem: 'PageCode'
+                ,count: $('#count').val()
+                ,limit: limit
+                ,theme: '#0aa6d6'
+                ,jump: function(obj, first){
+                    console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                    console.log(obj.limit); //得到每页显示的条数
+					if(!isSearch){
+                        toPage(obj.curr);
+                    }
+                    if(!first){
+					    if(!isSearch){
+                            toPage(obj.curr);
+                        }else {
+                            toSearchPage(obj.curr,false);
+                        }
+                    }
                 }
-            }
-        });
-    })
+            });
+        }
 
-    function toPage(page) {
-        $.ajax({
-            type:'post',
-            url:'/compete_page.do',
-            dataType: "json",
-            data:{
-                page:page
-                ,limit:limit
-            },
-            success:function (data) {
-                fillData(data);
-            },
-            error:function () {
-                layer.msg('接口错误');
-            }
-        });
-    }
+        function toSearchPage(page,first) {
+            $.ajax({
+                type:'post',
+                url:'/compete_search.do',
+                dataType: "json",
+                data:{
+                    page:page
+                    ,limit:limit
+                    ,key:$("#key-input").val()
+                    ,condition:$("#c-level").val()
+                },
+                success:function (res) {
+                    $('#count').val(res.count);
+                    if(first){
+                        laypage_reload(true);
+                    }
+                    fillData(res);
+                }
+            });
+        }
 
-//    function fillData(res) {
-//        $("#data_fill div.test").remove();
-//        $.each(res.data, function (index, item) {
-//            var img = $("<img/>").attr("src","/images/robomaster.png");
-//            var h2 = $("<h2></h2>").append("大赛名称: "+item.nameMatch);
-//			var p = $("<p></p>").addClass("time").append("报名时间: ").append($("<span></span>").append("2017/12/12-2017/12/13"));
-//            var div = $("<div></div>").addClass("layui-inline").append($("<a></a>").attr("href","xxxx").append($("<input/>").val("详情").attr("type","button")));
-//            $("<div></div>").addClass("test").append(img).append(h2).append(p).append(div).appendTo("#data_fill");
-//        });
-//    }
+        function toPage(page) {
+            $.ajax({
+                type:'post',
+                url:'/compete_page.do',
+                dataType: "json",
+                data:{
+                    page:page
+                    ,limit:limit
+                },
+                success:function (data) {
+                    fillData(data);
+                }
+            });
+        }
 
-    function fillData(res) {
-        $("#data_fill div.product").remove();
-        $.each(res.data, function (index, item) {
-            var img = $("<img/>").attr("src",item.imgUrl);
-            var a = $("<a></a>").append(img).attr("href","/compete/"+item.id+".html");
-            var h2 = $("<h2></h2>").append("大赛名称: "+item.nameMatch);
-            var p2 =  $("<p></p>").append("赛事级别:"+item.levelName);
-            var div2 = $("<div></div>").addClass("index1-right").append($("<p></p>").append("赛事介绍:"+item.introduce+"..."))
-            var div1 = $("<div></div>").addClass("product_detail").append(h2).append(p2).append(div2);
-            $("<div></div>").addClass("product").append(a).append(div1).appendTo("#data_fill");
-        });
-    }
+        function fillData(res) {
+            $("#data_fill div.product").remove();
+            $.each(res.data, function (index, item) {
+                var img = $("<img/>").attr("src",item.imgUrl);
+                var a = $("<a></a>").append(img).attr("href","/compete/"+item.id+".html");
+                var h2 = $("<h2></h2>").append("大赛名称: "+item.nameMatch);
+                var p2 =  $("<p></p>").append("赛事级别:"+item.levelName);
+                var div2 = $("<div></div>").addClass("index1-right").append($("<p></p>").append("赛事介绍:"+item.introduce+"..."))
+                var div1 = $("<div></div>").addClass("product_detail").append(h2).append(p2).append(div2);
+                $("<div></div>").addClass("product").append(a).append(div1).appendTo("#data_fill");
+            });
+        }
+
+    });
+
 </script>
 </html>

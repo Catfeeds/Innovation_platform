@@ -65,4 +65,12 @@ public class DownloadFileService {
     public List<DownloadFile> getSeachByKey(String key) {
         return downloadFileMapper.selectSeachByKey(key);
     }
+
+    public List<DownloadFile> getSearch(String key, String condition) {
+        return downloadFileMapper.selectSearch(key,condition);
+    }
+
+    public int getSearchCount(String key, String condition) {
+        return downloadFileMapper.selectSearchCount(key,condition);
+    }
 }

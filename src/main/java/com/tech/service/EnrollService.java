@@ -137,24 +137,13 @@ public class EnrollService {
         return list;
     }
 
-    public Enroll getEnrollById(Integer id) {
-        return enrollMapper.selectByPrimaryKey(id);
-    }
 
-    public int getPassPrizeItemCount() {
-        return enrollMapper.selectPassPrizeItemCount();
-    }
-
-    public List<Item> getPassPrizeItem() {
-        List<Item> list = enrollMapper.selectPassPrizeItem();
-        for (Item item:list) {
-            List<Member> members  = memberMapper.selectMembersIncludeNameByGid(item.getGroupId());
-            item.setMembers(members);
-        }
-        return list;
-    }
-
-    public ServerResponse checkTime(Item item) {
+    /**
+     * 校验时间 以及 参赛题目
+     * @param item
+     * @return
+     */
+    public ServerResponse check(Item item) {
         Compete compete = competeMapper.selectByPrimaryKey(item.getCompeteId());
         Calendar date = Calendar.getInstance();
         Date now = new Date();
@@ -166,12 +155,23 @@ public class EnrollService {
         Calendar before = Calendar.getInstance();
         before.setTime(compete.getEndTime());
 
-        if (date.after(after)&&date.before(before)){
-            return ServerResponse.createBySuccess("时间校验成功,当前系统时间"+now,now);
+        String title = item.getTitle();
+
+        if (!StringUtils.isEmpty(title)&&!StringUtils.isEmpty(item.getGroupName())&&!StringUtils.isEmpty(item.getInstructor())){
+            int count = enrollMapper.selectTitleIsExsit(title);
+            if (count>0)
+                return ServerResponse.createByErrorMessage("参赛标题已存在,请更换重试！");
         }else{
-            return ServerResponse.createByErrorDataMessage("时间校验成功,当前系统时间"+now,now);
+            return ServerResponse.createByErrorMessage("参数不为空");
+        }
+
+        if (date.after(after)&&date.before(before)){
+            return ServerResponse.createBySuccess("时间校验成功",now);
+        }else{
+            return ServerResponse.createByErrorDataMessage("报名时间不符",now);
         }
     }
+
 
     public int getSearchCount(String key) {
         return enrollMapper.selectSearchCount(key);
@@ -188,11 +188,25 @@ public class EnrollService {
 
     /**
      * 获取Enroll ID
-     * @param competeId
      * @param title
      * @return
      */
-    public Integer getIdByCIdAndTitle(Integer competeId, String title) {
-        return enrollMapper.selectIdByCIdAndTitle(competeId,title);
+    public Integer getIdByCIdAndTitle(String title) {
+        Integer enrollId = enrollMapper.selectIdByCIdAndTitle(title);
+        return enrollId;
+    }
+
+    public boolean isLeader(Student student, Item item) {
+        return student.getSno().equals(item.getLeader().getSno());
+    }
+
+    public boolean isGrouper(Student student, Item item) {
+        List<Member> members =  item.getMembers();
+        for (Member m:members) {
+            if (m.getSno().equals(student.getSno())){
+                return true;
+            }
+        }
+        return false;
     }
 }

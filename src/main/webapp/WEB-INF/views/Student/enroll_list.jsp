@@ -49,12 +49,14 @@
                 }
             });
 
-            function toEdit(data) {
-                console.log(data);
+            window.toEdit = function(obj) {
+                console.log(obj);
+                var eId = $(obj).attr('enrollId');
+                console.log(eId);
                 var index = layui.layer.open({
                     title : "赛事报名",
                     type : 2,
-                    content : "/stu/to_enroll_edit/"+data+".html",
+                    content : "/stu/to_enroll_edit/"+eId+".html",
                     success : function(layero, index){
                         setTimeout(function(){
                             layui.layer.tips('点击此处返回友链列表', '.layui-layer-setwin .layui-layer-close', {
@@ -68,23 +70,25 @@
                 });
                 layui.layer.full(index);
             }
-        })
+        });
+
+	</script>
+	<script type="text/html" id="members">
+		{{#  layui.each(d.members, function(index, item){ }}
+		<span>{{ item.sname }}  </span>
+		{{#  }); }}
+	</script>
+	<script type="text/html" id="status">
+		{{#  if(d.status === 0){ }}
+		<span style="color: black;">待审核</span>
+		{{#  } else if(d.status === 1){ }}
+		<span style="color: green;">通过/立项</span>
+		{{#  } else if(d.status === 2){ }}
+		<a href="javascript:;" onclick="toEdit(this)"  enrollId ={{ d.enrollId }} style="text-decoration: underline;color: red;">未通过</a>
+		{{#  } else { }}
+		<span style="color: #f1a02f;">未知参数</span>
+		{{#  } }}
 	</script>
 </body>
-<script type="text/html" id="members">
-	{{#  layui.each(d.members, function(index, item){ }}
-	<span>{{ item.sname }}  </span>
-	{{#  }); }}
-</script>
-<script type="text/html" id="status">
-	{{#  if(d.status === 0){ }}
-	<span style="color: black;">待审核</span>
-	{{#  } else if(d.status === 1){ }}
-	<span style="color: green;">通过/立项</span>
-	{{#  } else if(d.status === 2){ }}
-	<a href="javascript:;"  enrollId ={{ d.enrollId }} style="text-decoration: underline;color: red;">未通过</a>
-	{{#  } else { }}
-	<span style="color: #f1a02f;">未知参数</span>
-	{{#  } }}
-</script>
+
 </html>

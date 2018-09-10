@@ -64,9 +64,9 @@ public class CompeteService {
         before.setTime(compete.getEndTime());
 
         if (date.after(after)&&date.before(before)){
-            return ServerResponse.createBySuccess("时间校验成功,当前系统时间"+date,date);
+            return ServerResponse.createBySuccess("时间校验成功",date);
         }else{
-            return ServerResponse.createByErrorDataMessage("时间校验成功,当前系统时间"+date,date);
+            return ServerResponse.createByErrorDataMessage("报名时间不符",date);
         }
     }
 

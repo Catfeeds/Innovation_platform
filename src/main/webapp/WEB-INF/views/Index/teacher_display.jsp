@@ -61,8 +61,6 @@
     <!-- header end-->
     <!-- slide -->
     <div id="slide">
-        <div class="slide_top slide_about">
-        </div>
         <div class="top_slide_wrap about_pic">
             <ul class="slide_box bxslider">
                 <li>
@@ -83,11 +81,11 @@
     <div class="content-box">
     	<h1>优秀指导教师</h1>
         <div class="search-box">
-            <input type="text" name="textfield" id="textfield" class="input-text" placeholder="请输入教师名称">
-            <input type="image" src="images/search.png" class="input-submit" />
+            <input type="text" name="textfield" id="key-input" class="input-text" placeholder="请输入教师名称">
+            <input type="image" src="images/search.png" class="input-submit" id="search-btn"/>
         </div>
 
-        <div style="margin-left: 40px;margin-top: 40px">
+        <div style="margin-left: 40px;margin-top: 40px;min-height: 483px">
             <ul class="clearfix" id="data_fill" style=" width:705px; margin-left:-10px;">
             </ul>
         </div>
@@ -126,47 +124,87 @@
     layui.use('laypage', function(){
         var laypage = layui.laypage;
 
-        laypage.render({
-            elem: 'PageCode'
-            ,count: count
-            ,limit: limit
-            ,theme: '#0aa6d6'
-            ,jump: function(obj, first){
-                toPage(obj.curr);
-                if(!first){
-                    toPage(obj.curr);
-                }
-            }
+        $("#search-btn").click(function () {
+            toSearchPage(1,true);
         });
+
+        //初始化数据
+        laypage_reload(false);
+
+        function laypage_reload(isSearch) {
+            laypage.render({
+                elem: 'PageCode'
+                ,count: $('#count').val()
+                ,limit: limit
+                ,theme: '#0aa6d6'
+                ,jump: function(obj, first){
+                    console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                    console.log(obj.limit); //得到每页显示的条数
+                    if(!isSearch){
+                        toPage(obj.curr);
+                    }
+                    if(!first){
+                        if(!isSearch){
+                            toPage(obj.curr);
+                        }else {
+                            toSearchPage(obj.curr,false);
+                        }
+                    }
+                }
+            });
+        }
+
+        function toSearchPage(page,first) {
+            $.ajax({
+                type:'post',
+                url:'/teacher_search.do',
+                dataType: "json",
+                data:{
+                    page:page
+                    ,limit:limit
+                    ,key:$("#key-input").val()
+                },
+                success:function (res) {
+                    $('#count').val(res.count);
+                    if(first){
+                        laypage_reload(true);
+                    }
+                    fillData(res);
+                }
+            });
+        }
+
+        function toPage(page) {
+            $.ajax({
+                type:'post',
+                url:'/teacher_page.do',
+                dataType: "json",
+                data:{
+                    page:page
+                    ,limit:limit
+                },
+                success:function (data) {
+                    fillData(data);
+                },
+                error:function () {
+                    layer.msg('接口错误');
+                }
+            });
+        }
+
+        function fillData(res) {
+            $("#data_fill").empty();
+            $.each(res.data, function (index, item) {
+                var img = $("<img/>").attr("src",item.imageUrl);
+                var a = $("<a></a>").attr("href","/teacher/"+item.id+".html").append(img);
+                var div = $("<div></div>").addClass("img-box").append(a);
+                var h3 = $("<h3></h3>").append($("<a></a>").attr("href","/teacher/"+item.id+".html").append(item.nameTeacher));
+                $("<li></li>").addClass("pic").append(div).append(h3).appendTo("#data_fill");
+            });
+        }
+
     })
 
-    function toPage(page) {
-        $.ajax({
-            type:'post',
-            url:'/teacher_page.do',
-            dataType: "json",
-            data:{
-                page:page
-                ,limit:limit
-            },
-            success:function (data) {
-                fillData(data);
-            },
-            error:function () {
-                layer.msg('接口错误');
-            }
-        });
-    }
 
-    function fillData(res) {
-        $("#data_fill").empty();
-        $.each(res.data, function (index, item) {
-            var img = $("<img/>").attr("src",item.imageUrl);
-            var a = $("<a></a>").attr("href","/teacher/"+item.id+".html").append(img);
-            var div = $("<div></div>").addClass("img-box").append(a);
-            var h3 = $("<h3></h3>").append($("<a></a>").attr("href","/teacher/"+item.id+".html").append(item.nameTeacher));
-            $("<li></li>").addClass("pic").append(div).append(h3).appendTo("#data_fill");
-        });
-    }
 </script>
 </html>

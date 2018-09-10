@@ -46,8 +46,6 @@
     <!-- header end-->
     <!-- slide -->
     <div id="slide">
-        <div class="slide_top slide_about">
-        </div>
         <div class="top_slide_wrap about_pic">
             <ul class="slide_box bxslider">
                 <li>
@@ -60,7 +58,7 @@
     <!-- slide end -->
 <div id="detail2-box" class="clearfix">
 	
-	<div class="tit-80"><a href="/index.html">首页</a> - 优秀教师</div>
+	<div class="tit-80"><a href="/index.html">首页</a> - <a href="/teacher.html">优秀教师</a> - 教师详情</div>
 	    <div class="tabula-box">
         <div class="techer_photo">
         	<img src="${teacher.imageUrl}" />

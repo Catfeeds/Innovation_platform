@@ -1,6 +1,7 @@
 package com.tech.dao;
 
 import com.tech.pojo.Match;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -24,4 +25,8 @@ public interface MatchMapper {
     List<Match> selectCountMatches(Integer count);
 
     int selectMatchCount();
+
+    List<Match> selectSearch(@Param("key") String key,@Param("condition") Integer condition);
+
+    int selectSearchCount(@Param("key") String key,@Param("condition") Integer condition);
 }

@@ -203,7 +203,7 @@
      tm.id,level_match,level_name, name_match, img_url, link_url, create_time, update_time, clicks,
     priority, start_time, end_time,
     <include refid="Blob_Column_List" />
-    from tbl_match tm,tbl_levels tl where tm.level_match = tl.id
+    from tbl_match tm,tbl_levels tl where tm.level_match = tl.id order by tm.id desc
   </select>
   <select id="selectCountMatches" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select
@@ -215,4 +215,25 @@
     <select id="selectMatchCount" resultType="java.lang.Integer">
       SELECT count(*) from tbl_match
     </select>
+    <select id="selectSearch"  resultMap="BaseResultMap">
+      select
+      tm.id,level_match,level_name, name_match, img_url, link_url, create_time, update_time, clicks,
+      priority, start_time, end_time,
+      <include refid="Blob_Column_List" />
+      from tbl_match tm,tbl_levels tl where
+      tm.level_match = tl.id and
+      <if test="condition != null">
+      tm.level_match = #{condition} and
+      </if>
+      name_match like CONCAT('%',#{key},'%') order by tm.id desc
+    </select>
+  <select id="selectSearchCount" resultType="java.lang.Integer">
+    select
+    count(*)
+    from tbl_match where
+    <if test="condition != null">
+      level_match = #{condition} and
+    </if>
+     name_match like CONCAT('%',#{key},'%')
+  </select>
 </mapper>

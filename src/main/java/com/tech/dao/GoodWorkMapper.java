@@ -1,6 +1,7 @@
 package com.tech.dao;
 
 import com.tech.pojo.GoodWork;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -26,4 +27,8 @@ public interface GoodWorkMapper {
     int selectSeachCount(String key);
 
     List<GoodWork> selectSearch(String key);
+
+    List<GoodWork> selectSearchIndex(@Param("key") String key, @Param("condition_year") String condition_year, @Param("condition_prize") String condition_prize);
+
+    int selectSearchCountIndex(@Param("key") String key, @Param("condition_year") String condition_year, @Param("condition_prize") String condition_prize);
 }

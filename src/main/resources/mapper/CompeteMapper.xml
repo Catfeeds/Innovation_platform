@@ -182,7 +182,7 @@
     author,
     <include refid="Blob_Column_List" />
     ,level_name
-    from tbl_compete tc,tbl_levels tl where tc.level_compete = tl.id
+    from tbl_compete tc,tbl_levels tl where tc.level_compete = tl.id order by tc.id desc
   </select>
   <select id="selectIdByName" resultType="java.lang.Integer" parameterType="string">
     select id from tbl_compete where name_compete = #{competeName}

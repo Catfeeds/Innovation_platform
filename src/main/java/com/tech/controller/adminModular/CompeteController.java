@@ -92,8 +92,9 @@ public class CompeteController {
     @RequestMapping("/delete_compete/{id}")
     @ResponseBody
     public ServerResponse<String> deleteCompete(@PathVariable("id") Integer id){
-        ServerResponse serverResponse = competeService.deleteCompete(id);
-        return serverResponse;
+        return ServerResponse.createByErrorMessage("删除失败！改数据用作数据保留!");
+//        ServerResponse serverResponse = competeService.deleteCompete(id);
+//        return serverResponse;
     }
 
 }

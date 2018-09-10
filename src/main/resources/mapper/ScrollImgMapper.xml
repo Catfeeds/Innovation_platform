@@ -102,7 +102,7 @@
   <select id="selectCoverScrollShow" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from tbl_scrollimg where is_show = 1 and type_scroll = 1
+    from tbl_scrollimg where is_show = 1 and type_scroll = 1 order by id desc
   </select>
 
   <select id="selectTeacherScrollShow" resultMap="BaseResultMap">

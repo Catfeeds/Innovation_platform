@@ -170,7 +170,7 @@
       ,
       <include refid="Blob_Column_List" />
       from tbl_news
-      where title like CONCAT('%',#{key},'%') and type_news = #{newsTypeId}
+      where title like CONCAT('%',#{key},'%') and type_news = #{newsTypeId} order by id desc
     </select>
   <select id="selectSearchNewsByKeyCount" resultType="java.lang.Integer" parameterType="map">
     select

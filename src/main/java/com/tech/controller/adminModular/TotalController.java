@@ -53,12 +53,111 @@ public class TotalController {
             e.setCompeteId(competeService.getIdByName(e.getCompeteName()));//设置赛事ID
             e.setCompeteLevel(levelService.getIdByName(e.getLevelName()));//设置赛事级别ID
             e.setPrizeId(prizeService.getIdByName(e.getPrizeName()));//设置奖项ID
-            e.setEnrollId(enrollService.getIdByCIdAndTitle(e.getCompeteId(),e.getTitle()));//找到对应的EnrollID
+            e.setEnrollId(enrollService.getIdByCIdAndTitle(e.getTitle()));//根据Title找到对应的EnrollID
         }
-        ServerResponse serverResponse = excellentService.addExcellentList(list);
-        return serverResponse;
+        try {
+            ServerResponse serverResponse = excellentService.addExcellentList(list);
+            return serverResponse;
+        }catch (RuntimeException e){
+            return ServerResponse.createByErrorMessage(e.getMessage());
+        }
     }
 
+    /**
+     * 根据赛事级别获取获奖人数
+     * @return
+     */
+    @RequestMapping(value = "/get_pc_by_level",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String getPrizePeopleCountByCompeteLevel(){
+        List<Levels> list = levelService.getALL();
+        String[] levels = new String[list.size()];
+        List<EchartData> data = new ArrayList<>();
+        int index = 0;
+        for (Levels l:list) {
+            levels[index] = l.getLevelName();
+            int count = totalService.getPrizePeopleCountByCompeteLevel(l.getId());
+            data.add(new EchartData(l.getId(),l.getLevelName(),count));
+            index++;
+        }
+        Map<String, Object> res = new HashMap<>();
+        res.put("categories",levels);
+        res.put("data",data);
+        return Json.toJson(res);
+    }
+
+    /**
+     * 赛事级别下 获取每个奖项的人数
+     * @param levelId
+     * @return
+     */
+    @RequestMapping(value = "/get_pc_by_level2",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String getPrizePeopleCountByLevelIdPrizeId(Integer levelId){
+        List<Prize> list = prizeService.getAll();
+        String[] prize = new String[list.size()];
+        List<EchartData> data = new ArrayList<>();
+        int index = 0;
+        for (Prize p:list) {
+            prize[index] = p.getPrizeName();
+            int count = totalService.getPrizePeopleCountByLevelIdPrizeId(p.getId(),levelId);
+            data.add(new EchartData(p.getId(),p.getPrizeName(),count));
+            index++;
+        }
+        Map<String, Object> res = new HashMap<>();
+        res.put("categories",prize);
+        res.put("data",data);
+        return Json.toJson(res);
+    }
+
+    /**
+     * 根据赛事级别获取获奖项目数
+     * @return
+     */
+    @RequestMapping(value = "/get_ic_by_level",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String getPrizeItemCountByCompeteLevel(){
+        List<Levels> list = levelService.getALL();
+        String[] levels = new String[list.size()];
+        List<EchartData> data = new ArrayList<>();
+        int index = 0;
+        for (Levels l:list) {
+            levels[index] = l.getLevelName();
+            int count = totalService.getPrizeItemCountByCompeteLevel(l.getId());
+            data.add(new EchartData(l.getId(),l.getLevelName(),count));
+            index++;
+        }
+        Map<String, Object> res = new HashMap<>();
+        res.put("categories",levels);
+        res.put("data",data);
+        return Json.toJson(res);
+    }
+
+    /**
+     * 赛事级别下 获取每个奖项的项目数
+     * @param levelId
+     * @return
+     */
+    @RequestMapping(value = "/get_ic_by_level2",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String getPrizeItemCountByLevelIdPrizeId(Integer levelId){
+        List<Prize> list = prizeService.getAll();
+        String[] prize = new String[list.size()];
+        List<EchartData> data = new ArrayList<>();
+        int index = 0;
+        for (Prize p:list) {
+            prize[index] = p.getPrizeName();
+            int count = totalService.getPrizeItemCountByLevelIdPrizeId(p.getId(),levelId);
+            data.add(new EchartData(p.getId(),p.getPrizeName(),count));
+            index++;
+        }
+        Map<String, Object> res = new HashMap<>();
+        res.put("categories",prize);
+        res.put("data",data);
+        return Json.toJson(res);
+    }
+
+    /*------------------------------------------------------------------------------------------*/
 
     /**
      * 项目统计 E_chart异步加载bar  获奖人数 赛事级别
@@ -83,6 +182,7 @@ public class TotalController {
         res.put("data",data);
         return Json.toJson(res);
     }
+
 
     /**
      * 赛事级别 获奖项目数
@@ -131,7 +231,7 @@ public class TotalController {
         res.put("data",data);
         return Json.toJson(res);
     }
-
+    /*-----------------------------------------------------------------------------------------------*/
 
     /**
      * 获取个人报名参赛次数

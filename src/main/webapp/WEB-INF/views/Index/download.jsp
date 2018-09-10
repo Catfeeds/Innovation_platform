@@ -53,7 +53,7 @@
         }
         .search-box .search-select{
             height: 26px;
-            margin-left:550px;
+            margin-left:565px;
             border: 1px solid #ccc;
             border-radius: 3px;
         }
@@ -67,8 +67,6 @@
     <!-- header end-->
     <!-- slide -->
     <div id="slide">
-        <div class="slide_top slide_about">
-        </div>
         <div class="top_slide_wrap about_pic">
             <ul class="slide_box bxslider">
                 <li>
@@ -87,15 +85,13 @@
     <div class="content-box" style="min-height: 470px">
     	<h1>下载专区</h1>
         <div class="search-box">
-            <select class="search-select">
-                <option >全部</option>
-                <option >2018</option>
-                <option >2017</option>
-                <option >2016</option>
-                <option >2015</option>
+            <select class="search-select" name="condition" id="c-year">
+                <%--<option value="">全部</option>--%>
+                <%--<option value="2018">2018</option>--%>
+                <%--<option value="2017">2017</option>--%>
             </select>
-            <input type="text" name="textfield" id="textfield" class="input-text" placeholder="请输入关键词">
-            <input type="image" src="images/search.png" class="input-submit" />
+            <input type="text"  name="textfield"  id="key-input" class="input-text" placeholder="请输入关键词">
+            <input type="image" src="images/search.png" class="input-submit" id="search-btn"/>
         </div>
         <input id="count" type="hidden" value="${count}">
 		<table style="width: 100%;" id="data_fill">
@@ -113,62 +109,131 @@
 </div>
 
     <!-- footer -->
-		<%@include file="foot.jsp"%>
+        <div id="footer">
+            <div class="footer">
+                <div class="footer_h3 clearFloat">
+
+                    <div class="footer_right">
+                        <div class="nav">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer_h3 footer_copyright clearFloat">
+                    <p>Copyright 2018 | 版权所有   山东科技大学电气与自动化工程学院   </p>
+
+                </div>
+            </div>
+        </div>
     <!-- footer end-->
  </div>
 </body>
 <script>
-    var count = $('#count').val();
-    var limit = 8;
-    var a = $(".tag").find("li:eq(3)").find("a");
-    a.css("color","#4a00ff");
     layui.use('laypage', function(){
         var laypage = layui.laypage;
 
-        laypage.render({
-            elem: 'layui_page'
-            ,count: count
-            ,limit:limit
-            ,theme: '#0aa6d6'
-            ,jump: function(obj, first){
-                toPage(obj.curr);
-                if(!first){
-                    toPage(obj.curr);
+        var limit = 8;
+        var a = $(".tag").find("li:eq(3)").find("a");
+        a.css("color","#4a00ff");
+
+        var date=new Date;
+        var year=date.getFullYear();
+        $(".search-select").append($("<option></option>").attr("value","").append("全部"));
+        for (var i=0;i<3;i++)
+        {
+            var option = $("<option></option>").attr("value",year-i).append(year-i);
+            $(".search-select").append(option);
+        }
+
+
+        $("#search-btn").click(function () {
+            toSearchPage(1,true);
+        });
+
+        //初始化数据
+        laypage_reload(false);
+
+        $("#c-year").change(function () {
+            toSearchPage(1,true);
+        });
+
+        function laypage_reload(isSearch) {
+            laypage.render({
+                elem: 'layui_page'
+                ,count: $('#count').val()
+                ,limit: limit
+                ,theme: '#0aa6d6'
+                ,jump: function(obj, first){
+                    if(!isSearch){
+                        toPage(obj.curr);
+                    }
+                    if(!first){
+                        if(!isSearch){
+                            toPage(obj.curr);
+                        }else {
+                            toSearchPage(obj.curr,false);
+                        }
+                    }
                 }
-            }
-        });
-    })
+            });
+        }
 
-    function toPage(page) {
-        $.ajax({
-            type:'get',
-            url:'/download_page.do',
-            dataType: "json",
-            data:{
-                page:page,
-				limit:limit,
-            },
-            success:function (data) {
-                fillData(data);
-            },
-            error:function () {
-                layer.msg('接口错误');
-            }
-        });
-    }
+        function toSearchPage(page,first) {
+            $.ajax({
+                type:'post',
+                url:'/download_search.do',
+                dataType: "json",
+                data:{
+                    page:page
+                    ,limit:limit
+                    ,key:$("#key-input").val()
+                    ,condition:$("#c-year").val()
+                },
+                success:function (res) {
+                    $('#count').val(res.count);
+                    if(first){
+                        laypage_reload(true);
+                    }
+                    fillData(res);
+                }
+            });
+        }
 
-    function fillData(res) {
-        $("#data_fill tr:not(:first)").remove();
-        $.each(res.data, function (index, item) {
-            var id = $("<th></th>").append(item.id);
-            var nameMatch = $("<th></th>").append(item.nameMatch);
-            var titleWork = $("<th></th>").append(item.titleWork);
-            var author = $("<th></th>").append(item.author);
-            var instructor = $("<th></th>").append(item.instructor);
-            var download = $("<th></th>").addClass('download').append($("<a></a>").attr('href','/download_file/'+item.id+'.html').append($("<img/>").attr('src','/images/u404.png')));
-            var tr = $("<tr></tr>").append(id).append(nameMatch).append(titleWork).append(author).append(instructor).append(download);
-            tr.appendTo("#data_fill");
-        });
-    }
+        function toPage(page) {
+            $.ajax({
+                type:'get',
+                url:'/download_page.do',
+                dataType: "json",
+                data:{
+                    page:page,
+                    limit:limit
+                },
+                success:function (data) {
+                    fillData(data);
+                },
+                error:function () {
+                    layer.msg('接口错误');
+                }
+            });
+        }
+
+        function fillData(res) {
+            $("#data_fill tr:not(:first)").remove();
+            $.each(res.data, function (index, item) {
+                var id = $("<th></th>").append(item.id);
+                var nameMatch = $("<th></th>").append(item.nameMatch);
+                var titleWork = $("<th></th>").append(item.titleWork);
+                var author = $("<th></th>").append(item.author);
+                var instructor = $("<th></th>").append(item.instructor);
+                var download = $("<th></th>").addClass('download').append($("<a></a>").attr('href','/download_file/'+item.id+'.html').append($("<img/>").attr('src','/images/u404.png')));
+                var tr = $("<tr></tr>").append(id).append(nameMatch).append(titleWork).append(author).append(instructor).append(download);
+                tr.appendTo("#data_fill");
+            });
+        }
+
+
+
+    });
+
 </script>
 </html>

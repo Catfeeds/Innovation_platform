@@ -163,16 +163,15 @@
     <result column="title_enroll" jdbcType="VARCHAR" property="title" />
     <result column="instructor" jdbcType="VARCHAR" property="instructor" />
     <result column="attachment" jdbcType="VARCHAR" property="attachment" />
-    <result column="name_compete" jdbcType="TIMESTAMP" property="competeName" />
-    <result column="name_group" jdbcType="TIMESTAMP" property="groupName" />
+    <result column="name_compete" jdbcType="VARCHAR" property="competeName" />
+    <result column="name_group" jdbcType="VARCHAR" property="groupName" />
     <result column="prize_id" jdbcType="INTEGER" property="prizeId" />
     <result column="prize_name" jdbcType="VARCHAR" property="prizeName" />
-    <result column="introduce" jdbcType="VARCHAR" property="gwintroduce" />
-    <result column="finish_time" jdbcType="VARCHAR" property="gwfinishTime" />
-    <result column="cover_url" jdbcType="VARCHAR" property="gwcoverUrl" />
+    <result column="year" jdbcType="VARCHAR" property="year" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
     <select id="selectItemFromVmBySno" resultMap="BaseResultMapTotalEnroll" parameterType="string">
-      select id,name_compete,title_enroll,group_id,name_group,instructor,status,attachment FROM vm_item where sno = #{sno} order by status
+      select id,name_compete,title_enroll,group_id,name_group,instructor,status,attachment,(YEAR(update_time)) year,prize_name FROM vm_item where sno = #{sno} order by status
     </select>
   <select id="selectAllItem" resultMap="BaseResultMapTotalEnroll">
       select id,name_compete,title_enroll,group_id,name_group,instructor,status,attachment FROM vw_item order by status
@@ -189,9 +188,6 @@
   <select id="selectPassPrizeItemCount" resultType="java.lang.Integer">
     select count(*) from vw_excellent
   </select>
-  <select id="selectPassPrizeItem" resultMap="BaseResultMapTotalEnroll">
-    select id,name_compete,title_enroll,group_id,name_group,status,prize_name,introduce,finish_time,cover_url,instructor FROM vw_excellent
-  </select>
     <select id="selectSearchCount" resultType="java.lang.Integer">
           select count(*) FROM vw_item where title_enroll like CONCAT('%',#{key},'%')
     </select>
@@ -199,6 +195,9 @@
     select id,name_compete,title_enroll,group_id,name_group,instructor,status,attachment FROM vw_item where title_enroll like CONCAT('%',#{key},'%') order by status
   </select>
   <select id="selectIdByCIdAndTitle" resultType="java.lang.Integer" parameterType="map">
-    select id from tbl_enroll where compete_id = #{competeId} and title_enroll = #{title}
+    select id from tbl_enroll where title_enroll = #{title}
   </select>
+    <select id="selectTitleIsExsit" resultType="java.lang.Integer" parameterType="string">
+      select count(*) from tbl_enroll where title_enroll = #{title}
+    </select>
 </mapper>

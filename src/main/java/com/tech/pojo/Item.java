@@ -1,6 +1,5 @@
 package com.tech.pojo;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -20,33 +19,23 @@ public class Item {
     private Integer status;
     private Integer prizeId;
     private String prizeName;
-    private String gwintroduce;//优秀作品简介
-    private Date gwfinishTime;
-    private String gwcoverUrl;
+    private Date updateTime;
+    private String year;//作为报名表的年份记录
 
-    public String getGwintroduce() {
-        return gwintroduce;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setGwintroduce(String gwintroduce) {
-        this.gwintroduce = gwintroduce;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
-
-    public Date getGwfinishTime() {
-        return gwfinishTime;
+    public String getYear() {
+        return year;
     }
 
-    public void setGwfinishTime(Date gwfinishTime) {
-        this.gwfinishTime = gwfinishTime;
-    }
-
-    public String getGwcoverUrl() {
-        return gwcoverUrl;
-    }
-
-    public void setGwcoverUrl(String gwcoverUrl) {
-        this.gwcoverUrl = gwcoverUrl;
+    public void setYear(String year) {
+        this.year = year;
     }
 
     public Integer getPrizeId() {
@@ -169,8 +158,4 @@ public class Item {
         this.members2 = members2;
     }
 
-    @Override
-    public String toString() {
-        return "Item{" + "enrollId=" + enrollId + ", competeId=" + competeId + ", groupId=" + groupId + ", competeName='" + competeName + '\'' + ", title='" + title + '\'' + ", instructor='" + instructor + '\'' + ", groupName='" + groupName + '\'' + ", grouper='" + grouper + '\'' + ", leader=" + leader + ", members=" + members + ", members2=" + Arrays.toString(members2) + ", attachment='" + attachment + '\'' + ", status=" + status + '}';
-    }
 }

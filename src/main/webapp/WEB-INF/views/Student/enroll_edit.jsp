@@ -26,8 +26,6 @@
 				}
 			});
 		});
-
-
 		function deltr(opp) {
 			var length = $("#dynamicTable tbody tr").length;
 			if (length <= 0) {
@@ -144,7 +142,7 @@
 					<th style="width: 10px;">操作</th>
 				</tr>
 		</thead>
-		<tbody>
+		<tbody id="info-reload">
 		<c:forEach var="member" items="${item.members}">
 			<tr>
 			<td height="30" align="center">
@@ -158,17 +156,6 @@
 			</td>
 			</tr>
 		</c:forEach>
-			<%--<tr>--%>
-				<%--<td height="30" align="center">--%>
-					<%--<input name="members" onblur="getInfo($(this))" class="layui-input" type="text"/></td>--%>
-				<%--<td align="center">--%>
-					<%--<input class="layui-input layui-disabled" type="text"  disabled/></td>--%>
-				<%--<td align="center">--%>
-					<%--<input class="layui-input layui-disabled" type="text" disabled/></td>--%>
-				<%--<td>--%>
-					<%--<input type="button" onClick="deltr(this)" value="删行" class="layui-btn layui-btn-danger layui-btn-xs" >--%>
-				<%--</td>--%>
-			<%--</tr>--%>
 		</tbody>
 	</table>
 		</div>
@@ -213,7 +200,7 @@
         form.on("submit(add)", function (data) {
             $.ajax({
                 type: 'post',
-                url: '/stu/enroll.do',
+                url: '/stu/enroll_edit.do',
                 data: $('#form_enroll').serialize(),
                 success: function (data) {
                     layer.msg(data.msg);
@@ -229,7 +216,7 @@
 //            }, 500);
             return false;
         })
-    })
+    });
 
     function getInfo(obj) {
         if(obj.val()==''){

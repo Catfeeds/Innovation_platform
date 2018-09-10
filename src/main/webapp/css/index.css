@@ -4,7 +4,7 @@
 
 /*header*/
 .all-web{
-	width: 1300px;
+	/*width: 1300px;*/
 	margin: auto;
 }
 #header{
@@ -87,14 +87,19 @@
 }
 /*header end*/
 /*slide*/
-#slide{
-
+#index-slide{
+	background:#f4f4f4;
+}
+#good-teacher {
+	width: 1300px;
+	margin:auto;
+	text-align: center;
 }
 
-.top_slide_wrap{width:100%;height:470px;overflow:hidden;position:relative;z-index:1;}
-.slide_box{height:470px;overflow:hidden}
-.slide_box li{height:470px}
-.slide_box img{width:100%;height:470px}
+.top_slide_wrap{width:100%;height:430px;overflow:hidden;position:relative;z-index:1;width: 1300px;margin:auto;text-align: center;}
+.slide_box{height:430px;overflow:hidden}
+.slide_box li{height:430px}
+.slide_box img{width:100%;height:430px}
 /* op_btns */
 .op_btns{width:980px;margin:-540px auto 0;position:relative;z-index:3;*margin-top:-530px}
 .op_btns .op_btn{display:block;width:62px;height:62px;cursor:pointer;overflow:hidden;position:absolute;margin-top:275px;}
@@ -114,7 +119,7 @@
 }
 /*index 关于嘉特*/
 .index_about{
-	padding-top: 53px;
+	padding-top: 38px;
 }
 .index_left{
 	float: left;

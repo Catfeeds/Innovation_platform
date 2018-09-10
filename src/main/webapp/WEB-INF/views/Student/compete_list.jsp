@@ -61,7 +61,7 @@
 				<img src="${compete.coverUrl}" />
 				<h1>大赛名称：${compete.nameCompete}</h1>
 				<p class="time">报名时间：<span><fmt:formatDate value="${compete.startTime}" pattern="yyyy-MM-dd HH:mm" /> - <fmt:formatDate value="${compete.endTime}" pattern="yyyy-MM-dd HH:mm" /></span></p>
-				<p>报名要求:${compete.requirement}</p>
+				<h1>报名要求:${compete.requirement}</h1>
 				<div class="layui-inline">
 					<a class="layui-btn linksAdd_btn" competeId="${compete.id}" style="background-color:#5FB878">报名</a>
 				</div>
@@ -83,7 +83,7 @@
                         title : "赛事报名",
                         type : 2,
                         content : "/stu/to_compete_enroll/"+id+".html",
-                        success : function(layero, index){
+                        success : function(){
                             setTimeout(function(){
                                 layui.layer.tips('点击此处返回友链列表', '.layui-layer-setwin .layui-layer-close', {
                                     tips: 3
@@ -96,7 +96,7 @@
                     });
                     layui.layer.full(index);
 				}else{
-                    layer.msg(res.data);
+                    layer.msg(res.msg);
                 }
             });
 

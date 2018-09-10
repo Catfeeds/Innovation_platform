@@ -26,8 +26,6 @@
     <!-- header end-->
     <!-- slide -->
     <div id="slide">
-        <div class="slide_top slide_about">
-        </div>
         <div class="top_slide_wrap about_pic">
             <ul class="slide_box bxslider">
                 <li>
@@ -53,7 +51,22 @@
 </div>
    
     <!-- footer -->
-        <%@include file="foot.jsp"%>
+        <div id="footer">
+            <div class="footer">
+                <div class="footer_h3 clearFloat">
+
+                    <div class="footer_right">
+                        <div class="nav">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer_h3 footer_copyright clearFloat">
+                    <p>Copyright 2018 | 版权所有   山东科技大学电气与自动化工程学院   </p>
+
+                </div>
+            </div>
+        </div>
     <!-- footer end-->
  </div>
 </body>

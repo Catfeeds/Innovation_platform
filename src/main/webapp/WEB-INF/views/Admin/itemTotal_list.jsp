@@ -49,7 +49,7 @@
 </form>
 	<table id="List" lay-filter="ListID"></table>
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-	<legend>面板</legend>
+	<legend>数据统计</legend>
 </fieldset>
 
 <div style="padding: 20px; background-color: #F2F2F2;">
@@ -70,9 +70,9 @@
 		</div>
 		<div class="layui-col-md12">
 			<div class="layui-card">
-				<div class="layui-card-header">标题</div>
+				<div class="layui-card-header">扩展</div>
 				<div class="layui-card-body">
-					内容
+					Content
 				</div>
 			</div>
 		</div>
@@ -88,11 +88,10 @@
     var piePc = echarts.init(document.getElementById('chartPCountPie'));
     var pieIc = echarts.init(document.getElementById('chartICountPie'));
 
-    //myChartPie.setOption(optionPie);
 	$(".show-chart").click(function () {
         $.ajax({
             type:'post',
-            url:'/manage/get_prize_pc.do',
+            url:'/manage/get_pc_by_level.do',
             dataType: "json",
             success:function (res) {
                 // 指定图表的配置项和数据
@@ -125,7 +124,7 @@
         barPc.on('click', function (params) {
             $.ajax({
                 type:'post',
-                url:'/manage/get_prize_pc2.do',
+                url:'/manage/get_pc_by_level2.do',
                 dataType: "json",
 				data:{
                     levelId:params.data.id,
@@ -133,7 +132,7 @@
                 success:function (res) {
                     var optionPie = {
                         title : {
-                            text: params.data.name+'获奖项目数及人数',
+                            text: params.data.name+'获奖人数',
                             x:'center'
                         },
                         tooltip : {
@@ -147,7 +146,7 @@
                         },
                         series : [
                             {
-                                name: '项目数/人数',
+                                name: '人数',
                                 type: 'pie',
                                 radius : '55%',
                                 center: ['50%', '60%'],
@@ -169,7 +168,7 @@
 
         $.ajax({
             type:'post',
-            url:'/manage/get_prize_ic.do',
+            url:'/manage/get_ic_by_level.do',
             dataType: "json",
             success:function (res) {
                 // 指定图表的配置项和数据
@@ -198,6 +197,51 @@
                 layer.msg('接口错误');
             }
         });
+
+        barIc.on('click', function (params) {
+            $.ajax({
+                type:'post',
+                url:'/manage/get_ic_by_level2.do',
+                dataType: "json",
+                data:{
+                    levelId:params.data.id,
+                },
+                success:function (res) {
+                    var optionPie = {
+                        title : {
+                            text: params.data.name+'获奖项目数',
+                            x:'center'
+                        },
+                        tooltip : {
+                            trigger: 'item',
+                            formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        },
+                        legend: {
+                            orient: 'vertical',
+                            left: 'left',
+                            data: res.categories
+                        },
+                        series : [
+                            {
+                                name: '项目数',
+                                type: 'pie',
+                                radius : '55%',
+                                center: ['50%', '60%'],
+                                data:res.data,
+                                itemStyle: {
+                                    emphasis: {
+                                        shadowBlur: 10,
+                                        shadowOffsetX: 0,
+                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                    }
+                                }
+                            }
+                        ]
+                    };
+                    pieIc.setOption(optionPie);
+                }
+            });
+        });
 	});
 
 
@@ -213,7 +257,7 @@
             ,accept: 'file'
             ,url: '/manage/data_import.do'
             ,done: function(res){
-                console.log(res)
+                layer.msg(res.msg);
             }
         });
 
@@ -260,7 +304,7 @@
                                 });
                             },300)
                         }
-                    })
+                    });
                     layui.layer.full(index);
                 }).resize();
             }

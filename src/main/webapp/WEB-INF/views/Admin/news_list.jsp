@@ -28,9 +28,9 @@
 		<div class="layui-inline">
 			<a class="layui-btn layui-btn-normal newsAdd_btn">添加${newsType}</a>
 		</div>
-		<div class="layui-inline">
-			<a class="layui-btn layui-btn-danger batchDel">批量删除</a>
-		</div>
+		<%--<div class="layui-inline demoTable">--%>
+			<%--<button class="layui-btn layui-btn-danger" data-type="deleteMore">批量删除</button>--%>
+		<%--</div>--%>
 
 	</blockquote>
 	<div class="layui-form news_list">
@@ -44,6 +44,38 @@
     var newsTypeId=$("#newTypeId").val();
     layui.use('table', function(){
         var table = layui.table;
+
+        /*批量删除*/
+        var $ = layui.$, active = {
+            deleteMore: function(){
+                var checkStatus = table.checkStatus('search_tb')
+                    ,data = checkStatus.data;
+                <%--layer.confirm('确定要删除么?', function(index){--%>
+                    <%--$.ajax({--%>
+                        <%--url:'${cpath}/manage/delete_news.do',--%>
+                        <%--type:'post',--%>
+						<%--data:{--%>
+                            <%--object:JSON.stringify(data)--%>
+                        <%--},--%>
+                        <%--success : function(data) {--%>
+                            <%--if(data.status==0){--%>
+                                <%--layer.msg(data.msg);--%>
+                            <%--}--%>
+                            <%--else--%>
+                                <%--layer.msg(data.msg);--%>
+                        <%--}--%>
+                    <%--});--%>
+                    <%--location.reload();--%>
+                    <%--layer.close(index);--%>
+                <%--});--%>
+            }
+        };
+
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
 
         $(window).one("resize",function(){
             $(".newsAdd_btn").click(function(){
@@ -70,6 +102,7 @@
             method: 'get',
             limit: 10,
             cols: [[
+//                {type: 'checkbox', fixed: 'left'},
                 {title: '序号',width:100,align:'center',type:'numbers'},
                 {field:'id', title: '序号',align:'center',sort:true,hide:'true'},
                 {field:'title', title: '标题',align:'center'},
@@ -88,6 +121,7 @@
                 , where: {key: $(".search_input").val(),newsTypeId:newsTypeId}
             });
         });
+
 
         table.on('tool(newsListID)', function(obj){
             var data = obj.data;

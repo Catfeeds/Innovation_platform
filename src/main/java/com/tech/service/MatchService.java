@@ -65,4 +65,19 @@ public class MatchService {
     public int getMatchCount() {
         return matchMapper.selectMatchCount();
     }
+
+    public List<Match> getSearch(String key,Integer condition) {
+        List<Match> list = matchMapper.selectSearch(key,condition);
+        String intro ;
+        for (Match m:list) {
+            intro = m.getIntroduce().replaceAll("<(S*?)[^>]*>.*?|<.*? />", "").replaceAll("&.{2,6}?;", "");
+            intro = intro.length()>120?intro.substring(0,120):intro;
+            m.setIntroduce(intro);
+        }
+        return list;
+    }
+
+    public int getSearchCount(String key,Integer condition) {
+        return matchMapper.selectSearchCount(key,condition);
+    }
 }

@@ -54,9 +54,10 @@
 							<cite>${student.nameStudent}</cite>
 						</a>
 						<dl class="layui-nav-child">
-							<dd><a href="javascript:;" data-url="/stu/stuInfo.html"><i class="iconfont icon-zhanghu" data-icon="icon-zhanghu"></i><cite>个人资料</cite></a></dd>
-							<dd><a href="javascript:;" data-url="/stu/changePwd.html"><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>修改密码</cite></a></dd>
-							<dd><a href="/stu/logout.html" class="signOut"><i class="iconfont icon-loginout"></i><cite>退出</cite></a></dd>
+							<dd><a href="javascript:;" data-url="/stu/stuInfo.html"><i class="layui-icon layui-icon-username" ></i><cite>个人资料</cite></a></dd>
+							<dd><a href="javascript:;" data-url="/stu/changePwd.html"><i class="layui-icon layui-icon-set" ></i><cite>修改密码</cite></a></dd>
+							<dd><a href="javascript:window.open('/index.html');" ><i class="layui-icon layui-icon-home" ></i><cite>主页</cite></a></dd>
+							<dd><a href="/stu/logout.html" class="signOut"><i class="layui-icon layui-icon-close"></i><cite>退出</cite></a></dd>
 						</dl>
 					</li>
 				</ul>
@@ -73,18 +74,18 @@
 					<li class="layui-nav-item">
 						
 						<a href="javascript:;" data-url="/stu/main.html">
-							<i class="iconfont icon-computer" data-icon="icon-computer">
+							<i class="layui-icon layui-icon-home">
 								
 							</i><cite>首页</cite></a>
 					</li>
 					<li class="layui-nav-item">
 						<a href="javascript:;" data-url="/stu/to_enroll_list.html">
-							<i class="iconfont icon-text" data-icon="icon-text"></i>
+							<i class="layui-icon layui-icon-form" ></i>
 							<cite>我的项目</cite></a>
 					</li>
 					<li class="layui-nav-item">
 						<a href="javascript:;" data-url="/stu/to_compete_list.html">
-							<i class="iconfont icon-text" data-icon="icon-text">
+							<i class="layui-icon layui-icon-tabs">
 
 							</i><cite>赛事报名</cite></a>
 					</li>

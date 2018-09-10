@@ -57,4 +57,5 @@ public class GoodTeacherService {
     public List<GoodTeacher> getSeach(String key) {
         return goodTeacherMapper.selectSearch(key);
     }
+
 }

@@ -108,7 +108,6 @@ public class NewsController {
             //TODO
         }
         news.setUpdateTime(new Date());
-System.out.println(news.toString());
         ServerResponse serverResponse =  newsService.updateNews(news);
         return serverResponse;
     }
@@ -117,6 +116,15 @@ System.out.println(news.toString());
     public ServerResponse<String> newsDelete(@PathVariable("id") Integer id){
         ServerResponse serverResponse =  newsService.deleteNews(id);
         return serverResponse;
+    }
+
+    /**
+     * 批量删除
+     */
+    @RequestMapping("/delete_news")
+    @ResponseBody
+    public ServerResponse moreNewsDelete(Object object){
+        return ServerResponse.createBySuccess(object);
     }
 
 }

@@ -44,6 +44,7 @@ public class StuEnrollController {
         return "Admin/enroll_list";
     }
 
+
     /**展示学生所参与的项目
      * @param sno
      * @param model

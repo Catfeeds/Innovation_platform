@@ -14,10 +14,12 @@
     <result column="prize_name" jdbcType="VARCHAR" property="prizeName" />
     <result column="members" jdbcType="VARCHAR" property="members" />
     <result column="instructor" jdbcType="VARCHAR" property="instructor" />
+    <result column="profession_id" jdbcType="INTEGER" property="pId" />
+
   </resultMap>
   <sql id="Base_Column_List">
     id, year,enroll_id, title, compete_id, compete_name, compete_level, level_name, prize_id, prize_name,
-    members, instructor
+    members, instructor,profession_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -33,11 +35,11 @@
     insert into tbl_excellent (id, year, enroll_id, title,
       compete_id, compete_name, compete_level, 
       level_name, prize_id, prize_name, 
-      members, instructor)
+      members, instructor,profession_id)
     values (#{id,jdbcType=INTEGER}, #{year,jdbcType=VARCHAR}, #{enrollId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR},
       #{competeId,jdbcType=INTEGER}, #{competeName,jdbcType=VARCHAR}, #{competeLevel,jdbcType=INTEGER}, 
       #{levelName,jdbcType=VARCHAR}, #{prizeId,jdbcType=INTEGER}, #{prizeName,jdbcType=VARCHAR}, 
-      #{members,jdbcType=VARCHAR}, #{instructor,jdbcType=VARCHAR})
+      #{members,jdbcType=VARCHAR}, #{instructor,jdbcType=VARCHAR},#{pId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.tech.pojo.Excellent">
     insert into tbl_excellent
@@ -186,13 +188,68 @@
   <select id="selectPrizePeopleCountByCompeteLevel" resultType="java.lang.Integer">
       select count(*) from vm_excellent where compete_level = #{levelId}
    </select>
-  <select id="selectPrizeItemCountByCompeteLevel" resultType="java.lang.Integer">
+  <select id="selectPrizeItemCountByCompeteLevelWithSelective" resultType="java.lang.Integer">
       select count(*) from vw_excellent where compete_level = #{levelId}
+    <if test="time != null">
+      and e.year BETWEEN SUBSTRING_INDEX(#{time}, '~', 1)  and SUBSTRING_INDEX(#{time}, '~', -1)
+    </if>
+    <if test="pId != null">
+      and profession_id = #{pId}
+    </if>
   </select>
-  <select id="selectPrizePeopleCountByLevelIdPrizeId" resultType="java.lang.Integer">
+  <select id="selectPrizePeopleCountByLevelIdPrizeIdWithSelective" resultType="java.lang.Integer">
       select count(*) from vm_excellent where compete_level = #{levelId} and prize_id = #{prizeId}
+    <if test="time != null">
+      and e.year BETWEEN SUBSTRING_INDEX(#{time}, '~', 1)  and SUBSTRING_INDEX(#{time}, '~', -1)
+    </if>
+    <if test="pId != null">
+      and profession_id = #{pId}
+    </if>
   </select>
-  <select id="selectPrizeItemCountByLevelIdPrizeId" resultType="java.lang.Integer">
+  <select id="selectPrizeItemCountByLevelIdPrizeIdWithSelective" resultType="java.lang.Integer">
       select count(*) from vw_excellent where compete_level = #{levelId} and prize_id = #{prizeId}
+    <if test="time != null">
+      and e.year BETWEEN SUBSTRING_INDEX(#{time}, '~', 1)  and SUBSTRING_INDEX(#{time}, '~', -1)
+    </if>
+    <if test="pId != null">
+      and profession_id = #{pId}
+    </if>
+  </select>
+  <select id="selectPrizePeopleCountByCompeteLevelWithSelective" resultType="java.lang.Integer">
+    select count(*) from vm_excellent e where e.compete_level = #{levelId}
+    <if test="time != null">
+      and e.year BETWEEN SUBSTRING_INDEX(#{time}, '~', 1)  and SUBSTRING_INDEX(#{time}, '~', -1)
+    </if>
+    <if test="pId != null">
+      and profession_id = #{pId}
+    </if>
+  </select>
+  <select id="selectSearchCount" resultType="java.lang.Integer">
+      select count(*) from tbl_excellent where  title like CONCAT('%',#{key},'%')
+  </select>
+  <select id="selectSearch" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_excellent where title like CONCAT('%',#{key},'%')
+  </select>
+  <select id="selectSelectiveCount" resultType="java.lang.Integer" parameterType="map">
+    select count(*) from tbl_excellent where 1 = 1
+    <if test="time != null">
+      and e.year BETWEEN SUBSTRING_INDEX(#{time}, '~', 1)  and SUBSTRING_INDEX(#{time}, '~', -1)
+    </if>
+    <if test="pId != null">
+      and profession_id = #{pId}
+    </if>
+  </select>
+  <select id="selectSelective" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_excellent where 1 = 1
+    <if test="time != null">
+      and e.year BETWEEN SUBSTRING_INDEX(#{time}, '~', 1)  and SUBSTRING_INDEX(#{time}, '~', -1)
+    </if>
+    <if test="pId != null">
+      and profession_id = #{pId}
+    </if>
   </select>
 </mapper>

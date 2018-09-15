@@ -7,9 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class EnrollService {
@@ -24,8 +22,12 @@ public class EnrollService {
     @Autowired
     CompeteMapper competeMapper;
 
+    /**
+     * 添加报名表
+     * @param item
+     * @return
+     */
     public ServerResponse<String> addEnroll(Item item){
-        //添加报名表
         Enroll enroll = new Enroll();
         enroll.setGroupId(item.getGroupId());
         enroll.setAttachment(item.getAttachment());
@@ -45,13 +47,45 @@ public class EnrollService {
             if (count>0){
                 for (String m : members2) {
                     if(StringUtils.isEmpty(m))
-                        break;
+                        continue;
                     memberMapper.insert(new Member(m,item.getGroupId(),0));
                 }
                 return ServerResponse.createBySuccessMessage("报名成功");
             }
         }
         return ServerResponse.createByErrorMessage("报名失败");
+    }
+
+    /**
+     * 修改报名表
+     */
+    public ServerResponse editEnroll(Item item) {
+        //更新组名、成员、附件、指导老师
+        int count = groupMapper.updateByPrimaryKey(new Group(item.getGroupId(),item.getGroupName()));
+        if(count>0){
+            //删除所有组员
+            memberMapper.deleteExpectLeaderByGroupId(item.getGroupId());
+            String[] members = item.getMembers2();
+            for (String m : members) {
+                if(StringUtils.isEmpty(m))
+                    continue;
+                memberMapper.insert(new Member(m,item.getGroupId(),0));
+            }
+        }else{
+            throw new RuntimeException("更新组名时错误");
+        }
+        Enroll enroll = new Enroll();
+        enroll.setId(item.getEnrollId());
+        enroll.setInstructor(item.getInstructor());
+        enroll.setTitleEnroll(item.getTitle());
+        enroll.setAttachment(item.getAttachment());
+        enroll.setUpdateTime(new Date());
+        count = enrollMapper.updateByPrimaryKeySelective(enroll);
+        if (count>0){
+             return ServerResponse.createBySuccessMessage("更新成功!");
+        }else{
+            throw new RuntimeException("更新错误");
+        }
     }
 
     public int getAllCount() {
@@ -144,33 +178,43 @@ public class EnrollService {
      * @return
      */
     public ServerResponse check(Item item) {
-        Compete compete = competeMapper.selectByPrimaryKey(item.getCompeteId());
-        Calendar date = Calendar.getInstance();
-        Date now = new Date();
-        date.setTime(now);
-
-        Calendar after = Calendar.getInstance();
-        after.setTime(compete.getStartTime());
-
-        Calendar before = Calendar.getInstance();
-        before.setTime(compete.getEndTime());
-
         String title = item.getTitle();
-
         if (!StringUtils.isEmpty(title)&&!StringUtils.isEmpty(item.getGroupName())&&!StringUtils.isEmpty(item.getInstructor())){
-            int count = enrollMapper.selectTitleIsExsit(title);
-            if (count>0)
-                return ServerResponse.createByErrorMessage("参赛标题已存在,请更换重试！");
+            //判断当前是否是编辑还是新增
+            if(item.getEnrollId()==null) {
+                int count = enrollMapper.selectTitleIsExsit(title);
+                if (count > 0) return ServerResponse.createByErrorMessage("参赛标题已存在,请更换重试！");
+                count = enrollMapper.selectIsEnroll(item.getGrouper(),item.getCompeteId());
+                if (count > 0) return ServerResponse.createByErrorMessage("请勿重复报名");
+            }
         }else{
             return ServerResponse.createByErrorMessage("参数不为空");
         }
+        //判断是否有重复
+        String[] members2 = item.getMembers2();
+        List<String> list= new ArrayList<>(Arrays.asList(members2));
+        list.add(item.getGrouper());
+        HashSet<String> hashSet = new HashSet<>(list);
+        if (list.size() != hashSet.size()) {
+            return ServerResponse.createByErrorMessage("存在重复的学生");
+        }
 
+        Compete compete = competeMapper.selectByPrimaryKey(item.getCompeteId());
+        System.out.println(compete.toString());
+        Calendar date = Calendar.getInstance();
+        Date now = new Date();
+        date.setTime(now);
+        Calendar after = Calendar.getInstance();
+        after.setTime(compete.getStartTime());
+        Calendar before = Calendar.getInstance();
+        before.setTime(compete.getEndTime());
         if (date.after(after)&&date.before(before)){
             return ServerResponse.createBySuccess("时间校验成功",now);
         }else{
             return ServerResponse.createByErrorDataMessage("报名时间不符",now);
         }
     }
+
 
 
     public int getSearchCount(String key) {
@@ -209,4 +253,6 @@ public class EnrollService {
         }
         return false;
     }
+
+
 }

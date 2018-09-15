@@ -24,4 +24,6 @@ public interface CompeteMapper {
     List<Compete> selectAllCompete();
 
     Integer selectIdByName(String competeName);
+
+    List<Compete> selectAllCompeteNoTimeOut();
 }

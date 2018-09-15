@@ -1,6 +1,16 @@
 /*清除浮动样式class="clearfix"*/
 .clearfix:after { content:"."; display:block; height:0;	clear:both;	visibility:hidden;}
 
+.head-tag li a:hover{
+	border-bottom: 2px solid #ffffff;
+	padding-bottom:10px;
+}
+
+.tag li a:hover{
+	text-decoration:underline;
+	color:blue;
+}
+
 
 /*header*/
 .all-web{
@@ -364,7 +374,7 @@
     display: inline;
     float: left;
     height: 46px;
-    margin: 134px 10px 0 10px;
+    margin: 134px 0px 0 10px;
     width: 28px;
 }
 .mr_frUl {
@@ -375,7 +385,7 @@
 }
 .mr_frBtnR {
     float: right;
-    margin: 134px 10px 0 10px;
+    margin: 134px 0px 0 10px;
     cursor: pointer;
     width: 28px;
     height: 46px;
@@ -384,13 +394,14 @@
     display: inline;
     float: left;
     /*height: 389px;*/
-    width: 300px;
+    margin-right: 5px;
+    width: 400px;
     overflow: hidden;
     position: relative;
 }
 .mr_frUl ul li a img {
     /*display:block;*/
-    width: 300px;
+    width: 400px;
     height: 300px;
 }
 .mr_zhe{

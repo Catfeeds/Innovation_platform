@@ -27,9 +27,9 @@ public class ScrollImgService {
         scrollImg.setIsShow(1);
         int count =  scrollImgMapper.insert(scrollImg);
         if (count>0){
-            return ServerResponse.createBySuccessMessage("add_success");
+            return ServerResponse.createBySuccessMessage("添加成功");
         }
-        return ServerResponse.createByErrorMessage("add_fail");
+        return ServerResponse.createByErrorMessage("添加失败");
     }
 
     public ServerResponse updateScrollImg(ScrollImg scrollImg) {
@@ -43,9 +43,9 @@ public class ScrollImgService {
     public ServerResponse deleteScrollImg(Integer id) {
         int count =  scrollImgMapper.deleteByPrimaryKey(id);
         if (count>0){
-            return ServerResponse.createBySuccessMessage("delete_success");
+            return ServerResponse.createBySuccessMessage("删除成功");
         }
-        return ServerResponse.createByErrorMessage("delete_fail");
+        return ServerResponse.createByErrorMessage("删除失败");
     }
 
     public int getAllCount() {

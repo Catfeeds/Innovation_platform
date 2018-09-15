@@ -34,6 +34,17 @@ public class Excellent {
     @Excel(name="指导老师")
     private String instructor;
 
+    //组长专业ID
+    private Integer pId;
+
+    public Integer getpId() {
+        return pId;
+    }
+
+    public void setpId(Integer pId) {
+        this.pId = pId;
+    }
+
     public Integer getEnrollId() {
         return enrollId;
     }
@@ -130,8 +141,5 @@ public class Excellent {
         this.instructor = instructor == null ? null : instructor.trim();
     }
 
-    @Override
-    public String toString() {
-        return "Excellent{" + "id=" + id + ", enrollId=" + enrollId + ", year='" + year + '\'' + ", title='" + title + '\'' + ", competeId=" + competeId + ", competeName='" + competeName + '\'' + ", competeLevel=" + competeLevel + ", levelName='" + levelName + '\'' + ", prizeId=" + prizeId + ", prizeName='" + prizeName + '\'' + ", members='" + members + '\'' + ", instructor='" + instructor + '\'' + '}';
-    }
+
 }

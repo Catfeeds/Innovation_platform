@@ -1,7 +1,9 @@
 package com.tech.service;
 
 import com.tech.common.ServerResponse;
+import com.tech.dao.GroupMapper;
 import com.tech.dao.MemberMapper;
+import com.tech.dao.StudentMapper;
 import com.tech.pojo.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,10 @@ import org.springframework.stereotype.Service;
 public class MemberService {
     @Autowired
     MemberMapper memberMapper;
+    @Autowired
+    GroupMapper groupMapper;
+    @Autowired
+    StudentMapper studentMapper;
 
     /**
      * 添加成员 0为组员 1为组长
@@ -27,4 +33,8 @@ public class MemberService {
     }
 
 
+    public Integer getProfessionIdByEnrollId(Integer enrollId) {
+        String leaderSno = memberMapper.selectLeaderSnoByEnrollid(enrollId);
+        return studentMapper.selectPidBySno(leaderSno);
+    }
 }

@@ -6,6 +6,7 @@ import com.tech.common.ServerResponse;
 import com.tech.dao.ExcellentMapper;
 import com.tech.pojo.*;
 import com.tech.service.*;
+import org.apache.commons.lang3.StringUtils;
 import org.nutz.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,10 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @RequestMapping("/manage")
@@ -34,6 +34,13 @@ public class TotalController {
     EnrollService enrollService;
     @Autowired
     ExcellentService excellentService;
+    @Autowired
+    MemberService memberService;
+
+    @RequestMapping("/to_data_import")
+    public String toDataImport(){
+        return "Admin/data_import";
+    }
 
     /**
      * 数据导入
@@ -54,6 +61,7 @@ public class TotalController {
             e.setCompeteLevel(levelService.getIdByName(e.getLevelName()));//设置赛事级别ID
             e.setPrizeId(prizeService.getIdByName(e.getPrizeName()));//设置奖项ID
             e.setEnrollId(enrollService.getIdByCIdAndTitle(e.getTitle()));//根据Title找到对应的EnrollID
+            e.setpId(memberService.getProfessionIdByEnrollId(e.getEnrollId()));//设置专业ID
         }
         try {
             ServerResponse serverResponse = excellentService.addExcellentList(list);
@@ -64,19 +72,23 @@ public class TotalController {
     }
 
     /**
-     * 根据赛事级别获取获奖人数
+     * 根据赛事级别获取获奖人数 done
      * @return
      */
     @RequestMapping(value = "/get_pc_by_level",produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String getPrizePeopleCountByCompeteLevel(){
+    public String getPrizePeopleCountByCompeteLevel(String chooseTime,Integer profession){
+        //2018-09-01 ~ 2018-10-01
+        if(StringUtils.isEmpty(chooseTime)){
+            chooseTime=null;
+        }
         List<Levels> list = levelService.getALL();
         String[] levels = new String[list.size()];
         List<EchartData> data = new ArrayList<>();
         int index = 0;
         for (Levels l:list) {
             levels[index] = l.getLevelName();
-            int count = totalService.getPrizePeopleCountByCompeteLevel(l.getId());
+            int count = totalService.getPrizePeopleCountByCompeteLevelWithSelective(l.getId(),chooseTime,profession);
             data.add(new EchartData(l.getId(),l.getLevelName(),count));
             index++;
         }
@@ -93,14 +105,17 @@ public class TotalController {
      */
     @RequestMapping(value = "/get_pc_by_level2",produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String getPrizePeopleCountByLevelIdPrizeId(Integer levelId){
+    public String getPrizePeopleCountByLevelIdPrizeId(Integer levelId,String chooseTime,Integer profession){
+        if(StringUtils.isEmpty(chooseTime)){
+            chooseTime=null;
+        }
         List<Prize> list = prizeService.getAll();
         String[] prize = new String[list.size()];
         List<EchartData> data = new ArrayList<>();
         int index = 0;
         for (Prize p:list) {
             prize[index] = p.getPrizeName();
-            int count = totalService.getPrizePeopleCountByLevelIdPrizeId(p.getId(),levelId);
+            int count = totalService.getPrizePeopleCountByLevelIdPrizeIdWithSelective(p.getId(),levelId,chooseTime,profession);
             data.add(new EchartData(p.getId(),p.getPrizeName(),count));
             index++;
         }
@@ -111,19 +126,22 @@ public class TotalController {
     }
 
     /**
-     * 根据赛事级别获取获奖项目数
+     * 根据赛事级别获取获奖项目数 done
      * @return
      */
     @RequestMapping(value = "/get_ic_by_level",produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String getPrizeItemCountByCompeteLevel(){
+    public String getPrizeItemCountByCompeteLevel(String chooseTime,Integer profession){
+        if(StringUtils.isEmpty(chooseTime)){
+            chooseTime=null;
+        }
         List<Levels> list = levelService.getALL();
         String[] levels = new String[list.size()];
         List<EchartData> data = new ArrayList<>();
         int index = 0;
         for (Levels l:list) {
             levels[index] = l.getLevelName();
-            int count = totalService.getPrizeItemCountByCompeteLevel(l.getId());
+            int count = totalService.getPrizeItemCountByCompeteLevelWithSelective(l.getId(),chooseTime,profession);
             data.add(new EchartData(l.getId(),l.getLevelName(),count));
             index++;
         }
@@ -140,14 +158,17 @@ public class TotalController {
      */
     @RequestMapping(value = "/get_ic_by_level2",produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String getPrizeItemCountByLevelIdPrizeId(Integer levelId){
+    public String getPrizeItemCountByLevelIdPrizeId(Integer levelId,String chooseTime,Integer profession){
+        if(StringUtils.isEmpty(chooseTime)){
+            chooseTime=null;
+        }
         List<Prize> list = prizeService.getAll();
         String[] prize = new String[list.size()];
         List<EchartData> data = new ArrayList<>();
         int index = 0;
         for (Prize p:list) {
             prize[index] = p.getPrizeName();
-            int count = totalService.getPrizeItemCountByLevelIdPrizeId(p.getId(),levelId);
+            int count = totalService.getPrizeItemCountByLevelIdPrizeIdWithSelective(p.getId(),levelId,chooseTime,profession);
             data.add(new EchartData(p.getId(),p.getPrizeName(),count));
             index++;
         }

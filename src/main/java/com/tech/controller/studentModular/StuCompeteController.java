@@ -29,7 +29,7 @@ public class StuCompeteController {
 
     @RequestMapping("/to_compete_list")
     public String toCompeteList(Model model){
-        model.addAttribute("competes",competeService.getAllCompete());
+        model.addAttribute("competes",competeService.getAllCompeteNoTimeOut());
         return "Student/compete_list";
     }
 

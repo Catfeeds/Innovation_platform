@@ -11,7 +11,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>科技创新项目平台</title>
+    <title>科技创新项目平台-后台管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
@@ -164,6 +164,10 @@
                         <dd><a href="javascript:;" data-url="/manage/to_itemTotal_list.do">
                             <i class="layui-icon layui-icon-table" ></i>
                             <cite>获奖项目统计</cite></a>
+                        </dd>
+                        <dd><a href="javascript:;" data-url="/manage/to_data_import.do">
+                            <i class="layui-icon layui-icon-table" ></i>
+                            <cite>获奖数据导入</cite></a>
                         </dd>
                     </dl>
                 </li>

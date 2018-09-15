@@ -39,7 +39,7 @@ public class StudentController {
     @RequestMapping("/login")
     @ResponseBody
     public ServerResponse<Student> stuLogin(String username, String password,String vCode, HttpSession session){
-        if(!session.getAttribute("code").equals(vCode)){
+        if(!session.getAttribute("code").equals(vCode.toLowerCase())){
             return ServerResponse.createByErrorMessage("验证码错误!");
         }
        ServerResponse<Student> serverResponse = studentService.login(username,password);
@@ -81,20 +81,26 @@ public class StudentController {
     }
 
     /**
-     * 通过学号获取学生部分信息 用于报名时
-     * @param session
+     * 通过学号获取学生部分信息 用于报名时  且判断该学生是否已经报名参加过该项目tips
      * @param sno
      * @return
      */
     @RequestMapping("/get_info2")
     @ResponseBody
-    public ServerResponse<Student> getUserInfoBySno(HttpSession session,String sno){
+    public ServerResponse<Student> getUserInfoBySno(HttpSession session,String sno,Integer cId){
         Student student = (Student) session.getAttribute(Const.CURRENT_USER);
         if (student==null){
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"请登录后重新尝试");
+            return ServerResponse.createByErrorMessage("请登录");
         }
-        ServerResponse<Student> serverResponse = studentService.getInfoBySno(sno);
-        return serverResponse;
+        if (sno.equals(student.getSno())){
+            return ServerResponse.createByErrorMessage("请不要重复填写");
+        }
+        ServerResponse serverResponse = studentService.checkIsEnroll(sno,cId);
+        if (!serverResponse.isSuccess()){
+            return ServerResponse.createByErrorMessage(sno+":已经参加过该大赛!");
+        }
+        ServerResponse<Student> serverResponses = studentService.getInfoBySno(sno);
+        return serverResponses;
     }
 
     @RequestMapping("/changePwd")
@@ -124,9 +130,6 @@ public class StudentController {
         return serverResponse;
     }
 
-    /**
-     * 修改个人部分信息  安全问题 修改之后重新设置session
-     */
     @RequestMapping("/change_info")
     @ResponseBody
     public ServerResponse<String> modifyInfo(HttpSession session,Student s){

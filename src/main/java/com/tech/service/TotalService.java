@@ -53,19 +53,74 @@ public class TotalService {
         return count;
     }
 
+    /**
+     * 
+     * @param id
+     * @param time
+     * @param pId
+     * @return
+     */
+    public int getPrizePeopleCountByCompeteLevelWithSelective(Integer id,String time,Integer pId) {
+        if(time==null){
+            return excellentMapper.selectPrizePeopleCountByCompeteLevelWithSelective(id,null,pId);
+        }else{
+            try {
+                String startTime = time.split("~")[0].split("-")[0] + "." + time.split("~")[0].split("-")[1];
+                String endTime = time.split("~")[1].split("-")[0] + "." + time.split("~")[1].split("-")[1];
+                time = startTime.replace(" ","") + "~" + endTime.replace(" ","");
+                return excellentMapper.selectPrizePeopleCountByCompeteLevelWithSelective(id,time,pId);
+            }catch (Exception e){
+                throw new RuntimeException("错误");
+            }
+        }
+    }
+
     public int getPrizePeopleCountByCompeteLevel(Integer id) {
         return excellentMapper.selectPrizePeopleCountByCompeteLevel(id);
     }
 
-    public int getPrizeItemCountByCompeteLevel(Integer id) {
-        return excellentMapper.selectPrizeItemCountByCompeteLevel(id);
+    public int getPrizeItemCountByCompeteLevelWithSelective(Integer id,String time,Integer pId) {
+        if(time==null){
+            return excellentMapper.selectPrizeItemCountByCompeteLevelWithSelective(id,null,pId);
+        }else{
+            try {
+                String startTime = time.split("~")[0].split("-")[0] + "." + time.split("~")[0].split("-")[1];
+                String endTime = time.split("~")[1].split("-")[0] + "." + time.split("~")[1].split("-")[1];
+                time = startTime.replace(" ","") + "~" + endTime.replace(" ","");
+                return excellentMapper.selectPrizeItemCountByCompeteLevelWithSelective(id,time,pId);
+            }catch (Exception e){
+                throw new RuntimeException("错误");
+            }
+        }
     }
 
-    public int getPrizePeopleCountByLevelIdPrizeId(Integer prizeId, Integer levelId) {
-        return excellentMapper.selectPrizePeopleCountByLevelIdPrizeId(prizeId,levelId);
+    public int getPrizePeopleCountByLevelIdPrizeIdWithSelective(Integer prizeId, Integer levelId,String time,Integer pId) {
+        if(time==null){
+            return excellentMapper.selectPrizePeopleCountByLevelIdPrizeIdWithSelective(prizeId,levelId,null,pId);
+        }else{
+            try {
+                String startTime = time.split("~")[0].split("-")[0] + "." + time.split("~")[0].split("-")[1];
+                String endTime = time.split("~")[1].split("-")[0] + "." + time.split("~")[1].split("-")[1];
+                time = startTime.replace(" ","") + "~" + endTime.replace(" ","");
+                return excellentMapper.selectPrizePeopleCountByLevelIdPrizeIdWithSelective(prizeId,levelId,time,pId);
+            }catch (Exception e){
+                throw new RuntimeException("错误");
+            }
+        }
     }
 
-    public int getPrizeItemCountByLevelIdPrizeId(Integer prizeId, Integer levelId) {
-        return excellentMapper.selectPrizeItemCountByLevelIdPrizeId(prizeId,levelId);
+    public int getPrizeItemCountByLevelIdPrizeIdWithSelective(Integer prizeId, Integer levelId,String time,Integer pId) {
+        if(time==null){
+            return excellentMapper.selectPrizeItemCountByLevelIdPrizeIdWithSelective(prizeId,levelId,null,pId);
+        }else{
+            try {
+                String startTime = time.split("~")[0].split("-")[0] + "." + time.split("~")[0].split("-")[1];
+                String endTime = time.split("~")[1].split("-")[0] + "." + time.split("~")[1].split("-")[1];
+                time = startTime.replace(" ","") + "~" + endTime.replace(" ","");
+                return excellentMapper.selectPrizeItemCountByLevelIdPrizeIdWithSelective(prizeId,levelId,time,pId);
+            }catch (Exception e){
+                throw new RuntimeException("错误");
+            }
+        }
     }
 }

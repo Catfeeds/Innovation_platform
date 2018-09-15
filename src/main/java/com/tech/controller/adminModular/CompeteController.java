@@ -3,7 +3,6 @@ package com.tech.controller.adminModular;
 import com.github.pagehelper.PageHelper;
 import com.tech.common.ServerResponse;
 import com.tech.pojo.Compete;
-import com.tech.pojo.GoodWork;
 import com.tech.service.CompeteService;
 import org.nutz.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +60,7 @@ public class CompeteController {
 
     @RequestMapping("/add_compete")
     @ResponseBody
-    public ServerResponse<String> addCompete(Compete compete){
+    public ServerResponse addCompete(Compete compete){
         compete.setCreateTime(new Date());
         compete.setUpdateTime(new Date());
         ServerResponse serverResponse = competeService.insertCompete(compete);

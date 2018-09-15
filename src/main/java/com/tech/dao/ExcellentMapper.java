@@ -30,9 +30,19 @@ public interface ExcellentMapper {
 
     int selectPrizePeopleCountByCompeteLevel(Integer levelId);
 
-    int selectPrizeItemCountByCompeteLevel(Integer levelId);
+    int selectPrizeItemCountByCompeteLevelWithSelective(@Param("levelId") Integer levelId,@Param("time") String time, @Param("pId")Integer pId);
 
-    int selectPrizePeopleCountByLevelIdPrizeId(@Param("prizeId") Integer prizeId, @Param("levelId") Integer levelId);
+    int selectPrizePeopleCountByLevelIdPrizeIdWithSelective(@Param("prizeId") Integer prizeId, @Param("levelId") Integer levelId,@Param("time") String time, @Param("pId")Integer pId);
 
-    int selectPrizeItemCountByLevelIdPrizeId(@Param("prizeId") Integer prizeId, @Param("levelId") Integer levelId);
+    int selectPrizeItemCountByLevelIdPrizeIdWithSelective(@Param("prizeId") Integer prizeId, @Param("levelId") Integer levelId,@Param("time") String time, @Param("pId")Integer pId);
+
+    int selectPrizePeopleCountByCompeteLevelWithSelective(@Param("levelId")Integer id, @Param("time") String time, @Param("pId")Integer pId);
+
+    int selectSearchCount(String key);
+
+    List<Excellent> selectSearch(String key);
+
+    int selectSelectiveCount(@Param("time") String time, @Param("pId") Integer pId);
+
+    List<Excellent> selectSelective(@Param("time") String time, @Param("pId") Integer pId);
 }

@@ -51,7 +51,10 @@
 <body class="childrenBody">
 <br>
 	<form id="form_enroll" class="layui-form" style="width:80%; display: block; float: left;">
-		<input  name="id" type="hidden" value="${item.enrollId}">
+		<input  name="enrollId" type="hidden" value="${item.enrollId}">
+		<input  name="groupId" type="hidden" value="${item.groupId}">
+		<input  name="status" type="hidden" value="${item.status}">
+		<input  name="competeId" type="hidden" value="${item.competeId}">
 		<div class="layui-form-item">
 			<label class="layui-form-label">参赛名称:</label>
 			<div class="layui-input-block">
@@ -146,7 +149,7 @@
 		<c:forEach var="member" items="${item.members}">
 			<tr>
 			<td height="30" align="center">
-			<input name="members" onblur="getInfo($(this))" class="layui-input" type="text" value="${member.sno}"/></td>
+			<input name="members2" onblur="getInfo($(this))" class="layui-input" type="text" value="${member.sno}"/></td>
 			<td align="center">
 			<input class="layui-input layui-disabled" type="text" disabled/></td>
 			<td align="center">
@@ -163,7 +166,7 @@
 			<label class="layui-form-label">上传附件：</label>
 			<div class="layui-input-block">
 				<button type="button" class="layui-btn" id="attachment"><i class="layui-icon"></i>上传文件</button>
-				<input id="attachmentVal" name="attachment" type="hidden" value="">
+				<input id="attachmentVal" name="attachment" type="hidden" value="${item.attachment}">
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -202,24 +205,24 @@
                 type: 'post',
                 url: '/stu/enroll_edit.do',
                 data: $('#form_enroll').serialize(),
-                success: function (data) {
-                    layer.msg(data.msg);
+                success: function (res) {
+                    layer.msg(res.msg);
                 },
                 error: function () {
                     layer.msg('接口错误');
                 }
             });
 
-//            setTimeout(function () {
-//                layer.closeAll("iframe");
-//                parent.location.reload();
-//            }, 500);
+            setTimeout(function () {
+                layer.closeAll("iframe");
+                parent.location.reload();
+            }, 500);
             return false;
         })
     });
 
     function getInfo(obj) {
-        if(obj.val()==''){
+        if(obj.val() == ''){
             obj.parents("tr").find("td:eq(1)").find("input").val("");
             obj.parents("tr").find("td:eq(2)").find("input").val("");
 		}else{
@@ -232,7 +235,7 @@
 				},
 				success : function(res) {
 					console.log(res);
-					if(res.status==0){
+					if(res.status === 0){
 						obj.parents("tr").find("td:eq(1)").find("input").val(res.data.nameStudent);
 						obj.parents("tr").find("td:eq(2)").find("input").val(res.data.classno);
 					}

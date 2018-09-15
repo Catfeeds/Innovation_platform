@@ -182,10 +182,18 @@
     author,
     <include refid="Blob_Column_List" />
     ,level_name
-    from tbl_compete tc,tbl_levels tl where tc.level_compete = tl.id order by tc.id desc
+    from tbl_compete tc,tbl_levels tl where tc.level_compete = tl.id order by end_time desc
   </select>
   <select id="selectIdByName" resultType="java.lang.Integer" parameterType="string">
     select id from tbl_compete where name_compete = #{competeName}
+  </select>
+  <select id="selectAllCompeteNoTimeOut" resultMap="ResultMapWithLevelName">
+    select
+    tc.id, name_compete, level_compete, cover_url, start_time, end_time, create_time, update_time,
+    author,
+    <include refid="Blob_Column_List" />
+    ,level_name
+    from tbl_compete tc,tbl_levels tl where tc.level_compete = tl.id and end_time >= now() order by tc.id desc
   </select>
 
 </mapper>

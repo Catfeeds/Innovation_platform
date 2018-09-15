@@ -64,18 +64,11 @@
 						<div class="layui-inline">
 							<label class="layui-form-label">赛事级别</label>
 							<div class="layui-input-inline">
-								<select name="levelCompete" class="Level" lay-filter="browseLook" id="data_fill">
-									<%--<option value="1">国家级</option>--%>
-									<%--<option value="2">省级</option>--%>
-									<%--<option value="3">校级A类</option>--%>
-									<%--<option value="4">校级B类</option>--%>
-									<%--<option value="5">校级C类</option>--%>
+								<select name="levelCompete" class="Level" id="data_fill">
 								</select>
 							</div>
 						</div>
 					</div>
-
-
 				</div>
 				<div class="layui-col-md3 layui-col-xs5">
 					<div class="layui-upload-list thumbBox mag0 magt3">
@@ -104,8 +97,15 @@
 	</form>
 	<script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
 	<script type="text/javascript" >
-		var action = $("#action").val();
-   	 	$(document).ready(function(){
+        layui.use(['form','layedit','laydate','upload'],function(){
+            var form = layui.form,
+                layedit = layui.layedit,
+                laydate = layui.laydate,
+				upload = layui.upload,
+                $ = layui.jquery;
+
+            var action = $("#action").val();
+
             $.ajax({
                 type:'post',
                 url:'/manage/getLevel.do',
@@ -119,20 +119,17 @@
             });
 
             function fillData(res) {
+            	$("<option></option>").attr("value","").append("请选择赛事等级").appendTo("#data_fill");
                 $.each(res.data, function (index, item) {
                     var option = $("<option></option>").val(item.id).append(item.levelName);
                     option.appendTo("#data_fill");
                 });
+                if(action==="edit"){
+                    $("select option[value='${compete.levelCompete}']").attr("selected","selected");
+                }
+                //重新渲染 select
+                form.render('select');
             }
-        });
-
-
-        layui.use(['form','layedit','laydate','upload'],function(){
-            var form = layui.form,
-                layedit = layui.layedit,
-                laydate = layui.laydate,
-				upload = layui.upload,
-                $ = layui.jquery;
 
             var editIndex = layedit.build('mytextarea');
 
@@ -143,17 +140,16 @@
                 });
             });
 
-            if(action=='edit'){
+            if(action === 'edit'){
                 $('.thumbImg').attr('src', '${compete.coverUrl}');
                 $('#coverUrl').val('${compete.coverUrl}');
-                $("select option[value='${compete.levelCompete}']").attr("selected","selected");
             }
 
 			upload.render({
                 elem: '.thumbBox',
                 url: '/manage/fileUpload.do',
                 done: function(res){
-                    if(res.error==0){
+                    if(res.error === 0){
                         $('#coverUrl').val(res.url);
                         $('.thumbImg').attr('src',res.url);
                         $('.thumbBox').css("background","#fff");
@@ -170,7 +166,7 @@
                 console.log(layedit.getContent(editIndex)+':'+layedit.getText(editIndex));
                 layedit.sync(editIndex);
                 data.field.requirement=$("#mytextarea").val();
-                if(action=='edit'){
+                if(action === 'edit'){
                     $.ajax({
                         type:'post',
                         url:'/manage/update_compete.do',
@@ -182,7 +178,7 @@
                             layer.msg('接口错误');
                         }
                     });
-                }else if(action=='add'){
+                }else if(action === 'add'){
                     $.ajax({
                         type:'post',
                         url:'${cpath}/manage/add_compete.do',

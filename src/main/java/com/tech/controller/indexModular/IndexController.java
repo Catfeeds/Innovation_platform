@@ -67,10 +67,11 @@ public class IndexController {
 
     /**
      * 生成验证码
+     *
      */
     @RequestMapping("/makeCode")
     public void Captcha(HttpServletResponse response, HttpSession session)throws IOException {
-        CreateImageCode vCode = new CreateImageCode(116,34,5,10);
+        CreateImageCode vCode = new CreateImageCode(116,34,4,10);
         session.setAttribute("code", vCode.getCode());
         vCode.write(response.getOutputStream());
     }

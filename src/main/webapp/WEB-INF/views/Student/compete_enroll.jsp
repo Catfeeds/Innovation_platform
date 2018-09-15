@@ -53,7 +53,7 @@
 <body class="childrenBody">
 <br>
 	<form id="form_enroll" class="layui-form" style="width:80%; display: block; float: left;">
-		<input  name="competeId" type="hidden"   value="${compete.id}">
+		<input id="cId"  name="competeId" type="hidden" value="${compete.id}">
 		<div class="layui-form-item">
 			<label class="layui-form-label">参赛名称:</label>
 			<div class="layui-input-block">
@@ -192,11 +192,11 @@
             ,url: '/manage/fileUpload.do'
             ,accept: 'file'
             ,done: function(res){
-                if(res.error==0){
+                if(res.error === 0){
                     $('#attachmentVal').val(res.url);
-                    layer.msg(res.message);
+                    layer.msg('上传成功');
                 }else{
-                    layer.msg(res.message);
+                    layer.msg('上传失败');
                 }
             },error:function () {
                 layer.msg('上传文件接口错误');
@@ -235,10 +235,11 @@
 				dataType:'json',
 				data:{
 					sno:obj.val(),
+					cId:$("#cId").val()
 				},
 				success : function(res) {
 					console.log(res);
-					if(res.status==0){
+					if(res.status === 0){
 						obj.parents("tr").find("td:eq(1)").find("input").val(res.data.nameStudent);
 						obj.parents("tr").find("td:eq(2)").find("input").val(res.data.classno);
 					}

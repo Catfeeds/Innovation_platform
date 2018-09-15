@@ -38,6 +38,8 @@
             elem: '#List',
             url: '${cpath}/manage/student_info_list.do',
             method: 'post',
+            toolbar:true,
+            defaultToolbar: ['filter', 'print', 'exports'],
             limit: 10,
             cols: [[
                 {field:'sno', title: '学号',align:'center',sort:true},

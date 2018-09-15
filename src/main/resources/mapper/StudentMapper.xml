@@ -177,4 +177,7 @@
     sno, password, name_student, classno, phone, qq, email, imgurl, update_time,pname
     from tbl_student s,tbl_profession p where s.profession_id = p.id and (sno like CONCAT('%',#{key},'%') or name_student like CONCAT('%',#{key},'%'))
   </select>
+    <select id="selectPidBySno" resultType="java.lang.Integer">
+      select profession_id from tbl_student where sno = #{sno}
+    </select>
 </mapper>

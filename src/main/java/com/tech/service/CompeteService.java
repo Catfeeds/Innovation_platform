@@ -73,4 +73,8 @@ public class CompeteService {
     public Integer getIdByName(String competeName) {
         return competeMapper.selectIdByName(competeName);
     }
+
+    public List<Compete> getAllCompeteNoTimeOut() {
+        return competeMapper.selectAllCompeteNoTimeOut();
+    }
 }

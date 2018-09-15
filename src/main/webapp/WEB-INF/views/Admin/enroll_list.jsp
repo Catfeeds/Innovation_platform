@@ -38,6 +38,8 @@
             elem: '#List',
             url: '/manage/enroll_list.do',
             method: 'post',
+            toolbar:true,
+            defaultToolbar: ['filter', 'print'],
             limit: 10,
             cols: [[
                 {title: '序号',width:100,align:'center',type:'numbers'},

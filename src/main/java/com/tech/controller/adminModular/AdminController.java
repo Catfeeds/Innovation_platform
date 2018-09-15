@@ -37,11 +37,15 @@ public class AdminController {
 
     @RequestMapping("/index")
     public String showIndex(HttpSession session, Model model){
-        Admin admin = (Admin)session.getAttribute(Const.CURRENT_USER);
-        if (admin==null){
+        try {
+            Admin admin = (Admin)session.getAttribute(Const.CURRENT_USER);
+            if (admin==null){
+                return "forward:/login.html";
+            }
+            model.addAttribute("admin",admin);
+            return "Admin/index";
+        }catch (Exception e){
             return "forward:/login.html";
         }
-        model.addAttribute("admin",admin);
-        return "Admin/index";
     }
 }

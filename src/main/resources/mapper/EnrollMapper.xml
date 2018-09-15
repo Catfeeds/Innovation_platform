@@ -174,10 +174,10 @@
       select id,name_compete,title_enroll,group_id,name_group,instructor,status,attachment,(YEAR(update_time)) year,prize_name FROM vm_item where sno = #{sno} order by status
     </select>
   <select id="selectAllItem" resultMap="BaseResultMapTotalEnroll">
-      select id,name_compete,title_enroll,group_id,name_group,instructor,status,attachment FROM vw_item order by status
+      select id,compete_id,name_compete,title_enroll,group_id,name_group,instructor,status,attachment FROM vw_item order by status
   </select>
   <select id="selectItemByEnrollId" resultMap="BaseResultMapTotalEnroll" parameterType="int">
-      select id,name_compete,title_enroll,group_id,name_group,instructor,status,attachment FROM vw_item where id = #{id}
+      select id,compete_id,name_compete,title_enroll,group_id,name_group,instructor,status,attachment FROM vw_item where id = #{id}
   </select>
   <select id="selectPassItemCount" resultType="java.lang.Integer">
       select count(*) from tbl_enroll where status = 1
@@ -199,5 +199,8 @@
   </select>
     <select id="selectTitleIsExsit" resultType="java.lang.Integer" parameterType="string">
       select count(*) from tbl_enroll where title_enroll = #{title}
+    </select>
+    <select id="selectIsEnroll" resultType="java.lang.Integer">
+      select count(*) from vm_item where compete_id = #{competeId} and sno = #{sno}
     </select>
 </mapper>

@@ -35,7 +35,7 @@ public class ExcellentService {
             if(e.getEnrollId()==null){
                 throw new RuntimeException("参赛题目为:"+e.getTitle()+" 的记录导入失败,\n原因:报名表中不存在该参赛题目名的数据！");
             }else if (e.getPrizeId()==null){
-                throw new RuntimeException("参赛题目为:"+e.getTitle()+" 的记录导入失败,\n原因:奖项可能存在问题！");
+                throw new RuntimeException("参赛题目为:"+e.getTitle()+" 的记录导入失败,\n原因:奖项设置可能存在问题！");
             }else if(e.getCompeteId()==null){
                 throw new RuntimeException("参赛题目为:"+e.getTitle()+" 的记录导入失败,\n原因:赛事名称可能存在问题！");
             }else if(e.getCompeteLevel()==null){
@@ -47,5 +47,43 @@ public class ExcellentService {
             }
         }
         return ServerResponse.createBySuccess("导入成功",list);
+    }
+
+    public int getSearchCount(String key) {
+        return excellentMapper.selectSearchCount(key);
+    }
+
+    public List<Excellent> getSearch(String key) {
+        return excellentMapper.selectSearch(key);
+    }
+
+    public int getSelectiveCount(String time, Integer pId) {
+        if(time==null){
+            return excellentMapper.selectSelectiveCount(null,pId);
+        }else{
+            try {
+                String startTime = time.split("~")[0].split("-")[0] + "." + time.split("~")[0].split("-")[1];
+                String endTime = time.split("~")[1].split("-")[0] + "." + time.split("~")[1].split("-")[1];
+                time = startTime.replace(" ","") + "~" + endTime.replace(" ","");
+                return excellentMapper.selectSelectiveCount(time,pId);
+            }catch (Exception e){
+                throw new RuntimeException("错误");
+            }
+        }
+    }
+
+    public List<Excellent> getSelective(String time, Integer pId) {
+        if(time==null){
+            return excellentMapper.selectSelective(null,pId);
+        }else{
+            try {
+                String startTime = time.split("~")[0].split("-")[0] + "." + time.split("~")[0].split("-")[1];
+                String endTime = time.split("~")[1].split("-")[0] + "." + time.split("~")[1].split("-")[1];
+                time = startTime.replace(" ","") + "~" + endTime.replace(" ","");
+                return excellentMapper.selectSelective(time,pId);
+            }catch (Exception e){
+                throw new RuntimeException("错误");
+            }
+        }
     }
 }

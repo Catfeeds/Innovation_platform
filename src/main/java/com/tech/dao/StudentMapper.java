@@ -35,4 +35,6 @@ public interface StudentMapper {
     int selectSearchCount(String key);
 
     List<Student> selectSearch(String key);
+
+    Integer selectPidBySno(String sno);
 }

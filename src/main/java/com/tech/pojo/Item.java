@@ -1,5 +1,6 @@
 package com.tech.pojo;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -158,4 +159,8 @@ public class Item {
         this.members2 = members2;
     }
 
+    @Override
+    public String toString() {
+        return "Item{" + "enrollId=" + enrollId + ", competeId=" + competeId + ", groupId=" + groupId + ", competeName='" + competeName + '\'' + ", title='" + title + '\'' + ", instructor='" + instructor + '\'' + ", groupName='" + groupName + '\'' + ", grouper='" + grouper + '\'' + ", leader=" + leader + ", members=" + members + ", members2=" + Arrays.toString(members2) + ", attachment='" + attachment + '\'' + ", status=" + status + ", prizeId=" + prizeId + ", prizeName='" + prizeName + '\'' + ", updateTime=" + updateTime + ", year='" + year + '\'' + '}';
+    }
 }

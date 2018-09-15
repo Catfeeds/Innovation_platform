@@ -2,6 +2,7 @@ package com.tech.dao;
 
 import com.tech.pojo.Enroll;
 import com.tech.pojo.Item;
+import com.tech.pojo.Student;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -46,4 +47,7 @@ public interface EnrollMapper {
     Integer selectIdByCIdAndTitle(String title);
 
     int selectTitleIsExsit(String title);
+
+    int selectIsEnroll(@Param("sno") String sno,@Param("competeId") Integer competeId);
+
 }

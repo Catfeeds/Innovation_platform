@@ -5,7 +5,7 @@
             <p>科技创新项目管理平台</p>
         </div>
         <div class="nav">
-            <ul>
+            <ul class = "head-tag">
                 <li><a href="/index.html" class="a">首页</a>
                 </li>
                 <li><a href="/compete_display.html">赛事介绍</a>

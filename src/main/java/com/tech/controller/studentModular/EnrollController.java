@@ -64,11 +64,13 @@ public class EnrollController {
         }
         // 校验时间
         // 判断参赛题目是否重复
+        // 判断是否已经报名过该大赛
+        // 检验是否有重复
+        item.setGrouper(student.getSno());
         ServerResponse resCheckTime = enrollService.check(item);
         if (!resCheckTime.isSuccess()){
             return resCheckTime;
         }
-        item.setGrouper(student.getSno());
         ServerResponse<Group> serverResponse = groupService.addGroup(item.getGroupName());
         if (serverResponse.isSuccess()){
             item.setGroupId(serverResponse.getData().getId());
@@ -76,6 +78,36 @@ public class EnrollController {
             return serverResponses;
         }
         return ServerResponse.createByErrorMessage("报名失败");
+    }
+
+    /**
+     * 未通过报名表编辑
+     * @param item
+     * @param session
+     * @return
+     */
+    @RequestMapping("/enroll_edit")
+    @ResponseBody
+    public ServerResponse enrollEdit(Item item, HttpSession session) {
+        System.out.println(item.toString());
+        if (item.getStatus()!=2){
+            return ServerResponse.createByErrorMessage("该报名表不能被编辑");
+        }
+        Student student = (Student) session.getAttribute(Const.CURRENT_USER);
+        if (student == null) {
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "请登陆后尝试");
+        }
+        ServerResponse resCheckTime = enrollService.check(item);
+        if (!resCheckTime.isSuccess()) {
+            return resCheckTime;
+        }
+        item.setGrouper(student.getSno());
+        try {
+            ServerResponse serverResponses = enrollService.editEnroll(item);
+            return serverResponses;
+        }catch (RuntimeException e){
+            return ServerResponse.createByErrorMessage(e.getMessage());
+        }
     }
 
     @RequestMapping("/to_enroll_list")

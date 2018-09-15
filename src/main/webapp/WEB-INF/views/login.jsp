@@ -67,10 +67,10 @@
 											<form id="login" name="login" method="post" action="#">
 												<fieldset>
 													<label class="inline" style="margin-right:30px;">
-	                                                    <input  type="radio" id="radio1" value="radio" class="ace" checked><span class="lbl"> 学生登录</span>
+	                                                    <input name="radio"  type="radio" id="radio1" value="radio" class="ace" checked><span class="lbl"> 学生登录</span>
                                                     </label>
                                                     <label class="inline">
-                                                        <input type="radio"  id="radio2" value="radio" class="ace" ><span class="lbl"> 老师登录</span>
+                                                        <input name="radio" type="radio"  id="radio2" value="radio" class="ace" ><span class="lbl"> 老师登录</span>
                                                     </label>
 
 													<label class="block clearfix">
@@ -89,7 +89,7 @@
 
 													<label class="clearfix" style="width:100px;">
 														<span class="input-icon input-icon-right">
-															<input name="vCode" type="text" class="form-control" placeholder="验证码" />
+															<input name="vCode" id="vcode" type="text" class="form-control" placeholder="验证码" />
 														</span>
 													</label>
 													<img id="code" src="${cpath}/makeCode.html" width="116" height="34">
@@ -99,12 +99,6 @@
 															${message}
 														</span>
 													</label>
-													<%--<label class="block clearfix">--%>
-														<%--<span class="block input-icon input-icon-right">--%>
-															<%--<div class="code"><img src="${cpath}/makeCode.html" width="116" height="36"></div>--%>
-															<%--<i class="ace-icon fa fa-lock"></i>--%>
-														<%--</span>--%>
-													<%--</label>--%>
 
 													<div class="space"></div>
 
@@ -184,46 +178,46 @@
                 var teacher = $("#radio2").prop("checked");
 				var username_el = $("#username");
 				var password_el = $("#password");
-				if($.trim(username_el.val()) == ""){
-				    alert("用户名不能为空！");
-				}
-				else if($.trim(password_el.val()) == ""){
-				    alert("密码不能为空！");
-				}else {
-				    if(teacher){
-                        $.ajax({
-                            url:'/admin/login.do',
-                            type:'post',
-                            data:$('#login').serialize(),
-                            dataType:'json',
-                            success : function(data) {
-                                if(data.status==1){
-                                    $('#message').html("");
-                                    $('#message').append(data.msg);
-                                }else if(data.status==0){
-                                    location.href="/admin/index.html";
+				if($.trim(username_el.val()) === ""){
+                    $("#message").html("用户名不能为空！");
+				}else if($.trim(password_el.val()) === ""){
+                    $("#message").html("密码不能为空！");
+				}else if($.trim($("#vcode").val()) === ""){
+                    $("#message").html("验证码不能为空！");
+                }else {
+                        if(teacher){
+                            $.ajax({
+                                url:'/admin/login.do',
+                                type:'post',
+                                data:$('#login').serialize(),
+                                dataType:'json',
+                                success : function(data) {
+                                    if(data.status === 1){
+                                        $('#message').html("");
+                                        $('#message').append(data.msg);
+                                    }else if(data.status === 0){
+                                        location.href="/admin/index.html";
+                                    }
                                 }
-                            }
-                        });
-					}else if(student){
-                        $.ajax({
-                            url:'/stu/login.do',
-                            type:'post',
-                            data:$('#login').serialize(),
-                            dataType:'json',
-                            success : function(data) {
-                                if(data.status==1){
-                                    $('#message').html("");
-                                    $('#message').append(data.msg);
-                                }else if(data.status==0){
-                                    location.href="/stu/index.html";
+                            });
+                        }else if(student){
+                            $.ajax({
+                                url:'/stu/login.do',
+                                type:'post',
+                                data:$('#login').serialize(),
+                                dataType:'json',
+                                success : function(data) {
+                                    if(data.status === 1){
+                                        $("#message").html("");
+                                        $('#message').append(data.msg);
+                                    }else if(data.status === 0){
+                                        location.href="/stu/index.html";
+                                    }
                                 }
-                            }
-                        });
-					}
-
-                }
-            });
+                            });
+                        }
+                    }
+            	});
 		</script>
 	</body>
 </html>

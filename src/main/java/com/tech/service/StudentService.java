@@ -1,6 +1,7 @@
 package com.tech.service;
 
 import com.tech.common.ServerResponse;
+import com.tech.dao.EnrollMapper;
 import com.tech.dao.MemberMapper;
 import com.tech.dao.StudentMapper;
 import com.tech.pojo.Student;
@@ -16,6 +17,8 @@ public class StudentService {
     StudentMapper studentMapper;
     @Autowired
     MemberMapper memberMapper;
+    @Autowired
+    EnrollMapper enrollMapper;
 
     public ServerResponse<Student> login(String sno, String password){
         Student student = studentMapper.selectLogin(sno);
@@ -95,5 +98,14 @@ public class StudentService {
             s.setParticipateCount(memberMapper.selectCountBySno(s.getSno()));
         }
         return list;
+    }
+
+    public ServerResponse checkIsEnroll(String sno, Integer cId) {
+        int count = enrollMapper.selectIsEnroll(sno,cId);
+        if(count>0){
+            return ServerResponse.createByError();
+        }else{
+            return ServerResponse.createBySuccess();
+        }
     }
 }

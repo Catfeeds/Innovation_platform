@@ -73,10 +73,11 @@
                     {field:'coverUrl', title: '封面图片',align:'center',templet:function(d) {
                         return '<img src="' + d.coverUrl + '" />';
                     }},
-                    {field:'startTime', title: '开始时间',align:'center'},
-                    {field:'endTime',title: '结束时间',align:'center'},
+                    {field:'startTime', title: '报名开始时间',align:'center'},
+                    {field:'endTime',title: '报名结束时间',align:'center'},
                     {field:'createTime', title: '创建时间',align:'center'},
                     {field:'requirement', title: '报名要求',align:'center'},
+                    { title: '报名状态',align:'center',templet:'#status'},
                     {title: '操作',width:200,align:'center',toolbar: '#bar',fixed:'right'},
                 ]],
                 page: true,
@@ -129,5 +130,12 @@
 	<%--<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>--%>
 	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">编辑</a>
 	<%--<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>--%>
+</script>
+<script type="text/html" id="status">
+	{{#  if(new Date(d.endTime) > new Date()){ }}
+	<span style="color: #3abf34;">进行中</span>
+	{{#  } else { }}
+	<span style="color: #f1000b;">已过期</span>
+	{{#  } }}
 </script>
 </html>

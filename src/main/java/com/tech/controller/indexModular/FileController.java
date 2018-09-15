@@ -23,9 +23,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;;
 
 @Controller
@@ -52,8 +54,13 @@ public class FileController {
             return "redirect:/login.html";
         }else{
             String filename = fileService.getFileNameById(id);
-            return "forward:/download.html?fileName="+filename;
+            return "forward:/download.do?fileName="+filename;
         }
+    }
+
+    @RequestMapping("/file_download")
+    public String enrollFileDownload(String filename){
+        return "forward:/download.do?fileName="+filename;
     }
 
     /**
@@ -95,18 +102,24 @@ public class FileController {
      * @throws IOException
      */
     @RequestMapping("/download")
-    public ResponseEntity<byte[]> downloadFile(String fileName, HttpServletRequest request) throws IOException {
+    public ResponseEntity<byte[]> downloadFile(String fileName, HttpServletRequest request, HttpServletResponse response) throws IOException {
         String path = request.getSession().getServletContext().getRealPath("/");
         HttpHeaders headers = new HttpHeaders();
         File file = new File(path,fileName);
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         headers.setContentDispositionFormData("attachment", fileName);
         try {
+            logger.info("下载文件{}",fileName);
             ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
             return entity;
         }catch (Exception e){
             logger.info("文件不存在{}",fileName);
+            response.setContentType("text/html; charset=utf-8");
+            PrintWriter out;
+            out = response.getWriter();
+            out.print("<script>alert('文件不存在~');</script>");
+            out.flush();
+            return null;
         }
-        return null;
     }
 }

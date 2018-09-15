@@ -195,7 +195,7 @@
                     autoPage: true,
                     effect: "leftLoop",
                     autoPlay: true,
-                    vis: 4
+                    vis: 3
                 });</script>
 				<script type="text/javascript">$(document).ready(function() {
                     $(".mr_zhe_hover").css("top", $('.mr_zhe').eq(0).height());

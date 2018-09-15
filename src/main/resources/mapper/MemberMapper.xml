@@ -20,6 +20,9 @@
     delete from tbl_member
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteExpectLeaderByGroupId" parameterType="int">
+    delete from tbl_member where group_id = #{groupId} and type_member != 1
+  </delete>
   <insert id="insert" parameterType="com.tech.pojo.Member">
     insert into tbl_member (id, sno, group_id, 
       type_member)
@@ -111,4 +114,7 @@
     id, m.sno, group_id, type_member,name_student,phone,classno
     from tbl_member m,tbl_student s where m.sno = s.sno and group_id = #{groupId} and type_member = 0
   </select>
+    <select id="selectLeaderSnoByEnrollid" resultType="java.lang.String">
+      select sno from vm_item where id = #{enrollId} and type_member = 1
+    </select>
 </mapper>

@@ -112,4 +112,9 @@ public class Compete {
     public void setLevelName(String levelName) {
         this.levelName = levelName;
     }
+
+    @Override
+    public String toString() {
+        return "Compete{" + "id=" + id + ", nameCompete='" + nameCompete + '\'' + ", levelCompete=" + levelCompete + ", levelName='" + levelName + '\'' + ", coverUrl='" + coverUrl + '\'' + ", startTime=" + startTime + ", endTime=" + endTime + ", createTime=" + createTime + ", updateTime=" + updateTime + ", author='" + author + '\'' + ", requirement='" + requirement + '\'' + '}';
+    }
 }

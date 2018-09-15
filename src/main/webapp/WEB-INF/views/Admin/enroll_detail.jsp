@@ -119,7 +119,7 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">附件：</label>
 			<div class="layui-input-block">
-				<button type="button" class="layui-btn layui-btn-primary layui-btn-sm">下载附件</button>
+				<button type="button" class="layui-btn layui-btn-primary layui-btn-sm download-btn">下载附件</button>
 				<input id="attachmentVal"  type="hidden" value="${item.attachment}">
 			</div>
 		</div>
@@ -179,7 +179,11 @@
 				parent.location.reload();
 			}, 500);
 			return false;
-		})
+		});
+
+		$(".download-btn").click(function () {
+		    window.open("/file_download.do?filename="+$("#attachmentVal").val());
+        });
     });
 
 </script>

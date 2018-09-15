@@ -26,4 +26,8 @@ public interface MemberMapper {
     Member selectLeaderByGid(Integer groupId);
 
     List<Member> selectMembersIncludeNamePhoneClassnoByGid(Integer groupId);
+
+    int deleteExpectLeaderByGroupId(Integer groupId);
+
+    String selectLeaderSnoByEnrollid(Integer enrollId);
 }

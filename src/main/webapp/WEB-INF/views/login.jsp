@@ -165,7 +165,7 @@
 
             /**重新生成验证码*/
             function reqCaptcha() {
-                var url = "/makeCode.html?nocache=" + new Date().getTime()
+                var url = "${cpath}/makeCode.html?nocache=" + new Date().getTime()
                 $('#code').attr("src",url)
             }
             /**点击验证码重新生成*/
@@ -187,7 +187,7 @@
                 }else {
                         if(teacher){
                             $.ajax({
-                                url:'/admin/login.do',
+                                url:'${cpath}/admin/login.do',
                                 type:'post',
                                 data:$('#login').serialize(),
                                 dataType:'json',
@@ -196,13 +196,13 @@
                                         $('#message').html("");
                                         $('#message').append(data.msg);
                                     }else if(data.status === 0){
-                                        location.href="/admin/index.html";
+                                        location.href="${cpath}/admin/index.html";
                                     }
                                 }
                             });
                         }else if(student){
                             $.ajax({
-                                url:'/stu/login.do',
+                                url:'${cpath}/stu/login.do',
                                 type:'post',
                                 data:$('#login').serialize(),
                                 dataType:'json',
@@ -211,7 +211,7 @@
                                         $("#message").html("");
                                         $('#message').append(data.msg);
                                     }else if(data.status === 0){
-                                        location.href="/stu/index.html";
+                                        location.href="${cpath}/stu/index.html";
                                     }
                                 }
                             });

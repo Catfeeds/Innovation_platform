@@ -146,14 +146,14 @@
     select
     *
     from tbl_news
-    where type_news = #{typeNews} order by create_time LIMIT #{showCount}
+    where type_news = #{typeNews} order by create_time desc LIMIT #{showCount}
   </select>
 
   <select id="selectAllKindNewsByType" resultMap="BaseResultMap" parameterType="int">
     select
     *
     from tbl_news
-    where type_news = #{typeNews} order by create_time
+    where type_news = #{typeNews} order by create_time desc
   </select>
     <select id="selectKindNewsCount" resultType="java.lang.Integer" parameterType="int">
       SELECT count(*) from tbl_news where type_news = #{typeNew}

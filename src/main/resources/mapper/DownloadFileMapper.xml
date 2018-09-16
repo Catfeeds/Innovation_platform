@@ -140,11 +140,11 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectAll" resultMap="BaseResultMap">
-    SELECT * from tbl_download_file
+    SELECT * from tbl_download_file order by create_time desc
   </select>
     <select id="selectPart" resultMap="BaseResultMap" parameterType="int">
       SELECT *
-    from tbl_download_file LIMIT #{count}
+    from tbl_download_file order by create_time desc LIMIT #{count}
     </select>
     <select id="getFileNameById" resultType="java.lang.String" parameterType="int">
       SELECT attachment from tbl_download_file where id = #{id}

@@ -69,8 +69,6 @@ public class CreateImageCode {
         g.setColor(getRandColor(200, 250));
         g.fillRect(0, 0, width, height);
 
-
-
         // 设置字体
         //Font font1 = getFont(fontHeight);
         Font font = new Font("Fixedsys", Font.BOLD, fontHeight);

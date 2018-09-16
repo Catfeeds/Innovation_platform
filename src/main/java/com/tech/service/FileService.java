@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,7 +38,7 @@ public class FileService {
         }
         String uploadFileName = UUID.randomUUID().toString()+"."+fileExtsName;
 
-        logger.info("开始上传文件,上传文件的文件名:{},上传的路径:{},新文件名:{}",fileName,path,uploadFileName);
+        logger.info("开始上传文件,上传文件的文件名:{},上传的路径:{},新文件名:{},上传时间:{}",fileName,path,uploadFileName,new Date());
         File fileDir = new File(path);
         if (!fileDir.exists()){
             fileDir.setWritable(true);

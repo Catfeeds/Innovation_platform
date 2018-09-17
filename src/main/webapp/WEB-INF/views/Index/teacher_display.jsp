@@ -2,17 +2,18 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="../headTag.jsp"%>
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
     <title>科技创新项目管理平台</title>
-    <link rel="stylesheet" type="text/css" href="/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="/css/index.css">
-    <link rel="stylesheet" type="text/css" href="/static/layui/css/layui.css">
-    <script src="/js/jquery-1.8.3.min.js"></script>
-    <script src="/static/layui/layui.js"></script>
+    <link rel="stylesheet" type="text/css" href="${cpath}/static/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="${cpath}/static/css/index.css">
+    <link rel="stylesheet" type="text/css" href="${cpath}/static/layui/css/layui.css">
+    <script src="${cpath}/static/js/jquery-1.8.3.min.js"></script>
+    <script src="${cpath}/static/layui/layui.js"></script>
     <style>
         .tabula-box{
             min-height: 585px;
@@ -64,7 +65,7 @@
         <div class="top_slide_wrap about_pic">
             <ul class="slide_box bxslider">
                 <li>
-                    <a href="#"><img src="/images/about_slide.jpg" alt="">
+                    <a href="#"><img src="${cpath}/static/images/about_slide.jpg" alt="">
                     </a>
                 </li>
             </ul>
@@ -75,14 +76,14 @@
 
         <div id="detail2-box" class="clearfix">
 	
-	<div class="tit-80"><a href="/index.html">首页</a> - 优秀教师</div>
+	<div class="tit-80"><a href="${cpath}/index.html">首页</a> - 优秀教师</div>
         <%@include file="tag.jsp"%>
     
     <div class="content-box">
     	<h1>优秀指导教师</h1>
         <div class="search-box">
             <input type="text" name="textfield" id="key-input" class="input-text" placeholder="请输入教师名称">
-            <input type="image" src="images/search.png" class="input-submit" id="search-btn"/>
+            <input type="image" src="${cpath}/static/images/search.png" class="input-submit" id="search-btn"/>
         </div>
 
         <div style="margin-left: 40px;margin-top: 40px;min-height: 483px">
@@ -157,7 +158,7 @@
         function toSearchPage(page,first) {
             $.ajax({
                 type:'post',
-                url:'/teacher_search.do',
+                url:'${cpath}/teacher_search.do',
                 dataType: "json",
                 data:{
                     page:page
@@ -177,7 +178,7 @@
         function toPage(page) {
             $.ajax({
                 type:'post',
-                url:'/teacher_page.do',
+                url:'${cpath}/teacher_page.do',
                 dataType: "json",
                 data:{
                     page:page
@@ -196,9 +197,9 @@
             $("#data_fill").empty();
             $.each(res.data, function (index, item) {
                 var img = $("<img/>").attr("src",item.imageUrl);
-                var a = $("<a></a>").attr("href","/teacher/"+item.id+".html").append(img);
+                var a = $("<a></a>").attr("href","${cpath}/teacher/"+item.id+".html").append(img);
                 var div = $("<div></div>").addClass("img-box").append(a);
-                var h3 = $("<h3></h3>").append($("<a></a>").attr("href","/teacher/"+item.id+".html").append(item.nameTeacher));
+                var h3 = $("<h3></h3>").append($("<a></a>").attr("href","${cpath}/teacher/"+item.id+".html").append(item.nameTeacher));
                 $("<li></li>").addClass("pic").append(div).append(h3).appendTo("#data_fill");
             });
         }

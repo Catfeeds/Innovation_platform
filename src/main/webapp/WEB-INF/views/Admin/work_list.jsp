@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="headTag.jsp"%>
+<%@include file="../headTag.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,9 +28,9 @@
 		<div class="layui-inline">
 			<a class="layui-btn layui-btn-normal newsAdd_btn">添加作品展示</a>
 		</div>
-		<div class="layui-inline">
-			<a class="layui-btn layui-btn-danger batchDel">批量删除</a>
-		</div>
+		<%--<div class="layui-inline">--%>
+			<%--<a class="layui-btn layui-btn-danger batchDel">批量删除</a>--%>
+		<%--</div>--%>
 
 	</blockquote>
 	<div class="layui-form news_list">
@@ -67,16 +67,20 @@
             url: '${cpath}/manage/work_list.do',
             method: 'get',
             limit: 10,
+			size:'lg',
             cols: [[
                 {title: '序号',width:100,align:'center',type:'numbers'},
                 {field:'id', title: '序号',align:'center',sort:true,hide:'true'},
+                {field:'year', title: '年份',align:'center',sort:true},
                 {field:'matchName', title: '大赛名称',align:'center'},
                 {field:'itemName', title: '项目名称',align:'center'},
+                {field:'levelName', title: '赛事级别',align:'center'},
+                {field:'prizeName', title: '获奖名次',align:'center'},
                 {field:'coverUrl', title: '封面',align:'center',templet:function(d) {
                     return '<img src="' + d.coverUrl + '" />'}},
                 {field:'finishTime', title: '完成时间',align:'center',width:125},
                 {field:'introduce', title: '简介',align:'center'},
-                {title: '操作',align:'center',toolbar: '#bar'},
+                {title: '操作',align:'center',toolbar: '#bar',fixed:'right',width:200}
             ]],
             page: true,
             done: function (res, curr, count) {
@@ -100,13 +104,13 @@
                     $.ajax({
                         url:'${cpath}/manage/delete_gwork/'+data.id+".do",
                         type:'post',
-                        success : function(data) {
-                            if(data.status==0){
+                        success : function(res) {
+                            if(res.status === 0){
                                 obj.del();
-                                layer.msg(data.msg);
+                                layer.msg(res.msg);
                             }
                             else
-                                layer.msg(data.msg);
+                                layer.msg(res.msg);
                         }
                     });
                     layer.close(index);

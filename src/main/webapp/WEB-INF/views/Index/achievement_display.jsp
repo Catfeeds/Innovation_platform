@@ -2,17 +2,18 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="../headTag.jsp"%>
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
     <title>科技创新项目管理平台</title>
-    <link rel="stylesheet" type="text/css" href="/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="/css/index.css">
-	<link rel="stylesheet" type="text/css" href="/static/layui/css/layui.css">
-	<script src="/js/jquery-1.8.3.min.js"></script>
-	<script src="/static/layui/layui.js"></script>
+    <link rel="stylesheet" type="text/css" href="${cpath}/static/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="${cpath}/static/css/index.css">
+	<link rel="stylesheet" type="text/css" href="${cpath}/static/layui/css/layui.css">
+	<script src="${cpath}/static/js/jquery-1.8.3.min.js"></script>
+	<script src="${cpath}/static/layui/layui.js"></script>
 <style type="text/css">
 	.tabula-box{
 		min-height: 680px;
@@ -85,7 +86,7 @@
 		border-bottom-right-radius: 3px;
 	}
 	.search-box .search-select{
-		margin-left:565px;
+		margin-left:385px;
 
 	}
 	.search-select select{
@@ -106,7 +107,7 @@
         <div class="top_slide_wrap about_pic">
             <ul class="slide_box bxslider">
                 <li>
-                    <a href="#"><img src="/images/about_slide.jpg" alt="">
+                    <a href="#"><img src="${cpath}/static/images/about_slide.jpg" alt="">
                     </a>
                 </li>
             </ul>
@@ -116,7 +117,7 @@
 	<input id="count" type="hidden" value="${count}">
 <div id="detail2-box" class="clearfix">
 	
-	<div class="tit-80"><a href="/index.html">首页</a> - 优秀成果</div>
+	<div class="tit-80"><a href="${cpath}/index.html">首页</a> - 优秀成果</div>
 	    <%@include file="tag.jsp"%>
     
     <div class="content-box" id="data_fill" style="min-height: 661px">
@@ -126,17 +127,14 @@
 			<select name="condition_year" id="c-year">
 			</select>
 			</span>
-			<%--<span class="search-select" style="margin-left: 5px;" >--%>
-			<%--<select name="condition_prize" id="c-prize">--%>
-				<%--<option value="">全部</option>--%>
-				<%--<option value="1">一等奖</option>--%>
-				<%--<option value="2">二等奖</option>--%>
-				<%--<option value="3">三等奖</option>--%>
-				<%--<option value="4">鼓励奖</option>--%>
-			<%--</select>--%>
-			<%--</span>--%>
+			<span class="search-select" style="margin-left: 5px;" >
+			<select name="condition_prize" id="c-prize"></select>
+			</span>
+			<span class="search-select" style="margin-left: 5px;" >
+			<select name="condition_level" id="c-level"></select>
+			</span>
 			<input type="text" name="textfield" id="key-input" class="input-text" placeholder="请输入大赛名称">
-			<input type="image" src="images/search.png" class="input-submit" id="search-btn"/>
+			<input type="image" src="${cpath}/static/images/search.png" class="input-submit" id="search-btn"/>
 		</div>
 </div>
 	<div id="layui_page" style="text-align: center"></div>
@@ -183,6 +181,32 @@
             $("#c-year").append(option);
         }
 
+        $.ajax({
+            type:'post',
+            url:'${cpath}/getPrize.do',
+            dataType: "json",
+            success:function (res) {
+                $("#c-prize").append($("<option></option>").attr("value","").append("全部"));
+                $.each(res.data, function (index, item) {
+                    var option = $("<option></option>").val(item.id).append(item.prizeName);
+                    option.appendTo("#c-prize");
+                });
+            }
+        });
+
+        $.ajax({
+            type:'post',
+            url:'${cpath}/getLevel.do',
+            dataType: "json",
+            success:function (res) {
+                $("#c-level").append($("<option></option>").attr("value","").append("全部"));
+                $.each(res.data, function (index, item) {
+                    var option = $("<option></option>").val(item.id).append(item.levelName);
+                    option.appendTo("#c-level");
+                });
+            }
+        });
+
         //初始化数据
         laypage_reload(false);
 
@@ -193,6 +217,9 @@
             toSearchPage(1,true);
         });
         $("#c-prize").change(function () {
+            toSearchPage(1,true);
+        });
+        $("#c-level").change(function () {
             toSearchPage(1,true);
         });
 
@@ -221,7 +248,7 @@
         function toSearchPage(page,first) {
             $.ajax({
                 type:'post',
-                url:'/achievement_search.do',
+                url:'${cpath}/achievement_search.do',
                 dataType: "json",
                 data:{
                     page:page
@@ -229,6 +256,7 @@
                     ,key:$("#key-input").val()
                     ,condition_year:$("#c-year").val()
 					,condition_prize:$("#c-prize").val()
+					,condition_level:$("#c-level").val()
                 },
                 success:function (res) {
                     $('#count').val(res.count);
@@ -243,7 +271,7 @@
         function toPage(page) {
             $.ajax({
                 type:'post',
-                url:'/achievement_page.do',
+                url:'${cpath}/achievement_page.do',
                 dataType: "json",
                 data:{
                     page:page
@@ -261,17 +289,15 @@
         function fillData(res) {
             $("#data_fill div.product").remove();
             $.each(res.data, function (index, item) {
-                var a = $("<a></a>").attr("href","/achievement/"+item.id+".html").append($("<img/>").attr("src",item.coverUrl));
+                var a = $("<a></a>").attr("href","${cpath}/achievement/"+item.id+".html").append($("<img/>").attr("src",item.coverUrl));
                 var h2 = $("<h2></h2>").append("项目名称: "+item.itemName);
-                var p =  $("<p></p>").append("完成时间:"+item.finishTime);
-                var div2 = $("<div></div>").addClass("index1-right").append($("<p></p>").append("赛事介绍:"+item.introduce))
+                var p =  $("<p></p>").append("完成时间:"+(item.finishTime).split(' ')[0]);
+                var div2 = $("<div></div>").addClass("index1-right").append($("<p></p>").append("作品简介:"+item.introduce+"..."));
                 var div1 = $("<div></div>").addClass("product_detail").append(h2).append(p).append(div2);
                 $("<div></div>").addClass("product").append(a).append(div1).appendTo("#data_fill");
             });
         }
-
     });
-
 
 </script>
 </html>

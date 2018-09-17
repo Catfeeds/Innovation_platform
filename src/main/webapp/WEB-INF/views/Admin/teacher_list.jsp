@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include file="headTag.jsp"%>
+<%@include file="../headTag.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +16,12 @@
 	<link rel="stylesheet" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all" />
 	<link rel="stylesheet" href="${cpath}/static/css/news.css" media="all" />
 	<script src="${cpath}/static/js/jquery-1.8.3.min.js"></script>
+	<style type="text/css">
+		.layui-table-cell{
+			height:60px;
+			line-height:60px;
+		}
+	</style>
 </head>
 <body class="childrenBody">
 	<blockquote class="layui-elem-quote news_search">
@@ -26,12 +32,12 @@
 		    <a class="layui-btn search_btn">查询</a>
 		</div>
 		<div class="layui-inline">
-			<a class="layui-btn layui-btn-normal newsAdd_btn">添加文章</a>
+			<a class="layui-btn layui-btn-normal newsAdd_btn">添加优秀教师</a>
 		</div>
 		
-		<div class="layui-inline">
-			<a class="layui-btn layui-btn-danger batchDel">批量删除</a>
-		</div>
+		<%--<div class="layui-inline">--%>
+			<%--<a class="layui-btn layui-btn-danger batchDel">批量删除</a>--%>
+		<%--</div>--%>
 	</blockquote>
 
 	<table id="List" lay-filter="ListID"></table>
@@ -66,13 +72,14 @@
 			url: '/manage/teacher_list.do',
 			method: 'post',
 			limit: 10,
+			size:'lg',
 			cols: [[
 				{title: '序号',width:100,align:'center',type:'numbers'},
 				{field:'id', title: '序号',align:'center',sort:true,hide:'true'},
 				{field:'nameTeacher', title: '教师姓名',align:'center'},
 				{field:'occupationCall', title: '职称',align:'center'},
 				{field:'imageUrl', title: '照片',align:'center',templet:function(d) {
-					return '<img src="' + d.imageUrl + '" style="height: 80px"/>';
+					return '<img src="' + d.imageUrl + '" style="height:50px;width:35px"/>';
 				}},
 				{field:'researchDirection', title: '研究方向',align:'center'},
 				{field:'phone',title: '联系方式',align:'center'},

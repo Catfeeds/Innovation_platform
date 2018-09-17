@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="Admin/headTag.jsp"%>
+<%@include file="headTag.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,29 +11,29 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
 	<!-- bootstrap & fontawesome -->
-	<link rel="stylesheet" href="${cpath}/assets/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="${cpath}/assets/font-awesome/4.2.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="${cpath}/static/assets/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="${cpath}/static/assets/font-awesome/4.2.0/css/font-awesome.min.css" />
 
 	<!-- text fonts -->
-	<link rel="stylesheet" href="${cpath}/assets/fonts/fonts.googleapis.com.css" />
+	<link rel="stylesheet" href="${cpath}/static/assets/fonts/fonts.googleapis.com.css" />
 
 	<!-- ace styles -->
-	<link rel="stylesheet" href="${cpath}/assets/css/ace.min.css" />
+	<link rel="stylesheet" href="${cpath}/static/assets/css/ace.min.css" />
 
 	<!--[if lte IE 9]>
-	<link rel="stylesheet" href="assets/css/ace-part2.min.css" />
+	<link rel="stylesheet" href="/static/assets/css/ace-part2.min.css" />
 	<![endif]-->
-	<link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
+	<link rel="stylesheet" href="/static/assets/css/ace-rtl.min.css" />
 
 	<!--[if lte IE 9]>
-	<link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+	<link rel="stylesheet" href="/static/assets/css/ace-ie.min.css" />
 	<![endif]-->
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
 	<!--[if lt IE 9]>
-	<script src="assets/js/html5shiv.min.js"></script>
-	<script src="assets/js/respond.min.js"></script>
+	<script src="/static/assets/js/html5shiv.min.js"></script>
+	<script src="/static/assets/js/respond.min.js"></script>
 	<![endif]-->
 	<script src="${cpath}/static/js/jquery-1.8.3.min.js"></script>
 </head>
@@ -139,12 +139,12 @@
 		</div>
 
 		<!--[if !IE]> -->
-		<script src="assets/js/jquery.2.1.1.min.js"></script>
+		<script src="/static/assets/js/jquery.2.1.1.min.js"></script>
 
 		<!-- <![endif]-->
 
 		<!--[if IE]>
-		<script src="assets/js/jquery.1.11.1.min.js"></script>
+		<script src="/static/assets/js/jquery.1.11.1.min.js"></script>
 		<![endif]-->
 
 		<!--[if !IE]> -->

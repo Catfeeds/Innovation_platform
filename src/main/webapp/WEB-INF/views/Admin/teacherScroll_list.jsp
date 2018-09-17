@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include file="headTag.jsp"%>
+<%@include file="../headTag.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,7 +70,7 @@
                 {title: '序号',align:'center',width:100,type:'numbers'},
                 {field:'id', title: 'id',align:'center',hide:'true'},
                 {field:'urlImg', title: '图片',align:'center',templet:function(d) {
-					return '<img src="' + d.urlImg + '" />';
+					return '<img src="' + d.urlImg + '" style="height:50px;width:110px"/>';
 				}},
 				{field:'link', title: '超链接',align:'center'},
                 {field:'isShow', title: '是否展示',align:'center',templet:'#isShow'},

@@ -1,17 +1,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="../headTag.jsp"%>
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
     <title>科技创新项目管理平台</title>
-    <link rel="stylesheet" type="text/css" href="/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="/css/index.css">
-    <link rel="stylesheet" type="text/css" href="/static/layui/css/layui.css">
-    <script src="/js/jquery-1.8.3.min.js"></script>
-    <script src="/static/layui/layui.js"></script>
+    <link rel="stylesheet" type="text/css" href="${cpath}/static/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="${cpath}/static/css/index.css">
+    <link rel="stylesheet" type="text/css" href="${cpath}/static/layui/css/layui.css">
+    <script src="${cpath}/static/js/jquery-1.8.3.min.js"></script>
+    <script src="${cpath}/static/layui/layui.js"></script>
     <style>
         .tabula-box{
             min-height: 530px;
@@ -29,7 +30,7 @@
         <div class="top_slide_wrap about_pic">
             <ul class="slide_box bxslider">
                 <li>
-                    <a href="#"><img src="/images/about_slide.jpg" alt="">
+                    <a href="#"><img src="${cpath}/static/images/about_slide.jpg" alt="">
                     </a>
                 </li>
             </ul>
@@ -38,7 +39,7 @@
     <!-- slide end -->
 <div id="detail2-box" class="clearfix">
 	
-	<div class="tit-80"><a href="/index.html">首页</a> - <a href="/news_list/${newsTypeId}.html">${newsType}</a></div>
+	<div class="tit-80"><a href="${cpath}/index.html">首页</a> - <a href="${cpath}/news_list/${newsTypeId}.html">${newsType}</a></div>
     	<%@include file="tag.jsp"%>
     <input id="news_typeId" type="hidden" value="${newsTypeId}">
     <input id="news_count" type="hidden" value="${newsCount}">
@@ -98,7 +99,7 @@
     function toPage(page) {
         $.ajax({
             type:'post',
-            url:'/news_page/'+type+'.do',
+            url:'${cpath}/news_page/'+type+'.do',
             dataType: "json",
             data:{
                 page:page
@@ -116,7 +117,7 @@
     function fillData(res) {
         $("#news_fill").empty();
         $.each(res.data, function (index, item) {
-            var a = $("<a></a>").attr("href","/news/"+item.id+".html").append(item.title);
+            var a = $("<a></a>").attr("href","${cpath}/news/"+item.id+".html").append(item.title);
             var span = $("<span></span>").append(item.createTime);
             $("<li></li>").addClass("text").append(a).append(span).appendTo("#news_fill");
         });

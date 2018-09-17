@@ -1,14 +1,15 @@
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="../headTag.jsp"%>
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
     <title>科技创新项目管理平台</title>
-    <link rel="stylesheet" type="text/css" href="/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="/css/index.css">
-	<script src="/js/jquery-1.8.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="${cpath}/static/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="${cpath}/static/css/index.css">
+	<script src="${cpath}/static/js/jquery-1.8.3.min.js"></script>
 </head>
 
 <body>
@@ -21,7 +22,7 @@
         <div class="top_slide_wrap about_pic">
             <ul class="slide_box bxslider">
                 <li>
-                    <a href="#"><img src="/images/about_slide.jpg" alt="">
+                    <a href="#"><img src="${cpath}/static/images/about_slide.jpg" alt="">
                     </a>
                 </li>
             </ul>
@@ -30,14 +31,14 @@
     <!-- slide end -->
 <div id="detail2-box" class="clearfix">
 	
-	<div class="tit-80"><a href="/index.html">首页</a> - <a href="/news_list/${news.typeNews}.html">${newsType}</a> - 内容详情</div>
+	<div class="tit-80"><a href="${cpath}/index.html">首页</a> - <a href="${cpath}/news_list/${news.typeNews}.html">${newsType}</a> - 内容详情</div>
     <input type="hidden" id="new_type" value="${news.typeNews}">
     <%@include file="tag.jsp"%>
     
     <div class="content-box" >
     	<h1>${news.title}</h1>
         <div class="content" style="width: 100%">
-			<p style="margin-bottom: 15px"><img src="/images/calendar.png" style="width: 15px"> 发布于 <fmt:formatDate value="${news.createTime}" pattern="yyyy-MM-dd  HH:mm:ss" /></p>
+			<p style="margin-bottom: 15px"><img src="${cpath}/static/images/calendar.png" style="width: 15px"> 发布于 <fmt:formatDate value="${news.createTime}" pattern="yyyy-MM-dd  HH:mm:ss" /></p>
             ${news.content}
         </div>
     </div>

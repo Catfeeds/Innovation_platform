@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="headTag.jsp"%>
+<%@include file="../headTag.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -165,10 +165,10 @@
                             <i class="layui-icon layui-icon-table" ></i>
                             <cite>获奖项目统计</cite></a>
                         </dd>
-                        <dd><a href="javascript:;" data-url="/manage/to_data_import.do">
-                            <i class="layui-icon layui-icon-table" ></i>
-                            <cite>获奖数据导入</cite></a>
-                        </dd>
+                        <%--<dd><a href="javascript:;" data-url="/manage/to_data_import.do">--%>
+                            <%--<i class="layui-icon layui-icon-table" ></i>--%>
+                            <%--<cite>获奖数据导入</cite></a>--%>
+                        <%--</dd>--%>
                     </dl>
                 </li>
                 <%--<li class="layui-nav-item">--%>

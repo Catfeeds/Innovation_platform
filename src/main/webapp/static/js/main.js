@@ -22,14 +22,14 @@ layui.config({
 		var systemParameter = JSON.parse(window.sessionStorage.getItem("systemParameter"));
 		fillParameter(systemParameter);
 	}else{
-		$.ajax({
-			url : "../json/systemParameter.json",
-			type : "get",
-			dataType : "json",
-			success : function(data){
-				fillParameter(data);
-			}
-		})
+		// $.ajax({
+		// 	url : "../json/systemParameter.json",
+		// 	type : "get",
+		// 	dataType : "json",
+		// 	success : function(data){
+		// 		fillParameter(data);
+		// 	}
+		// })
 	}
 
 	//填充数据方法

@@ -1,16 +1,17 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="../headTag.jsp"%>
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
     <title>科技创新项目管理平台</title>
-    <link rel="stylesheet" type="text/css" href="/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="/css/index.css">
-    <script src="/js/jquery-1.8.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="${cpath}/static/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="${cpath}/static/css/index.css">
+    <script src="${cpath}/static/js/jquery-1.8.3.min.js"></script>
 <style>
 .techer_photo,.teacher_play{margin: 25px 0px 50px 42px;}
 .techer_photo img{
@@ -49,7 +50,7 @@
         <div class="top_slide_wrap about_pic">
             <ul class="slide_box bxslider">
                 <li>
-                    <a href="#"><img src="/images/about_slide.jpg" alt="">
+                    <a href="#"><img src="${cpath}/static/images/about_slide.jpg" alt="">
                     </a>
                 </li>
             </ul>
@@ -58,7 +59,7 @@
     <!-- slide end -->
 <div id="detail2-box" class="clearfix">
 	
-	<div class="tit-80"><a href="/index.html">首页</a> - <a href="/teacher.html">优秀教师</a> - 教师详情</div>
+	<div class="tit-80"><a href="${cpath}/index.html">首页</a> - <a href="${cpath}/teacher.html">优秀教师</a> - 教师详情</div>
 	    <div class="tabula-box">
         <div class="techer_photo">
         	<img src="${teacher.imageUrl}" />
@@ -66,16 +67,16 @@
         </div>
         <div class="teacher_play">
         	<div>
-        		<span><img src="/images/u572.png"><span class="tea-play-tit">研究方向</span></span>
+        		<span><img src="${cpath}/static/images/u572.png"><span class="tea-play-tit">研究方向</span></span>
                 <p>${teacher.researchDirection}</p>
         	</div>
         	<div>
-        		<span><img src="/images/u575.png"><span class="tea-play-tit">联系电话</span></span>
+        		<span><img src="${cpath}/static/images/u575.png"><span class="tea-play-tit">联系电话</span></span>
         	<p>${teacher.phone}</p>
         	
         	</div>
         	<div>
-        		<span><img src="/images/u578.png"><span class="tea-play-tit">邮箱</span></span>
+        		<span><img src="${cpath}/static/images/u578.png"><span class="tea-play-tit">邮箱</span></span>
         	<p>${teacher.email}</p>
         	</div>
         </div>

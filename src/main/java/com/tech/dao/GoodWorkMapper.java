@@ -28,7 +28,7 @@ public interface GoodWorkMapper {
 
     List<GoodWork> selectSearch(String key);
 
-    List<GoodWork> selectSearchIndex(@Param("key") String key, @Param("condition_year") String condition_year, @Param("condition_prize") String condition_prize);
+    List<GoodWork> selectSearchIndex(@Param("key") String key, @Param("condition_year") String condition_year, @Param("condition_prize") Integer condition_prize,@Param("condition_level") Integer condition_level);
 
-    int selectSearchCountIndex(@Param("key") String key, @Param("condition_year") String condition_year, @Param("condition_prize") String condition_prize);
+    int selectSearchCountIndex(@Param("key") String key, @Param("condition_year") String condition_year, @Param("condition_prize") Integer condition_prize,@Param("condition_level") Integer condition_level);
 }

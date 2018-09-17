@@ -6,6 +6,8 @@ import com.tech.pojo.GoodWork;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Service
@@ -65,8 +67,8 @@ public class GoodWorkService {
         return goodWorkMapper.selectSearch(key);
     }
 
-    public List<GoodWork> getSearch(String key, String condition1, String condition2) {
-        List<GoodWork> goodWorks = goodWorkMapper.selectSearchIndex(key,condition1,condition2);
+    public List<GoodWork> getSearch(String key, String year, Integer prizeId,Integer levelId) {
+        List<GoodWork> goodWorks = goodWorkMapper.selectSearchIndex(key,year,prizeId,levelId);
         String intro ;
         for (GoodWork m:goodWorks) {
             intro = m.getIntroduce().replaceAll("<(S*?)[^>]*>.*?|<.*? />", "").replaceAll("&.{2,6}?;", "");
@@ -76,7 +78,7 @@ public class GoodWorkService {
         return goodWorks;
     }
 
-    public int getSearchCount(String key, String condition1, String condition2) {
-        return goodWorkMapper.selectSearchCountIndex(key,condition1,condition2);
+    public int getSearchCount(String key, String year, Integer prizeId,Integer levelId) {
+        return goodWorkMapper.selectSearchCountIndex(key,year,prizeId,levelId);
     }
 }

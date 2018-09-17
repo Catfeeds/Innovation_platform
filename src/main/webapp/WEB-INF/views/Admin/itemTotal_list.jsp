@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="headTag.jsp"%>
+<%@include file="../headTag.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,9 +41,9 @@
 			<div class="layui-inline">
 				<a class="layui-btn layui-btn-normal show-chart">图表显示</a>
 			</div>
-			<%--<div class="layui-inline">--%>
-				<%--<button type="button" class="layui-btn" id="data-import"><i class="layui-icon"></i>数据导入</button>--%>
-			<%--</div>--%>
+			<div class="layui-inline">
+				<button type="button" class="layui-btn" id="data-import"><i class="layui-icon"></i>数据导入</button>
+			</div>
 		</div>
 	</blockquote>
 </form>
@@ -116,6 +116,18 @@
             page: true,
             done: function (res, curr, count) {
 
+            }
+        });
+
+        upload.render({
+            elem: '#data-import'
+            , accept: 'file'
+            ,url: '/manage/data_import.do'
+            ,done: function(res){
+                layer.msg(res.msg, {
+                    time: 20000, //20s后自动关闭
+                    btn: [ '知道了']
+                });
             }
         });
 

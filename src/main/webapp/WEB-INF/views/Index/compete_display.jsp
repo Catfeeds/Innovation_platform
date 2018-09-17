@@ -2,17 +2,18 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="../headTag.jsp"%>
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
     <title>科技创新项目管理平台</title>
-    <link rel="stylesheet" type="text/css" href="/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="/css/index.css">
-	<link rel="stylesheet" type="text/css" href="/static/layui/css/layui.css">
-	<script src="/js/jquery-1.8.3.min.js"></script>
-	<script src="/static/layui/layui.js"></script>
+    <link rel="stylesheet" type="text/css" href="${cpath}/static/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="${cpath}/static/css/index.css">
+	<link rel="stylesheet" type="text/css" href="${cpath}/static/layui/css/layui.css">
+	<script src="${cpath}/static/js/jquery-1.8.3.min.js"></script>
+	<script src="${cpath}/static/layui/layui.js"></script>
 	<style type="text/css">
 		.tabula-box{
 			min-height: 670px;
@@ -110,7 +111,7 @@
         <div class="top_slide_wrap about_pic">
             <ul class="slide_box bxslider">
                 <li>
-                    <a href="#"><img src="/images/about_slide.jpg" alt="">
+                    <a href="#"><img src="${cpath}/static/images/about_slide.jpg" alt="">
                     </a>
                 </li>
             </ul>
@@ -120,7 +121,7 @@
 		<input id="count" type="hidden" value="${count}">
 <div id="detail2-box" class="clearfix">
 	
-	<div class="tit-80"><a href="/index.html">首页</a>  - 赛事介绍</div>
+	<div class="tit-80"><a href="${cpath}/index.html">首页</a>  - 赛事介绍</div>
 			<%@include file="tag.jsp"%>
     
     <div class="content-box" id="data_fill" style="min-height: 680px">
@@ -135,7 +136,7 @@
 				<option value="5">校类C级</option>
 			</select>
 			<input type="text" name="textfield" id="key-input" class="input-text" placeholder="请输入关键词">
-			<input type="image" src="images/search.png" class="input-submit" id="search-btn" />
+			<input type="image" src="${cpath}/static/images/search.png" class="input-submit" id="search-btn" />
 		</div>
 	</div>
 			<div id="PageCode" style="text-align: center"></div>
@@ -205,7 +206,7 @@
         function toSearchPage(page,first) {
             $.ajax({
                 type:'post',
-                url:'/compete_search.do',
+                url:'${cpath}/compete_search.do',
                 dataType: "json",
                 data:{
                     page:page
@@ -226,7 +227,7 @@
         function toPage(page) {
             $.ajax({
                 type:'post',
-                url:'/compete_page.do',
+                url:'${cpath}/compete_page.do',
                 dataType: "json",
                 data:{
                     page:page
@@ -242,7 +243,7 @@
             $("#data_fill div.product").remove();
             $.each(res.data, function (index, item) {
                 var img = $("<img/>").attr("src",item.imgUrl);
-                var a = $("<a></a>").append(img).attr("href","/compete/"+item.id+".html");
+                var a = $("<a></a>").append(img).attr("href","${cpath}/compete/"+item.id+".html");
                 var h2 = $("<h2></h2>").append("大赛名称: "+item.nameMatch);
                 var p2 =  $("<p></p>").append("赛事级别:"+item.levelName);
                 var div2 = $("<div></div>").addClass("index1-right").append($("<p></p>").append("赛事介绍:"+item.introduce+"..."))
@@ -250,7 +251,6 @@
                 $("<div></div>").addClass("product").append(a).append(div1).appendTo("#data_fill");
             });
         }
-
     });
 
 </script>

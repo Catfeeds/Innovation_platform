@@ -1,17 +1,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="../headTag.jsp"%>
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
     <title>科技创新项目管理平台</title>
-    <link rel="stylesheet" type="text/css" href="/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="/css/index.css">
-	<link rel="stylesheet" type="text/css" href="/static/layui/css/layui.css">
-	<script src="/js/jquery-1.8.3.min.js"></script>
-	<script src="/static/layui/layui.js"></script>
+    <link rel="stylesheet" type="text/css" href="${cpath}/static/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="${cpath}/static/css/index.css">
+	<link rel="stylesheet" type="text/css" href="${cpath}/static/layui/css/layui.css">
+	<script src="${cpath}/static/js/jquery-1.8.3.min.js"></script>
+	<script src="${cpath}/static/layui/layui.js"></script>
 	<style type="text/css">
     	table,tr,td,th{border: 1px #000000 solid;}
     	td,th{text-align: center;}
@@ -70,7 +71,7 @@
         <div class="top_slide_wrap about_pic">
             <ul class="slide_box bxslider">
                 <li>
-                    <a href="#"><img src="/images/about_slide.jpg" alt="">
+                    <a href="#"><img src="${cpath}/static/images/about_slide.jpg" alt="">
                     </a>
                 </li>
             </ul>
@@ -79,7 +80,7 @@
     <!-- slide end -->
 <div id="detail2-box" class="clearfix">
 	
-	<div class="tit-80"><a href="/index.html">首页</a> - 下载专区</div>
+	<div class="tit-80"><a href="${cpath}/index.html">首页</a> - 下载专区</div>
     	<%@include file="tag.jsp"%>
     
     <div class="content-box" style="min-height: 470px">
@@ -91,7 +92,7 @@
                 <%--<option value="2017">2017</option>--%>
             </select>
             <input type="text"  name="textfield"  id="key-input" class="input-text" placeholder="请输入关键词">
-            <input type="image" src="images/search.png" class="input-submit" id="search-btn"/>
+            <input type="image" src="${cpath}/static/images/search.png" class="input-submit" id="search-btn"/>
         </div>
         <input id="count" type="hidden" value="${count}">
 		<table style="width: 100%;" id="data_fill">
@@ -181,7 +182,7 @@
         function toSearchPage(page,first) {
             $.ajax({
                 type:'post',
-                url:'/download_search.do',
+                url:'${cpath}/download_search.do',
                 dataType: "json",
                 data:{
                     page:page
@@ -202,7 +203,7 @@
         function toPage(page) {
             $.ajax({
                 type:'get',
-                url:'/download_page.do',
+                url:'${cpath}/download_page.do',
                 dataType: "json",
                 data:{
                     page:page,
@@ -225,7 +226,7 @@
                 var titleWork = $("<th></th>").append(item.titleWork);
                 var author = $("<th></th>").append(item.author);
                 var instructor = $("<th></th>").append(item.instructor);
-                var download = $("<th></th>").addClass('download').append($("<a></a>").attr('href','/download_file/'+item.id+'.html').append($("<img/>").attr('src','/images/u404.png')));
+                var download = $("<th></th>").addClass('download').append($("<a></a>").attr('href','${cpath}/download_file/'+item.id+'.html').append($("<img/>").attr('src','${cpath}/static/images/u404.png')));
                 var tr = $("<tr></tr>").append(id).append(nameMatch).append(titleWork).append(author).append(instructor).append(download);
                 tr.appendTo("#data_fill");
             });

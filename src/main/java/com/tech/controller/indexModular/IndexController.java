@@ -268,7 +268,7 @@ public class IndexController {
 
     @RequestMapping(value = "/achievement_search",produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String achievementSearch(Integer page,Integer limit,String key,String condition_year,String condition_prize){
+    public String achievementSearch(Integer page,Integer limit,String key,String condition_year,Integer condition_prize,Integer condition_level){
         if(page==null){
             page=1;
         }
@@ -276,8 +276,8 @@ public class IndexController {
             limit=10;
         }
         PageHelper.startPage(page,limit);
-        List<GoodWork> list = goodWorkService.getSearch(key,condition_year,condition_prize);
-        int count = goodWorkService.getSearchCount(key,condition_year,condition_prize);
+        List<GoodWork> list = goodWorkService.getSearch(key,condition_year,condition_prize,condition_level);
+        int count = goodWorkService.getSearchCount(key,condition_year,condition_prize,condition_level);
         Map<String, Object> map = new HashMap<>();
         map.put("code",0);
         map.put("msg","");

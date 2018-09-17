@@ -10,12 +10,17 @@
     <result column="clicks" jdbcType="INTEGER" property="clicks" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="year" jdbcType="VARCHAR" property="year" />
+    <result column="prize_id" jdbcType="INTEGER" property="prizeId" />
+    <result column="level_id" jdbcType="INTEGER" property="levelId" />
+    <result column="prize_name" jdbcType="VARCHAR" property="prizeName" />
+    <result column="level_name" jdbcType="VARCHAR" property="levelName" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tech.pojo.GoodWork">
     <result column="introduce" jdbcType="LONGVARCHAR" property="introduce" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, match_name, item_name, cover_url, finish_time, clicks, create_time, update_time
+    id, match_name, item_name, cover_url, finish_time, clicks, create_time, update_time,level_id,prize_id
   </sql>
   <sql id="Blob_Column_List">
     introduce
@@ -35,11 +40,12 @@
   <insert id="insert" parameterType="com.tech.pojo.GoodWork">
     insert into tbl_good_work (id, match_name, item_name, 
       cover_url, finish_time, clicks, 
-      create_time, update_time, introduce
+      create_time, update_time, introduce,prize_id,level_id
       )
     values (#{id,jdbcType=INTEGER}, #{matchName,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR}, 
       #{coverUrl,jdbcType=VARCHAR}, #{finishTime,jdbcType=TIMESTAMP}, 0,
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{introduce,jdbcType=LONGVARCHAR}
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{introduce,jdbcType=LONGVARCHAR},
+      #{prizeId,jdbcType=INTEGER},#{levelId,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tech.pojo.GoodWork">
@@ -157,7 +163,9 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectAllGoodWorks" resultMap="BaseResultMap">
-    select * from tbl_good_work order by id desc
+    select
+    g.id, match_name, item_name, cover_url, finish_time, clicks, create_time, update_time,level_name,prize_name,(YEAR(finish_time)) year,introduce
+    from tbl_good_work g,tbl_levels l,tbl_prize p where level_id = l.id and prize_id = p.id order by id desc
   </select>
     <select id="selectAllCount" resultType="java.lang.Integer">
       select count(*) from tbl_good_work
@@ -170,16 +178,23 @@
     </select>
   <select id="selectSearch" resultType="com.tech.pojo.GoodWork">
     select
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from tbl_good_work
-    where item_name like CONCAT('%',#{key},'%') order by id desc
+    g.id, match_name, item_name, cover_url, finish_time, clicks, create_time, update_time,level_name,prize_name,(YEAR(finish_time)) year,introduce
+    from tbl_good_work g,tbl_levels l,tbl_prize p where level_id = l.id and prize_id = p.id and item_name like CONCAT('%',#{key},'%') order by id desc
   </select>
     <select id="selectSearchIndex" resultMap="BaseResultMap" parameterType="map">
-      select * from tbl_good_work  where
+      select
+      <include refid="Base_Column_List" />
+      ,
+      <include refid="Blob_Column_List" />
+      from tbl_good_work  where
       <if test="condition_year != null and condition_year != ''">
         (YEAR(finish_time)) = #{condition_year} and
+      </if>
+      <if test="condition_prize != null">
+        prize_id = #{condition_prize} and
+      </if>
+      <if test="condition_level != null">
+        level_id = #{condition_level} and
       </if>
         item_name like CONCAT('%',#{key},'%') order by id desc
     </select>
@@ -188,6 +203,12 @@
     <if test="condition_year != null and condition_year != ''">
       (YEAR(finish_time)) = #{condition_year} and
     </if>
-    item_name like CONCAT('%',#{key},'%')
+    <if test="condition_prize != null">
+      prize_id = #{condition_prize} and
+    </if>
+    <if test="condition_level != null">
+      level_id = #{condition_level} and
+    </if>
+      item_name like CONCAT('%',#{key},'%')
   </select>
 </mapper>

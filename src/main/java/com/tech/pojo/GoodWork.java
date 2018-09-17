@@ -21,6 +21,56 @@ public class GoodWork {
 
     private String introduce;
 
+    private String year;
+
+    private Integer levelId;
+
+    private String levelName;
+
+    private Integer prizeId;
+
+    private String prizeName;
+
+    public String getLevelName() {
+        return levelName;
+    }
+
+    public void setLevelName(String levelName) {
+        this.levelName = levelName;
+    }
+
+    public String getPrizeName() {
+        return prizeName;
+    }
+
+    public void setPrizeName(String prizeName) {
+        this.prizeName = prizeName;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public Integer getLevelId() {
+        return levelId;
+    }
+
+    public void setLevelId(Integer levelId) {
+        this.levelId = levelId;
+    }
+
+    public Integer getPrizeId() {
+        return prizeId;
+    }
+
+    public void setPrizeId(Integer prizeId) {
+        this.prizeId = prizeId;
+    }
+
     public Integer getId() {
         return id;
     }

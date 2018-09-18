@@ -77,12 +77,12 @@
 
         $(".linksAdd_btn").click(function(){
             var id = $(this).attr("competeId");
-            $.get("/stu/check_time/"+id+".do", function(res){
+            $.get("${cpath}/stu/check_time/"+id+".do", function(res){
                 if(res.status == 0){
                     var index = layui.layer.open({
                         title : "赛事报名",
                         type : 2,
-                        content : "/stu/to_compete_enroll/"+id+".html",
+                        content : "${cpath}/stu/to_compete_enroll/"+id+".html",
                         success : function(){
                             setTimeout(function(){
                                 layui.layer.tips('点击此处返回友链列表', '.layui-layer-setwin .layui-layer-close', {

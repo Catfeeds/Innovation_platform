@@ -61,6 +61,24 @@
 							</c:if>
 						</div>
 					</div>
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">赛事级别</label>
+							<div class="layui-input-inline">
+								<select name="levelId" class="Level" lay-filter="browseLook" id="data_fill">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">获奖等级</label>
+							<div class="layui-input-inline">
+								<select name="prizeId" class="Prize" lay-filter="browseLook" id="data_fill2">
+								</select>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="layui-col-md3 layui-col-xs5">
 					<div class="layui-upload-list thumbBox mag0 magt3">
@@ -100,6 +118,45 @@
                 laydate = layui.laydate,
                 $ = layui.jquery;
 
+            $.ajax({
+                type:'post',
+                url:'${cpath}/getLevel.do',
+                dataType: "json",
+                success:function (data) {
+                    fillData(data);
+                },
+                error:function () {
+                    layer.msg('接口错误');
+                }
+            });
+
+            $.ajax({
+                type:'post',
+                url:'${cpath}/getPrize.do',
+                dataType: "json",
+                success:function (res) {
+                    $.each(res.data, function (index, item) {
+                        var option = $("<option></option>").val(item.id).append(item.prizeName);
+                        option.appendTo("#data_fill2");
+                    });
+                    if(action === 'edit'){
+                        $("select option[value='${work.prizeId}']").attr("selected","selected");
+                    }
+                    form.render('select');
+                }
+            });
+
+            function fillData(res) {
+                $.each(res.data, function (index, item) {
+                    var option = $("<option></option>").val(item.id).append(item.levelName);
+                    option.appendTo("#data_fill");
+                });
+                if(action === 'edit'){
+                    $("select option[value='${work.levelId}']").attr("selected","selected");
+                }
+                form.render('select');
+            }
+
             if(action=='edit'){
                 $('.thumbImg').attr('src', '${work.coverUrl}');
                 $('#coverUrl').val('${work.coverUrl}');
@@ -107,7 +164,7 @@
 
             upload.render({
                 elem: '.thumbBox',
-                url: '/manage/fileUpload.do',
+                url: '${cpath}/manage/fileUpload.do',
                 done: function(res){
                     if(res.error==0){
                         $('#coverUrl').val(res.url);
@@ -121,14 +178,14 @@
 
             laydate.render({
                 elem: '#finishTime',
-                type: 'date',
+                type: 'date'
             });
 
             form.on("submit(addNews)",function(data){
-                if(action=='edit'){
+                if(action === 'edit'){
                     $.ajax({
                         type:'post',
-                        url:'/manage/update_gwork.do',
+                        url:'${cpath}/manage/update_gwork.do',
 						dataType:'json',
                         data:data.field,
                         success:function (data) {
@@ -138,10 +195,10 @@
                             layer.msg('接口错误');
                         }
                     });
-                }else if(action=='add'){
+                }else if(action === 'add'){
                     $.ajax({
                         type:'post',
-                        url:'/manage/add_gwork.do',
+                        url:'${cpath}/manage/add_gwork.do',
                         data: data.field,
                         success:function (data) {
                             layer.msg(data.msg);

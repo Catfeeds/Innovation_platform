@@ -87,7 +87,7 @@
 
         $(".search_btn").click(function() {
             table.reload('search_tb', {
-                url: '/manage/match_search.do'
+                url: '${cpath}/manage/match_search.do'
                 , where: {key: $(".search_input").val()}
             });
         });

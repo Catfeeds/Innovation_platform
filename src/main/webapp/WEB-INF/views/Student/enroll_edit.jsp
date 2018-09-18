@@ -186,10 +186,10 @@
 
         upload.render({
             elem: '#attachment'
-            ,url: '/manage/fileUpload.do'
+            ,url: '${cpath}/manage/fileUpload.do'
             ,accept: 'file'
             ,done: function(res){
-                if(res.error==0){
+                if(res.error === 0){
                     $('#attachmentVal').val(res.url);
                     layer.msg(res.message);
                 }else{
@@ -203,7 +203,7 @@
         form.on("submit(add)", function (data) {
             $.ajax({
                 type: 'post',
-                url: '/stu/enroll_edit.do',
+                url: '${cpath}/stu/enroll_edit.do',
                 data: $('#form_enroll').serialize(),
                 success: function (res) {
                     layer.msg(res.msg);
@@ -222,7 +222,7 @@
     });
 
     function getInfo(obj) {
-        if(obj.val() == ''){
+        if(obj.val() === ''){
             obj.parents("tr").find("td:eq(1)").find("input").val("");
             obj.parents("tr").find("td:eq(2)").find("input").val("");
 		}else{
@@ -231,7 +231,7 @@
 				type:'post',
 				dataType:'json',
 				data:{
-					sno:obj.val(),
+					sno:obj.val()
 				},
 				success : function(res) {
 					console.log(res);

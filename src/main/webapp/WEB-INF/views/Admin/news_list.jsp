@@ -117,7 +117,7 @@
         });
         $(".search_btn").click(function() {
             table.reload('search_tb', {
-                url: '/manage/news_search.do'
+                url: '${cpath}/manage/news_search.do'
                 , where: {key: $(".search_input").val(),newsTypeId:newsTypeId}
             });
         });
@@ -126,7 +126,7 @@
         table.on('tool(newsListID)', function(obj){
             var data = obj.data;
             if(obj.event === 'detail'){
-                window.open('/news/'+data.id+'.html');
+                window.open('${cpath}/news/'+data.id+'.html');
             } else if(obj.event === 'del'){
                 layer.confirm('真的删除'+data.title+'么?', function(index){
                     $.ajax({

@@ -36,7 +36,7 @@
         table.render({
 			id:'search_tb',
             elem: '#List',
-            url: '/manage/enroll_list.do',
+            url: '${cpath}/manage/enroll_list.do',
             method: 'post',
             toolbar:true,
             defaultToolbar: ['filter', 'print'],
@@ -59,7 +59,7 @@
 
         $(".search_btn").click(function() {
             table.reload('search_tb', {
-                url: '/manage/enroll_search.do'
+                url: '${cpath}/manage/enroll_search.do'
                 , where: {key: $(".search_input").val()}
             });
         });

@@ -70,8 +70,8 @@
                         <cite>${admin.typeAliases}</cite>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:window.open('/index.html');" ><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>主页</cite></a></dd>
-                        <dd><a href="/admin/logout.html" class="signOut"><i class="iconfont icon-loginout"></i><cite>退出</cite></a></dd>
+                        <dd><a href="javascript:window.open('${cpath}/index.html');" ><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>主页</cite></a></dd>
+                        <dd><a href="${cpath}/admin/logout.html" class="signOut"><i class="iconfont icon-loginout"></i><cite>退出</cite></a></dd>
                     </dl>
                 </li>
             </ul>
@@ -91,43 +91,43 @@
                         <i class="iconfont icon-computer"></i>
                         <cite>首页管理</cite><span class="layui-nav-more"></span></a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="/manage/to_news_list/1.do">
+                        <dd><a href="javascript:;" data-url="${cpath}/manage/to_news_list/1.do">
                             <i class="layui-icon layui-icon-notice" ></i>
                             <cite>通知公告管理</cite></a>
                         </dd>
-                        <dd><a href="javascript:;" data-url="/manage/to_news_list/2.do">
+                        <dd><a href="javascript:;" data-url="${cpath}/manage/to_news_list/2.do">
                             <i class="layui-icon layui-icon-read" ></i>
                             <cite>政策文件管理</cite></a>
                         </dd>
-                        <dd><a href="javascript:;" data-url="/manage/to_news_list/3.do">
+                        <dd><a href="javascript:;" data-url="${cpath}/manage/to_news_list/3.do">
                             <i class="layui-icon layui-icon-help" ></i>
                             <cite>常见问题管理</cite></a>
                         </dd>
-                        <dd><a href="javascript:;" data-url="/manage/to_match_list.do">
+                        <dd><a href="javascript:;" data-url="${cpath}/manage/to_match_list.do">
                             <i class="layui-icon layui-icon-file-b" ></i>
                             <cite>赛事介绍管理</cite></a>
                         </dd>
-                        <dd><a href="javascript:;" data-url="/manage/to_download_list.do">
+                        <dd><a href="javascript:;" data-url="${cpath}/manage/to_download_list.do">
                             <i class="layui-icon layui-icon-download-circle" ></i>
                             <cite>下载专区管理</cite></a>
                         </dd>
-                        <dd><a href="javascript:;" data-url="/manage/to_work_list.do">
+                        <dd><a href="javascript:;" data-url="${cpath}/manage/to_work_list.do">
                             <i class="layui-icon layui-icon-praise" ></i>
                             <cite>成果展示管理</cite></a>
                         </dd>
-                        <dd><a href="javascript:;" data-url="/manage/to_tech_list.do">
+                        <dd><a href="javascript:;" data-url="${cpath}/manage/to_tech_list.do">
                             <i class="layui-icon layui-icon-praise" ></i>
                             <cite>优秀教师管理</cite></a>
                         </dd>
-                        <dd><a href="javascript:;" data-url="/manage/to_coverScroll_list.do">
+                        <dd><a href="javascript:;" data-url="${cpath}/manage/to_coverScroll_list.do">
                             <i class="layui-icon layui-icon-carousel" ></i>
                             <cite>封面轮播图</cite></a>
                         </dd>
-                        <dd><a href="javascript:;" data-url="/manage/to_teacherScroll_list.do">
+                        <dd><a href="javascript:;" data-url="${cpath}/manage/to_teacherScroll_list.do">
                             <i class="layui-icon layui-icon-carousel"></i>
                             <cite>优秀教师轮播图</cite></a>
                         </dd>
-                        <dd><a href="javascript:;" data-url="/manage/links.do">
+                        <dd><a href="javascript:;" data-url="${cpath}/manage/links.do">
                             <i class="layui-icon layui-icon-link"></i>
                             <cite>友情链接管理</cite></a>
                         </dd>
@@ -140,7 +140,7 @@
                         <span class="layui-nav-more"></span>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="/manage/to_student_info_list.do">
+                        <dd><a href="javascript:;" data-url="${cpath}/manage/to_student_info_list.do">
                             <i class="layui-icon layui-icon-user"></i>
                             <cite>学生信息管理</cite></a>
                         </dd>
@@ -152,16 +152,16 @@
                         <span class="layui-nav-more"></span>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="/manage/to_enroll_list.do">
+                        <dd><a href="javascript:;" data-url="${cpath}/manage/to_enroll_list.do">
                             <i class="layui-icon layui-icon-survey"></i>
                             <cite>项目申报管理</cite>
                         </a>
                         </dd>
-                        <dd><a href="javascript:;" data-url="/manage/to_compete_list.do">
+                        <dd><a href="javascript:;" data-url="${cpath}/manage/to_compete_list.do">
                             <i class="layui-icon layui-icon-form" ></i>
                             <cite>赛事报名管理</cite></a>
                         </dd>
-                        <dd><a href="javascript:;" data-url="/manage/to_itemTotal_list.do">
+                        <dd><a href="javascript:;" data-url="${cpath}/manage/to_itemTotal_list.do">
                             <i class="layui-icon layui-icon-table" ></i>
                             <cite>获奖项目统计</cite></a>
                         </dd>

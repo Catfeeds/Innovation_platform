@@ -48,7 +48,7 @@
 
             upload.render({
                 elem: '.thumbBox',
-                url: '/manage/fileUpload.do',
+                url: '${cpath}/manage/fileUpload.do',
                 done: function(res){
                     if(res.error==0){
                         $('#coverUrl').val(res.url);
@@ -63,7 +63,7 @@
             form.on("submit(addNews)",function(data){
                 $.ajax({
 					type:'post',
-					url:'/manage/add_scroll.do',
+					url:'${cpath}/manage/add_scroll.do',
 					data:data.field,
 					success:function (res) {
 						layer.msg(res.msg);

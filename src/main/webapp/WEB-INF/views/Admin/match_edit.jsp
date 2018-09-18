@@ -107,7 +107,7 @@
 
         $.ajax({
             type:'post',
-            url:'/manage/getLevel.do',
+            url:'${cpath}/getLevel.do',
             dataType: "json",
             success:function (data) {
                 fillData(data);
@@ -122,6 +122,10 @@
                 var option = $("<option></option>").val(item.id).append(item.levelName);
                 option.appendTo("#data_fill");
             });
+            if(action === 'edit'){
+                $("select option[value='${match.levelMatch}']").attr("selected","selected");
+            }
+            form.render('select');
         }
 
         layui.use(['form','layer','layedit','laydate','upload'],function(){
@@ -137,17 +141,16 @@
 					type:'datetime'
                 });
             });
-            if(action=='edit'){
+            if(action === 'edit'){
                 $('.thumbImg').attr('src', '${match.imgUrl}');
                 $('#coverUrl').val('${match.imgUrl}');
-                $("select option[value='${match.levelMatch}']").attr("selected","selected");
             }
 
             upload.render({
                 elem: '.thumbBox',
-                url: '/manage/fileUpload.do',
+                url: '${cpath}/manage/fileUpload.do',
                 done: function(res){
-                    if(res.error==0){
+                    if(res.error === 0){
                         $('#coverUrl').val(res.url);
                         $('.thumbImg').attr('src',res.url);
                         $('.thumbBox').css("background","#fff");
@@ -161,10 +164,10 @@
 
             form.on("submit(addNews)",function(data){
                 layedit.sync(editIndex);
-                if(action=='edit'){
+                if(action === 'edit'){
                     $.ajax({
                         type:'post',
-                        url:'/manage/match_update.do',
+                        url:'${cpath}/manage/match_update.do',
                         data:data.field,
                         success:function (data) {
                             layer.msg(data.msg);
@@ -174,7 +177,7 @@
                         }
                     });
 
-                }else if(action=='add'){
+                }else if(action === 'add'){
                     $.ajax({
                         type:'post',
                         url:'${cpath}/manage/match_add.do',

@@ -52,7 +52,7 @@
                 var index = layui.layer.open({
                     title : "添加优秀教师",
                     type : 2,
-                    content : "/manage/to_tech_add.do",
+                    content : "${cpath}/manage/to_tech_add.do",
                     success : function(layero, index){
                         setTimeout(function(){
                             layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
@@ -69,7 +69,7 @@
 		table.render({
 			id:'search_tb',
 			elem: '#List',
-			url: '/manage/teacher_list.do',
+			url: '${cpath}/manage/teacher_list.do',
 			method: 'post',
 			limit: 10,
 			size:'lg',
@@ -95,7 +95,7 @@
 
         $(".search_btn").click(function() {
             table.reload('search_tb', {
-                url: '/manage/teacher_search.do'
+                url: '${cpath}/manage/teacher_search.do'
                 , where: {key: $(".search_input").val()}
             });
         });
@@ -103,14 +103,14 @@
             table.on('tool(ListID)', function(obj){
                 var data = obj.data;
                 if(obj.event === 'detail'){
-                    window.open('/teacher/'+data.id+'.html');
+                    window.open('${cpath}/teacher/'+data.id+'.html');
                 } else if(obj.event === 'del'){
                     layer.confirm('真的删除 '+data.nameMatch+' 么?', function(index){
                         $.ajax({
-                            url:'/manage/delete_teacher/'+data.id+".do",
+                            url:'${cpath}/manage/delete_teacher/'+data.id+".do",
                             type:'post',
                             success : function(data) {
-                                if(data.status==0){
+                                if(data.status === 0){
                                     obj.del();
                                     layer.msg(data.msg);
                                 }
@@ -133,7 +133,7 @@
                                     });
                                 },500)
                             }
-                        })
+                        });
 						layui.layer.full(index);
 					}).resize();
                 }

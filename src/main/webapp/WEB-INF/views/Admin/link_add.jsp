@@ -43,7 +43,7 @@
             form.on("submit(addNews)",function(data){
                 $.ajax({
 					type:'post',
-					url:'/manage/add_link.do',
+					url:'${cpath}/manage/add_link.do',
 					data:data.field,
 					success:function (res) {
 						layer.msg(res.msg);

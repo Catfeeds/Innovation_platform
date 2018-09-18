@@ -95,7 +95,7 @@
         table.render({
             id:'search_tb',
             elem: '#List',
-            url: '/manage/excellent_list.do',
+            url: '${cpath}/manage/excellent_list.do',
             method: 'post',
             limit: 10,
             toolbar:true,
@@ -122,7 +122,7 @@
         upload.render({
             elem: '#data-import'
             , accept: 'file'
-            ,url: '/manage/data_import.do'
+            ,url: '${cpath}/manage/data_import.do'
             ,done: function(res){
                 layer.msg(res.msg, {
                     time: 20000, //20s后自动关闭
@@ -133,7 +133,7 @@
 
         $(".search_btn").click(function() {
             table.reload('search_tb', {
-                url: '/manage/excellent_search.do'
+                url: '${cpath}/manage/excellent_search.do'
                 , where: {key: $(".search_input").val()}
             });
         });
@@ -169,7 +169,7 @@
 
         $(".show-chart").click(function () {
             table.reload('search_tb', {
-                url: '/manage/excellent_selective.do'
+                url: '${cpath}/manage/excellent_selective.do'
                 , where: {
                     chooseTime:$('#chooseTime').val(),
                     profession:$('#pId').val()
@@ -178,7 +178,7 @@
 
             $.ajax({
                 type:'post',
-                url:'/manage/get_pc_by_level.do',
+                url:'${cpath}/manage/get_pc_by_level.do',
                 data:{
                     chooseTime:$('#chooseTime').val(),
                     profession:$('#pId').val()
@@ -214,7 +214,7 @@
             barPc.on('click', function (params) {
                 $.ajax({
                     type:'post',
-                    url:'/manage/get_pc_by_level2.do',
+                    url:'${cpath}/manage/get_pc_by_level2.do',
                     data:{
                         levelId:params.data.id,
                         chooseTime:$('#chooseTime').val(),
@@ -265,7 +265,7 @@
 
             $.ajax({
                 type:'post',
-                url:'/manage/get_ic_by_level.do',
+                url:'${cpath}/manage/get_ic_by_level.do',
                 data:{
                     chooseTime:$('#chooseTime').val(),
                     profession:$('#pId').val()
@@ -301,7 +301,7 @@
             barIc.on('click', function (params) {
                 $.ajax({
                     type:'post',
-                    url:'/manage/get_ic_by_level2.do',
+                    url:'${cpath}/manage/get_ic_by_level2.do',
                     data:{
                         levelId:params.data.id,
                         chooseTime:$('#chooseTime').val(),

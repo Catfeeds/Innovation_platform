@@ -83,7 +83,7 @@
 
         form.on("submit(changePwd)",function(data){
             $.ajax({
-                url : '/stu/change_pwd.do',
+                url : '${cpath}/stu/change_pwd.do',
                 type : 'post',
                 data : data.field,
                 success : function(data) {

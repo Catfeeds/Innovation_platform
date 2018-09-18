@@ -40,7 +40,7 @@
                 var index = layui.layer.open({
                     title : "添加新友情链接",
                     type : 2,
-                    content : "/manage/to_link_add.html",
+                    content : "${cpath}/manage/to_link_add.html",
                     success : function(layero, index){
                         setTimeout(function(){
                             layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
@@ -77,7 +77,7 @@
             } else if(obj.event === 'del'){
                 layer.confirm('真的删除'+data.nameLink+'么?', function(index){
                     $.ajax({
-                        url:'/manage/delete_link/'+data.id+'.do',
+                        url:'${cpath}/manage/delete_link/'+data.id+'.do',
                         type:'post',
                         success : function(data) {
                             if(data.status==0){
@@ -99,7 +99,7 @@
                 ,field = obj.field;
 
             $.ajax({
-                url:'/manage/update_link.do',
+                url:'${cpath}/manage/update_link.do',
                 type:'post',
                 data:{
                     id:data.id,

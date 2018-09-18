@@ -50,14 +50,14 @@
 			    <ul class="layui-nav top_menu">			    	
 					<li class="layui-nav-item" pc>
 						<a href="javascript:;">
-							<img onerror='this.src="/static/images/timg.jpg"' src="${student.imgurl}" class="layui-circle" width="35" height="35">
+							<img onerror='this.src="${cpath}/static/images/timg.jpg"' src="${student.imgurl}" class="layui-circle" width="35" height="35">
 							<cite>${student.nameStudent}</cite>
 						</a>
 						<dl class="layui-nav-child">
-							<dd><a href="javascript:;" data-url="/stu/stuInfo.html"><i class="layui-icon layui-icon-username" ></i><cite>个人资料</cite></a></dd>
-							<dd><a href="javascript:;" data-url="/stu/changePwd.html"><i class="layui-icon layui-icon-set" ></i><cite>修改密码</cite></a></dd>
-							<dd><a href="javascript:window.open('/index.html');" ><i class="layui-icon layui-icon-home" ></i><cite>主页</cite></a></dd>
-							<dd><a href="/stu/logout.html" class="signOut"><i class="layui-icon layui-icon-close"></i><cite>退出</cite></a></dd>
+							<dd><a href="javascript:;" data-url="${cpath}/stu/stuInfo.html"><i class="layui-icon layui-icon-username" ></i><cite>个人资料</cite></a></dd>
+							<dd><a href="javascript:;" data-url="${cpath}/stu/changePwd.html"><i class="layui-icon layui-icon-set" ></i><cite>修改密码</cite></a></dd>
+							<dd><a href="javascript:window.open('${cpath}/index.html');" ><i class="layui-icon layui-icon-home" ></i><cite>主页</cite></a></dd>
+							<dd><a href="${cpath}/stu/logout.html" class="signOut"><i class="layui-icon layui-icon-close"></i><cite>退出</cite></a></dd>
 						</dl>
 					</li>
 				</ul>
@@ -66,25 +66,25 @@
 		<!-- 左侧导航 -->
 		<div class="layui-side layui-bg-black">
 			<div class="user-photo">
-				<a class="img" title="这头像够帅了" ><img onerror='this.src="/static/images/timg.jpg"' src="${student.imgurl}"></a>
+				<a class="img" title="这头像够帅了" ><img onerror='this.src="${cpath}/static/images/timg.jpg"' src="${student.imgurl}"></a>
 				<p><span class="userName">${student.nameStudent}</span></p>
 			</div>
 			<div class="navBar layui-side-scroll" style="height: 200px;">
 				<ul class="layui-nav layui-nav-tree">
 					<li class="layui-nav-item">
 						
-						<a href="javascript:;" data-url="/stu/main.html">
+						<a href="javascript:;" data-url="${cpath}/stu/main.html">
 							<i class="layui-icon layui-icon-home">
 								
 							</i><cite>首页</cite></a>
 					</li>
 					<li class="layui-nav-item">
-						<a href="javascript:;" data-url="/stu/to_enroll_list.html">
+						<a href="javascript:;" data-url="${cpath}/stu/to_enroll_list.html">
 							<i class="layui-icon layui-icon-form" ></i>
 							<cite>我的项目</cite></a>
 					</li>
 					<li class="layui-nav-item">
-						<a href="javascript:;" data-url="/stu/to_compete_list.html">
+						<a href="javascript:;" data-url="${cpath}/stu/to_compete_list.html">
 							<i class="layui-icon layui-icon-tabs">
 
 							</i><cite>赛事报名</cite></a>
@@ -112,7 +112,7 @@
 				</ul>
 				<div class="layui-tab-content clildFrame">
 					<div class="layui-tab-item layui-show">
-						<iframe src="/stu/main.html"></iframe>
+						<iframe src="${cpath}/stu/main.html"></iframe>
 					</div>
 				</div>
 			</div>

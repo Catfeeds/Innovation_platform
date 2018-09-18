@@ -23,7 +23,7 @@
             <span class="search-box">
 		            <input type="text" name="textfield" id="textfield" class="input-text" placeholder="请输入搜索关键词">
 		            <input type="image" src="${cpath}/static/images/search.png" class="input-submit" />
-		        </span>
+		    </span>
         </div>
 
     </div>

@@ -101,7 +101,7 @@
         //执行实例
         var uploadInst = upload.render({
             elem: '#upload_btn' //绑定元素
-            ,url: '/manage/fileUpload.do' //上传接口
+            ,url: '${cpath}/manage/fileUpload.do' //上传接口
             ,done: function(res){
                 if(res.error==0){
                     layer.msg('文件上传成功'+res.url);
@@ -120,7 +120,7 @@
             if(action=='edit'){
                 $.ajax({
                     type:'post',
-                    url:'/manage/download_update.do',
+                    url:'${cpath}/manage/download_update.do',
                     data:data.field,
                     success:function (data) {
                         layer.msg(data.msg);
@@ -132,7 +132,7 @@
             }else if(action=='add'){
                 $.ajax({
                     type:'post',
-                    url:'/manage/download_add.do',
+                    url:'${cpath}/manage/download_add.do',
                     data:data.field,
                     success:function (data) {
                         layer.msg(data.msg);

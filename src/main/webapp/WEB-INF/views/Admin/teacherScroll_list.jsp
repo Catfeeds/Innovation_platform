@@ -47,7 +47,7 @@
                 var index = layui.layer.open({
                     title : "添加滚动图",
                     type : 2,
-                    content : "/manage/to_scroll_add/2.html",
+                    content : "${cpath}/manage/to_scroll_add/2.html",
                     success : function(layero, index){
                         setTimeout(function(){
                             layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
@@ -62,7 +62,7 @@
 
         table.render({
             elem: '#List',
-            url: '/manage/teacherScroll_list.do',
+            url: '${cpath}/manage/teacherScroll_list.do',
             method: 'post',
             limit: 10,
 			size:'lg',
@@ -90,7 +90,7 @@
                 action='hide';
 			}
             $.ajax({
-                url:'/manage/update_scroll_show.do',
+                url:'${cpath}/manage/update_scroll_show.do',
                 type:'post',
 				data:{
                     id:this.value,
@@ -109,14 +109,14 @@
         table.on('tool(listID)', function(obj){
             var data = obj.data;
             if(obj.event === 'detail'){
-                window.open("/index.html");
+                window.open("${cpath}/index.html");
             } else if(obj.event === 'del'){
                 layer.confirm('真的要删除么?', function(index){
                     $.ajax({
-                        url:'/manage/delete_scroll/'+data.id+'.do',
+                        url:'${cpath}/manage/delete_scroll/'+data.id+'.do',
                         type:'post',
                         success : function(data) {
-                            if(data.status==0){
+                            if(data.status === 0){
                                 obj.del();
                                 layer.msg(data.msg);
                             }
@@ -135,12 +135,12 @@
                 ,field = obj.field;
 
             $.ajax({
-                url:'/manage/update_scroll.do',
+                url:'${cpath}/manage/update_scroll.do',
                 type:'post',
                 data:{
                     id:data.id,
                     nameLink:data.nameLink,
-                    url:data.url,
+                    url:data.url
                 },
                 success : function(data) {
                     layer.msg(data.msg);

@@ -56,7 +56,7 @@
                             });
                         },500)
                     }
-                })
+                });
                 layui.layer.full(index);
             })
         }).resize();
@@ -90,7 +90,7 @@
 
         $(".search_btn").click(function() {
             table.reload('search_tb', {
-                url: '/manage/work_search.do'
+                url: '${cpath}/manage/work_search.do'
                 , where: {key: $(".search_input").val()}
             });
         });
@@ -98,7 +98,7 @@
         table.on('tool(ListID)', function(obj){
             var data = obj.data;
             if(obj.event === 'detail'){
-                window.open('/achievement/'+data.id+'.html');
+                window.open('${cpath}/achievement/'+data.id+'.html');
             } else if(obj.event === 'del'){
                 layer.confirm('真的删除'+data.title+'么?', function(index){
                     $.ajax({
@@ -128,7 +128,7 @@
                                 });
                             },500)
                         }
-                    })
+                    });
                     layui.layer.full(index);
                 }).resize();
             }

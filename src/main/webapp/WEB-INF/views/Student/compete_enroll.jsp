@@ -189,7 +189,7 @@
 
         upload.render({
             elem: '#attachment'
-            ,url: '/manage/fileUpload.do'
+            ,url: '${cpath}/manage/fileUpload.do'
             ,accept: 'file'
             ,done: function(res){
                 if(res.error === 0){
@@ -206,7 +206,7 @@
         form.on("submit(add)", function (data) {
             $.ajax({
                 type: 'post',
-                url: '/stu/enroll.do',
+                url: '${cpath}/stu/enroll.do',
                 data: $('#form_enroll').serialize(),
                 success: function (data) {
                     layer.msg(data.msg);
@@ -222,10 +222,10 @@
 //            }, 500);
             return false;
         })
-    })
+    });
 
     function getInfo(obj) {
-        if(obj.val()==''){
+        if(obj.val() === ''){
             obj.parents("tr").find("td:eq(1)").find("input").val("");
             obj.parents("tr").find("td:eq(2)").find("input").val("");
 		}else{

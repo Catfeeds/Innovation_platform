@@ -57,7 +57,7 @@
         upload.render({
             elem: '#data-import'
             , accept: 'file'
-            ,url: '/manage/data_import.do'
+            ,url: '${cpath}/manage/data_import.do'
             ,auto: false
             //,multiple: true
             ,bindAction: '#data-import-btn'

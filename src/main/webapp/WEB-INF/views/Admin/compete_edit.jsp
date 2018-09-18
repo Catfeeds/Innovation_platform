@@ -108,7 +108,7 @@
 
             $.ajax({
                 type:'post',
-                url:'/getLevel.do',
+                url:'${cpath}/getLevel.do',
                 dataType: "json",
                 success:function (data) {
                     fillData(data);
@@ -147,7 +147,7 @@
 
 			upload.render({
                 elem: '.thumbBox',
-                url: '/manage/fileUpload.do',
+                url: '${cpath}/manage/fileUpload.do',
                 done: function(res){
                     if(res.error === 0){
                         $('#coverUrl').val(res.url);
@@ -169,7 +169,7 @@
                 if(action === 'edit'){
                     $.ajax({
                         type:'post',
-                        url:'/manage/update_compete.do',
+                        url:'${cpath}/manage/update_compete.do',
                         data:data.field,
                         success:function (data) {
                             layer.msg(data.msg);

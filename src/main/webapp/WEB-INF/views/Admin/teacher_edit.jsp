@@ -130,7 +130,7 @@
         //上传缩略图
         upload.render({
             elem: '.thumbBox',
-            url: '/manage/fileUpload.do',
+            url: '${cpath}/manage/fileUpload.do',
             done: function(res){
                 if(res.error==0){
                     $('#coverUrl').val(res.url);
@@ -147,7 +147,7 @@
             if(action=='edit'){
                 $.ajax({
                     type:'post',
-                    url:'/manage/update_teacher.do',
+                    url:'${cpath}/manage/update_teacher.do',
                     data:data.field,
                     success:function (data) {
                         layer.msg(data.msg);
@@ -160,7 +160,7 @@
             }else if(action=='add'){
                 $.ajax({
                     type:'post',
-                    url:'/manage/add_teacher.do',
+                    url:'${cpath}/manage/add_teacher.do',
                     data:data.field,
                     success:function (data) {
                         layer.msg(data.msg);

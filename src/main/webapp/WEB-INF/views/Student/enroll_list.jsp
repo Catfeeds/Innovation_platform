@@ -56,7 +56,7 @@
                 var index = layui.layer.open({
                     title : "赛事报名",
                     type : 2,
-                    content : "/stu/to_enroll_edit/"+eId+".html",
+                    content : "${cpath}/stu/to_enroll_edit/"+eId+".html",
                     success : function(layero, index){
                         setTimeout(function(){
                             layui.layer.tips('点击此处返回友链列表', '.layui-layer-setwin .layui-layer-close', {

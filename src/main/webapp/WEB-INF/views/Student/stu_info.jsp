@@ -58,7 +58,7 @@
 
 		</div>
 		<div class="user_right">
-			<img onerror='this.src="/static/images/timg.jpg"' src="${stu.imgurl}" class="layui-upload-img layui-circle" id="userFace" style="cursor: pointer;">
+			<img src="${stu.imgurl}" class="layui-upload-img layui-circle" id="userFace" style="cursor: pointer;">
 		</div>
 		<div class="layui-form-item" style="margin-left: 5%;">
 		    <div class="layui-input-block">
@@ -76,7 +76,7 @@
 
         upload.render({
             elem: '#userFace',
-            url: '/userFace_upload.do',
+            url: '${cpath}/userFace_upload.do',
             acceptMime: 'image/jpg, image/png,image/jpeg',
             size:'4096',
             done: function(res){
@@ -92,7 +92,7 @@
         form.on("submit(changeUser)",function(data){
 			$.ajax({
 				type:'post',
-				url:'/stu/change_info.do',
+				url:'${cpath}/stu/change_info.do',
 				data:data.field,
 				success:function (data) {
 					layer.msg(data.msg);

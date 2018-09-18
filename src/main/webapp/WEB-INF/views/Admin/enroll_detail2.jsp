@@ -129,7 +129,7 @@
 <script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
 <script>
     $(".download-btn").click(function () {
-        window.open("/file_download.do?filename="+$("#attachmentVal").val());
+        window.open("${cpath}/file_download.do?filename="+$("#attachmentVal").val());
     });
 </script>
 </html>

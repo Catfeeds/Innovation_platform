@@ -142,7 +142,7 @@
         form.on("submit(agree)", function (data) {
             $.ajax({
                 type: 'post',
-                url: '/manage/enroll_agree.do',
+                url: '${cpath}/manage/enroll_agree.do',
                 data: data.field,
 				dataType:'json',
                 success: function (data) {
@@ -163,7 +163,7 @@
 		form.on("submit(refuse)", function (data) {
 			$.ajax({
 				type: 'post',
-				url: '/manage/enroll_refuse.do',
+				url: '${cpath}/manage/enroll_refuse.do',
 				data: data.field,
 				dataType:'json',
 				success: function (data) {
@@ -182,7 +182,7 @@
 		});
 
 		$(".download-btn").click(function () {
-		    window.open("/file_download.do?filename="+$("#attachmentVal").val());
+		    window.open("${cpath}/file_download.do?filename="+$("#attachmentVal").val());
         });
     });
 

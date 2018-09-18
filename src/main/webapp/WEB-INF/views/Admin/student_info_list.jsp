@@ -61,7 +61,7 @@
 
         $(".search_btn").click(function() {
             table.reload('search_tb', {
-                url: '/manage/student_search.do'
+                url: '${cpath}/manage/student_search.do'
                 , where: {key: $(".search_input").val()}
             });
         });

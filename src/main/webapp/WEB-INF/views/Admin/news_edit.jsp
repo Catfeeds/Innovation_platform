@@ -73,7 +73,7 @@
                 if(action=='edit'){
                     $.ajax({
                         type:'post',
-                        url:'/manage/update_news.do',
+                        url:'${cpath}/manage/update_news.do',
                         data:data.field,
                         success:function (data) {
                             layer.msg(data.msg);
@@ -85,7 +85,7 @@
                 }else if(action=='add'){
                     $.ajax({
                         type:'post',
-                        url:'/manage/add_news.do',
+                        url:'${cpath}/manage/add_news.do',
                         data: data.field,
                         success:function (data) {
                             layer.msg(data.msg);

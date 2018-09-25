@@ -123,7 +123,7 @@
 											</div>
 
 											<div>
-												<a href="#" class="user-signup-link">
+												<a onclick="forgetTips()" href="#" class="user-signup-link">
 													忘记密码
 													<i class="ace-icon fa fa-arrow-right"></i>
 												</a>
@@ -163,9 +163,12 @@
 		<script type="text/javascript">
 			if('ontouchstart' in document.documentElement) document.write("<script src='${cpath}/static/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 
+			function forgetTips() {
+				alert("忘记秘密请携带校园卡到学院团委老师处进行修改。");
+            }
             /**重新生成验证码*/
             function reqCaptcha() {
-                var url = "${cpath}/makeCode.html?nocache=" + new Date().getTime()
+                var url = "${cpath}/makeCode.html?nocache=" + new Date().getTime();
                 $('#code').attr("src",url)
             }
             /**点击验证码重新生成*/
@@ -208,7 +211,7 @@
                                 dataType:'json',
                                 success : function(data) {
                                     if(data.status === 1){
-                                        $("#message").html("");
+                                        $('#message').html("");
                                         $('#message').append(data.msg);
                                     }else if(data.status === 0){
                                         location.href="${cpath}/stu/index.html";

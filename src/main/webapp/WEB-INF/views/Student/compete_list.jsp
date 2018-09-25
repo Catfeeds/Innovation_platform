@@ -3,6 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../headTag.jsp"%><!DOCTYPE html>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,7 +61,7 @@
 			<div class="test">
 				<img src="${compete.coverUrl}" />
 				<h1>大赛名称：${compete.nameCompete}</h1>
-				<p class="time">报名时间：<span><fmt:formatDate value="${compete.startTime}" pattern="yyyy/MM/dd" /> - <fmt:formatDate value="${compete.endTime}" pattern="yyyy-MM-dd HH:mm" /></span></p>
+				<p class="time">报名时间：<span><fmt:formatDate value="${compete.startTime}" pattern="yyyy/MM/dd" /> - <fmt:formatDate value="${compete.endTime}" pattern="yyyy/MM/dd" /></span></p>
 				<h1>报名要求:${compete.requirement}</h1>
 				<div class="layui-inline">
 					<a class="layui-btn linksAdd_btn" competeId="${compete.id}" style="background-color:#5FB878">报名</a>
@@ -73,12 +74,11 @@
 	<script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
 <script>
     layui.use('table', function(){
-        var table = layui.table;
 
         $(".linksAdd_btn").click(function(){
             var id = $(this).attr("competeId");
             $.get("${cpath}/stu/check_time/"+id+".do", function(res){
-                if(res.status == 0){
+                if(res.status === 0){
                     var index = layui.layer.open({
                         title : "赛事报名",
                         type : 2,

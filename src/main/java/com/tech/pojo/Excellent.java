@@ -2,6 +2,8 @@ package com.tech.pojo;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
 
+import java.util.List;
+
 public class Excellent {
     private Integer id;
 
@@ -34,15 +36,27 @@ public class Excellent {
     @Excel(name="指导老师")
     private String instructor;
 
-    //组长专业ID
-    private Integer pId;
+    @Excel(name="专业")
+    private String professionName;
 
-    public Integer getpId() {
-        return pId;
+    private Integer professionID;
+
+    private List<Member> members2;
+
+    public List<Member> getMembers2() {
+        return members2;
     }
 
-    public void setpId(Integer pId) {
-        this.pId = pId;
+    public void setMembers2(List<Member> members2) {
+        this.members2 = members2;
+    }
+
+    public Integer getProfessionID() {
+        return professionID;
+    }
+
+    public void setProfessionID(Integer professionID) {
+        this.professionID = professionID;
     }
 
     public Integer getEnrollId() {
@@ -141,5 +155,11 @@ public class Excellent {
         this.instructor = instructor == null ? null : instructor.trim();
     }
 
+    public String getProfessionName() {
+        return professionName;
+    }
 
+    public void setProfessionName(String professionName) {
+        this.professionName = professionName;
+    }
 }

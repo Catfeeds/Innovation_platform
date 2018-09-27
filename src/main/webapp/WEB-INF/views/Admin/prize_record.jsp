@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>参与项目</title>
+	<title>获奖项目</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -23,7 +23,7 @@
 
 <div style="padding: 20px; background-color: #F2F2F2;">
 	<div class="layui-row layui-col-space15">
-		<c:forEach var="item" items="${items}" varStatus="status">
+		<c:forEach var="excellent" items="${excellents}" varStatus="status">
 		<div class="layui-col-md12">
 			<div class="layui-card">
 				<div class="layui-card-header">项目${status.index+1}</div>
@@ -31,36 +31,22 @@
 					<table class="layui-table">
 					<thead>
 					<tr>
-					<th>年份</th>
-					<th>大赛名称</th>
-					<th>参赛项目</th>
-					<th>赛事级别</th>
-					<th>团队名称</th>
-					<th>指导老师</th>
-					<th>审批状态</th>
+						<th>年份</th>
+						<th>大赛名称</th>
+						<th>参赛项目</th>
+						<th>赛事级别</th>
+						<th>指导老师</th>
+						<th>获奖等级</th>
 					</tr>
 					</thead>
 					<tbody>
 					<tr>
-					<td>${item.year}</td>
-					<td>${item.competeName}</td>
-					<td>${item.title}</td>
-					<td>${item.competeName}</td>
-					<td>${item.groupName}</td>
-					<td>${item.instructor}</td>
-					<td><c:if test="${item.status==0}">
-						<span style="color: black;">待审核</span>
-					</c:if>
-						<c:if test="${item.status==1}">
-							<span style="color: green;">已通过</span>
-						</c:if>
-						<c:if test="${item.status==2}">
-							<span style="color: red;">未通过</span>
-						</c:if>
-						<c:if test="${item.status==3}">
-							<span style="color: darkorange;">未知参数</span>
-						</c:if></td>
-					<%--<td>${item.prizeName}</td>--%>
+						<td>${excellent.year}</td>
+						<td>${excellent.competeName}</td>
+						<td>${excellent.title}</td>
+						<td>${excellent.levelName}</td>
+						<td>${excellent.instructor}</td>
+						<td>${excellent.prizeName}</td>
 					</tr>
 					</tbody>
 					</table>
@@ -80,7 +66,7 @@
 					</tr>
 					</thead>
 					<tbody>
-					<c:forEach var="member" items="${item.members}">
+					<c:forEach var="member" items="${excellent.members2}">
 					<tr>
 					<td>${member.sname}</td>
 					<td>${member.sno}</td>

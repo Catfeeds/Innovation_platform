@@ -152,14 +152,14 @@
                         <span class="layui-nav-more"></span>
                     </a>
                     <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" data-url="${cpath}/manage/to_compete_list.do">
+                            <i class="layui-icon layui-icon-form" ></i>
+                            <cite>赛事报名管理</cite></a>
+                        </dd>
                         <dd><a href="javascript:;" data-url="${cpath}/manage/to_enroll_list.do">
                             <i class="layui-icon layui-icon-survey"></i>
                             <cite>项目申报管理</cite>
                         </a>
-                        </dd>
-                        <dd><a href="javascript:;" data-url="${cpath}/manage/to_compete_list.do">
-                            <i class="layui-icon layui-icon-form" ></i>
-                            <cite>赛事报名管理</cite></a>
                         </dd>
                         <dd><a href="javascript:;" data-url="${cpath}/manage/to_itemTotal_list.do">
                             <i class="layui-icon layui-icon-table" ></i>

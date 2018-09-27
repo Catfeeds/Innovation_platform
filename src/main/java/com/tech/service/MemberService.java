@@ -33,8 +33,10 @@ public class MemberService {
     }
 
 
-    public Integer getProfessionIdByEnrollId(Integer enrollId) {
-        String leaderSno = memberMapper.selectLeaderSnoByEnrollid(enrollId);
-        return studentMapper.selectPidBySno(leaderSno);
-    }
+//    public Integer getProfessionIdByEnrollId(Integer enrollId) {
+//        String leaderSno = memberMapper.selectLeaderSnoByEnrollid(enrollId);
+//        return studentMapper.selectPidBySno(leaderSno);
+//    }
+
+
 }

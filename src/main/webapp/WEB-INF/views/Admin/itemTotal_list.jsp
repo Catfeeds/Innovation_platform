@@ -34,8 +34,8 @@
 			<div class="layui-inline">
 				<select name="profession" id="pId">
 					<option value="">请选择专业</option>
-					<option value="1">电气专业</option>
-					<option value="2">自动化专业</option>
+					<option value="1">自动化专业</option>
+					<option value="2">电气专业</option>
 				</select>
 			</div>
 			<div class="layui-inline">
@@ -68,14 +68,6 @@
 				<div class="layui-card-body" id="chartICountPie" style="width: 100%;height: 400px"></div>
 			</div>
 		</div>
-		<%--<div class="layui-col-md12">--%>
-			<%--<div class="layui-card">--%>
-				<%--<div class="layui-card-header">待扩展</div>--%>
-				<%--<div class="layui-card-body">--%>
-					<%--Content--%>
-				<%--</div>--%>
-			<%--</div>--%>
-		<%--</div>--%>
 	</div>
 </div>
 </body>
@@ -108,10 +100,9 @@
                 {field:'title', title: '参赛题目',align:'center'},
                 {field:'members', title: '团队成员',align:'center'},
                 {field:'instructor', title: '指导老师',align:'center',sort:true},
-                {field:'pId', title: '专业',align:'center',sort:true,templet:'#profession'},
-//                {field:'status',title: '状态',align:'center',templet:'#status'},
+                {field:'professionName', title: '专业',align:'center',sort:true},
                 {field:'prizeName', title: '获奖情况',align:'center',sort:true},
-                {title: '操作',width:100,align:'center',toolbar: '#bar',fixed:'right'},
+//                {title: '操作',width:100,align:'center',toolbar: '#bar',fixed:'right'},
             ]],
             page: true,
             done: function (res, curr, count) {
@@ -139,26 +130,26 @@
         });
 
 
-        table.on('tool(ListID)', function(obj){
-            var data = obj.data;
-            if(obj.event === 'detail'){
-                $(window).one("resize",function(){
-                    var index = layui.layer.open({
-                        title : "详情",
-                        type : 2,
-                        content : "${cpath}/manage/to_enroll_detail2/"+data.enrollId+".do",
-                        success : function(layero, index){
-                            setTimeout(function(){
-                                layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
-                                    tips: 3
-                                });
-                            },300)
-                        }
-                    });
-                    layui.layer.full(index);
-                }).resize();
-            }
-        });
+        <%--table.on('tool(ListID)', function(obj){--%>
+            <%--var data = obj.data;--%>
+            <%--if(obj.event === 'detail'){--%>
+                <%--$(window).one("resize",function(){--%>
+                    <%--var index = layui.layer.open({--%>
+                        <%--title : "详情",--%>
+						<%--type : 2,--%>
+                        <%--content : "${cpath}/manage/to_enroll_detail2/"+data.enrollId+".do",--%>
+                        <%--success : function(layero, index){--%>
+                            <%--setTimeout(function(){--%>
+                                <%--layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {--%>
+                                    <%--tips: 3--%>
+                                <%--});--%>
+                            <%--},300)--%>
+                        <%--}--%>
+                    <%--});--%>
+                    <%--layui.layer.full(index);--%>
+                <%--}).resize();--%>
+            <%--}--%>
+        <%--});--%>
 
         // 基于准备好的dom，初始化echarts实例
         var barPc = echarts.init(document.getElementById('chartPCountBar'));

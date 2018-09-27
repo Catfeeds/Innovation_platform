@@ -37,4 +37,6 @@ public interface StudentMapper {
     List<Student> selectSearch(String key);
 
     Integer selectPidBySno(String sno);
+
+    String selectSnoBySname(String sname);
 }

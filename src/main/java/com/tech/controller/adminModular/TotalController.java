@@ -3,7 +3,6 @@ package com.tech.controller.adminModular;
 import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
 import com.tech.common.ServerResponse;
-import com.tech.dao.ExcellentMapper;
 import com.tech.pojo.*;
 import com.tech.service.*;
 import org.apache.commons.lang3.StringUtils;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -36,11 +33,10 @@ public class TotalController {
     ExcellentService excellentService;
     @Autowired
     MemberService memberService;
-
-    @RequestMapping("/to_data_import")
-    public String toDataImport(){
-        return "Admin/data_import";
-    }
+    @Autowired
+    StudentService studentService;
+    @Autowired
+    ExcellentMemberService excellentMemberService;
 
     /**
      * 数据导入
@@ -57,18 +53,35 @@ public class TotalController {
         List<Excellent> list = ExcelImportUtil.importExcel(file.getInputStream(),
                 Excellent.class, params);
         for (Excellent e:list) {
-            e.setCompeteId(competeService.getIdByName(e.getCompeteName()));//设置赛事ID
-            e.setCompeteLevel(levelService.getIdByName(e.getLevelName()));//设置赛事级别ID
-            e.setPrizeId(prizeService.getIdByName(e.getPrizeName()));//设置奖项ID
-            e.setEnrollId(enrollService.getIdByCIdAndTitle(e.getTitle()));//根据Title找到对应的EnrollID
-            e.setpId(memberService.getProfessionIdByEnrollId(e.getEnrollId()));//设置专业ID
+            //设置赛事ID
+            //e.setCompeteId(competeService.getIdByName(e.getCompeteName()));
+            //根据Title找到对应的EnrollID
+            //e.setEnrollId(enrollService.getIdByCIdAndTitle(e.getTitle()));
+
+            //! 设置赛事级别ID
+            e.setCompeteLevel(levelService.getIdByName(e.getLevelName()));
+            //! 设置奖项ID
+            e.setPrizeId(prizeService.getIdByName(e.getPrizeName()));
+            //! 设置专业ID
+            e.setProfessionID(excellentService.getPIdByPName(e.getProfessionName()));
+
+            try {
+                Excellent excellent = excellentService.addExcellent(e).getData();
+                String[] excellent_members = e.getMembers().trim().split("、");
+                ExcellentMember excellentMember;
+                String sno;
+                for (String sname:excellent_members) {
+                    if (org.apache.commons.lang.StringUtils.isEmpty(sname))
+                        continue;
+                    sno = studentService.getSnoBySname(sname);
+                    excellentMember = new ExcellentMember(sname,sno,0,excellent.getId());
+                    excellentMemberService.addExcellentMember(excellentMember);
+                }
+            }catch (RuntimeException ex){
+                return ServerResponse.createByErrorMessage(ex.getMessage());
+            }
         }
-        try {
-            ServerResponse serverResponse = excellentService.addExcellentList(list);
-            return serverResponse;
-        }catch (RuntimeException e){
-            return ServerResponse.createByErrorMessage(e.getMessage());
-        }
+        return ServerResponse.createBySuccess();
     }
 
     /**
@@ -99,7 +112,7 @@ public class TotalController {
     }
 
     /**
-     * 赛事级别下 获取每个奖项的人数
+     * 赛事级别下 获取每个奖项的人数 done
      * @param levelId
      * @return
      */
@@ -152,7 +165,7 @@ public class TotalController {
     }
 
     /**
-     * 赛事级别下 获取每个奖项的项目数
+     * 赛事级别下 获取每个奖项的项目数 done
      * @param levelId
      * @return
      */
@@ -177,6 +190,114 @@ public class TotalController {
         res.put("data",data);
         return Json.toJson(res);
     }
+
+
+//    /**
+//     * 根据赛事级别获取获奖人数 done
+//     * @return
+//     */
+//    @RequestMapping(value = "/get_pc_by_level",produces = "text/html;charset=UTF-8")
+//    @ResponseBody
+//    public String getPrizePeopleCountByCompeteLevel(String chooseTime,Integer profession){
+//        //2018-09-01 ~ 2018-10-01
+//        if(StringUtils.isEmpty(chooseTime)){
+//            chooseTime=null;
+//        }
+//        List<Levels> list = levelService.getALL();
+//        String[] levels = new String[list.size()];
+//        List<EchartData> data = new ArrayList<>();
+//        int index = 0;
+//        for (Levels l:list) {
+//            levels[index] = l.getLevelName();
+//            int count = totalService.getPrizePeopleCountByCompeteLevelWithSelective(l.getId(),chooseTime,profession);
+//            data.add(new EchartData(l.getId(),l.getLevelName(),count));
+//            index++;
+//        }
+//        Map<String, Object> res = new HashMap<>();
+//        res.put("categories",levels);
+//        res.put("data",data);
+//        return Json.toJson(res);
+//    }
+//
+//    /**
+//     * 赛事级别下 获取每个奖项的人数
+//     * @param levelId
+//     * @return
+//     */
+//    @RequestMapping(value = "/get_pc_by_level2",produces = "text/html;charset=UTF-8")
+//    @ResponseBody
+//    public String getPrizePeopleCountByLevelIdPrizeId(Integer levelId,String chooseTime,Integer profession){
+//        if(StringUtils.isEmpty(chooseTime)){
+//            chooseTime=null;
+//        }
+//        List<Prize> list = prizeService.getAll();
+//        String[] prize = new String[list.size()];
+//        List<EchartData> data = new ArrayList<>();
+//        int index = 0;
+//        for (Prize p:list) {
+//            prize[index] = p.getPrizeName();
+//            int count = totalService.getPrizePeopleCountByLevelIdPrizeIdWithSelective(p.getId(),levelId,chooseTime,profession);
+//            data.add(new EchartData(p.getId(),p.getPrizeName(),count));
+//            index++;
+//        }
+//        Map<String, Object> res = new HashMap<>();
+//        res.put("categories",prize);
+//        res.put("data",data);
+//        return Json.toJson(res);
+//    }
+//
+//    /**
+//     * 根据赛事级别获取获奖项目数 done
+//     * @return
+//     */
+//    @RequestMapping(value = "/get_ic_by_level",produces = "text/html;charset=UTF-8")
+//    @ResponseBody
+//    public String getPrizeItemCountByCompeteLevel(String chooseTime,Integer profession){
+//        if(StringUtils.isEmpty(chooseTime)){
+//            chooseTime=null;
+//        }
+//        List<Levels> list = levelService.getALL();
+//        String[] levels = new String[list.size()];
+//        List<EchartData> data = new ArrayList<>();
+//        int index = 0;
+//        for (Levels l:list) {
+//            levels[index] = l.getLevelName();
+//            int count = totalService.getPrizeItemCountByCompeteLevelWithSelective(l.getId(),chooseTime,profession);
+//            data.add(new EchartData(l.getId(),l.getLevelName(),count));
+//            index++;
+//        }
+//        Map<String, Object> res = new HashMap<>();
+//        res.put("categories",levels);
+//        res.put("data",data);
+//        return Json.toJson(res);
+//    }
+//
+//    /**
+//     * 赛事级别下 获取每个奖项的项目数
+//     * @param levelId
+//     * @return
+//     */
+//    @RequestMapping(value = "/get_ic_by_level2",produces = "text/html;charset=UTF-8")
+//    @ResponseBody
+//    public String getPrizeItemCountByLevelIdPrizeId(Integer levelId,String chooseTime,Integer profession){
+//        if(StringUtils.isEmpty(chooseTime)){
+//            chooseTime=null;
+//        }
+//        List<Prize> list = prizeService.getAll();
+//        String[] prize = new String[list.size()];
+//        List<EchartData> data = new ArrayList<>();
+//        int index = 0;
+//        for (Prize p:list) {
+//            prize[index] = p.getPrizeName();
+//            int count = totalService.getPrizeItemCountByLevelIdPrizeIdWithSelective(p.getId(),levelId,chooseTime,profession);
+//            data.add(new EchartData(p.getId(),p.getPrizeName(),count));
+//            index++;
+//        }
+//        Map<String, Object> res = new HashMap<>();
+//        res.put("categories",prize);
+//        res.put("data",data);
+//        return Json.toJson(res);
+//    }
 
     /*------------------------------------------------------------------------------------------*/
 

@@ -23,9 +23,19 @@ public class Student {
 
     private Integer participateCount;
 
+    private Integer getPrizeCount;
+
     private Integer professionId;
 
     private String pname;
+
+    public Integer getGetPrizeCount() {
+        return getPrizeCount;
+    }
+
+    public void setGetPrizeCount(Integer getPrizeCount) {
+        this.getPrizeCount = getPrizeCount;
+    }
 
     public Integer getProfessionId() {
         return professionId;

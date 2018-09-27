@@ -20,7 +20,7 @@
 	<script src="${cpath}/static/js/MyTextarea.js"></script>
 	<style>
 		.thumbBox:after{
-			content: "优秀教师图片";
+			content: "教师图片";
 		}
 	</style>
 </head>

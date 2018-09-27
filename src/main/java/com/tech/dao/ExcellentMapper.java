@@ -1,6 +1,7 @@
 package com.tech.dao;
 
 import com.tech.pojo.Excellent;
+import com.tech.pojo.Item;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -45,4 +46,8 @@ public interface ExcellentMapper {
     int selectSelectiveCount(@Param("time") String time, @Param("pId") Integer pId);
 
     List<Excellent> selectSelective(@Param("time") String time, @Param("pId") Integer pId);
+
+    Integer selectPIdByPName(String professionName);
+
+    List<Excellent> selectPrizeItemBySno(String sno);
 }

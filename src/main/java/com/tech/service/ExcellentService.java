@@ -2,7 +2,9 @@ package com.tech.service;
 
 import com.tech.common.ServerResponse;
 import com.tech.dao.ExcellentMapper;
+import com.tech.dao.ExcellentMemberMapper;
 import com.tech.pojo.Excellent;
+import com.tech.pojo.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,8 @@ import java.util.List;
 public class ExcellentService {
     @Autowired
     ExcellentMapper excellentMapper;
+    @Autowired
+    ExcellentMemberMapper excellentMemberMapper;
 
     public ServerResponse add(Excellent excellent) {
         int count = excellentMapper.insert(excellent);
@@ -32,12 +36,10 @@ public class ExcellentService {
 
     public ServerResponse addExcellentList(List<Excellent> list) {
         for (Excellent e:list) {
-            if(e.getEnrollId()==null){
-                throw new RuntimeException("参赛题目为:"+e.getTitle()+" 的记录导入失败,\n原因:报名表中不存在该参赛题目名的数据！");
-            }else if (e.getPrizeId()==null){
+            if(e.getPrizeId()==null){
                 throw new RuntimeException("参赛题目为:"+e.getTitle()+" 的记录导入失败,\n原因:奖项设置可能存在问题！");
-            }else if(e.getCompeteId()==null){
-                throw new RuntimeException("参赛题目为:"+e.getTitle()+" 的记录导入失败,\n原因:赛事名称可能存在问题！");
+            }else if(e.getProfessionID()==null){
+                throw new RuntimeException("参赛题目为:"+e.getTitle()+" 的记录导入失败,\n原因:专业名称可能存在问题！");
             }else if(e.getCompeteLevel()==null){
                 throw new RuntimeException("参赛题目为:"+e.getTitle()+" 的记录导入失败,\n原因:赛事级别可能存在问题！");
             }
@@ -47,6 +49,21 @@ public class ExcellentService {
             }
         }
         return ServerResponse.createBySuccess("导入成功",list);
+    }
+
+    public ServerResponse<Excellent> addExcellent(Excellent e) {
+            if(e.getPrizeId()==null){
+                throw new RuntimeException("参赛题目为:"+e.getTitle()+" 的记录导入失败,\n原因:奖项设置可能存在问题！ ");
+            }else if(e.getProfessionID()==null){
+                throw new RuntimeException("参赛题目为:"+e.getTitle()+" 的记录导入失败,\n原因:专业名称可能存在问题！");
+            }else if(e.getCompeteLevel()==null){
+                throw new RuntimeException("参赛题目为:"+e.getTitle()+" 的记录导入失败,\n原因:赛事级别可能存在问题！");
+            }
+            int count = excellentMapper.insert(e);
+            if (count<=0){
+                throw new RuntimeException("参赛题目为:"+e.getTitle()+" 的记录导入失败,\n原因:不明！");
+            }
+        return ServerResponse.createBySuccess("导入成功",e);
     }
 
     public int getSearchCount(String key) {
@@ -85,5 +102,23 @@ public class ExcellentService {
                 throw new RuntimeException("错误");
             }
         }
+    }
+
+    public Integer getPIdByPName(String professionName) {
+        return excellentMapper.selectPIdByPName(professionName);
+    }
+
+    /**
+     * 获取获奖项目 vm_excellent_member
+     * @param sno
+     * @return
+     */
+    public List<Excellent> getPrizeItemsBySno(String sno) {
+        List<Excellent> list = excellentMapper.selectPrizeItemBySno(sno);
+        for (Excellent excellent:list) {
+            List<Member> members  = excellentMemberMapper.selectMembersIncludeNameByExcellentId(excellent.getId());
+            excellent.setMembers2(members);
+        }
+        return list;
     }
 }

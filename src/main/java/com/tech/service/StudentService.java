@@ -2,6 +2,7 @@ package com.tech.service;
 
 import com.tech.common.ServerResponse;
 import com.tech.dao.EnrollMapper;
+import com.tech.dao.ExcellentMemberMapper;
 import com.tech.dao.MemberMapper;
 import com.tech.dao.StudentMapper;
 import com.tech.pojo.Student;
@@ -19,6 +20,8 @@ public class StudentService {
     MemberMapper memberMapper;
     @Autowired
     EnrollMapper enrollMapper;
+    @Autowired
+    ExcellentMemberMapper excellentMemberMapper;
 
     public ServerResponse<Student> login(String sno, String password){
         Student student = studentMapper.selectLogin(sno);
@@ -64,6 +67,7 @@ public class StudentService {
         List<Student> list = studentMapper.selectAllStudent();
         for (Student s:list) {
             s.setParticipateCount(memberMapper.selectCountBySno(s.getSno()));
+            s.setGetPrizeCount(excellentMemberMapper.selectGetPrizeCountBySno(s.getSno()));
         }
         return list;
     }
@@ -107,5 +111,9 @@ public class StudentService {
         }else{
             return ServerResponse.createBySuccess();
         }
+    }
+
+    public String getSnoBySname(String sname) {
+        return studentMapper.selectSnoBySname(sname);
     }
 }

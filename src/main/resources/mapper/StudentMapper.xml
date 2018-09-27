@@ -180,4 +180,7 @@
     <select id="selectPidBySno" resultType="java.lang.Integer">
       select profession_id from tbl_student where sno = #{sno}
     </select>
+    <select id="selectSnoBySname" resultType="java.lang.String">
+      select sno from tbl_student where name_student = #{sname}
+    </select>
 </mapper>

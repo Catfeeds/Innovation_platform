@@ -1,5 +1,8 @@
 var pathName=window.document.location.pathname;
 var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
+if(projectName==="/admin"||projectName==="/stu"){
+	projectName="";
+}
 layui.config({
 	base : projectName+"/static/js/"
 }).use(['form','element','layer','jquery'],function(){

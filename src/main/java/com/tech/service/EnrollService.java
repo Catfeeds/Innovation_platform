@@ -120,7 +120,7 @@ public class EnrollService {
     }
 
     /**
-     * 显示详细信息
+     * 显示报名表的详细信息
      * @param id
      * @return
      */

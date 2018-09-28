@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tech.dao.ExcellentMemberMapper">
+  <resultMap id="BaseResultMap" type="com.tech.pojo.ExcellentMember">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="sname" jdbcType="VARCHAR" property="sname" />
+    <result column="sno" jdbcType="VARCHAR" property="sno" />
+    <result column="s_type" jdbcType="INTEGER" property="sType" />
+    <result column="excellent_id" jdbcType="INTEGER" property="excellentId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, sname, sno, s_type, excellent_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_excellent_member
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbl_excellent_member
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tech.pojo.ExcellentMember">
+    insert into tbl_excellent_member (id, sname, sno, 
+      s_type, excellent_id)
+    values (#{id,jdbcType=INTEGER}, #{sname,jdbcType=VARCHAR}, #{sno,jdbcType=VARCHAR}, 
+      #{sType,jdbcType=INTEGER}, #{excellentId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tech.pojo.ExcellentMember">
+    insert into tbl_excellent_member
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="sname != null">
+        sname,
+      </if>
+      <if test="sno != null">
+        sno,
+      </if>
+      <if test="sType != null">
+        s_type,
+      </if>
+      <if test="excellentId != null">
+        excellent_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="sname != null">
+        #{sname,jdbcType=VARCHAR},
+      </if>
+      <if test="sno != null">
+        #{sno,jdbcType=VARCHAR},
+      </if>
+      <if test="sType != null">
+        #{sType,jdbcType=INTEGER},
+      </if>
+      <if test="excellentId != null">
+        #{excellentId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tech.pojo.ExcellentMember">
+    update tbl_excellent_member
+    <set>
+      <if test="sname != null">
+        sname = #{sname,jdbcType=VARCHAR},
+      </if>
+      <if test="sno != null">
+        sno = #{sno,jdbcType=VARCHAR},
+      </if>
+      <if test="sType != null">
+        s_type = #{sType,jdbcType=INTEGER},
+      </if>
+      <if test="excellentId != null">
+        excellent_id = #{excellentId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tech.pojo.ExcellentMember">
+    update tbl_excellent_member
+    set sname = #{sname,jdbcType=VARCHAR},
+      sno = #{sno,jdbcType=VARCHAR},
+      s_type = #{sType,jdbcType=INTEGER},
+      excellent_id = #{excellentId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectGetPrizeCountBySno" resultType="java.lang.Integer">
+    select count(1) from vm_excellent_member where sno = #{sno}
+  </select>
+  <resultMap id="BaseResultMapIncludeName" type="com.tech.pojo.Member">
+    <result column="sno" jdbcType="VARCHAR" property="sno" />
+    <result column="name_student" jdbcType="VARCHAR" property="sname" />
+    <result column="classno" jdbcType="VARCHAR" property="classno" />
+  </resultMap>
+  <select id="selectMembersIncludeNameByExcellentId"  resultMap="BaseResultMapIncludeName">
+    select
+    e.sno,e.sname,classno
+    from tbl_student s,vm_excellent_member e where s.sno = e.sno and e.id = #{id}
+  </select>
+</mapper>

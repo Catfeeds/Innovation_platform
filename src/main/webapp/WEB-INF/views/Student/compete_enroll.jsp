@@ -145,18 +145,6 @@
 				</tr>
 		</thead>
 		<tbody>
-			<%--<tr>--%>
-				<%--<td height="30" align="center">--%>
-					<%--<input name="members" onblur="getInfo($(this))" class="layui-input" type="text"/></td>--%>
-				<%--<td align="center">--%>
-					<%--<input class="layui-input layui-disabled" type="text"  disabled/></td>--%>
-				<%--<td align="center">--%>
-					<%--<input class="layui-input layui-disabled" type="text" disabled/></td>--%>
-				<%--<td>--%>
-					<%--<input type="button" onClick="deltr(this)" value="删行" class="layui-btn layui-btn-danger layui-btn-xs" >--%>
-				<%--</td>--%>
-			<%--</tr>--%>
-
 		</tbody>
 	</table>
 		</div>
@@ -189,14 +177,14 @@
 
         upload.render({
             elem: '#attachment'
-            ,url: '${cpath}/manage/fileUpload.do'
+            ,url: '${cpath}/manage/fileUpload.do?dir=file'
             ,accept: 'file'
             ,done: function(res){
                 if(res.error === 0){
                     $('#attachmentVal').val(res.url);
                     layer.msg('上传成功');
                 }else{
-                    layer.msg('上传失败');
+                    layer.msg('上传失败(请打包成压缩文件上传!)');
                 }
             },error:function () {
                 layer.msg('上传文件接口错误');
@@ -238,7 +226,6 @@
 					cId:$("#cId").val()
 				},
 				success : function(res) {
-					console.log(res);
 					if(res.status === 0){
 						obj.parents("tr").find("td:eq(1)").find("input").val(res.data.nameStudent);
 						obj.parents("tr").find("td:eq(2)").find("input").val(res.data.classno);

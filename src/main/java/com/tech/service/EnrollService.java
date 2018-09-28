@@ -79,6 +79,7 @@ public class EnrollService {
         enroll.setInstructor(item.getInstructor());
         enroll.setTitleEnroll(item.getTitle());
         enroll.setAttachment(item.getAttachment());
+        enroll.setStatus(1);
         enroll.setUpdateTime(new Date());
         count = enrollMapper.updateByPrimaryKeySelective(enroll);
         if (count>0){

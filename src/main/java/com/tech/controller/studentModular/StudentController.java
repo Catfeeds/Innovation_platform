@@ -22,7 +22,6 @@ public class StudentController {
 
     @RequestMapping("/main")
     public String toMain(){
-        //TODO 共享页面
         return "main";
     }
 
@@ -39,9 +38,9 @@ public class StudentController {
     @RequestMapping("/login")
     @ResponseBody
     public ServerResponse<Student> stuLogin(String username, String password,String vCode, HttpSession session){
-        if(!session.getAttribute("code").equals(vCode.toLowerCase())){
-            return ServerResponse.createByErrorMessage("验证码错误!");
-        }
+//        if(!session.getAttribute("code").equals(vCode.toLowerCase())){
+//            return ServerResponse.createByErrorMessage("验证码错误!");
+//        }
        ServerResponse<Student> serverResponse = studentService.login(username,password);
        if (serverResponse.isSuccess()){
            session.setAttribute(Const.CURRENT_USER,serverResponse.getData());
@@ -65,11 +64,6 @@ public class StudentController {
         return "Student/stu_info";
     }
 
-    /**
-     * 通过session获取当前用户信息
-     * @param session
-     * @return
-     */
     @RequestMapping("/get_info")
     @ResponseBody
     public ServerResponse<Student> getUserInfo2(HttpSession session){
@@ -99,8 +93,7 @@ public class StudentController {
         if (!serverResponse.isSuccess()){
             return ServerResponse.createByErrorMessage(sno+":已经参加过该大赛!");
         }
-        ServerResponse<Student> serverResponses = studentService.getInfoBySno(sno);
-        return serverResponses;
+        return studentService.getInfoBySno(sno);
     }
 
     @RequestMapping("/changePwd")
@@ -144,7 +137,6 @@ public class StudentController {
         if (!s.getSno().equals(student.getSno())){
             return ServerResponse.createByErrorMessage("账户不一致");
         }
-        ServerResponse<String> serverResponse = studentService.changePersonalInfo(s);
-        return serverResponse;
+        return studentService.changePersonalInfo(s);
     }
 }

@@ -89,7 +89,6 @@ public class EnrollController {
     @RequestMapping("/enroll_edit")
     @ResponseBody
     public ServerResponse enrollEdit(Item item, HttpSession session) {
-        System.out.println(item.toString());
         if (item.getStatus()!=2){
             return ServerResponse.createByErrorMessage("该报名表不能被编辑");
         }
@@ -101,10 +100,10 @@ public class EnrollController {
         if (!resCheckTime.isSuccess()) {
             return resCheckTime;
         }
+        //设置当前用户为组长
         item.setGrouper(student.getSno());
         try {
-            ServerResponse serverResponses = enrollService.editEnroll(item);
-            return serverResponses;
+            return enrollService.editEnroll(item);
         }catch (RuntimeException e){
             return ServerResponse.createByErrorMessage(e.getMessage());
         }

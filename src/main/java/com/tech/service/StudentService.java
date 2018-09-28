@@ -84,7 +84,7 @@ public class StudentService {
         return studentMapper.selectInfoExceptPwdBySno(sno);
     }
 
-    public ServerResponse updateStudentImg(Student newStudent) {
+    public ServerResponse<String> updateStudentImg(Student newStudent) {
         int count = studentMapper.updateByPrimaryKeySelective(newStudent);
         if (count>0){
             return ServerResponse.createBySuccessMessage("更新头像更改");

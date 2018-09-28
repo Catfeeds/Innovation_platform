@@ -186,14 +186,14 @@
 
         upload.render({
             elem: '#attachment'
-            ,url: '${cpath}/manage/fileUpload.do'
+            ,url: '${cpath}/manage/fileUpload.do?dir=file'
             ,accept: 'file'
             ,done: function(res){
                 if(res.error === 0){
+                    layer.msg("上传成功！");
                     $('#attachmentVal').val(res.url);
-                    layer.msg(res.message);
                 }else{
-                    layer.msg(res.message);
+                    layer.msg("上传失败(请打包成压缩文件上传!)");
                 }
             },error:function () {
                 layer.msg('上传文件接口错误');

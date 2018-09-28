@@ -48,7 +48,7 @@
                 {field:'title', title: '参赛题目',align:'center'},
                 {field:'members', title: '团队成员',align:'center',templet:'#members'},
                 {field:'instructor', title: '指导老师',align:'center',sort:true},
-                {field:'status',title: '状态',align:'center',templet:'#status'},
+                {field:'status',title: '状态',align:'center',templet:'#status',sort:true},
                 {title: '操作',width:150,align:'center',toolbar: '#bar',fixed:'right'}
             ]],
             page: true,
@@ -98,9 +98,11 @@
 	{{#  if(d.status === 0){ }}
 		<span style="color: black;">待审核</span>
 	{{#  } else if(d.status === 1){ }}
-		<span style="color: green;">已通过</span>
+		<span style="color: #ffa10e;">修改后/待审核</span>
 	{{#  } else if(d.status === 2){ }}
 		<span style="color: red;">未通过</span>
+	{{#  } else if(d.status === 3){ }}
+		<span style="color: green;">已通过</span>
 	{{#  } else { }}
 		<span style="color: #f1a02f;">未知参数</span>
 	{{#  } }}

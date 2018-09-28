@@ -52,12 +52,15 @@
 						<span style="color: black;">待审核</span>
 					</c:if>
 						<c:if test="${item.status==1}">
-							<span style="color: green;">已通过</span>
+							<span style="color: #ffa10e;">修改后/待审核</span>
 						</c:if>
 						<c:if test="${item.status==2}">
 							<span style="color: red;">未通过</span>
 						</c:if>
 						<c:if test="${item.status==3}">
+							<span style="color: green;">已通过</span>
+						</c:if>
+						<c:if test="${item.status==4}">
 							<span style="color: darkorange;">未知参数</span>
 						</c:if></td>
 					<%--<td>${item.prizeName}</td>--%>

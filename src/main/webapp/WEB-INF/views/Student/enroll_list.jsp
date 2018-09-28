@@ -82,9 +82,11 @@
 		{{#  if(d.status === 0){ }}
 		<span style="color: black;">待审核</span>
 		{{#  } else if(d.status === 1){ }}
-		<span style="color: green;">通过/立项</span>
+		<span style="color: #ffa10e;">修改后/待审核</span>
 		{{#  } else if(d.status === 2){ }}
 		<a href="javascript:;" onclick="toEdit(this)"  enrollId ={{ d.enrollId }} style="text-decoration: underline;color: red;">未通过</a>
+		{{#  } else if(d.status === 3){ }}
+		<span style="color: green;">通过/立项</span>
 		{{#  } else { }}
 		<span style="color: #f1a02f;">未知参数</span>
 		{{#  } }}

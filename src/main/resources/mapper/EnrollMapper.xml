@@ -141,7 +141,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="agreeEnroll" parameterType="int">
-    update tbl_enroll set status = 1 where id = #{id}
+    update tbl_enroll set status = 3 where id = #{id}
   </update>
   <update id="refuseEnroll" parameterType="int">
     update tbl_enroll set status = 2 where id = #{id}
@@ -174,13 +174,13 @@
       select id,name_compete,title_enroll,group_id,name_group,instructor,status,attachment,(YEAR(update_time)) year,prize_name FROM vm_item where sno = #{sno} order by status
     </select>
   <select id="selectAllItem" resultMap="BaseResultMapTotalEnroll">
-      select id,compete_id,name_compete,title_enroll,group_id,name_group,instructor,status,attachment FROM vw_item order by status
+      select id,compete_id,name_compete,title_enroll,group_id,name_group,instructor,status,attachment FROM vw_item order by status,update_time desc
   </select>
   <select id="selectItemByEnrollId" resultMap="BaseResultMapTotalEnroll" parameterType="int">
       select id,compete_id,name_compete,title_enroll,group_id,name_group,instructor,status,attachment FROM vw_item where id = #{id}
   </select>
   <select id="selectPassItemCount" resultType="java.lang.Integer">
-      select count(*) from tbl_enroll where status = 1
+      select count(*) from tbl_enroll where status = 3
   </select>
   <select id="selectPassItem" resultMap="BaseResultMapTotalEnroll">
       select id,name_compete,title_enroll,group_id,name_group,instructor,status,attachment FROM vw_item where status = 1

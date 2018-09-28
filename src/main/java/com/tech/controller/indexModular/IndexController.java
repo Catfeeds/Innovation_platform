@@ -39,18 +39,12 @@ public class IndexController {
     @Autowired
     FileService fileService;
 
-    /**
-     * 跳转至登录页面
-     * @return
-     */
+
     @RequestMapping("/login")
     public String toLogin(){
         return "login";
     }
 
-    /**
-     * 跳转到个人中心
-     */
     @RequestMapping("/person")
     public String toPerson(HttpSession session){
         Object object = session.getAttribute(Const.CURRENT_USER);
@@ -65,10 +59,6 @@ public class IndexController {
         }
     }
 
-    /**
-     * 生成验证码
-     *
-     */
     @RequestMapping("/makeCode")
     public void Captcha(HttpServletResponse response, HttpSession session)throws IOException {
         CreateImageCode vCode = new CreateImageCode(116,34,4,10);

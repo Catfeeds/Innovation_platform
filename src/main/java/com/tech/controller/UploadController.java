@@ -43,7 +43,7 @@ public class UploadController {
 
         //最大文件大小
 //        long maxSize = 1000000;
-        long maxSize = 100000000;
+        long maxSize = 50000000;
 
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = null;

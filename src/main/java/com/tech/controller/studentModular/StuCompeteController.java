@@ -1,7 +1,6 @@
 package com.tech.controller.studentModular;
 
 import com.tech.common.Const;
-import com.tech.common.ResponseCode;
 import com.tech.common.ServerResponse;
 import com.tech.pojo.Student;
 import com.tech.service.CompeteService;
@@ -13,10 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @Controller
 @RequestMapping("/stu")
@@ -36,8 +33,7 @@ public class StuCompeteController {
     @RequestMapping("/check_time/{competeId}")
     @ResponseBody
     public ServerResponse checkTime(@PathVariable("competeId") Integer id){
-        ServerResponse serverResponse = competeService.checkTime(id);
-        return serverResponse;
+        return competeService.checkTime(id);
     }
 
     @RequestMapping("/to_compete_enroll/{id}")

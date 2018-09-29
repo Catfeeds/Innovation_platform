@@ -336,4 +336,32 @@ public class IndexController {
         return "Index/teacher_detail";
     }
 
+    @RequestMapping("/search")
+    public String toSearchPage(String key,Model model){
+        int count = newsService.getSearchCount(key);
+        model.addAttribute("key",key);
+        model.addAttribute("newsCount",count);
+        return "Index/search";
+    }
+
+    @RequestMapping(value = "/search_page",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String indexSearch(Integer page,Integer limit,String key){
+        if(page==null){
+            page=1;
+        }
+        if(limit==null){
+            limit=10;
+        }
+        PageHelper.startPage(page,limit);
+        List<News> list = newsService.getSearchNews(key);
+        int count = newsService.getSearchCount(key);
+        Map<String, Object> map = new HashMap<>();
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",count);
+        map.put("data", list);
+        return Json.toJson(map);
+    }
+
 }

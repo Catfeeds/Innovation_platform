@@ -91,9 +91,6 @@
                             },500)
                         }
                     });
-                    $(window).resize(function(){
-                        layui.layer.full(index);
-                    });
                     layui.layer.full(index);
 				}else{
                     layer.msg(res.msg);

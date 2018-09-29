@@ -18,11 +18,10 @@
                 </li>
                 <li><a href="${cpath}/teacher.html">优秀教师</a>
                 </li>
-
             </ul>
             <span class="search-box">
-		            <input type="text" name="textfield" id="textfield" class="input-text" placeholder="请输入搜索关键词">
-		            <input type="image" src="${cpath}/static/images/search.png" class="input-submit" />
+		            <input type="text" name="searchKey" id="searchKey" class="input-text" placeholder="请输入搜索关键词">
+		            <input type="image" id="searchBtn" src="${cpath}/static/images/search.png" class="input-submit" />
 		    </span>
         </div>
 

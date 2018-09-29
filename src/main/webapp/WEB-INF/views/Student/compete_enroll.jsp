@@ -204,10 +204,10 @@
                 }
             });
 
-//            setTimeout(function () {
-//                layer.closeAll("iframe");
-//                parent.location.reload();
-//            }, 500);
+            setTimeout(function () {
+                layer.closeAll("iframe");
+                parent.location.reload();
+            }, 1000);
             return false;
         })
     });

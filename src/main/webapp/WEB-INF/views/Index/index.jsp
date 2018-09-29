@@ -59,7 +59,7 @@
 					<div class="index_left" style="height: 645px;">
 						<div class="index_left_h3">
 							<h3>赛事介绍
-								<span><a href="compete_display.html" target="_blank"><img src="${cpath}/static/images/bai2.png"></a></span>
+								<span><a href="${cpath}/compete_display.html" target="_blank"><img src="${cpath}/static/images/bai2.png"></a></span>
 							</h3>
 
 						</div>
@@ -198,6 +198,7 @@
                     vis: 3
                 });</script>
 				<script type="text/javascript">$(document).ready(function() {
+
                     $(".mr_zhe_hover").css("top", $('.mr_zhe').eq(0).height());
                     $("li").mouseout(function(e) {
                         if((e.pageX < $(this).offset().left || e.pageX > ($(this).offset().left + $(this).width())) || (e.pageY < $(this).offset().top || e.pageY > ($(this).offset().top + $(this).height()))) {
@@ -223,7 +224,17 @@
                         return false;
                     });
 
-                });</script>
+                    $("#searchBtn").on('click', function(){
+                        var key = $("#searchKey").val();
+                        if(key===""){
+                            alert("关键词不能为空!");
+						}else{
+                            location.href="${cpath}/search.html?key="+key;
+						}
+                    });
+
+                    });
+				</script>
 			</div>
 		</div>
 		<div class="content2">

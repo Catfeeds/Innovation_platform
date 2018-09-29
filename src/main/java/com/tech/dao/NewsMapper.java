@@ -33,4 +33,8 @@ public interface NewsMapper {
     List<News> selectSearchNewsByKey(@Param("key") String key, @Param("newsTypeId") Integer newsTypeId);
 
     int selectSearchNewsByKeyCount(@Param("key") String key, @Param("newsTypeId") Integer newsTypeId);
+
+    List<News> selectSearchNews(String key);
+
+    int selectSearchCount(String key);
 }

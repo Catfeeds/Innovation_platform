@@ -75,4 +75,12 @@ public class NewsService {
     public int getSearchNewsByKeyCount(String key, Integer newsTypeId) {
         return newsMapper.selectSearchNewsByKeyCount(key,newsTypeId);
     }
+
+    public List<News> getSearchNews(String key) {
+        return newsMapper.selectSearchNews(key);
+    }
+
+    public int getSearchCount(String key) {
+        return newsMapper.selectSearchCount(key);
+    }
 }

@@ -178,4 +178,18 @@
     from tbl_news
     where title like CONCAT('%',#{key},'%') and type_news = #{newsTypeId}
   </select>
+  <select id="selectSearchNews" resultType="com.tech.pojo.News">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_news
+    where title like CONCAT('%',#{key},'%')  order by id desc
+  </select>
+  <select id="selectSearchCount" resultType="java.lang.Integer">
+    select
+    count(*)
+    from tbl_news
+    where title like CONCAT('%',#{key},'%')
+  </select>
 </mapper>

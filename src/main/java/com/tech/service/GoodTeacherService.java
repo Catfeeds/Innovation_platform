@@ -6,6 +6,7 @@ import com.tech.pojo.GoodTeacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -19,6 +20,8 @@ public class GoodTeacherService {
     }
 
     public ServerResponse insertGoodTeacher(GoodTeacher goodTeacher) {
+        goodTeacher.setCreateTime(new Date());
+        goodTeacher.setUpdateTime(new Date());
         int count = goodTeacherMapper.insert(goodTeacher);
         if(count>0){
             return ServerResponse.createBySuccessMessage("添加优秀教师成功");
@@ -27,6 +30,7 @@ public class GoodTeacherService {
     }
 
     public ServerResponse updateGoodTeacher(GoodTeacher goodTeacher) {
+        goodTeacher.setUpdateTime(new Date());
         int count = goodTeacherMapper.updateByPrimaryKeySelective(goodTeacher);
         if(count>0){
             return ServerResponse.createBySuccessMessage("更新优秀教师成功");

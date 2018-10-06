@@ -102,6 +102,15 @@ public class FileController {
     @RequestMapping("/download")
     public ResponseEntity<byte[]> downloadFile(String fileName, HttpServletRequest request, HttpServletResponse response) throws IOException {
         String path = request.getSession().getServletContext().getRealPath("/");
+
+        /*不是根目录时进行处理*/
+        String[] paths = path.split("\\\\");
+        String rootPath = paths[paths.length-1];
+        String fFilename = fileName.split("/")[1];
+        if (rootPath.equals(fFilename)){
+            fileName = fileName.substring(fileName.indexOf("/",2));
+        }
+
         HttpHeaders headers = new HttpHeaders();
         File file = new File(path,fileName);
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
@@ -111,6 +120,7 @@ public class FileController {
             ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
             return entity;
         }catch (Exception e){
+            e.printStackTrace();
             logger.info("文件不存在{}",fileName);
             response.setContentType("text/html; charset=utf-8");
             PrintWriter out;

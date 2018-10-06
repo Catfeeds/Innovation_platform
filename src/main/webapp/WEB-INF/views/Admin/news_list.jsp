@@ -80,7 +80,7 @@
         $(window).one("resize",function(){
             $(".newsAdd_btn").click(function(){
                 var index = layui.layer.open({
-                    title : "添加通知公告",
+                    title : "添加新闻",
                     type : 2,
                     content : "${cpath}/manage/to_add_news/"+newsTypeId+".do",
                     success : function(layero, index){

@@ -71,7 +71,8 @@ public class CreateImageCode {
 
         // 设置字体
         //Font font1 = getFont(fontHeight);
-        Font font = new Font("Fixedsys", Font.BOLD, fontHeight);
+        //Font font = new Font("Fixedsys", Font.BOLD, fontHeight);
+        Font font = new Font("宋体", Font.BOLD, fontHeight);
         g.setFont(font);
 
         // 设置干扰线

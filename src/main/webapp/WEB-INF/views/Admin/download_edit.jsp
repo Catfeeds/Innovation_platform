@@ -101,7 +101,8 @@
         //执行实例
         var uploadInst = upload.render({
             elem: '#upload_btn' //绑定元素
-            ,url: '${cpath}/manage/fileUpload.do' //上传接口
+            ,url: '${cpath}/manage/fileUpload.do?dir=file' //上传接口
+			,accept:'file'
             ,done: function(res){
                 if(res.error==0){
                     layer.msg('文件上传成功'+res.url);

@@ -109,7 +109,7 @@
         table.on('tool(listID)', function(obj){
             var data = obj.data;
             if(obj.event === 'detail'){
-                window.open("/index.html");
+                window.open("${cpath}/index.html");
             } else if(obj.event === 'del'){
                 layer.confirm('真的要删除么?', function(index){
                     $.ajax({

@@ -42,10 +42,10 @@
 						<label class="layui-form-label">官网链接</label>
 						<div class="layui-input-block">
 							<c:if test="${action=='edit'}">
-								<input name="linkUrl" type="text" class="layui-input newsName" lay-verify="required" value="${match.linkUrl}">
+								<input name="linkUrl" type="text" class="layui-input newsName"  value="${match.linkUrl}">
 							</c:if>
 							<c:if test="${action=='add'}">
-								<input name="linkUrl" type="text" class="layui-input newsName" lay-verify="required" placeholder="请输入官网链接">
+								<input name="linkUrl" type="text" class="layui-input newsName"  placeholder="请输入官网链接">
 							</c:if>
 						</div>
 					</div>
@@ -64,7 +64,7 @@
 								<input name="priority" type="text" class="layui-input " lay-verify="required" value="${match.priority}">
 							</c:if>
 							<c:if test="${action=='add'}">
-								<input name="priority" type="text" class="layui-input " lay-verify="required" placeholder="请输入封面优先级">
+								<input name="priority" type="text" class="layui-input " lay-verify="required" value="1" placeholder="请输入封面优先级">
 							</c:if>
 						</div>
 					</div>
@@ -169,11 +169,11 @@
                         type:'post',
                         url:'${cpath}/manage/match_update.do',
                         data:data.field,
-                        success:function (data) {
-                            layer.msg(data.msg);
+                        success:function (res) {
+                            layer.msg(res.msg);
                         },
                         error:function (data) {
-                            layer.msg('接口错误');
+                            layer.msg('编辑失败');
                         }
                     });
 
@@ -182,11 +182,11 @@
                         type:'post',
                         url:'${cpath}/manage/match_add.do',
                         data:data.field,
-                        success:function (data) {
-                            layer.msg(data.msg);
+                        success:function (res) {
+                            layer.msg(res.msg);
                         },
                         error:function (data) {
-                            layer.msg(data);
+                            layer.msg('添加失败');
                         }
                     });
                 }

@@ -31,7 +31,7 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">超链接</label>
 			<div class="layui-input-block" style="width: 60%">
-				<input name="link" id="link_url" type="text" class="layui-input productName" lay-verify="required" placeholder="请输入网址">
+				<input name="link" id="link_url" type="text" class="layui-input productName"  placeholder="请输入网址">
 			</div>
 		</div>
 		<div class="layui-form-item">

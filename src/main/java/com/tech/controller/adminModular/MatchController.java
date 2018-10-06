@@ -23,7 +23,7 @@ public class MatchController {
     @Autowired
     MatchService matchService;
 
-    @RequestMapping("/matches_list")//好像没用到
+    @RequestMapping("/matches_list")//没用到
     public String matchesList(Model model){
         model.addAttribute("matches",matchService.getAllMatches());
         return "matchesList";
@@ -66,24 +66,20 @@ public class MatchController {
     public ServerResponse<String> addMatch(Match match){
         match.setCreateTime(new Date());
         match.setUpdateTime(new Date());
-        ServerResponse serverResponse =  matchService.insertMatch(match);
-        System.out.println(match);
-        return serverResponse;
+        return matchService.insertMatch(match);
     }
 
     @RequestMapping("/match_update")
     @ResponseBody
     public ServerResponse<String> updateMatch(Match match){
         match.setUpdateTime(new Date());
-        ServerResponse serverResponse =  matchService.updateMatch(match);
-        return serverResponse;
+        return matchService.updateMatch(match);
     }
 
     @RequestMapping("/match_delete/{id}")
     @ResponseBody
     public ServerResponse<String> deleteMatch(@PathVariable("id") Integer id){
-        ServerResponse serverResponse =  matchService.deleteMatch(id);
-        return serverResponse;
+        return matchService.deleteMatch(id);
     }
 
 }

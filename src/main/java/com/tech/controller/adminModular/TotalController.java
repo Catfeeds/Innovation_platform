@@ -81,7 +81,7 @@ public class TotalController {
                 return ServerResponse.createByErrorMessage(ex.getMessage());
             }
         }
-        return ServerResponse.createBySuccess();
+        return ServerResponse.createBySuccessMessage("导入成功");
     }
 
     /**

@@ -19,7 +19,7 @@
 <br>
 	<form class="layui-form" style="width:80%;">
 		<div class="layui-form-item">
-			<label class="layui-form-label">滚动图名称</label>
+			<label class="layui-form-label">滚动图</label>
 			<div class="layui-col-md3 layui-col-xs5">
 				<div class="layui-upload-list thumbBox mag0 magt3">
 					<img class="layui-upload-img thumbImg">
@@ -29,9 +29,9 @@
 		<input type="hidden" name="urlImg" id="coverUrl" value="">
 		<input type="hidden" name="typeScroll"  value="${type}">
 		<div class="layui-form-item">
-			<label class="layui-form-label">超链接</label>
+			<label class="layui-form-label">超链接(可不填)</label>
 			<div class="layui-input-block" style="width: 60%">
-				<input name="link" id="link_url" type="text" class="layui-input productName"  placeholder="请输入网址">
+				<input name="link" id="link_url" type="text" class="layui-input productName" value="#">
 			</div>
 		</div>
 		<div class="layui-form-item">

@@ -1,20 +1,28 @@
 package com.tech.pojo;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
+
 import java.util.Date;
 
 public class Student {
+    @Excel(name="学号")
     private String sno;
 
     private String password;
 
+    @Excel(name="姓名")
     private String nameStudent;
 
+    @Excel(name="班级")
     private String classno;
 
+    @Excel(name="电话")
     private String phone;
 
+    @Excel(name="QQ")
     private String qq;
 
+    @Excel(name="邮箱")
     private String email;
 
     private String imgurl;
@@ -27,6 +35,7 @@ public class Student {
 
     private Integer professionId;
 
+    @Excel(name="专业")
     private String pname;
 
     public Integer getGetPrizeCount() {

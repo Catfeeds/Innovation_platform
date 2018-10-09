@@ -15,8 +15,8 @@ public class MyHandlerInterceptor implements HandlerInterceptor {
         StringBuffer url = request.getRequestURL();
         //拦截所有后端请求
         if (url.indexOf("/admin/")>=0||url.indexOf("/manage/")>=0){
-            //如果是登录 直接放行
-            if (url.indexOf("login")>=0){
+            //如果是登录或者是学生上传文件接口 直接放行
+            if (url.indexOf("login")>=0||url.indexOf("fileUpload")>0){
                 return true;
             }else{
                 try {

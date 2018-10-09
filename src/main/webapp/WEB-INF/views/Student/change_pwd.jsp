@@ -75,8 +75,8 @@
         form.verify({
             pwd: function(value, item){
                 //验证登陆账号
-                if(!new RegExp("^[0-9A-Za-z]{6,20}$").test(value)){
-                    return '密码只能为英文、数字，长度6-20位';
+                if(!new RegExp("^[0-9A-Za-z]{6,18}$").test(value)){
+                    return '密码只能为英文、数字，长度6-18位';
                 }
             }
         });
@@ -90,7 +90,7 @@
                    	top.layer.msg(data.msg);
                 },
 				error:function(data){
-                    top.layer.msg("接口错误");
+                    top.layer.msg("修改失败");
                 }
             });
             setTimeout(function(){

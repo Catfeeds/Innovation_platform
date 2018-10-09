@@ -39,4 +39,6 @@ public interface StudentMapper {
     Integer selectPidBySno(String sno);
 
     String selectSnoBySname(String sname);
+
+    Integer getProfessionIdByPName(String pname);
 }

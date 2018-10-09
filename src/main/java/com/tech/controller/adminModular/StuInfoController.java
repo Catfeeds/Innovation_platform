@@ -1,13 +1,18 @@
 package com.tech.controller.adminModular;
 
+import cn.afterturn.easypoi.excel.ExcelImportUtil;
+import cn.afterturn.easypoi.excel.entity.ImportParams;
 import com.github.pagehelper.PageHelper;
+import com.tech.common.ServerResponse;
 import com.tech.pojo.Student;
 import com.tech.service.StudentService;
 import org.nutz.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +27,28 @@ public class StuInfoController {
     @RequestMapping("/to_student_info_list")
     public String toShowStudentInfo(){
         return "Admin/student_info_list";
+    }
+
+    /**
+     * 学生数据导入
+     * @param file
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/student_import",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse studentImport(MultipartFile file) throws Exception {
+        ImportParams params = new ImportParams();
+        params.setTitleRows(0);
+        params.setHeadRows(1);
+        List<Student> list = ExcelImportUtil.importExcel(file.getInputStream(),
+                Student.class, params);
+        try {
+           studentService.insertList(list);
+        }catch (RuntimeException ex){
+            return ServerResponse.createByErrorMessage(ex.getMessage());
+        }
+        return ServerResponse.createBySuccessMessage("导入成功");
     }
 
     /**

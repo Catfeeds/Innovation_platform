@@ -12,6 +12,7 @@
     <result column="imgurl" jdbcType="VARCHAR" property="imgurl" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="pname" jdbcType="VARCHAR" property="pname" />
+    <result column="profession_id" jdbcType="INTEGER" property="professionId" />
   </resultMap>
   <sql id="Base_Column_List">
     sno, password, name_student, classno, phone, qq, email, imgurl, update_time
@@ -29,11 +30,11 @@
   <insert id="insert" parameterType="com.tech.pojo.Student">
     insert into tbl_student (sno, password, name_student, 
       classno, phone, qq, 
-      email, imgurl, update_time
+      email, imgurl, update_time,profession_id
       )
     values (#{sno,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{nameStudent,jdbcType=VARCHAR}, 
       #{classno,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{imgurl,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      #{email,jdbcType=VARCHAR}, #{imgurl,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},#{professionId,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tech.pojo.Student">
@@ -182,5 +183,8 @@
     </select>
     <select id="selectSnoBySname" resultType="java.lang.String">
       select sno from tbl_student where name_student = #{sname}
+    </select>
+    <select id="getProfessionIdByPName" resultType="java.lang.Integer">
+      select id from tbl_profession where pname = #{pname}
     </select>
 </mapper>

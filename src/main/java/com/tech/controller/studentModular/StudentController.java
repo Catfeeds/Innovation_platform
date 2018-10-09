@@ -109,8 +109,18 @@ public class StudentController {
     @RequestMapping("/change_pwd")
     @ResponseBody
     public ServerResponse<String> changePwd(String oldPwd,String newPwd,String confirmPwd,HttpSession session){
-        if (!confirmPwd.equals(newPwd)){
-            return ServerResponse.createBySuccessMessage("两次密码校验失败");
+        try {
+            if (!confirmPwd.equals(newPwd)){
+                return ServerResponse.createBySuccessMessage("两次密码校验失败");
+            }
+            String regex = "[0-9A-Za-z]{6,16}";
+            if (!newPwd.matches(regex)){
+                return ServerResponse.createByErrorMessage("密码只能由6-16位数字或字母组成");
+            }
+        }catch (NullPointerException e){
+            return ServerResponse.createBySuccessMessage("密码不能为空！");
+        }catch (Exception ex){
+            return ServerResponse.createByErrorMessage("未知错误");
         }
         Student student = (Student) session.getAttribute(Const.CURRENT_USER);
         if (student==null){

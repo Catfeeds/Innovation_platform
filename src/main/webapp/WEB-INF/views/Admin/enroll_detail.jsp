@@ -119,7 +119,15 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">附件：</label>
 			<div class="layui-input-block">
-				<button type="button" class="layui-btn layui-btn-primary layui-btn-sm download-btn">下载附件</button>
+				<button style="float: left" type="button" class="layui-btn layui-btn-primary layui-btn-sm download-btn">下载附件</button>
+				<c:choose>
+					<c:when test="${not empty item.attachment}">
+						<p style="float: left;padding:8px;color:green">文件已上传</p>
+					</c:when>
+					<c:otherwise>
+						<p style="float: left;padding:8px;color:red">文件未上传</p>
+					</c:otherwise>
+				</c:choose>
 				<input id="attachmentVal"  type="hidden" value="${item.attachment}">
 			</div>
 		</div>

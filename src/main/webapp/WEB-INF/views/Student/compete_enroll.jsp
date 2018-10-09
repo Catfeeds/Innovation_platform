@@ -151,7 +151,8 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">上传附件：</label>
 			<div class="layui-input-block">
-				<button type="button" class="layui-btn" id="attachment"><i class="layui-icon"></i>上传文件</button>
+				<button style="float: left" type="button" class="layui-btn" id="attachment"><i class="layui-icon"></i>上传文件</button>
+				<p style="float: left;padding: 8px;color: #5FB878" id="upload-msg"></p>
 				<input id="attachmentVal" name="attachment" type="hidden" value="">
 			</div>
 		</div>
@@ -172,24 +173,34 @@
 <script>
     layui.use(['form','upload'],function() {
         var form = layui.form,
-			upload = layui.upload,
-        	$ = layui.jquery;
+            upload = layui.upload,
+            $ = layui.jquery;
 
         upload.render({
             elem: '#attachment'
             ,url: '${cpath}/manage/fileUpload.do?dir=file'
             ,accept: 'file'
+            ,before: function(){
+                uploadTip('正在上传，请稍后')
+            }
             ,done: function(res){
                 if(res.error === 0){
                     $('#attachmentVal').val(res.url);
+                    uploadTip('文件已上传');
                     layer.msg('上传成功');
                 }else{
+                    uploadTip('上传失败(请打包成压缩文件上传!)');
                     layer.msg('上传失败(请打包成压缩文件上传!)');
                 }
             },error:function () {
                 layer.msg('上传文件接口错误');
             }
         });
+
+        function uploadTip(msg) {
+            $('#upload-msg').html('');
+            $('#upload-msg').append(msg);
+        }
 
         form.on("submit(add)", function (data) {
             $.ajax({
@@ -216,28 +227,28 @@
         if(obj.val() === ''){
             obj.parents("tr").find("td:eq(1)").find("input").val("");
             obj.parents("tr").find("td:eq(2)").find("input").val("");
-		}else{
-			$.ajax({
-				url:'${cpath}/stu/get_info2.do',
-				type:'post',
-				dataType:'json',
-				data:{
-					sno:obj.val(),
-					cId:$("#cId").val()
-				},
-				success : function(res) {
-					if(res.status === 0){
-						obj.parents("tr").find("td:eq(1)").find("input").val(res.data.nameStudent);
-						obj.parents("tr").find("td:eq(2)").find("input").val(res.data.classno);
-					}
-					else{
-						layer.msg(res.msg);
+        }else{
+            $.ajax({
+                url:'${cpath}/stu/get_info2.do',
+                type:'post',
+                dataType:'json',
+                data:{
+                    sno:obj.val(),
+                    cId:$("#cId").val()
+                },
+                success : function(res) {
+                    if(res.status === 0){
+                        obj.parents("tr").find("td:eq(1)").find("input").val(res.data.nameStudent);
+                        obj.parents("tr").find("td:eq(2)").find("input").val(res.data.classno);
+                    }
+                    else{
+                        layer.msg(res.msg);
                         obj.parents("tr").find("td:eq(1)").find("input").val("");
                         obj.parents("tr").find("td:eq(2)").find("input").val("");
-					}
-				}
-			});
-		}
+                    }
+                }
+            });
+        }
     }
 </script>
 </html>

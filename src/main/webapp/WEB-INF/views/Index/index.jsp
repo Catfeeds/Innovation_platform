@@ -240,7 +240,7 @@
 		<div class="content2">
 			<div class="index_about clearFloat" id="good-teacher">
 				<div class="index_class index_teacher">
-					<h1 class="title_float"><a href="${cpath}/teacher.html" target="_blank">优秀指导教师简介</a></h1>
+					<h1 class="title_float"><a href="${cpath}/teacher.html" target="_blank">优秀指导教师</a></h1>
 				</div>
 				<!-- 代码 开始 -->
 				<div id="main">
@@ -249,7 +249,7 @@
 							<ul class="heros clearfix">
 								<c:forEach var="ts" items="${teacherScroll}">
 									<li class="hero">
-										<a href="${ts.link}">
+										<a target="_blank" href="${ts.link}">
 											<img src="${ts.urlImg}" class="thumb"  />
 										</a>
 									</li>

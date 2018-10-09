@@ -51,6 +51,9 @@ public class FileController {
             attr.addFlashAttribute("message","请登录后重新请求下载~");
             return "redirect:/login.html";
         }else{
+            if (object instanceof Student){
+                logger.info("{}请求下载文件",((Student) object).getSno());
+            }
             String filename = fileService.getFileNameById(id);
             return "forward:/download.do?fileName="+filename;
         }
@@ -78,6 +81,7 @@ public class FileController {
             return ServerResponse.createByErrorMessage("获取上传文件失败!");
         String path = request.getSession().getServletContext().getRealPath("upload/userFace");
         ServerResponse serverResponse = fileService.upload(file,path);
+        logger.info("用户{}:上传文件{}:时间{}",student.getSno(),serverResponse.getMsg(),new Date());
         if (serverResponse.isSuccess()){
             String saveUrl = request.getContextPath() + "/upload/userFace/"+serverResponse.getMsg();
             Student newStudent = new Student();

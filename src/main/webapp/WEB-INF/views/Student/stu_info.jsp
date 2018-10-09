@@ -98,7 +98,7 @@
 					layer.msg(data.msg);
 				},
 				error:function () {
-					layer.msg('接口错误');
+					layer.msg('修改失败');
 				}
 			});
             return false;

@@ -182,11 +182,11 @@
 				var username_el = $("#username");
 				var password_el = $("#password");
 				if($.trim(username_el.val()) === ""){
-                    $("#message").html("用户名不能为空！");
+                    messageTip("用户名不能为空！");
 				}else if($.trim(password_el.val()) === ""){
-                    $("#message").html("密码不能为空！");
+                    messageTip("密码不能为空！");
 				}else if($.trim($("#vcode").val()) === ""){
-                    $("#message").html("验证码不能为空！");
+                    messageTip("验证码不能为空！");
                 }else {
                         if(teacher){
                             $.ajax({
@@ -196,8 +196,7 @@
                                 dataType:'json',
                                 success : function(data) {
                                     if(data.status === 1){
-                                        $('#message').html("");
-                                        $('#message').append(data.msg);
+                                        messageTip(data.msg)
                                     }else if(data.status === 0){
                                         location.href="${cpath}/admin/index.html";
                                     }
@@ -211,8 +210,7 @@
                                 dataType:'json',
                                 success : function(data) {
                                     if(data.status === 1){
-                                        $('#message').html("");
-                                        $('#message').append(data.msg);
+                                        messageTip(data.msg)
                                     }else if(data.status === 0){
                                         location.href="${cpath}/stu/index.html";
                                     }
@@ -221,6 +219,10 @@
                         }
                     }
             	});
+			function messageTip(msg) {
+                $('#message').html("");
+                $('#message').append(msg);
+            }
 		</script>
 	</body>
 </html>

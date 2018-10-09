@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -115,5 +116,25 @@ public class StudentService {
 
     public String getSnoBySname(String sname) {
         return studentMapper.selectSnoBySname(sname);
+    }
+
+    /**
+     * 学生导入
+     * @param list
+     */
+    public void insertList(List<Student> list) {
+        for (Student s:list) {
+            s.setUpdateTime(new Date());
+            s.setPassword("123456");
+            Integer pid = studentMapper.getProfessionIdByPName(s.getPname());
+            if(pid==null){
+                throw new RuntimeException("专业名称存在错误!");
+            }
+            s.setProfessionId(pid);
+            int count = studentMapper.insert(s);
+            if (count<0){
+                throw new RuntimeException("插入"+s.getNameStudent()+"错误!");
+            }
+        }
     }
 }

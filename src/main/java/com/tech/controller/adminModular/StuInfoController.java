@@ -38,6 +38,9 @@ public class StuInfoController {
     @RequestMapping(value = "/student_import",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse studentImport(MultipartFile file) throws Exception {
+        if (file==null){
+            return ServerResponse.createByErrorMessage("文件不能为空！");
+        }
         ImportParams params = new ImportParams();
         params.setTitleRows(0);
         params.setHeadRows(1);

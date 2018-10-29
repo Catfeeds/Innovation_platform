@@ -42,7 +42,7 @@
 				<a class="layui-btn layui-btn-normal show-chart">图表显示</a>
 			</div>
 			<div class="layui-inline">
-				<button type="button" class="layui-btn" id="data-import"><i class="layui-icon"></i>数据导入</button>
+				<button type="button" class="layui-btn layui-btn-normal" id="data-import"><i class="layui-icon"></i>数据导入</button>
 			</div>
 		</div>
 	</blockquote>
@@ -140,7 +140,7 @@
         upload.render({
             elem: '#data-import'
             , accept: 'file'
-            ,url: '${cpath}/manage/data_import.do'
+            ,url: '${cpath}/manage/excellent_import.do'
             ,done: function(res){
                 layer.msg(res.msg, {
                     time: 20000, //20s后自动关闭

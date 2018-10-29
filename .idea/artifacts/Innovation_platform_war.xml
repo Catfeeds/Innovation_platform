@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
   <artifact type="war" name="Innovation_platform:war">
     <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="Innovation_platform.war">
+    <root id="archive" name="cxpt.war">
       <element id="artifact" artifact-name="Innovation_platform:war exploded" />
     </root>
   </artifact>

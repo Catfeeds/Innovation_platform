@@ -24,14 +24,18 @@
 		    	<input type="text" value="" placeholder="请输入关键字" class="layui-input search_input">
 		    </div>
 		    <a class="layui-btn search_btn">查询</a>
+			<div class="layui-inline">
+				<button type="button" class="layui-btn layui-btn-normal" id="data-import"><i class="layui-icon"></i>学生数据导入</button>
+			</div>
 		</div>
 	</blockquote>
 	<table id="List" lay-filter="ListID"></table>
 </body>
 <script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
 <script type="text/javascript">
-    layui.use('table', function(){
-        var table = layui.table;
+    layui.use(['table','upload'], function(){
+        var table = layui.table,
+        upload = layui.upload;
 
         table.render({
 			id:'search_tb',
@@ -57,6 +61,18 @@
             page: true,
             done: function (res, curr, count) {
 
+            }
+        });
+
+        upload.render({
+            elem: '#data-import'
+            ,accept: 'file'
+            ,url: '${cpath}/manage/student_import.do'
+            ,done: function(res){
+                layer.msg(res.msg, {
+                    time: 20000, //20s后自动关闭
+                    btn: [ '知道了']
+                });
             }
         });
 

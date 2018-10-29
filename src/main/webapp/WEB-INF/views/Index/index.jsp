@@ -249,7 +249,7 @@
 							<ul class="heros clearfix">
 								<c:forEach var="ts" items="${teacherScroll}">
 									<li class="hero">
-										<a target="_blank" href="${ts.link}">
+										<a href="${ts.link}">
 											<img src="${ts.urlImg}" class="thumb"  />
 										</a>
 									</li>

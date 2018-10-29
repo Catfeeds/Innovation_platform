@@ -39,50 +39,37 @@ public class TotalController {
     ExcellentMemberService excellentMemberService;
 
     /**
-     * 数据导入
+     * 优秀项目导入
      * @param file
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/data_import",method = RequestMethod.POST)
+    @RequestMapping(value = "/excellent_import",method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse dataImport(MultipartFile file) throws Exception {
+    public ServerResponse excellentImport(MultipartFile file) throws Exception {
+        if (file==null){
+            return ServerResponse.createByErrorMessage("文件不能为空!");
+        }
         ImportParams params = new ImportParams();
         params.setTitleRows(0);
         params.setHeadRows(1);
         List<Excellent> list = ExcelImportUtil.importExcel(file.getInputStream(),
                 Excellent.class, params);
-        for (Excellent e:list) {
-            //设置赛事ID
-            //e.setCompeteId(competeService.getIdByName(e.getCompeteName()));
-            //根据Title找到对应的EnrollID
-            //e.setEnrollId(enrollService.getIdByCIdAndTitle(e.getTitle()));
-
-            //! 设置赛事级别ID
-            e.setCompeteLevel(levelService.getIdByName(e.getLevelName()));
-            //! 设置奖项ID
-            e.setPrizeId(prizeService.getIdByName(e.getPrizeName()));
-            //! 设置专业ID
-            e.setProfessionID(excellentService.getPIdByPName(e.getProfessionName()));
-
-            try {
-                Excellent excellent = excellentService.addExcellent(e).getData();
-                String[] excellent_members = e.getMembers().trim().split("、");
-                ExcellentMember excellentMember;
-                String sno;
-                for (String sname:excellent_members) {
-                    if (org.apache.commons.lang.StringUtils.isEmpty(sname))
-                        continue;
-                    sno = studentService.getSnoBySname(sname);
-                    excellentMember = new ExcellentMember(sname,sno,0,excellent.getId());
-                    excellentMemberService.addExcellentMember(excellentMember);
-                }
-            }catch (RuntimeException ex){
-                return ServerResponse.createByErrorMessage(ex.getMessage());
+        try {
+            //插入优秀项目
+            ServerResponse<List<Excellent>> serverResponse = totalService.dateImport(list);
+            if (serverResponse.isSuccess()) {
+                //插入成员
+                List<Excellent> new_list = serverResponse.getData();
+                ServerResponse sr = excellentMemberService.insert(new_list);
+                if (!sr.isSuccess()) return sr;
             }
+        }catch (Exception ex){
+            return ServerResponse.createByErrorMessage(ex.getMessage());
         }
         return ServerResponse.createBySuccessMessage("导入成功");
     }
+
 
     /**
      * 根据赛事级别获取获奖人数 done
@@ -191,116 +178,6 @@ public class TotalController {
         return Json.toJson(res);
     }
 
-
-//    /**
-//     * 根据赛事级别获取获奖人数 done
-//     * @return
-//     */
-//    @RequestMapping(value = "/get_pc_by_level",produces = "text/html;charset=UTF-8")
-//    @ResponseBody
-//    public String getPrizePeopleCountByCompeteLevel(String chooseTime,Integer profession){
-//        //2018-09-01 ~ 2018-10-01
-//        if(StringUtils.isEmpty(chooseTime)){
-//            chooseTime=null;
-//        }
-//        List<Levels> list = levelService.getALL();
-//        String[] levels = new String[list.size()];
-//        List<EchartData> data = new ArrayList<>();
-//        int index = 0;
-//        for (Levels l:list) {
-//            levels[index] = l.getLevelName();
-//            int count = totalService.getPrizePeopleCountByCompeteLevelWithSelective(l.getId(),chooseTime,profession);
-//            data.add(new EchartData(l.getId(),l.getLevelName(),count));
-//            index++;
-//        }
-//        Map<String, Object> res = new HashMap<>();
-//        res.put("categories",levels);
-//        res.put("data",data);
-//        return Json.toJson(res);
-//    }
-//
-//    /**
-//     * 赛事级别下 获取每个奖项的人数
-//     * @param levelId
-//     * @return
-//     */
-//    @RequestMapping(value = "/get_pc_by_level2",produces = "text/html;charset=UTF-8")
-//    @ResponseBody
-//    public String getPrizePeopleCountByLevelIdPrizeId(Integer levelId,String chooseTime,Integer profession){
-//        if(StringUtils.isEmpty(chooseTime)){
-//            chooseTime=null;
-//        }
-//        List<Prize> list = prizeService.getAll();
-//        String[] prize = new String[list.size()];
-//        List<EchartData> data = new ArrayList<>();
-//        int index = 0;
-//        for (Prize p:list) {
-//            prize[index] = p.getPrizeName();
-//            int count = totalService.getPrizePeopleCountByLevelIdPrizeIdWithSelective(p.getId(),levelId,chooseTime,profession);
-//            data.add(new EchartData(p.getId(),p.getPrizeName(),count));
-//            index++;
-//        }
-//        Map<String, Object> res = new HashMap<>();
-//        res.put("categories",prize);
-//        res.put("data",data);
-//        return Json.toJson(res);
-//    }
-//
-//    /**
-//     * 根据赛事级别获取获奖项目数 done
-//     * @return
-//     */
-//    @RequestMapping(value = "/get_ic_by_level",produces = "text/html;charset=UTF-8")
-//    @ResponseBody
-//    public String getPrizeItemCountByCompeteLevel(String chooseTime,Integer profession){
-//        if(StringUtils.isEmpty(chooseTime)){
-//            chooseTime=null;
-//        }
-//        List<Levels> list = levelService.getALL();
-//        String[] levels = new String[list.size()];
-//        List<EchartData> data = new ArrayList<>();
-//        int index = 0;
-//        for (Levels l:list) {
-//            levels[index] = l.getLevelName();
-//            int count = totalService.getPrizeItemCountByCompeteLevelWithSelective(l.getId(),chooseTime,profession);
-//            data.add(new EchartData(l.getId(),l.getLevelName(),count));
-//            index++;
-//        }
-//        Map<String, Object> res = new HashMap<>();
-//        res.put("categories",levels);
-//        res.put("data",data);
-//        return Json.toJson(res);
-//    }
-//
-//    /**
-//     * 赛事级别下 获取每个奖项的项目数
-//     * @param levelId
-//     * @return
-//     */
-//    @RequestMapping(value = "/get_ic_by_level2",produces = "text/html;charset=UTF-8")
-//    @ResponseBody
-//    public String getPrizeItemCountByLevelIdPrizeId(Integer levelId,String chooseTime,Integer profession){
-//        if(StringUtils.isEmpty(chooseTime)){
-//            chooseTime=null;
-//        }
-//        List<Prize> list = prizeService.getAll();
-//        String[] prize = new String[list.size()];
-//        List<EchartData> data = new ArrayList<>();
-//        int index = 0;
-//        for (Prize p:list) {
-//            prize[index] = p.getPrizeName();
-//            int count = totalService.getPrizeItemCountByLevelIdPrizeIdWithSelective(p.getId(),levelId,chooseTime,profession);
-//            data.add(new EchartData(p.getId(),p.getPrizeName(),count));
-//            index++;
-//        }
-//        Map<String, Object> res = new HashMap<>();
-//        res.put("categories",prize);
-//        res.put("data",data);
-//        return Json.toJson(res);
-//    }
-
-    /*------------------------------------------------------------------------------------------*/
-
     /**
      * 项目统计 E_chart异步加载bar  获奖人数 赛事级别
      * @return
@@ -373,7 +250,6 @@ public class TotalController {
         res.put("data",data);
         return Json.toJson(res);
     }
-    /*-----------------------------------------------------------------------------------------------*/
 
     /**
      * 获取个人报名参赛次数

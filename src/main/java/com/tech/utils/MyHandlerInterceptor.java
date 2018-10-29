@@ -15,38 +15,37 @@ public class MyHandlerInterceptor implements HandlerInterceptor {
         StringBuffer url = request.getRequestURL();
         //拦截所有后端请求
         if (url.indexOf("/admin/")>=0||url.indexOf("/manage/")>=0){
-            //如果是登录或者是学生上传文件接口 直接放行
-            if (url.indexOf("login")>=0||url.indexOf("fileUpload")>0){
+            //登录放行
+            if (url.indexOf("login")>=0){
                 return true;
+            }else if(url.indexOf("fileUpload")>0) {
+                Object object = request.getSession().getAttribute(Const.CURRENT_USER);
+                if (object != null ) {
+                    return true;
+                } else {
+                    request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request,response);
+                    return false;
+                }
             }else{
-                try {
-                    Admin admin = (Admin)request.getSession().getAttribute(Const.CURRENT_USER);
-                    if (admin!=null){
-                        return true;
-                    }else {
-                        request.setAttribute("message","身份验证过期,请重新登录!");
-                        request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request,response);
-                        return false;
-                    }
-                }catch (Exception e){
+                Object object = request.getSession().getAttribute(Const.CURRENT_USER);
+                if (object instanceof Admin){
+                    return true;
+                }else {
+                    request.setAttribute("message","身份验证过期,请重新登录!");
                     request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request,response);
                     return false;
                 }
             }
         }else if(url.indexOf("/stu/")>=0) {
+            //登录放行
             if (url.indexOf("login")>=0){
                 return true;
             }else{
-                try {
-                    Student student = (Student) request.getSession().getAttribute(Const.CURRENT_USER);
-                    if (student!= null){
-                        return true;
-                    }else {
-                        request.setAttribute("message","身份验证过期,请重新登录! ");
-                        request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request,response);
-                        return false;
-                    }
-                }catch (Exception e){
+                Object object = request.getSession().getAttribute(Const.CURRENT_USER);
+                if (object instanceof Student){
+                    return true;
+                }else {
+                    request.setAttribute("message","身份验证过期,请重新登录! ");
                     request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request,response);
                     return false;
                 }

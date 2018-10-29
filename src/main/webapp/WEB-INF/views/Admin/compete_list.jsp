@@ -96,7 +96,7 @@
                             url:'${cpath}/manage/delete_compete/'+data.id+".do",
                             type:'post',
                             success : function(data) {
-                                if(data.status==0){
+                                if(data.status === 0){
                                     obj.del();
                                     layer.msg(data.msg);
                                 }

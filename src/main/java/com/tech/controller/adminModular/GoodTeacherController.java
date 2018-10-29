@@ -3,7 +3,6 @@ package com.tech.controller.adminModular;
 import com.github.pagehelper.PageHelper;
 import com.tech.common.ServerResponse;
 import com.tech.pojo.GoodTeacher;
-import com.tech.pojo.GoodWork;
 import com.tech.service.GoodTeacherService;
 import org.nutz.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -126,14 +126,24 @@ public class StudentService {
         for (Student s:list) {
             s.setUpdateTime(new Date());
             s.setPassword("123456");
+            if(StringUtils.isBlank(s.getSno())){
+                throw new RuntimeException("导入失败!存在学号为空的记录！");
+            }
+            if(StringUtils.isBlank(s.getNameStudent())){
+                throw new RuntimeException("导入失败!存在姓名为空的记录！");
+            }
+            if(StringUtils.isBlank(s.getClassno())){
+                throw new RuntimeException("导入失败!存在班级为空的记录！");
+            }
             Integer pid = studentMapper.getProfessionIdByPName(s.getPname());
             if(pid==null){
-                throw new RuntimeException("专业名称存在错误!");
+                throw new RuntimeException("导入失败!专业名称存在错误!");
             }
             s.setProfessionId(pid);
-            int count = studentMapper.insert(s);
-            if (count<0){
-                throw new RuntimeException("插入"+s.getNameStudent()+"错误!");
+            try {
+                studentMapper.insert(s);
+            }catch (Exception ex) {
+                throw new RuntimeException(s.getNameStudent() + "已存在，数据全部导入失败，请重新尝试!");
             }
         }
     }

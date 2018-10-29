@@ -29,9 +29,12 @@
 		<input type="hidden" name="urlImg" id="coverUrl" value="">
 		<input type="hidden" name="typeScroll"  value="${type}">
 		<div class="layui-form-item">
-			<label class="layui-form-label">超链接(可不填)</label>
+			<label class="layui-form-label">超链接</label>
 			<div class="layui-input-block" style="width: 60%">
 				<input name="link" id="link_url" type="text" class="layui-input productName" value="#">
+			</div>
+			<div class="layui-input-block" style="width: 60%">
+				<p style="margin-left: 10px;color: #7C8395">tips:可默认不填，如需填写请加上前缀 http://</p>
 			</div>
 		</div>
 		<div class="layui-form-item">

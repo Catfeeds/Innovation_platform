@@ -6,6 +6,7 @@ import com.tech.dao.ExcellentMemberMapper;
 import com.tech.dao.MemberMapper;
 import com.tech.dao.StudentMapper;
 import com.tech.pojo.Student;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -122,7 +123,10 @@ public class StudentService {
      * 学生导入
      * @param list
      */
-    public void insertList(List<Student> list) {
+    public ServerResponse insertList(List<Student> list) {
+        if (CollectionUtils.isEmpty(list)){
+            return ServerResponse.createByErrorMessage("数据不能为空");
+        }
         for (Student s:list) {
             s.setUpdateTime(new Date());
             s.setPassword("123456");
@@ -146,5 +150,6 @@ public class StudentService {
                 throw new RuntimeException(s.getNameStudent() + "已存在，数据全部导入失败，请重新尝试!");
             }
         }
+        return ServerResponse.createBySuccessMessage("导入成功");
     }
 }

@@ -86,14 +86,14 @@
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
 													</label>
-
-													<label class="clearfix" style="width:100px;">
-														<span class="input-icon input-icon-right">
-															<input name="vCode" id="vcode" type="text" class="form-control" placeholder="验证码" />
-														</span>
-													</label>
-													<img id="code" src="${cpath}/makeCode.html" width="116" height="34">
-
+													<div id="valicode" style="display:none">
+														<label class="clearfix" style="width:100px;">
+															<span class="input-icon input-icon-right">
+																<input name="vCode" id="vcode" type="text" class="form-control" placeholder="验证码" />
+															</span>
+														</label>
+														<img id="code" src="${cpath}/makeCode.html" width="116" height="34">
+													</div>
 													<label class="block clearfix">
 														<span id="message" class="block input-icon input-icon-right" style="color: red;">
 															${message}
@@ -162,7 +162,7 @@
 
 		<script type="text/javascript">
 			if('ontouchstart' in document.documentElement) document.write("<script src='${cpath}/static/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
-
+			var times = 0;
 			function forgetTips() {
 				alert("忘记秘密请携带校园卡到学院团委老师处进行修改。");
             }
@@ -177,6 +177,7 @@
             });
 
 			$("#btn-login").click(function () {
+			    var display = $("#valicode").css('display');
 			    var student = $("#radio1").prop("checked");
                 var teacher = $("#radio2").prop("checked");
 				var username_el = $("#username");
@@ -185,10 +186,10 @@
                     messageTip("用户名不能为空！");
 				}else if($.trim(password_el.val()) === ""){
                     messageTip("密码不能为空！");
-				}else if($.trim($("#vcode").val()) === ""){
-                    messageTip("验证码不能为空！");
-                }else {
-                        if(teacher){
+                }else if(display != 'none'){ //简单校验
+					if($.trim($("#vcode").val()) === "") {
+						messageTip("验证码不能为空！");
+					}else if(teacher){
                             $.ajax({
                                 url:'${cpath}/admin/login.do',
                                 type:'post',
@@ -196,13 +197,13 @@
                                 dataType:'json',
                                 success : function(data) {
                                     if(data.status === 1){
-                                        messageTip(data.msg)
+                                        messageTip(data.msg);
                                     }else if(data.status === 0){
                                         location.href="${cpath}/admin/index.html";
                                     }
                                 }
                             });
-                        }else if(student){
+                    }else if(student){
                             $.ajax({
                                 url:'${cpath}/stu/login.do',
                                 type:'post',
@@ -210,7 +211,7 @@
                                 dataType:'json',
                                 success : function(data) {
                                     if(data.status === 1){
-                                        messageTip(data.msg)
+                                        messageTip(data.msg);
                                     }else if(data.status === 0){
                                         location.href="${cpath}/stu/index.html";
                                     }
@@ -218,10 +219,57 @@
                             });
                         }
                     }
+				else{
+                    if(teacher){
+                        $.ajax({
+                            url:'${cpath}/admin/login.do',
+                            type:'post',
+                            data:{
+                              username:username_el.val(),
+								password:password_el.val()
+                            },
+                            dataType:'json',
+                            success : function(data) {
+                                if(data.status === 1){
+                                    messageTip(data.msg);
+                                    check_login_time();
+                                }else if(data.status === 0){
+                                    location.href="${cpath}/admin/index.html";
+                                }
+                            }
+                        });
+                    }else if(student){
+                        $.ajax({
+                            url:'${cpath}/stu/login.do',
+                            type:'post',
+                            data:{
+                                username:username_el.val(),
+                                password:password_el.val()
+                            },
+                            dataType:'json',
+                            success : function(data) {
+                                if(data.status === 1){
+                                    messageTip(data.msg);
+                                    check_login_time();
+                                }else if(data.status === 0){
+                                    location.href="${cpath}/stu/index.html";
+                                }
+                            }
+                        });
+                    }
+                }
             	});
 			function messageTip(msg) {
                 $('#message').html("");
                 $('#message').append(msg);
+            }
+
+            //简单判断
+            function check_login_time() {
+				times++;
+				if(times>3){
+                    $("#valicode").css('display','');
+				}
             }
 		</script>
 	</body>

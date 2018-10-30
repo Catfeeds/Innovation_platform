@@ -65,10 +65,12 @@
 		</div>
 		<!-- 左侧导航 -->
 		<div class="layui-side layui-bg-black">
-			<div class="user-photo">
-				<a class="img" title="这头像够帅了" ><img onerror='this.src="${cpath}/static/images/timg.jpg"' src="${student.imgurl}"></a>
-				<p><span class="userName">${student.nameStudent}</span></p>
-			</div>
+				<li class="layui-nav-item">
+					<div class="user-photo">
+						<a class="img" href="javascript:;" data-url="${cpath}/stu/stuInfo.html" title="个人资料" ><img onerror='this.src="${cpath}/static/images/timg.jpg"' src="${student.imgurl}"></a>
+						<p><span class="userName">${student.nameStudent}</span></p>
+					</div>
+				</li>
 			<div class="navBar layui-side-scroll" style="height: 200px;">
 				<ul class="layui-nav layui-nav-tree">
 					<li class="layui-nav-item">

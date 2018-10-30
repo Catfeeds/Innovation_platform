@@ -3,6 +3,7 @@ package com.tech.service;
 import com.tech.common.ServerResponse;
 import com.tech.dao.*;
 import com.tech.pojo.Excellent;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -124,6 +125,9 @@ public class TotalService {
      * @return
      */
     public ServerResponse<List<Excellent>> dateImport(List<Excellent> list) {
+        if (CollectionUtils.isEmpty(list)){
+            return ServerResponse.createByErrorMessage("数据不能为空");
+        }
         for (Excellent e:list) {
             //! 设置赛事级别ID.
             e.setCompeteLevel(levelsMapper.selectIdByName(e.getLevelName()));

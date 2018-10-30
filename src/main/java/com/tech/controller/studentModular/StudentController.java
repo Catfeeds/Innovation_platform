@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -37,10 +38,12 @@ public class StudentController {
 
     @RequestMapping("/login")
     @ResponseBody
-    public ServerResponse<Student> stuLogin(String username, String password,String vCode, HttpSession session){
-//        if(!session.getAttribute("code").equals(vCode.toLowerCase())){
-//            return ServerResponse.createByErrorMessage("验证码错误!");
-//        }
+    public ServerResponse<Student> stuLogin(String username, String password, @RequestParam(required = false) String vCode, HttpSession session){
+        if (vCode!=null){
+            if(!session.getAttribute("code").equals(vCode.toLowerCase())){
+                return ServerResponse.createByErrorMessage("验证码错误!");
+            }
+        }
        ServerResponse<Student> serverResponse = studentService.login(username,password);
        if (serverResponse.isSuccess()){
            session.setAttribute(Const.CURRENT_USER,serverResponse.getData());

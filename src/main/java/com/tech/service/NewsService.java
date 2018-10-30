@@ -7,7 +7,6 @@ import com.tech.pojo.News;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 
@@ -31,8 +30,7 @@ public class NewsService {
         return news;
     }
 
-    //TODO 权限验证
-    public ServerResponse<String> insertNews(News news) {
+    public ServerResponse insertNews(News news) {
         int count = newsMapper.insert(news);
         if (count>0){
             return ServerResponse.createBySuccessMessage("添加成功");
@@ -40,7 +38,7 @@ public class NewsService {
         return ServerResponse.createByErrorMessage("添加失败");
     }
 
-    public ServerResponse<String> updateNews(News news){
+    public ServerResponse updateNews(News news){
         int count = newsMapper.updateByPrimaryKeySelective(news);
         if (count>0){
             return ServerResponse.createBySuccessMessage("更新成功");
@@ -48,7 +46,7 @@ public class NewsService {
         return ServerResponse.createByErrorMessage("更新失败");
     }
 
-    public ServerResponse<String> deleteNews(Integer id) {
+    public ServerResponse deleteNews(Integer id) {
         int count = newsMapper.deleteByPrimaryKey(id);
         if (count>0){
             return ServerResponse.createBySuccessMessage("删除成功");

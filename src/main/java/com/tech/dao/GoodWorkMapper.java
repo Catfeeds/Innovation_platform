@@ -31,4 +31,6 @@ public interface GoodWorkMapper {
     List<GoodWork> selectSearchIndex(@Param("key") String key, @Param("condition_year") String condition_year, @Param("condition_prize") Integer condition_prize,@Param("condition_level") Integer condition_level);
 
     int selectSearchCountIndex(@Param("key") String key, @Param("condition_year") String condition_year, @Param("condition_prize") Integer condition_prize,@Param("condition_level") Integer condition_level);
+
+    List<GoodWork> selectAllGoodWorksWithCount(Integer count);
 }

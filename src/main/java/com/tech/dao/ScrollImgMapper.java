@@ -27,7 +27,6 @@ public interface ScrollImgMapper {
 
     List<ScrollImg> selectAllTeacherScroll();
 
-
     int updateHide(Integer id);
 
     int updateShow(Integer id);
@@ -35,4 +34,6 @@ public interface ScrollImgMapper {
     int selectCoverScrollCount();
 
     int selectTeacherScrollCount();
+
+    List<ScrollImg> selectTeacherScrollWithCount(Integer count);
 }

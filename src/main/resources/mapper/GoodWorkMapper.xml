@@ -211,4 +211,11 @@
     </if>
       item_name like CONCAT('%',#{key},'%')
   </select>
+    <select id="selectAllGoodWorksWithCount" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List" />
+      ,
+      <include refid="Blob_Column_List" />
+      from tbl_good_work LIMIT #{count}
+    </select>
 </mapper>

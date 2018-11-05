@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
@@ -75,11 +76,10 @@ public class IndexController {
 
         List<Match> matches = matchService.getCountMatches(3);//赛事项目
         List<ScrollImg> coverScroll = scrollImgService.getCoverScrollShow();//封面滚动图
-        List<ScrollImg> teacherScroll = scrollImgService.getTeacherScrollShow();//优秀教师滚动图
+        List<ScrollImg> teacherScroll = scrollImgService.getTeacherScrollShowWithCount(6);//优秀教师滚动图
 
         List<FriendLink> friendLinks = friendLinkService.getAllFriendLinks();//友情链接
-        List<GoodTeacher> goodTeachers = goodTeacherService.getAllGoodTeachers();//获取优秀教师
-        List<GoodWork> goodWorks = goodWorkService.getAllGoodWorks();//获取优秀作品
+        List<GoodWork> goodWorks = goodWorkService.getAllGoodWorksWithCount(8);//获取优秀作品
         model.addAttribute("notices",notices).addAttribute("policies",policies).addAttribute("questions",questions);
         model.addAttribute("matches",matches);
 
@@ -87,7 +87,6 @@ public class IndexController {
         model.addAttribute("teacherScroll",teacherScroll);
 
         model.addAttribute("friendLinks",friendLinks);
-        model.addAttribute("goodTeachers",goodTeachers);
         model.addAttribute("goodWorks",goodWorks);
         model.addAttribute("downloadFiles",downloadFiles);
         return "Index/index";
@@ -178,7 +177,7 @@ public class IndexController {
 
     @RequestMapping(value = "/compete_page",produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String competeListJson(Integer page,Integer limit){
+    public String competeListJson(Integer page, Integer limit){
         if(page==null){
             page=1;
         }

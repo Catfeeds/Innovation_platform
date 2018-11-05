@@ -81,4 +81,9 @@ public class GoodWorkService {
     public int getSearchCount(String key, String year, Integer prizeId,Integer levelId) {
         return goodWorkMapper.selectSearchCountIndex(key,year,prizeId,levelId);
     }
+
+    public List<GoodWork> getAllGoodWorksWithCount(Integer count) {
+        List<GoodWork> goodWorks = goodWorkMapper.selectAllGoodWorksWithCount(count);
+        return goodWorks;
+    }
 }

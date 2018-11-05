@@ -23,11 +23,11 @@ public class AdminController {
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<Admin> adminLogin(String username, String password, @RequestParam(required = false) String vCode, HttpSession session){
-        if (vCode!=null){
-            if(!session.getAttribute("code").equals(vCode.toLowerCase())){
-                return ServerResponse.createByErrorMessage("验证码错误!");
-            }
-        }
+//        if (vCode!=null){
+//            if(!session.getAttribute("code").equals(vCode.toLowerCase())){
+//                return ServerResponse.createByErrorMessage("验证码错误!");
+//            }
+//        }
         ServerResponse<Admin> serverResponse =  adminService.login(username,password);
         if (serverResponse.isSuccess()){
             session.setAttribute(Const.CURRENT_USER,serverResponse.getData());

@@ -40,6 +40,13 @@
 	<div id="page"></div>
 </body>
 <script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
+<script type="text/html" id="toolbar">
+	<div class="layui-btn-container">
+		<button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+		<button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+		<button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+	</div>
+</script>
 <script type="text/javascript">
     var newsTypeId=$("#newTypeId").val();
     layui.use('table', function(){
@@ -90,7 +97,7 @@
                             });
                         },500)
                     }
-                })
+                });
                 layui.layer.full(index);
             })
         }).resize();
@@ -98,23 +105,42 @@
         table.render({
 			id:'search_tb',
             elem: '#newList',
+            toolbar: '#toolbar',
             url: '${cpath}/manage/news_list/'+newsTypeId+'.do',
             method: 'get',
             limit: 10,
             cols: [[
-//                {type: 'checkbox', fixed: 'left'},
+                {type: 'checkbox', fixed: 'left'},
                 {title: '序号',width:100,align:'center',type:'numbers'},
                 {field:'id', title: '序号',align:'center',sort:true,hide:'true'},
                 {field:'title', title: '标题',align:'center'},
                 {field:'updateTime', title: '更新时间',align:'center'},
                 {field:'content', title: '内容',align:'center'},
-                {title: '操作',align:'center',toolbar: '#bar'},
+                {title: '操作',align:'center',toolbar: '#bar'}
             ]],
             page: true,
             done: function (res, curr, count) {
 
             }
         });
+
+        table.on('toolbar(newList)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'getCheckData':
+                    var data = checkStatus.data;
+                    layer.alert(JSON.stringify(data));
+                    break;
+                case 'getCheckLength':
+                    var data = checkStatus.data;
+                    layer.msg('选中了：'+ data.length + ' 个');
+                    break;
+                case 'isAll':
+                    layer.msg(checkStatus.isAll ? '全选': '未全选')
+                    break;
+            };
+        });
+
         $(".search_btn").click(function() {
             table.reload('search_tb', {
                 url: '${cpath}/manage/news_search.do'
@@ -156,7 +182,7 @@
                                 });
                             },500)
                         }
-                    })
+                    });
                     layui.layer.full(index);
                 }).resize();
             }

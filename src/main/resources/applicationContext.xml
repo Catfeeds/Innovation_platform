@@ -28,7 +28,7 @@
         <property name="basePackage" value="com.tech.dao"></property>
     </bean>
 
-    <!--配置事物管理器-->
+    <!--配置事务管理器-->
     <bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="pooledDataSource"></property>
     </bean>

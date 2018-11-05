@@ -86,4 +86,9 @@ public class ScrollImgService {
     public int getTeacherScrollCount() {
         return scrollImgMapper.selectTeacherScrollCount();
     }
+
+    public List<ScrollImg> getTeacherScrollShowWithCount(Integer count) {
+        List<ScrollImg> scrollImgs  = scrollImgMapper.selectTeacherScrollWithCount(count);
+        return scrollImgs;
+    }
 }

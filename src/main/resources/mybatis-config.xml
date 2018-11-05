@@ -7,7 +7,7 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
     <typeAliases>
-        <package name="com.blog.pojo"/>
+        <package name="com.tech.pojo"/>
     </typeAliases>
     <plugins>
         <plugin interceptor="com.github.pagehelper.PageInterceptor">

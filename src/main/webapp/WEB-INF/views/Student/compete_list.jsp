@@ -57,6 +57,9 @@
 </head>
 <body class="childrenBody">
 	<div class="context">
+		<c:if test="${empty competes}">
+			<p style="margin:20px 0 0 40px">暂无更多</p>
+		</c:if>
 		<c:forEach var="compete" items="${competes}">
 			<div class="test">
 				<img src="${compete.coverUrl}" />
@@ -68,7 +71,6 @@
 				</div>
 			</div>
 		</c:forEach>
-
 	 <script src="${cpath}/static/js/jquery-1.8.3.min.js"></script>
 	</div>
 	<script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>

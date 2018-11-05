@@ -89,7 +89,7 @@
                 success : function(data) {
                    	top.layer.msg(data.msg);
                 },
-				error:function(data){
+				error:function(){
                     top.layer.msg("修改失败");
                 }
             });

@@ -132,5 +132,10 @@
   <select id="selectTeacherScrollCount" resultType="java.lang.Integer">
       select COUNT(*) from tbl_scrollimg where type_scroll = 2
   </select>
+    <select id="selectTeacherScrollWithCount" resultMap="BaseResultMap">
+      SELECT
+      <include refid="Base_Column_List" />
+      from tbl_scrollimg where type_scroll = 2 LIMIT #{count}
+    </select>
 
 </mapper>

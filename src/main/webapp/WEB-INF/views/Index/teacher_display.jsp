@@ -139,8 +139,6 @@
                 ,limit: limit
                 ,theme: '#0aa6d6'
                 ,jump: function(obj, first){
-                    console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-                    console.log(obj.limit); //得到每页显示的条数
                     if(!isSearch){
                         toPage(obj.curr);
                     }

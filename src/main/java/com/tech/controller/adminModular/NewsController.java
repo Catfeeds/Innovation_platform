@@ -3,8 +3,11 @@ package com.tech.controller.adminModular;
 import com.github.pagehelper.PageHelper;
 import com.tech.common.ServerResponse;
 import com.tech.pojo.News;
+import com.tech.service.FileService;
 import com.tech.service.NewsService;
 import org.nutz.json.Json;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +24,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/manage")
 public class NewsController {
+
     @Autowired
     NewsService newsService;
 
@@ -71,8 +75,7 @@ public class NewsController {
     public ServerResponse newsAdd(News news){
         news.setCreateTime(new Date());
         news.setUpdateTime(new Date());
-        ServerResponse serverResponse =  newsService.insertNews(news);
-        return serverResponse;
+        return newsService.insertNews(news);
     }
 
     @RequestMapping("/to_add_news/{id}")
@@ -93,14 +96,12 @@ public class NewsController {
     @ResponseBody
     public ServerResponse newsEdit(News news){
         news.setUpdateTime(new Date());
-        ServerResponse serverResponse =  newsService.updateNews(news);
-        return serverResponse;
+        return newsService.updateNews(news);
     }
     @RequestMapping("/delete_news/{id}")
     @ResponseBody
     public ServerResponse newsDelete(@PathVariable("id") Integer id){
-        ServerResponse serverResponse =  newsService.deleteNews(id);
-        return serverResponse;
+        return  newsService.deleteNews(id);
     }
 
     /**
@@ -108,8 +109,8 @@ public class NewsController {
      */
     @RequestMapping("/delete_news")
     @ResponseBody
-    public ServerResponse moreNewsDelete(Object object){
-        return ServerResponse.createBySuccess(object);
+    public ServerResponse moreNewsDelete(String list){
+        return newsService.deleteMore(list);
     }
 
 }

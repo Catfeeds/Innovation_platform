@@ -20,7 +20,7 @@
 <body class="childrenBody">
 	<blockquote class="layui-elem-quote news_search">
 		<div class="layui-inline">
-			<a class="layui-btn layui-btn-normal newsAdd_btn">添加滚动图</a>
+			<a class="layui-btn layui-btn-normal newsAdd_btn">添加</a>
 		</div>
 	</blockquote>
 	<div class="layui-form news_list">

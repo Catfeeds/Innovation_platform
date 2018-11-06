@@ -4,6 +4,7 @@ package com.tech.service;
 import com.tech.common.ServerResponse;
 import com.tech.dao.NewsMapper;
 import com.tech.pojo.News;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -80,5 +81,16 @@ public class NewsService {
 
     public int getSearchCount(String key) {
         return newsMapper.selectSearchCount(key);
+    }
+
+    public ServerResponse deleteMore(String list) {
+        if (StringUtils.isEmpty(list)){
+            return ServerResponse.createByErrorMessage("参数为空");
+        }
+        String[] ids = list.split("-");
+        for (String id:ids) {
+            newsMapper.deleteByPrimaryKey(Integer.parseInt(id));
+        }
+        return ServerResponse.createBySuccessMessage("删除成功");
     }
 }

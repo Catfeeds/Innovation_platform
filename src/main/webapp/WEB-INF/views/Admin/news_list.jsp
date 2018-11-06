@@ -26,11 +26,11 @@
 		    <a class="layui-btn search_btn">查询</a>
 		</div>
 		<div class="layui-inline">
-			<a class="layui-btn layui-btn-normal newsAdd_btn">添加${newsType}</a>
+			<a class="layui-btn layui-btn-normal newsAdd_btn">添加</a>
 		</div>
-		<%--<div class="layui-inline demoTable">--%>
-			<%--<button class="layui-btn layui-btn-danger" data-type="deleteMore">批量删除</button>--%>
-		<%--</div>--%>
+		<div class="layui-inline demoTable">
+			<button class="layui-btn layui-btn-danger" data-type="deleteMore">批量删除</button>
+		</div>
 
 	</blockquote>
 	<div class="layui-form news_list">
@@ -40,13 +40,6 @@
 	<div id="page"></div>
 </body>
 <script type="text/javascript" src="${cpath}/static/layui/layui.js"></script>
-<script type="text/html" id="toolbar">
-	<div class="layui-btn-container">
-		<button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-		<button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-		<button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
-	</div>
-</script>
 <script type="text/javascript">
     var newsTypeId=$("#newTypeId").val();
     layui.use('table', function(){
@@ -56,25 +49,26 @@
         var $ = layui.$, active = {
             deleteMore: function(){
                 var checkStatus = table.checkStatus('search_tb')
-                    ,data = checkStatus.data;
-                <%--layer.confirm('确定要删除么?', function(index){--%>
-                    <%--$.ajax({--%>
-                        <%--url:'${cpath}/manage/delete_news.do',--%>
-                        <%--type:'post',--%>
-						<%--data:{--%>
-                            <%--object:JSON.stringify(data)--%>
-                        <%--},--%>
-                        <%--success : function(data) {--%>
-                            <%--if(data.status==0){--%>
-                                <%--layer.msg(data.msg);--%>
-                            <%--}--%>
-                            <%--else--%>
-                                <%--layer.msg(data.msg);--%>
-                        <%--}--%>
-                    <%--});--%>
-                    <%--location.reload();--%>
-                    <%--layer.close(index);--%>
-                <%--});--%>
+                    ,data = checkStatus.data,deList=[];
+                data.forEach(function(n,i){
+                    deList.push(n.id);
+                });
+                layer.confirm('确定要删除么?', function(index){
+                    $.ajax({
+                        url:'${cpath}/manage/delete_news.do',
+                        type:'post',
+						data:{
+                            list:deList.join('-')
+                        },
+                        success : function(res) {
+							layer.msg(res.msg);
+                        }
+                    });
+                    setTimeout(function(){
+                        location.reload();
+                        layer.close(index);
+                    },1000);
+                });
             }
         };
 
@@ -105,7 +99,7 @@
         table.render({
 			id:'search_tb',
             elem: '#newList',
-            toolbar: '#toolbar',
+//            toolbar: '#toolbar',
             url: '${cpath}/manage/news_list/'+newsTypeId+'.do',
             method: 'get',
             limit: 10,
@@ -115,7 +109,6 @@
                 {field:'id', title: '序号',align:'center',sort:true,hide:'true'},
                 {field:'title', title: '标题',align:'center'},
                 {field:'updateTime', title: '更新时间',align:'center'},
-                {field:'content', title: '内容',align:'center'},
                 {title: '操作',align:'center',toolbar: '#bar'}
             ]],
             page: true,
@@ -124,22 +117,6 @@
             }
         });
 
-        table.on('toolbar(newList)', function(obj){
-            var checkStatus = table.checkStatus(obj.config.id);
-            switch(obj.event){
-                case 'getCheckData':
-                    var data = checkStatus.data;
-                    layer.alert(JSON.stringify(data));
-                    break;
-                case 'getCheckLength':
-                    var data = checkStatus.data;
-                    layer.msg('选中了：'+ data.length + ' 个');
-                    break;
-                case 'isAll':
-                    layer.msg(checkStatus.isAll ? '全选': '未全选')
-                    break;
-            };
-        });
 
         $(".search_btn").click(function() {
             table.reload('search_tb', {
@@ -154,7 +131,7 @@
             if(obj.event === 'detail'){
                 window.open('${cpath}/news/'+data.id+'.html');
             } else if(obj.event === 'del'){
-                layer.confirm('真的删除'+data.title+'么?', function(index){
+                layer.confirm('确定要删除'+data.title+'么?', function(index){
                     $.ajax({
                         url:'${cpath}/manage/delete_news/'+data.id+".do",
                         type:'post',

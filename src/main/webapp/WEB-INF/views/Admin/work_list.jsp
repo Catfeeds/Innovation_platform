@@ -26,7 +26,7 @@
 		    <a class="layui-btn search_btn">查询</a>
 		</div>
 		<div class="layui-inline">
-			<a class="layui-btn layui-btn-normal newsAdd_btn">添加作品展示</a>
+			<a class="layui-btn layui-btn-normal newsAdd_btn">添加</a>
 		</div>
 		<%--<div class="layui-inline">--%>
 			<%--<a class="layui-btn layui-btn-danger batchDel">批量删除</a>--%>
@@ -79,7 +79,7 @@
                 {field:'coverUrl', title: '封面',align:'center',templet:function(d) {
                     return '<img src="' + d.coverUrl + '" />'}},
                 {field:'finishTime', title: '完成时间',align:'center',width:125},
-                {field:'introduce', title: '简介',align:'center'},
+//                {field:'introduce', title: '简介',align:'center'},
                 {title: '操作',align:'center',toolbar: '#bar',fixed:'right',width:200}
             ]],
             page: true,
